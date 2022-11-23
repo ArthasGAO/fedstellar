@@ -8,7 +8,6 @@ Fedstellar
 ============================================================
 
 A Framework for Decentralized Federated Learning
-------------------------------------------------
 
 Created by Enrique Tomás Martínez Beltrán (enriquetomas@um.es)
 

@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -244,14 +244,70 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="fedstellar-utils-topologymanager-module">
-<h1>fedstellar.utils.topologymanager module<a class="headerlink" href="#fedstellar-utils-topologymanager-module" title="Permalink to this heading">#</a></h1>
+          <section id="module-fedstellar.utils.topologymanager">
+<span id="fedstellar-utils-topologymanager-module"></span><h1>fedstellar.utils.topologymanager module<a class="headerlink" href="#module-fedstellar.utils.topologymanager" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.utils.topologymanager.</span></span><span class="sig-name descname"><span class="pre">TopologyManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_symmetric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undirected_neighbor_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.add_nodes">
+<span class="sig-name descname"><span class="pre">add_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.add_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.add_nodes" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.draw_graph">
+<span class="sig-name descname"><span class="pre">draw_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.draw_graph" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.generate_custom_topology">
+<span class="sig-name descname"><span class="pre">generate_custom_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.generate_custom_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_custom_topology" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.generate_ring_topology">
+<span class="sig-name descname"><span class="pre">generate_ring_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.generate_ring_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_ring_topology" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.generate_topology">
+<span class="sig-name descname"><span class="pre">generate_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.generate_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_topology" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_neighbors">
+<span class="sig-name descname"><span class="pre">get_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_neighbors_string">
+<span class="sig-name descname"><span class="pre">get_neighbors_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_neighbors_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors_string" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_node">
+<span class="sig-name descname"><span class="pre">get_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_node" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_nodes">
+<span class="sig-name descname"><span class="pre">get_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_nodes" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_topology">
+<span class="sig-name descname"><span class="pre">get_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_topology" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -299,8 +355,39 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">fedstellar.utils.topologymanager module</a><ul>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager"><code class="docutils literal notranslate"><span class="pre">TopologyManager</span></code></a><ul>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.add_nodes"><code class="docutils literal notranslate"><span class="pre">TopologyManager.add_nodes()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.draw_graph"><code class="docutils literal notranslate"><span class="pre">TopologyManager.draw_graph()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.generate_custom_topology"><code class="docutils literal notranslate"><span class="pre">TopologyManager.generate_custom_topology()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.generate_ring_topology"><code class="docutils literal notranslate"><span class="pre">TopologyManager.generate_ring_topology()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.generate_topology"><code class="docutils literal notranslate"><span class="pre">TopologyManager.generate_topology()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors"><code class="docutils literal notranslate"><span class="pre">TopologyManager.get_neighbors()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors_string"><code class="docutils literal notranslate"><span class="pre">TopologyManager.get_neighbors_string()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_node"><code class="docutils literal notranslate"><span class="pre">TopologyManager.get_node()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_nodes"><code class="docutils literal notranslate"><span class="pre">TopologyManager.get_nodes()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_topology"><code class="docutils literal notranslate"><span class="pre">TopologyManager.get_topology()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

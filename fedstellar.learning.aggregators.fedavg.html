@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -244,14 +244,33 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="fedstellar-learning-aggregators-fedavg-module">
-<h1>fedstellar.learning.aggregators.fedavg module<a class="headerlink" href="#fedstellar-learning-aggregators-fedavg-module" title="Permalink to this heading">#</a></h1>
+          <section id="module-fedstellar.learning.aggregators.fedavg">
+<span id="fedstellar-learning-aggregators-fedavg-module"></span><h1>fedstellar.learning.aggregators.fedavg module<a class="headerlink" href="#module-fedstellar.learning.aggregators.fedavg" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fedstellar.learning.aggregators.fedavg.FedAvg">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.aggregators.fedavg.</span></span><span class="sig-name descname"><span class="pre">FedAvg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unknown'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'aggregator'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/aggregators/fedavg.html#FedAvg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.aggregators.fedavg.FedAvg" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="fedstellar.learning.aggregators.aggregator.html#fedstellar.learning.aggregators.aggregator.Aggregator" title="fedstellar.learning.aggregators.aggregator.Aggregator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Aggregator</span></code></a></p>
+<p>Federated Averaging (FedAvg) [McMahan et al., 2016]
+Paper: <a class="reference external" href="https://arxiv.org/abs/1602.05629">https://arxiv.org/abs/1602.05629</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.aggregators.fedavg.FedAvg.aggregate">
+<span class="sig-name descname"><span class="pre">aggregate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/aggregators/fedavg.html#FedAvg.aggregate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.aggregators.fedavg.FedAvg.aggregate" title="Permalink to this definition">#</a></dt>
+<dd><p>Ponderated average of the models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>models</strong> – Dictionary with the models (node: model,num_samples).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -299,8 +318,30 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">fedstellar.learning.aggregators.fedavg module</a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.aggregators.fedavg.FedAvg"><code class="docutils literal notranslate"><span class="pre">FedAvg</span></code></a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.aggregators.fedavg.FedAvg.aggregate"><code class="docutils literal notranslate"><span class="pre">FedAvg.aggregate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

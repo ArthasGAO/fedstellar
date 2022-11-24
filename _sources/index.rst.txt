@@ -14,14 +14,14 @@ Created by Enrique Tomás Martínez Beltrán (enriquetomas@um.es)
 
 
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
    modules
 
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 

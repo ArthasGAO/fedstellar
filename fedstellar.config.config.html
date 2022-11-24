@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -244,14 +244,42 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="fedstellar-config-config-module">
-<h1>fedstellar.config.config module<a class="headerlink" href="#fedstellar-config-config-module" title="Permalink to this heading">#</a></h1>
+          <section id="module-fedstellar.config.config">
+<span id="fedstellar-config-config-module"></span><h1>fedstellar.config.config module<a class="headerlink" href="#module-fedstellar.config.config" title="Permalink to this heading">#</a></h1>
+<p>Module to define constants for the DFL system.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="fedstellar.config.config.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.config.config.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology_config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">participant_config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/config/config.html#Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.config.config.Config" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to define global config for the DFL system.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.config.config.Config.get_participant_config">
+<span class="sig-name descname"><span class="pre">get_participant_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/config/config.html#Config.get_participant_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.config.config.Config.get_participant_config" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.config.config.Config.get_topology_config">
+<span class="sig-name descname"><span class="pre">get_topology_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/config/config.html#Config.get_topology_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.config.config.Config.get_topology_config" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.config.config.Config.participant_config">
+<span class="sig-name descname"><span class="pre">participant_config</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#fedstellar.config.config.Config.participant_config" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.config.config.Config.topology_config">
+<span class="sig-name descname"><span class="pre">topology_config</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#fedstellar.config.config.Config.topology_config" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -299,8 +327,33 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">fedstellar.config.config module</a><ul>
+<li><a class="reference internal" href="#fedstellar.config.config.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li><a class="reference internal" href="#fedstellar.config.config.Config.get_participant_config"><code class="docutils literal notranslate"><span class="pre">Config.get_participant_config()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.config.config.Config.get_topology_config"><code class="docutils literal notranslate"><span class="pre">Config.get_topology_config()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.config.config.Config.participant_config"><code class="docutils literal notranslate"><span class="pre">Config.participant_config</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.config.config.Config.topology_config"><code class="docutils literal notranslate"><span class="pre">Config.topology_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

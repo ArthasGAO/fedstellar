@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -244,14 +244,421 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="fedstellar-communication-protocol-module">
-<h1>fedstellar.communication_protocol module<a class="headerlink" href="#fedstellar-communication-protocol-module" title="Permalink to this heading">#</a></h1>
+          <section id="module-fedstellar.communication_protocol">
+<span id="fedstellar-communication-protocol-module"></span><h1>fedstellar.communication_protocol module<a class="headerlink" href="#module-fedstellar.communication_protocol" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.communication_protocol.</span></span><span class="sig-name descname"><span class="pre">CommunicationProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="fedstellar.config.config.html#fedstellar.config.config.Config" title="fedstellar.config.config.Config"><span class="pre">Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages the meaning of node communication messages. Some messages contain a hash at end, it is used as a unique identifier for the message,
+this kind of messages are gossiped to the entire network.</p>
+<dl class="simple">
+<dt>The valid messages can be classified into gossiped and non-gossiped:</dt><dd><dl class="simple">
+<dt>Gossiped messages:</dt><dd><ul class="simple">
+<li><p>BEAT &lt;node&gt; &lt;HASH&gt;</p></li>
+<li><p>ROLE &lt;node&gt; &lt;role&gt; &lt;HASH&gt;</p></li>
+<li><p>START_LEARNING &lt;rounds&gt; &lt;epoches&gt; &lt;HASH&gt;</p></li>
+<li><p>STOP_LEARNING &lt;HASH&gt;</p></li>
+<li><p>VOTE_TRAIN_SET &lt;node&gt; (&lt;node&gt; &lt;punct&gt;)* VOTE_TRAIN_SET_CLOSE &lt;HASH&gt;</p></li>
+<li><p>METRICS &lt;node&gt; &lt;round&gt; &lt;loss&gt; &lt;metric&gt; &lt;HASH&gt;</p></li>
+</ul>
+</dd>
+<dt>Non Gossiped messages (communication over only 2 nodes):</dt><dd><ul class="simple">
+<li><p>CONNECT &lt;ip&gt; &lt;port&gt; &lt;full&gt; &lt;force&gt;</p></li>
+<li><p>CONNECT_TO &lt;ip&gt; &lt;port&gt;</p></li>
+<li><p>STOP</p></li>
+<li><p>PARAMS &lt;data&gt; PARAMS</p></li>
+<li><p>MODELS_READY &lt;round&gt;</p></li>
+<li><p>MODELS_AGGREGATED &lt;node&gt;* MODELS_AGGREGATED_CLOSE</p></li>
+<li><p>MODEL_INITIALIZED</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Furthermore, all messages consist of encoded text (utf-8), except the <cite>PARAMS</cite> message, which contains serialized binaries.</p>
+<p>Non-static methods are used to process the different messages. Static methods are used to build messages and process only the <cite>CONNECT</cite> message (handshake).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>command_dict</strong> – Dictionary with the callbacks to execute at <cite>process_message</cite>.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.command_dict">
+<span class="sig-name descname"><span class="pre">command_dict</span></span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.command_dict" title="Permalink to this definition">#</a></dt>
+<dd><p>Dictionary with the callbacks to execute at <cite>process_message</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.last_messages">
+<span class="sig-name descname"><span class="pre">last_messages</span></span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.last_messages" title="Permalink to this definition">#</a></dt>
+<dd><p>List of the last messages received.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.BEAT">
+<span class="sig-name descname"><span class="pre">BEAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BEAT'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.BEAT" title="Permalink to this definition">#</a></dt>
+<dd><p>Role message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.CONN">
+<span class="sig-name descname"><span class="pre">CONN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CONNECT'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.CONN" title="Permalink to this definition">#</a></dt>
+<dd><p>Connection to message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.CONN_TO">
+<span class="sig-name descname"><span class="pre">CONN_TO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CONNECT_TO'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.CONN_TO" title="Permalink to this definition">#</a></dt>
+<dd><p>Start learning message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.METRICS">
+<span class="sig-name descname"><span class="pre">METRICS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'METRICS'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.METRICS" title="Permalink to this definition">#</a></dt>
+<dd><p>Vote train set message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED">
+<span class="sig-name descname"><span class="pre">MODELS_AGGREGATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MODELS_AGGREGATED'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED" title="Permalink to this definition">#</a></dt>
+<dd><p>Models aggregated message closing.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED_CLOSE">
+<span class="sig-name descname"><span class="pre">MODELS_AGGREGATED_CLOSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\\MODELS_AGGREGATED'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED_CLOSE" title="Permalink to this definition">#</a></dt>
+<dd><p>Model initialized message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.MODELS_READY">
+<span class="sig-name descname"><span class="pre">MODELS_READY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MODELS_READY'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.MODELS_READY" title="Permalink to this definition">#</a></dt>
+<dd><p>Metrics message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.MODEL_INITIALIZED">
+<span class="sig-name descname"><span class="pre">MODEL_INITIALIZED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MODEL_INITIALIZED'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.MODEL_INITIALIZED" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.PARAMS">
+<span class="sig-name descname"><span class="pre">PARAMS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PARAMS'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.PARAMS" title="Permalink to this definition">#</a></dt>
+<dd><p>Parameters message closing.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.PARAMS_CLOSE">
+<span class="sig-name descname"><span class="pre">PARAMS_CLOSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\\PARAMS'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.PARAMS_CLOSE" title="Permalink to this definition">#</a></dt>
+<dd><p>Models ready message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.ROLE">
+<span class="sig-name descname"><span class="pre">ROLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ROLE'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.ROLE" title="Permalink to this definition">#</a></dt>
+<dd><p>Stop message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.START_LEARNING">
+<span class="sig-name descname"><span class="pre">START_LEARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'START_LEARNING'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.START_LEARNING" title="Permalink to this definition">#</a></dt>
+<dd><p>Stop learning message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.STOP">
+<span class="sig-name descname"><span class="pre">STOP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'STOP'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.STOP" title="Permalink to this definition">#</a></dt>
+<dd><p>Connection message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.STOP_LEARNING">
+<span class="sig-name descname"><span class="pre">STOP_LEARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'STOP_LEARNING'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.STOP_LEARNING" title="Permalink to this definition">#</a></dt>
+<dd><p>Parameters message header.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET">
+<span class="sig-name descname"><span class="pre">VOTE_TRAIN_SET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'VOTE_TRAIN_SET'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET" title="Permalink to this definition">#</a></dt>
+<dd><p>Vote train set message closing.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET_CLOSE">
+<span class="sig-name descname"><span class="pre">VOTE_TRAIN_SET_CLOSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\\VOTE_TRAIN_SET'</span></em><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET_CLOSE" title="Permalink to this definition">#</a></dt>
+<dd><p>Models aggregated message header.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.add_processed_messages">
+<span class="sig-name descname"><span class="pre">add_processed_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">messages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.add_processed_messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.add_processed_messages" title="Permalink to this definition">#</a></dt>
+<dd><p>Add messages to the last messages list. If ammount is higher than <code class="docutils literal notranslate"><span class="pre">AMOUNT_LAST_MESSAGES_SAVED</span></code> remove the oldest to keep the size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>messages</strong> – List of hashes of the messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_beat_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_beat_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_beat_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_beat_msg" title="Permalink to this definition">#</a></dt>
+<dd><p>Static method that builds a beat message.
+CommunicationProtocol.BEAT + node
+:returns: An encoded beat message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_connect_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_connect_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">broadcast</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_connect_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_msg" title="Permalink to this definition">#</a></dt>
+<dd><p>Build Handshake message.
+Not Hashed. Special case of message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – The ip address of the node that tries to connect.</p></li>
+<li><p><strong>port</strong> – The port of the node that tries to connect.</p></li>
+<li><p><strong>broadcast</strong> – Whether to broadcast the message.</p></li>
+<li><p><strong>force</strong> – Whether to force connection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An encoded connect message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_connect_to_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_connect_to_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_connect_to_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_to_msg" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> – The ip address to connect to.</p></li>
+<li><p><strong>port</strong> – The port to connect to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An encoded connect to message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_metrics_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_metrics_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_metrics_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_metrics_msg" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> – The node that sent the message.</p></li>
+<li><p><strong>round</strong> – The round when the metrics were calculated.</p></li>
+<li><p><strong>loss</strong> – The loss of the last round.</p></li>
+<li><p><strong>metric</strong> – The metric of the last round.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An encoded metrics message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_model_initialized_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_model_initialized_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_model_initialized_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_model_initialized_msg" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An encoded model inicialized message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_models_aggregated_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_models_aggregated_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_models_aggregated_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_aggregated_msg" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes</strong> – List of strings to indicate aggregated nodes.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An encoded models aggregated message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_models_ready_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_models_ready_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_models_ready_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_ready_msg" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>round</strong> – The last round finished.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An encoded ready message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_params_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_params_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_params_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_params_msg" title="Permalink to this definition">#</a></dt>
+<dd><p>Build model serialized messages.
+Not Hashed. Special case of message (binary message).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>block_size</strong> – </p></li>
+<li><p><strong>data</strong> – The model parameters to send (encoded).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of fragments messages of the params.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_role_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_role_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_role_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_role_msg" title="Permalink to this definition">#</a></dt>
+<dd><p>Static method that builds a role message.
+CommunicationProtocol.ROLE + node + role
+:returns: An encoded role message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_start_learning_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_start_learning_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_start_learning_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_start_learning_msg" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> – The number of rounds to train.</p></li>
+<li><p><strong>epochs</strong> – The number of epochs to train.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An encoded start learning message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_stop_learning_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_stop_learning_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_stop_learning_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_learning_msg" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An encoded stop learning message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_stop_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_stop_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_stop_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_msg" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An encoded stop message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_vote_train_set_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_vote_train_set_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">votes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_vote_train_set_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_vote_train_set_msg" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> – The node that sent the message.</p></li>
+<li><p><strong>votes</strong> – Votes of the node.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An encoded vote train set message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.check_collapse">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_collapse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.check_collapse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.check_collapse" title="Permalink to this definition">#</a></dt>
+<dd><p>Static method that checks if in the message there is a collapse (a binary message (it should fill all the buffer) and a non-binary message before it).</p>
+<p>Actually, collapses can only happen with <code class="docutils literal notranslate"><span class="pre">PARAMS</span></code> binary message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> – The message to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Length of the collapse (number of bytes to the binary headear).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_params_incomplete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.check_params_incomplete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete" title="Permalink to this definition">#</a></dt>
+<dd><p>Checks if a params message is incomplete. If the message is complete or is not a params message, it returns 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of bytes that needs to be complete</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_hased_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.generate_hased_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message" title="Permalink to this definition">#</a></dt>
+<dd><p>Static method that given a non-encoded message generates a hashed and encoded message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> – Non encoded message.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Hashed and encoded message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.process_connection">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.process_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.process_connection" title="Permalink to this definition">#</a></dt>
+<dd><p>Static method that checks if the message is a valid connection message and executes the callback (accept connection).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> – The message to check.</p></li>
+<li><p><strong>callback</strong> – What do if the connection message is legit.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if connection was accepted, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.process_message">
+<span class="sig-name descname"><span class="pre">process_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.process_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.process_message" title="Permalink to this definition">#</a></dt>
+<dd><p>Processes messages and executes the callback associated with it (from <code class="docutils literal notranslate"><span class="pre">command_dict</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> – The message to process.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(messages_executed, error) messages_executed is a list of the messages executed, error true if there was an error.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -299,8 +706,66 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">fedstellar.communication_protocol module</a><ul>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol</span></code></a><ul>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.command_dict"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.command_dict</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.last_messages"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.last_messages</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.BEAT"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.BEAT</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.CONN"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.CONN</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.CONN_TO"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.CONN_TO</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.METRICS"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.METRICS</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.MODELS_AGGREGATED</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED_CLOSE"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.MODELS_AGGREGATED_CLOSE</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.MODELS_READY"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.MODELS_READY</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.MODEL_INITIALIZED"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.MODEL_INITIALIZED</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.PARAMS"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.PARAMS</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.PARAMS_CLOSE"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.PARAMS_CLOSE</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.ROLE"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.ROLE</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.START_LEARNING"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.START_LEARNING</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.STOP"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.STOP</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.STOP_LEARNING"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.STOP_LEARNING</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.VOTE_TRAIN_SET</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET_CLOSE"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.VOTE_TRAIN_SET_CLOSE</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.add_processed_messages"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.add_processed_messages()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_beat_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_beat_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_connect_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_to_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_connect_to_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_metrics_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_metrics_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_model_initialized_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_model_initialized_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_aggregated_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_models_aggregated_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_ready_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_models_ready_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_params_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_params_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_role_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_role_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_start_learning_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_start_learning_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_learning_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_stop_learning_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_stop_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_vote_train_set_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_vote_train_set_msg()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.check_collapse"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.check_collapse()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.check_params_incomplete()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.generate_hased_message()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.process_connection"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.process_connection()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.process_message"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.process_message()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

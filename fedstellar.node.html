@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -244,14 +244,179 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="fedstellar-node-module">
-<h1>fedstellar.node module<a class="headerlink" href="#fedstellar-node-module" title="Permalink to this heading">#</a></h1>
+          <section id="module-fedstellar.node">
+<span id="fedstellar-node-module"></span><h1>fedstellar.node module<a class="headerlink" href="#module-fedstellar.node" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fedstellar.node.Node">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.node.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host='127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config=&lt;class</span> <span class="pre">'fedstellar.config.config.Config'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learner=&lt;class</span> <span class="pre">'fedstellar.learning.pytorch.lightninglearner.LightningLearner'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation=True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node.Node" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode" title="fedstellar.base_node.BaseNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseNode</span></code></a></p>
+<p>Class based on a base node that allows <strong>p2p Federated Learning</strong>.</p>
+<p>Metrics will be saved under a folder with the name of the node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – Model to be learned. Careful, model should be compatible with data and the learner.</p></li>
+<li><p><strong>data</strong> – Dataset to be used in the learning process. Careful, model should be compatible with data and the learner.</p></li>
+<li><p><strong>host</strong> (<em>str</em>) – Host where the node will be listening.</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – Port where the node will be listening.</p></li>
+<li><p><strong>learner</strong> (<a class="reference internal" href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner" title="fedstellar.learning.learner.NodeLearner"><em>NodeLearner</em></a>) – Learner to be used in the learning process. Default: LightningLearner.</p></li>
+<li><p><strong>simulation</strong> (<em>bool</em>) – If False, node will share metrics and communication will be encrypted. Default: True.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.node.Node.round">
+<span class="sig-name descname"><span class="pre">round</span></span><a class="headerlink" href="#fedstellar.node.Node.round" title="Permalink to this definition">#</a></dt>
+<dd><p>Round of the learning process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.node.Node.totalrounds">
+<span class="sig-name descname"><span class="pre">totalrounds</span></span><a class="headerlink" href="#fedstellar.node.Node.totalrounds" title="Permalink to this definition">#</a></dt>
+<dd><p>Total number of rounds of the learning process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.node.Node.learner">
+<span class="sig-name descname"><span class="pre">learner</span></span><a class="headerlink" href="#fedstellar.node.Node.learner" title="Permalink to this definition">#</a></dt>
+<dd><p>Learner to be used in the learning process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner" title="fedstellar.learning.learner.NodeLearner">NodeLearner</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.node.Node.aggregator">
+<span class="sig-name descname"><span class="pre">aggregator</span></span><a class="headerlink" href="#fedstellar.node.Node.aggregator" title="Permalink to this definition">#</a></dt>
+<dd><p>Aggregator to be used in the learning process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="fedstellar.learning.aggregators.aggregator.html#fedstellar.learning.aggregators.aggregator.Aggregator" title="fedstellar.learning.aggregators.aggregator.Aggregator">Aggregator</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.node.Node.add_model">
+<span class="sig-name descname"><span class="pre">add_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node.html#Node.add_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node.Node.add_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Add a model. If the model isn’t inicializated, the recieved model is used for it. Otherwise, the model is aggregated using the <strong>aggregator</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – Encoded model. Contains model and their contributors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.node.Node.connect_to">
+<span class="sig-name descname"><span class="pre">connect_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node.html#Node.connect_to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node.Node.connect_to" title="Permalink to this definition">#</a></dt>
+<dd><p>Connects a node to another. If learning is running, connections are not allowed (it should be forced).
+Careful, if connection is forced with a new node, it will produce timeouts in the network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>str</em>) – The host of the node.</p></li>
+<li><p><strong>p</strong> (<em>int</em>) – The port of the node.</p></li>
+<li><p><strong>full</strong> (<em>bool</em>) – If True, the node will be connected to the entire network.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – If True, the node will be connected even though it should not be.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The node that has been connected to.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>node</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.node.Node.set_data">
+<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node.html#Node.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node.Node.set_data" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the data to be used in the learning process (learner).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – Dataset to be used in the learning process.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.node.Node.set_model">
+<span class="sig-name descname"><span class="pre">set_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node.html#Node.set_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node.Node.set_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the model to use.
+Carefully, model, not only weights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> – Model to be learned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.node.Node.set_start_learning">
+<span class="sig-name descname"><span class="pre">set_start_learning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node.html#Node.set_start_learning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node.Node.set_start_learning" title="Permalink to this definition">#</a></dt>
+<dd><p>Start the learning process in the entire network.
+If the node is not the “starting” node, it will wait for the starting node to start the learning process.</p>
+<p>NOTE:
+In first instance, this functionality only is used in one node of the network (defined by the controller).
+After that, the other participants can start this functionality when they receive Events.START_LEARNING_EVENT</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> – Number of rounds of the learning process.</p></li>
+<li><p><strong>epochs</strong> – Number of epochs of the learning process.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.node.Node.set_stop_learning">
+<span class="sig-name descname"><span class="pre">set_stop_learning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node.html#Node.set_stop_learning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node.Node.set_stop_learning" title="Permalink to this definition">#</a></dt>
+<dd><p>Stop the learning process in the entire network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.node.Node.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node.html#Node.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node.Node.stop" title="Permalink to this definition">#</a></dt>
+<dd><p>Stop the node and the learning if it is running.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.node.Node.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node.html#Node.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node.Node.update" title="Permalink to this definition">#</a></dt>
+<dd><p>Observer update method. Used to handle events that can occur in the different components and connections of the node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<a class="reference internal" href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events" title="fedstellar.utils.observer.Events"><em>Events</em></a>) – Event that has occurred.</p></li>
+<li><p><strong>obj</strong> – Object that has been updated.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -299,8 +464,41 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">fedstellar.node module</a><ul>
+<li><a class="reference internal" href="#fedstellar.node.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a><ul>
+<li><a class="reference internal" href="#fedstellar.node.Node.round"><code class="docutils literal notranslate"><span class="pre">Node.round</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.totalrounds"><code class="docutils literal notranslate"><span class="pre">Node.totalrounds</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.learner"><code class="docutils literal notranslate"><span class="pre">Node.learner</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.aggregator"><code class="docutils literal notranslate"><span class="pre">Node.aggregator</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.add_model"><code class="docutils literal notranslate"><span class="pre">Node.add_model()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.connect_to"><code class="docutils literal notranslate"><span class="pre">Node.connect_to()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.set_data"><code class="docutils literal notranslate"><span class="pre">Node.set_data()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.set_model"><code class="docutils literal notranslate"><span class="pre">Node.set_model()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.set_start_learning"><code class="docutils literal notranslate"><span class="pre">Node.set_start_learning()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.set_stop_learning"><code class="docutils literal notranslate"><span class="pre">Node.set_stop_learning()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.stop"><code class="docutils literal notranslate"><span class="pre">Node.stop()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.node.Node.update"><code class="docutils literal notranslate"><span class="pre">Node.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

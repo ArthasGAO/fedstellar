@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -244,14 +244,51 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="fedstellar-learning-pytorch-mnist-examples-models-cnn-module">
-<h1>fedstellar.learning.pytorch.mnist_examples.models.cnn module<a class="headerlink" href="#fedstellar-learning-pytorch-mnist-examples-models-cnn-module" title="Permalink to this heading">#</a></h1>
+          <section id="module-fedstellar.learning.pytorch.mnist_examples.models.cnn">
+<span id="fedstellar-learning-pytorch-mnist-examples-models-cnn-module"></span><h1>fedstellar.learning.pytorch.mnist_examples.models.cnn module<a class="headerlink" href="#module-fedstellar.learning.pytorch.mnist_examples.models.cnn" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.mnist_examples.models.cnn.</span></span><span class="sig-name descname"><span class="pre">CNN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Accuracy()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/models/cnn.html#CNN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LightningModule</span></code></p>
+<p>Convolutional Neural Network (CNN) to solve MNIST with PyTorch Lightning.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.configure_optimizers">
+<span class="sig-name descname"><span class="pre">configure_optimizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/models/cnn.html#CNN.configure_optimizers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.configure_optimizers" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/models/cnn.html#CNN.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.forward" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.test_step">
+<span class="sig-name descname"><span class="pre">test_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/models/cnn.html#CNN.test_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.test_step" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.training" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.training_step">
+<span class="sig-name descname"><span class="pre">training_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/models/cnn.html#CNN.training_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.training_step" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.validation_step">
+<span class="sig-name descname"><span class="pre">validation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/models/cnn.html#CNN.validation_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.validation_step" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -299,8 +336,35 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">fedstellar.learning.pytorch.mnist_examples.models.cnn module</a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN"><code class="docutils literal notranslate"><span class="pre">CNN</span></code></a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">CNN.configure_optimizers()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.forward"><code class="docutils literal notranslate"><span class="pre">CNN.forward()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.test_step"><code class="docutils literal notranslate"><span class="pre">CNN.test_step()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.training"><code class="docutils literal notranslate"><span class="pre">CNN.training</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.training_step"><code class="docutils literal notranslate"><span class="pre">CNN.training_step()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.models.cnn.CNN.validation_step"><code class="docutils literal notranslate"><span class="pre">CNN.validation_step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

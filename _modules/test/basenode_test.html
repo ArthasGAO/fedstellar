@@ -252,9 +252,8 @@
 <span></span><span class="c1"># </span>
 <span class="c1"># This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).</span>
 <span class="c1"># Copyright (c) 2022 Enrique Tomás Martínez Beltrán.</span>
-<span class="c1"># </span>
-
-
+<span class="c1">#</span>
+<span class="kn">import</span> <span class="nn">socket</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">import</span> <span class="nn">pytest</span>
@@ -298,6 +297,15 @@
 <span class="c1">#  Tests Infraestructure  #</span>
 <span class="c1">###########################</span>
 
+<div class="viewcode-block" id="test_socket"><a class="viewcode-back" href="../../test.basenode_test.html#test.basenode_test.test_socket">[docs]</a><span class="k">def</span> <span class="nf">test_socket</span><span class="p">():</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="s2">&quot;192.168.0.7&quot;</span><span class="p">)</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="mi">45001</span>
+    <span class="c1"># Setting Up Node Socket (listening)</span>
+    <span class="n">__node_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span>
+        <span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span>
+    <span class="p">)</span>  <span class="c1"># TCP Socket</span>
+    <span class="n">__node_socket</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+    <span class="n">__node_socket</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># no more than 50 connections at queue</span></div>
 
 <div class="viewcode-block" id="test_node_paring"><a class="viewcode-back" href="../../test.basenode_test.html#test.basenode_test.test_node_paring">[docs]</a><span class="k">def</span> <span class="nf">test_node_paring</span><span class="p">(</span><span class="n">two_nodes</span><span class="p">):</span>
     <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">two_nodes</span>

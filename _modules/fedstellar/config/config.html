@@ -306,10 +306,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">participant_config</span><span class="p">[</span><span class="s1">&#39;BLOCK_SIZE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
 
 <div class="viewcode-block" id="Config.get_topology_config"><a class="viewcode-back" href="../../../fedstellar.config.config.html#fedstellar.config.config.Config.get_topology_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_topology_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">topology_config</span></div>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topology_config</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Config.get_participant_config"><a class="viewcode-back" href="../../../fedstellar.config.config.html#fedstellar.config.config.Config.get_participant_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_participant_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">participant_config</span></div>
+        <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">participant_config</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_set_default_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

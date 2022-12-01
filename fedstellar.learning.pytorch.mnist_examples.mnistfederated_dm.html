@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -244,57 +244,14 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="module-fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm">
-<span id="fedstellar-learning-pytorch-mnist-examples-mnistfederated-dm-module"></span><h1>fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm module<a class="headerlink" href="#module-fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm" title="Permalink to this heading">#</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.</span></span><span class="sig-name descname"><span class="pre">MnistFederatedDM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_sub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_percent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/mnistfederated_dm.html#MnistFederatedDM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LightningDataModule</span></code></p>
-<p>LightningDataModule of partitioned MNIST. It’s used to generate <strong>IID</strong> distribucions over MNIS. Toy Problem.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>sub_id</strong> – Subset id of partition. (0 &lt;= sub_id &lt; number_sub)</p></li>
-<li><p><strong>number_sub</strong> – Number of subsets.</p></li>
-<li><p><strong>batch_size</strong> – The batch size of the data.</p></li>
-<li><p><strong>num_workers</strong> – The number of workers of the data.</p></li>
-<li><p><strong>val_percent</strong> – The percentage of the validation set.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.mnist_train">
-<span class="sig-name descname"><span class="pre">mnist_train</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.mnist_train" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.mnist_val">
-<span class="sig-name descname"><span class="pre">mnist_val</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.mnist_val" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.test_dataloader">
-<span class="sig-name descname"><span class="pre">test_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/mnistfederated_dm.html#MnistFederatedDM.test_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.test_dataloader" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.train_dataloader">
-<span class="sig-name descname"><span class="pre">train_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/mnistfederated_dm.html#MnistFederatedDM.train_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.train_dataloader" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.val_dataloader">
-<span class="sig-name descname"><span class="pre">val_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/mnist_examples/mnistfederated_dm.html#MnistFederatedDM.val_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.val_dataloader" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+          <section id="fedstellar-learning-pytorch-mnist-examples-mnistfederated-dm-module">
+<h1>fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm module<a class="headerlink" href="#fedstellar-learning-pytorch-mnist-examples-mnistfederated-dm-module" title="Permalink to this heading">#</a></h1>
 </section>
 
         </article>
@@ -342,34 +299,8 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm module</a><ul>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM"><code class="docutils literal notranslate"><span class="pre">MnistFederatedDM</span></code></a><ul>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.mnist_train"><code class="docutils literal notranslate"><span class="pre">MnistFederatedDM.mnist_train</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.mnist_val"><code class="docutils literal notranslate"><span class="pre">MnistFederatedDM.mnist_val</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.test_dataloader"><code class="docutils literal notranslate"><span class="pre">MnistFederatedDM.test_dataloader()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.train_dataloader"><code class="docutils literal notranslate"><span class="pre">MnistFederatedDM.train_dataloader()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm.MnistFederatedDM.val_dataloader"><code class="docutils literal notranslate"><span class="pre">MnistFederatedDM.val_dataloader()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

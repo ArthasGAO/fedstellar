@@ -254,7 +254,7 @@
 <span id="fedstellar-base-node-module"></span><h1>fedstellar.base_node module<a class="headerlink" href="#module-fedstellar.base_node" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="fedstellar.base_node.BaseNode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.base_node.</span></span><span class="sig-name descname"><span class="pre">BaseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/base_node.html#BaseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.base_node.BaseNode" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.base_node.</span></span><span class="sig-name descname"><span class="pre">BaseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hostdemo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encrypt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/base_node.html#BaseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.base_node.BaseNode" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Thread</span></code>, <a class="reference internal" href="fedstellar.utils.observer.html#fedstellar.utils.observer.Observer" title="fedstellar.utils.observer.Observer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observer</span></code></a></p>
 <p>This class represents a base node in the network (without <strong>FL</strong>). It is a thread, so it’s going to process all messages in a background thread using the CommunicationProtocol.</p>
 <dl class="field-list simple">
@@ -388,6 +388,19 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.base_node.BaseNode.get_name">
 <span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/base_node.html#BaseNode.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.base_node.BaseNode.get_name" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The name of the node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.base_node.BaseNode.get_name_demo">
+<span class="sig-name descname"><span class="pre">get_name_demo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/base_node.html#BaseNode.get_name_demo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.base_node.BaseNode.get_name_demo" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The name of the node.</p>
@@ -566,6 +579,7 @@
 <li><a class="reference internal" href="#fedstellar.base_node.BaseNode.disconnect_from"><code class="docutils literal notranslate"><span class="pre">BaseNode.disconnect_from()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.base_node.BaseNode.get_addr"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_addr()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.base_node.BaseNode.get_name"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_name()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.base_node.BaseNode.get_name_demo"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_name_demo()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.base_node.BaseNode.get_neighbor"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_neighbor()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.base_node.BaseNode.get_neighbors"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_neighbors()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.base_node.BaseNode.get_network_nodes"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_network_nodes()</span></code></a></li>

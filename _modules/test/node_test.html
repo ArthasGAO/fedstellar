@@ -259,9 +259,9 @@
 
 <span class="kn">import</span> <span class="nn">pytest</span>
 
-<span class="kn">from</span> <span class="nn">fedstellar.learning.pytorch.mnist_examples.mnistfederated_dm</span> <span class="kn">import</span> <span class="n">MnistFederatedDM</span>
-<span class="kn">from</span> <span class="nn">fedstellar.learning.pytorch.mnist_examples.models.cnn</span> <span class="kn">import</span> <span class="n">CNN</span>
-<span class="kn">from</span> <span class="nn">fedstellar.learning.pytorch.mnist_examples.models.mlp</span> <span class="kn">import</span> <span class="n">MLP</span>
+<span class="kn">from</span> <span class="nn">fedstellar.learning.pytorch.mnist.mnist</span> <span class="kn">import</span> <span class="n">MNISTDataModule</span>
+<span class="kn">from</span> <span class="nn">fedstellar.learning.pytorch.mnist.models.cnn</span> <span class="kn">import</span> <span class="n">CNN</span>
+<span class="kn">from</span> <span class="nn">fedstellar.learning.pytorch.mnist.models.mlp</span> <span class="kn">import</span> <span class="n">MLP</span>
 <span class="kn">from</span> <span class="nn">fedstellar.node</span> <span class="kn">import</span> <span class="n">Node</span>
 <span class="kn">from</span> <span class="nn">test.utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">check_equal_models</span><span class="p">,</span>
@@ -275,8 +275,8 @@
 
 <div class="viewcode-block" id="two_nodes"><a class="viewcode-back" href="../../test.node_test.html#test.node_test.two_nodes">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span> <span class="nf">two_nodes</span><span class="p">():</span>
-    <span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
-    <span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
     <span class="n">n1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="n">n2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
@@ -288,10 +288,10 @@
 
 <div class="viewcode-block" id="four_nodes"><a class="viewcode-back" href="../../test.node_test.html#test.node_test.four_nodes">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span> <span class="nf">four_nodes</span><span class="p">():</span>
-    <span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
-    <span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
-    <span class="n">n3</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
-    <span class="n">n4</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
+    <span class="n">n3</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
+    <span class="n">n4</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
     <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">n3</span><span class="p">,</span> <span class="n">n4</span><span class="p">]</span>
     <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
 
@@ -312,7 +312,7 @@
     <span class="c1"># Node Creation</span>
     <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
         <span class="n">node</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 
@@ -388,7 +388,7 @@
     <span class="c1"># Node Creation</span>
     <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
         <span class="n">node</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 
@@ -430,8 +430,8 @@
 
 
 <div class="viewcode-block" id="test_wrong_model"><a class="viewcode-back" href="../../test.node_test.html#test.node_test.test_wrong_model">[docs]</a><span class="k">def</span> <span class="nf">test_wrong_model</span><span class="p">():</span>
-    <span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
-    <span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">CNN</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">())</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">CNN</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">())</span>
 
     <span class="n">n1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="n">n2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -459,7 +459,7 @@
     <span class="c1"># Node Creation</span>
     <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MnistFederatedDM</span><span class="p">(),</span> <span class="n">simulation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">MLP</span><span class="p">(),</span> <span class="n">MNISTDataModule</span><span class="p">(),</span> <span class="n">simulation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">node</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 

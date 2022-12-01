@@ -285,7 +285,8 @@
 <span class="sd">        host (str): Host where the node will be listening.</span>
 <span class="sd">        port (int): Port where the node will be listening.</span>
 <span class="sd">        learner (NodeLearner): Learner to be used in the learning process. Default: LightningLearner.</span>
-<span class="sd">        simulation (bool): If False, node will share metrics and communication will be encrypted. Default: True.</span>
+<span class="sd">        simulation (bool): If True, the node will be simulated. Default: True.</span>
+<span class="sd">        encrypt (bool): If True, node will encrypt the communications. Default: False.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        round (int): Round of the learning process.</span>
@@ -304,15 +305,17 @@
             <span class="n">experiment_name</span><span class="p">,</span>
             <span class="n">model</span><span class="p">,</span>
             <span class="n">data</span><span class="p">,</span>
+            <span class="n">hostdemo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
             <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">config</span><span class="o">=</span><span class="n">Config</span><span class="p">,</span>
             <span class="n">learner</span><span class="o">=</span><span class="n">LightningLearner</span><span class="p">,</span>
             <span class="n">role</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">simulation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">encrypt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="c1"># Super init</span>
-        <span class="n">BaseNode</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">simulation</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+        <span class="n">BaseNode</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">,</span> <span class="n">hostdemo</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">encrypt</span><span class="p">,</span> <span class="n">simulation</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
         <span class="n">Observer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span>
@@ -332,13 +335,16 @@
         <span class="c1"># log_model=&quot;all&quot; to log model</span>
         <span class="c1"># mode=&quot;disabled&quot; to disable wandb</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;wandb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
-        <span class="n">wandblogger</span> <span class="o">=</span> <span class="n">WandbLogger</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">&quot;framework-enrique&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_name</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostdemo</span><span class="p">:</span>
+            <span class="n">wandblogger</span> <span class="o">=</span> <span class="n">WandbLogger</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">&quot;framework-enrique&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_name</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name_demo</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wandblogger</span> <span class="o">=</span> <span class="n">WandbLogger</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">&quot;framework-enrique&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_name</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">())</span>
         <span class="n">wandblogger</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
         <span class="kn">import</span> <span class="nn">wandb</span>
         <span class="n">img_topology</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;logs/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_name</span><span class="si">}</span><span class="s2">/topology.png&quot;</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Topology&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">wandblogger</span><span class="o">.</span><span class="n">log_image</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;topology&quot;</span><span class="p">,</span> <span class="n">images</span><span class="o">=</span><span class="p">[</span><span class="n">img_topology</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">learner</span> <span class="o">=</span> <span class="n">learner</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">wandblogger</span><span class="p">,</span> <span class="n">log_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learner</span> <span class="o">=</span> <span class="n">learner</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">wandblogger</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">role</span> <span class="o">=</span> <span class="n">role</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;[NODE] Role: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">role</span><span class="p">))</span>
@@ -346,6 +352,8 @@
         <span class="c1"># Aggregator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aggregator</span> <span class="o">=</span> <span class="n">FedAvg</span><span class="p">(</span><span class="n">node_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">(),</span> <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">role</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aggregator</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">shared_metrics</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># Train Set Votes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__train_set</span> <span class="o">=</span> <span class="p">[]</span>
@@ -902,8 +910,8 @@
                     <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-            <span class="c1"># Send metrics</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shared_metrics</span><span class="p">:</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                     <span class="s2">&quot;[NODE] Broadcasting metrics.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_neighbors</span><span class="p">())</span>

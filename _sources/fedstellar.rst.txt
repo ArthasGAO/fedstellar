@@ -10,6 +10,7 @@ Subpackages
    fedstellar.config
    fedstellar.learning
    fedstellar.utils
+   fedstellar.webserver
 
 Submodules
 ----------
@@ -20,12 +21,15 @@ Submodules
    fedstellar.base_node
    fedstellar.command
    fedstellar.communication_protocol
+   fedstellar.controller
    fedstellar.encrypter
    fedstellar.gossiper
    fedstellar.heartbeater
    fedstellar.node
    fedstellar.node_connection
+   fedstellar.node_start
    fedstellar.role
+   fedstellar.single-device
 
 Module contents
 ---------------

@@ -7,7 +7,8 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   fedstellar.learning.pytorch.mnist_examples
+   fedstellar.learning.pytorch.femnist
+   fedstellar.learning.pytorch.mnist
 
 Submodules
 ----------

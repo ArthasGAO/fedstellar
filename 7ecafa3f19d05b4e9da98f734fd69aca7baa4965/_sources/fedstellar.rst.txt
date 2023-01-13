@@ -29,7 +29,7 @@ Submodules
    fedstellar.node_connection
    fedstellar.node_start
    fedstellar.role
-   fedstellar.single-device
+   fedstellar.single_device
 
 Module contents
 ---------------

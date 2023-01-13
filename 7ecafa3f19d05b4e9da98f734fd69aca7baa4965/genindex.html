@@ -192,7 +192,6 @@
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html">fedstellar.node_connection module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.node_start.html">fedstellar.node_start module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html">fedstellar.role module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.single-device.html">fedstellar.single-device module</a></li>
 </ul>
 </li>
 </ul>
@@ -242,7 +241,11 @@
         <li><a href="fedstellar.gossiper.html#fedstellar.gossiper.Gossiper.add_messages">add_messages() (fedstellar.gossiper.Gossiper method)</a>
 </li>
         <li><a href="fedstellar.learning.aggregators.aggregator.html#fedstellar.learning.aggregators.aggregator.Aggregator.add_model">add_model() (fedstellar.learning.aggregators.aggregator.Aggregator method)</a>
+
+        <ul>
+          <li><a href="fedstellar.node.html#fedstellar.node.Node.add_model">(fedstellar.node.Node method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.add_models_aggregated">add_models_aggregated() (fedstellar.node_connection.NodeConnection method)</a>
 </li>
         <li><a href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.add_node">add_node() (fedstellar.heartbeater.Heartbeater method)</a>
@@ -278,6 +281,8 @@
         <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events.AGGREGATION_FINISHED_EVENT">AGGREGATION_FINISHED_EVENT (fedstellar.utils.observer.Events attribute)</a>
 </li>
         <li><a href="fedstellar.learning.aggregators.aggregator.html#fedstellar.learning.aggregators.aggregator.Aggregator">Aggregator (class in fedstellar.learning.aggregators.aggregator)</a>
+</li>
+        <li><a href="fedstellar.node.html#fedstellar.node.Node.aggregator">aggregator (fedstellar.node.Node attribute)</a>
 </li>
         <li><a href="fedstellar.role.html#fedstellar.role.Role.AGGREGATOR">AGGREGATOR (fedstellar.role.Role attribute)</a>
 </li>
@@ -342,7 +347,11 @@
         <li><a href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.check_collapse">check_collapse() (fedstellar.communication_protocol.CommunicationProtocol static method)</a>
 </li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.check_parameters">check_parameters() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.check_parameters">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete">check_params_incomplete() (fedstellar.communication_protocol.CommunicationProtocol static method)</a>
 </li>
         <li><a href="fedstellar.learning.aggregators.aggregator.html#fedstellar.learning.aggregators.aggregator.Aggregator.clear">clear() (fedstellar.learning.aggregators.aggregator.Aggregator method)</a>
@@ -354,7 +363,11 @@
         <li><a href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.clear_nodes">clear_nodes() (fedstellar.heartbeater.Heartbeater method)</a>
 </li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.close">close() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.close">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.utils.env.html#fedstellar.utils.env.collect_env">collect_env() (in module fedstellar.utils.env)</a>
 </li>
         <li><a href="fedstellar.command.html#fedstellar.command.Command">Command (class in fedstellar.command)</a>
@@ -376,13 +389,21 @@
         <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events.CONN_TO_EVENT">CONN_TO_EVENT (fedstellar.utils.observer.Events attribute)</a>
 </li>
         <li><a href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.connect_to">connect_to() (fedstellar.base_node.BaseNode method)</a>
+
+        <ul>
+          <li><a href="fedstellar.node.html#fedstellar.node.Node.connect_to">(fedstellar.node.Node method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.controller.html#fedstellar.controller.Controller">Controller (class in fedstellar.controller)</a>
 </li>
         <li><a href="fedstellar.controller.html#fedstellar.controller.Controller.create_topology">create_topology() (fedstellar.controller.Controller method)</a>
 </li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.create_trainer">create_trainer() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.create_trainer">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -392,7 +413,11 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.decode_parameters">decode_parameters() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.decode_parameters">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.learning.exceptions.html#fedstellar.learning.exceptions.DecodingParamsError">DecodingParamsError</a>
 </li>
         <li><a href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.decrypt">decrypt() (fedstellar.encrypter.AESCipher method)</a>
@@ -422,7 +447,11 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.encode_parameters">encode_parameters() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.encode_parameters">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.encrypt">encrypt() (fedstellar.encrypter.AESCipher method)</a>
 
         <ul>
@@ -436,7 +465,11 @@
         <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events.END_CONNECTION_EVENT">END_CONNECTION_EVENT (fedstellar.utils.observer.Events attribute)</a>
 </li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.evaluate">evaluate() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.evaluate">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events">Events (class in fedstellar.utils.observer)</a>
 </li>
         <li><a href="fedstellar.command.html#fedstellar.command.Beat_cmd.execute">execute() (fedstellar.command.Beat_cmd method)</a>
@@ -563,8 +596,6 @@
           <li><a href="fedstellar.learning.html#module-fedstellar.learning">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     fedstellar.learning.aggregators
 
@@ -579,6 +610,8 @@
           <li><a href="fedstellar.learning.aggregators.aggregator.html#module-fedstellar.learning.aggregators.aggregator">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     fedstellar.learning.aggregators.fedavg
 
@@ -608,10 +641,31 @@
 </li>
         </ul></li>
         <li>
+    fedstellar.learning.pytorch.lightninglearner
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#module-fedstellar.learning.pytorch.lightninglearner">module</a>
+</li>
+        </ul></li>
+        <li>
+    fedstellar.node
+
+        <ul>
+          <li><a href="fedstellar.node.html#module-fedstellar.node">module</a>
+</li>
+        </ul></li>
+        <li>
     fedstellar.node_connection
 
         <ul>
           <li><a href="fedstellar.node_connection.html#module-fedstellar.node_connection">module</a>
+</li>
+        </ul></li>
+        <li>
+    fedstellar.node_start
+
+        <ul>
+          <li><a href="fedstellar.node_start.html#module-fedstellar.node_start">module</a>
 </li>
         </ul></li>
         <li>
@@ -650,9 +704,17 @@
 </li>
         </ul></li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.finalize_round">finalize_round() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.finalize_round">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.fit">fit() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.fit">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -711,14 +773,14 @@
 </li>
         <li><a href="fedstellar.config.mender.html#fedstellar.config.mender.Mender.get_my_info">get_my_info() (fedstellar.config.mender.Mender method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_name">get_name() (fedstellar.base_node.BaseNode method)</a>
 
         <ul>
           <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_name">(fedstellar.node_connection.NodeConnection method)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_name_demo">get_name_demo() (fedstellar.base_node.BaseNode method)</a>
 </li>
         <li><a href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_neighbor">get_neighbor() (fedstellar.base_node.BaseNode method)</a>
@@ -744,11 +806,19 @@
 </li>
         </ul></li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.get_num_samples">get_num_samples() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_num_samples">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Observable.get_observers">get_observers() (fedstellar.utils.observer.Observable method)</a>
 </li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.get_parameters">get_parameters() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_parameters">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_params">get_params() (fedstellar.node_connection.NodeConnection method)</a>
 </li>
         <li><a href="fedstellar.learning.aggregators.aggregator.html#fedstellar.learning.aggregators.aggregator.Aggregator.get_partial_aggregation">get_partial_aggregation() (fedstellar.learning.aggregators.aggregator.Aggregator method)</a>
@@ -798,11 +868,17 @@
         <ul>
           <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.init">(fedstellar.learning.learner.NodeLearner method)</a>
 </li>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.init">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
+</li>
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.interrupt_fit">interrupt_fit() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.interrupt_fit">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -829,14 +905,22 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.last_messages">last_messages (fedstellar.communication_protocol.CommunicationProtocol attribute)</a>
 </li>
-        <li><a href="fedstellar.controller.html#fedstellar.controller.Controller.load_configurations_and_start_nodes">load_configurations_and_start_nodes() (fedstellar.controller.Controller method)</a>
+        <li><a href="fedstellar.node.html#fedstellar.node.Node.learner">learner (fedstellar.node.Node attribute)</a>
+</li>
+        <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner">LightningLearner (class in fedstellar.learning.pytorch.lightninglearner)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="fedstellar.controller.html#fedstellar.controller.Controller.load_configurations_and_start_nodes">load_configurations_and_start_nodes() (fedstellar.controller.Controller method)</a>
+</li>
         <li><a href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher.load_pair_public_key">load_pair_public_key() (fedstellar.encrypter.RSACipher method)</a>
 </li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.log_validation_metrics">log_validation_metrics() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.log_validation_metrics">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -845,6 +929,8 @@
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="fedstellar.node_start.html#fedstellar.node_start.main">main() (in module fedstellar.node_start)</a>
+</li>
         <li><a href="fedstellar.config.mender.html#fedstellar.config.mender.Mender">Mender (class in fedstellar.config.mender)</a>
 </li>
         <li><a href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.METRICS">METRICS (fedstellar.communication_protocol.CommunicationProtocol attribute)</a>
@@ -909,7 +995,13 @@
 </li>
           <li><a href="fedstellar.learning.pytorch.html#module-fedstellar.learning.pytorch">fedstellar.learning.pytorch</a>
 </li>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#module-fedstellar.learning.pytorch.lightninglearner">fedstellar.learning.pytorch.lightninglearner</a>
+</li>
+          <li><a href="fedstellar.node.html#module-fedstellar.node">fedstellar.node</a>
+</li>
           <li><a href="fedstellar.node_connection.html#module-fedstellar.node_connection">fedstellar.node_connection</a>
+</li>
+          <li><a href="fedstellar.node_start.html#module-fedstellar.node_start">fedstellar.node_start</a>
 </li>
           <li><a href="fedstellar.role.html#module-fedstellar.role">fedstellar.role</a>
 </li>
@@ -930,6 +1022,8 @@
   <h2>N</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="fedstellar.node.html#fedstellar.node.Node">Node (class in fedstellar.node)</a>
+</li>
         <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events.NODE_CONNECTED_EVENT">NODE_CONNECTED_EVENT (fedstellar.utils.observer.Events attribute)</a>
 </li>
         <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection">NodeConnection (class in fedstellar.node_connection)</a>
@@ -940,10 +1034,10 @@
 </li>
         <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_conn_to">notify_conn_to() (fedstellar.node_connection.NodeConnection method)</a>
 </li>
-        <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_heartbeat">notify_heartbeat() (fedstellar.node_connection.NodeConnection method)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_heartbeat">notify_heartbeat() (fedstellar.node_connection.NodeConnection method)</a>
+</li>
         <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_metrics">notify_metrics() (fedstellar.node_connection.NodeConnection method)</a>
 </li>
         <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_params">notify_params() (fedstellar.node_connection.NodeConnection method)</a>
@@ -1026,9 +1120,11 @@
 </li>
         <li><a href="fedstellar.command.html#fedstellar.command.Role_cmd">Role_cmd (class in fedstellar.command)</a>
 </li>
+        <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events.ROLE_RECEIVED_EVENT">ROLE_RECEIVED_EVENT (fedstellar.utils.observer.Events attribute)</a>
+</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events.ROLE_RECEIVED_EVENT">ROLE_RECEIVED_EVENT (fedstellar.utils.observer.Events attribute)</a>
+        <li><a href="fedstellar.node.html#fedstellar.node.Node.round">round (fedstellar.node.Node attribute)</a>
 </li>
         <li><a href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher">RSACipher (class in fedstellar.encrypter)</a>
 </li>
@@ -1063,11 +1159,27 @@
         <li><a href="fedstellar.role.html#fedstellar.role.Role.SERVER">SERVER (fedstellar.role.Role attribute)</a>
 </li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.set_data">set_data() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_data">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+          <li><a href="fedstellar.node.html#fedstellar.node.Node.set_data">(fedstellar.node.Node method)</a>
+</li>
+        </ul></li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.set_epochs">set_epochs() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.set_model">set_model() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+          <li><a href="fedstellar.node.html#fedstellar.node.Node.set_model">(fedstellar.node.Node method)</a>
+</li>
+        </ul></li>
         <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.set_model_initialized">set_model_initialized() (fedstellar.node_connection.NodeConnection method)</a>
 </li>
         <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.set_model_ready_status">set_model_ready_status() (fedstellar.node_connection.NodeConnection method)</a>
@@ -1075,23 +1187,31 @@
         <li><a href="fedstellar.learning.aggregators.aggregator.html#fedstellar.learning.aggregators.aggregator.Aggregator.set_nodes_to_aggregate">set_nodes_to_aggregate() (fedstellar.learning.aggregators.aggregator.Aggregator method)</a>
 </li>
         <li><a href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.set_parameters">set_parameters() (fedstellar.learning.learner.NodeLearner method)</a>
+
+        <ul>
+          <li><a href="fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters">(fedstellar.learning.pytorch.lightninglearner.LightningLearner method)</a>
 </li>
+        </ul></li>
         <li><a href="fedstellar.config.config.html#fedstellar.config.config.Config.set_participant_config">set_participant_config() (fedstellar.config.config.Config method)</a>
 </li>
         <li><a href="fedstellar.config.config.html#fedstellar.config.config.Config.set_participants_config">set_participants_config() (fedstellar.config.config.Config method)</a>
+</li>
+        <li><a href="fedstellar.node.html#fedstellar.node.Node.set_start_learning">set_start_learning() (fedstellar.node.Node method)</a>
+</li>
+        <li><a href="fedstellar.node.html#fedstellar.node.Node.set_stop_learning">set_stop_learning() (fedstellar.node.Node method)</a>
 </li>
         <li><a href="fedstellar.config.config.html#fedstellar.config.config.Config.set_topology_config">set_topology_config() (fedstellar.config.config.Config method)</a>
 </li>
         <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.set_transfer_leadership">set_transfer_leadership() (fedstellar.node_connection.NodeConnection method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="fedstellar.learning.aggregators.aggregator.html#fedstellar.learning.aggregators.aggregator.Aggregator.set_waiting_aggregated_model">set_waiting_aggregated_model() (fedstellar.learning.aggregators.aggregator.Aggregator method)</a>
 </li>
         <li><a href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.setup_logging">setup_logging() (fedstellar.base_node.BaseNode method)</a>
 </li>
         <li><a href="fedstellar.controller.html#fedstellar.controller.signal_handler">signal_handler() (in module fedstellar.controller)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.simulation">simulation (fedstellar.base_node.BaseNode attribute)</a>
 </li>
         <li><a href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.start">start() (fedstellar.base_node.BaseNode method)</a>
@@ -1121,6 +1241,8 @@
 </li>
           <li><a href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.stop">(fedstellar.heartbeater.Heartbeater method)</a>
 </li>
+          <li><a href="fedstellar.node.html#fedstellar.node.Node.stop">(fedstellar.node.Node method)</a>
+</li>
           <li><a href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.stop">(fedstellar.node_connection.NodeConnection method)</a>
 </li>
         </ul></li>
@@ -1146,10 +1268,12 @@
 </li>
         <li><a href="fedstellar.utils.topologymanager.html#fedstellar.utils.topologymanager.TopologyManager">TopologyManager (class in fedstellar.utils.topologymanager)</a>
 </li>
-        <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events.TRAIN_SET_VOTE_RECEIVED_EVENT">TRAIN_SET_VOTE_RECEIVED_EVENT (fedstellar.utils.observer.Events attribute)</a>
+        <li><a href="fedstellar.node.html#fedstellar.node.Node.totalrounds">totalrounds (fedstellar.node.Node attribute)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events.TRAIN_SET_VOTE_RECEIVED_EVENT">TRAIN_SET_VOTE_RECEIVED_EVENT (fedstellar.utils.observer.Events attribute)</a>
+</li>
         <li><a href="fedstellar.role.html#fedstellar.role.Role.TRAINER">TRAINER (fedstellar.role.Role attribute)</a>
 </li>
         <li><a href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.TRANSFER_LEADERSHIP">TRANSFER_LEADERSHIP (fedstellar.communication_protocol.CommunicationProtocol attribute)</a>
@@ -1167,13 +1291,15 @@
         <li><a href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.update">update() (fedstellar.base_node.BaseNode method)</a>
 
         <ul>
+          <li><a href="fedstellar.node.html#fedstellar.node.Node.update">(fedstellar.node.Node method)</a>
+</li>
           <li><a href="fedstellar.utils.observer.html#fedstellar.utils.observer.Observer.update">(fedstellar.utils.observer.Observer method)</a>
 </li>
         </ul></li>
-        <li><a href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.update_config_with_neighbors">update_config_with_neighbors() (fedstellar.heartbeater.Heartbeater method)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.update_config_with_neighbors">update_config_with_neighbors() (fedstellar.heartbeater.Heartbeater method)</a>
+</li>
         <li><a href="fedstellar.utils.topologymanager.html#fedstellar.utils.topologymanager.TopologyManager.update_nodes">update_nodes() (fedstellar.utils.topologymanager.TopologyManager method)</a>
 </li>
         <li><a href="fedstellar.utils.topologymanager.html#fedstellar.utils.topologymanager.TopologyManager.update_topology_3d_json">update_topology_3d_json() (fedstellar.utils.topologymanager.TopologyManager static method)</a>

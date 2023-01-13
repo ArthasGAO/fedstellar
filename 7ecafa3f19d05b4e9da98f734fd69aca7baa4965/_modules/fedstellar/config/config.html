@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
-        <title>fedstellar.learning.learner - fedstellar 0.1 documentation</title>
+        <title>fedstellar.config.config - fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -231,172 +231,116 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for fedstellar.learning.learner</h1><div class="highlight"><pre>
+          <h1>Source code for fedstellar.config.config</h1><div class="highlight"><pre>
 <span></span><span class="c1"># </span>
 <span class="c1"># This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).</span>
 <span class="c1"># Copyright (c) 2022 Enrique Tomás Martínez Beltrán.</span>
 <span class="c1"># </span>
 
 
-<span class="c1">################################</span>
-<span class="c1">#    NodeLearning Interface    #  --&gt;  Template Pattern</span>
-<span class="c1">################################</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module to define constants for the DFL system.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">fedstellar.encrypter</span> <span class="kn">import</span> <span class="n">AESCipher</span>
 
 
-<div class="viewcode-block" id="NodeLearner"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner">[docs]</a><span class="k">class</span> <span class="nc">NodeLearner</span><span class="p">:</span>
+<span class="c1">###################</span>
+<span class="c1">#  Global Config  #</span>
+<span class="c1">###################</span>
+
+
+<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../../fedstellar.config.config.html#fedstellar.config.config.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Template to implement learning processes, including metric monitoring during training.</span>
+<span class="sd">    Class to define global config for the DFL system.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">topology</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">participant</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="NodeLearner.set_model"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.set_model">[docs]</a>    <span class="k">def</span> <span class="nf">set_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="n">participants</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Configuration of each participant (this information is stored only in the controller)</span>
+    <span class="n">participants_path</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">,</span> <span class="n">topology_config_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">participant_config_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">entity</span> <span class="o">=</span> <span class="n">entity</span>
+
+        <span class="k">if</span> <span class="n">topology_config_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_topology_config</span><span class="p">(</span><span class="n">topology_config_file</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">participant_config_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_participant_config</span><span class="p">(</span><span class="n">participant_config_file</span><span class="p">)</span>
+
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            If ```BLOCK_SIZE`` is not divisible by the block size used for symetric encryption it will be rounded to the next closest value.</span>
+<span class="sd">            Try to strike a balance between hyper-segmentation and excessively large block size.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__adjust_block_size</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Return the attributes of the class that should be serialized</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;topology&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span> <span class="s1">&#39;participant&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">participant</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="c1"># Set the attributes of the class from the serialized state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topology</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;topology&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">participant</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;participant&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Config.get_topology_config"><a class="viewcode-back" href="../../../fedstellar.config.config.html#fedstellar.config.config.Config.get_topology_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_topology_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Config.get_participant_config"><a class="viewcode-back" href="../../../fedstellar.config.config.html#fedstellar.config.config.Config.get_participant_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_participant_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">participant</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_set_default_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the model of the learner. (not wheights)</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            model: The model of the learner.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            ModelNotMatchingError: If the model is not matching the learner.</span>
+<span class="sd">        Default values are defined here.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+        <span class="k">pass</span>
 
-<div class="viewcode-block" id="NodeLearner.set_data"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.set_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the data of the learner. It is used to fit the model.</span>
+    <span class="c1"># Read the configuration file scenario_config.json, and return a dictionary with the configuration</span>
+<div class="viewcode-block" id="Config.set_participant_config"><a class="viewcode-back" href="../../../fedstellar.config.config.html#fedstellar.config.config.Config.set_participant_config">[docs]</a>    <span class="k">def</span> <span class="nf">set_participant_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">participant_config</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">participant_config</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">participant</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span></div>
 
-<span class="sd">        Args:</span>
-<span class="sd">            data: The data of the learner.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<div class="viewcode-block" id="Config.set_topology_config"><a class="viewcode-back" href="../../../fedstellar.config.config.html#fedstellar.config.config.Config.set_topology_config">[docs]</a>    <span class="k">def</span> <span class="nf">set_topology_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topology_config_file</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">topology_config_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">topology</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="NodeLearner.encode_parameters"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.encode_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">encode_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">contributors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Encode the parameters of the model. (binary)</span>
-<span class="sd">        If params are not provided, self parameters are encoded.</span>
+<div class="viewcode-block" id="Config.add_participant_config"><a class="viewcode-back" href="../../../fedstellar.config.config.html#fedstellar.config.config.Config.add_participant_config">[docs]</a>    <span class="k">def</span> <span class="nf">add_participant_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">participant_config</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">participant_config</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">participants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">))</span></div>
 
-<span class="sd">        Args:</span>
-<span class="sd">            params: The parameters of the model. (non-binary)</span>
-<span class="sd">            contributors: The contributors of the model.</span>
-<span class="sd">            weight: The weight of the model.</span>
+<div class="viewcode-block" id="Config.set_participants_config"><a class="viewcode-back" href="../../../fedstellar.config.config.html#fedstellar.config.config.Config.set_participants_config">[docs]</a>    <span class="k">def</span> <span class="nf">set_participants_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">participants_config</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">participants</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">participants_path</span> <span class="o">=</span> <span class="n">participants_config</span>
+        <span class="k">for</span> <span class="n">participant</span> <span class="ow">in</span> <span class="n">participants_config</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_participant_config</span><span class="p">(</span><span class="n">participant</span><span class="p">)</span></div>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            The encoded parameters of the model (params, contributors, weight).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.decode_parameters"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.decode_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">decode_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Decode the parameters of the model. (binary)</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            data: The encoded parameters of the model.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            The decoded parameters of the model. (params, contributors, weight)</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            DecodingParamsError: If the decoding of the parameters fails.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.check_parameters"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.check_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">check_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check if the parameters are compatible with the model.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            params: The parameters to check. (non-binary)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            True if the parameters are compatible with the model.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.set_parameters"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.set_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">set_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the parameters of the model.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            params: The parameters of the model. (non-binary)</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            ModelNotMatchingError: If the model is not matching the learner.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.get_parameters"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.get_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">get_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the parameters of the model.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            The parameters of the model. (non-binary)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.set_epochs"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.set_epochs">[docs]</a>    <span class="k">def</span> <span class="nf">set_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the number of epochs of the model.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            epochs: The number of epochs of the model.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.fit"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fit the model.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.interrupt_fit"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.interrupt_fit">[docs]</a>    <span class="k">def</span> <span class="nf">interrupt_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Interrupt the fit process.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.evaluate"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Evaluate the model with actual parameters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.log_validation_metrics"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.log_validation_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">log_validation_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="nb">round</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Log the validation metrics. It also can be used to log the other node metrics.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.get_num_samples"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.get_num_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the number of samples of the model.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            The number of samples of the model.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.init"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Init the learner.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.close"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Close the learner.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.finalize_round"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.finalize_round">[docs]</a>    <span class="k">def</span> <span class="nf">finalize_round</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Determine the end of the round.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="NodeLearner.create_trainer"><a class="viewcode-back" href="../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner.create_trainer">[docs]</a>    <span class="k">def</span> <span class="nf">create_trainer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create the trainer.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div></div>
+    <span class="k">def</span> <span class="nf">__adjust_block_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity</span> <span class="o">==</span> <span class="s2">&quot;participant&quot;</span><span class="p">:</span>
+            <span class="n">rest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">participant</span><span class="p">[</span><span class="s1">&#39;BLOCK_SIZE&#39;</span><span class="p">]</span> <span class="o">%</span> <span class="n">AESCipher</span><span class="o">.</span><span class="n">get_block_size</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">rest</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">new_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">participant</span><span class="p">[</span><span class="s1">&#39;BLOCK_SIZE&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">AESCipher</span><span class="o">.</span><span class="n">get_block_size</span><span class="p">()</span> <span class="o">-</span> <span class="n">rest</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;[SETTINGS] Changing buffer size to </span><span class="si">%d</span><span class="s2">. </span><span class="si">%d</span><span class="s2"> is incompatible with the AES block size.&quot;</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">participant</span><span class="p">[</span><span class="s1">&#39;BLOCK_SIZE&#39;</span><span class="p">],</span>
+                    <span class="n">new_value</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">participant</span><span class="p">[</span><span class="s1">&#39;BLOCK_SIZE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity</span> <span class="o">==</span> <span class="s2">&quot;controller&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">participant</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">participants</span><span class="p">:</span>
+                <span class="n">rest</span> <span class="o">=</span> <span class="n">participant</span><span class="p">[</span><span class="s1">&#39;BLOCK_SIZE&#39;</span><span class="p">]</span> <span class="o">%</span> <span class="n">AESCipher</span><span class="o">.</span><span class="n">get_block_size</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">rest</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">new_value</span> <span class="o">=</span> <span class="n">participant</span><span class="p">[</span><span class="s1">&#39;BLOCK_SIZE&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">AESCipher</span><span class="o">.</span><span class="n">get_block_size</span><span class="p">()</span> <span class="o">-</span> <span class="n">rest</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="s2">&quot;[SETTINGS] Changing buffer size to </span><span class="si">%d</span><span class="s2">. </span><span class="si">%d</span><span class="s2"> is incompatible with the AES block size.&quot;</span><span class="p">,</span>
+                        <span class="n">participant</span><span class="p">[</span><span class="s1">&#39;BLOCK_SIZE&#39;</span><span class="p">],</span>
+                        <span class="n">new_value</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">participant</span><span class="p">[</span><span class="s1">&#39;BLOCK_SIZE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Entity not supported&quot;</span><span class="p">)</span></div>
 </pre></div>
         </article>
       </div>

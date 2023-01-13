@@ -28,7 +28,7 @@ Fedstellar is a modular, adaptable and extensible framework for creating central
 
 The framework enables developers to create distributed applications that use federated learning algorithms to improve user experience, security, and privacy. It provides features for managing data, managing models, and managing federated learning processes. It also provides a comprehensive set of tools to help developers monitor and analyze the performance of their applications.
 
-Fedstellar is developed by `Enrique Tomás Martínez Beltrán <https://www.enriquetomasmb.com/>`_ in collaboration with the `University of Murcia <https://www.um.es/en>`_ and `Armasuisse <https://www.armasuisse.ch/en>`_.
+Fedstellar is developed by `Enrique Tomás Martínez Beltrán <https://www.enriquetomasmb.com/>`_ in collaboration with the `University of Murcia <https://www.um.es/en>`_, `Armasuisse <https://www.armasuisse.ch/en>`_, and `University of Zurich (UZH) <https://www.uzh.ch/>`_.
 
 For any questions, please contact Enrique Tomás Martínez Beltrán (enriquetomas@um.es).
 

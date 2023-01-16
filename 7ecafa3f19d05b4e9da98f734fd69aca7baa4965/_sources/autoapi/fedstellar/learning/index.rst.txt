@@ -1,0 +1,26 @@
+:py:mod:`fedstellar.learning`
+=============================
+
+.. py:module:: fedstellar.learning
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   aggregators/index.rst
+   pytorch/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   exceptions/index.rst
+   learner/index.rst
+
+

@@ -1,0 +1,17 @@
+:py:mod:`fedstellar.webserver`
+==============================
+
+.. py:module:: fedstellar.webserver
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   app/index.rst
+   config/index.rst
+   database/index.rst
+
+

@@ -1,0 +1,178 @@
+:py:mod:`fedstellar.utils.observer`
+===================================
+
+.. py:module:: fedstellar.utils.observer
+
+.. autoapi-nested-parse::
+
+   Module that implements the observer pattern.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.utils.observer.Events
+   fedstellar.utils.observer.Observable
+   fedstellar.utils.observer.Observer
+
+
+
+
+.. py:class:: Events
+
+   Class that represents the events that can be observed.
+
+   .. py:attribute:: SEND_BEAT_EVENT
+      :annotation: = SEND_BEAT_EVENT
+
+      Used to notify that beats must be sent.
+
+   .. py:attribute:: SEND_ROLE_EVENT
+      :annotation: = SEND_ROLE_EVENT
+
+      Used to notify that participant role must be sent.
+
+   .. py:attribute:: END_CONNECTION_EVENT
+      :annotation: = END_CONNECTION_EVENT
+
+      NodeConnection)
+
+      :type: Used to notify that a connection has been closed. (arg
+
+   .. py:attribute:: AGGREGATION_FINISHED_EVENT
+      :annotation: = AGGREGATION_FINISHED_EVENT
+
+      model or None)
+
+      :type: Used to notify that the aggregation was done. (arg
+
+   .. py:attribute:: CONN_TO_EVENT
+      :annotation: = CONN_TO_EVENT
+
+      (host,port))
+
+      :type: Used to notify when a node must connect to another. (arg
+
+   .. py:attribute:: START_LEARNING_EVENT
+      :annotation: = START_LEARNING_EVENT
+
+      (rounds,epochs))
+
+      :type: Used to notify when the learning process starts. (arg
+
+   .. py:attribute:: STOP_LEARNING_EVENT
+      :annotation: = STOP_LEARNING_EVENT
+
+      Used to notify when the learning process stops.
+
+   .. py:attribute:: PARAMS_RECEIVED_EVENT
+      :annotation: = PARAMS_RECEIVED_EVENT
+
+      params (encoded))
+
+      :type: Used to notify when the parameters are received. (arg
+
+   .. py:attribute:: METRICS_RECEIVED_EVENT
+      :annotation: = METRICS_RECEIVED_EVENT
+
+      (node, round, loss, metric))
+
+      :type: Used to notify when the metrics are received. (arg
+
+   .. py:attribute:: TRAIN_SET_VOTE_RECEIVED_EVENT
+      :annotation: = TRAIN_SET_VOTE_RECEIVED_EVENT
+
+      (node,votes))
+
+      :type: Used to notify when a vote is received. (arg
+
+   .. py:attribute:: NODE_CONNECTED_EVENT
+      :annotation: = NODE_CONNECTED_EVENT
+
+      (n, force))
+
+      :type: Used to notify when a node is connected. (arg
+
+   .. py:attribute:: PROCESSED_MESSAGES_EVENT
+      :annotation: = PROCESSED_MESSAGES_EVENT
+
+      (node, messages))
+
+      :type: Used to notify when a node processes messages. (arg
+
+   .. py:attribute:: GOSSIP_BROADCAST_EVENT
+      :annotation: = GOSSIP_BROADCAST_EVENT
+
+      (msg,nodes))
+
+      :type: Used to notify when a node must send gossiped messages. (arg
+
+   .. py:attribute:: BEAT_RECEIVED_EVENT
+      :annotation: = BEAT_RECEIVED_EVENT
+
+      node)
+
+      :type: Used to notify when a node receives a beat. (arg
+
+   .. py:attribute:: ROLE_RECEIVED_EVENT
+      :annotation: = ROLE_RECEIVED_EVENT
+
+      node, role)
+
+      :type: Used to notify when a node receives a role. (arg
+
+   .. py:attribute:: REPORT_STATUS_TO_CONTROLLER_EVENT
+      :annotation: = REPORT_STATUS_TO_CONTROLLER_EVENT
+
+      Used to notify node status to controller.
+
+   .. py:attribute:: STORE_MODEL_PARAMETERS_EVENT
+      :annotation: = STORE_MODEL_PARAMETERS_EVENT
+
+      Used to notify that the model parameters must be stored.
+
+
+.. py:class:: Observable
+
+   Class that implements the **Observable** at the observer pattern.
+
+   .. py:method:: add_observer(observer)
+
+      Adds an observer to the list of observers.
+
+      :param observer: The observer to add.
+
+
+   .. py:method:: get_observers()
+
+      Returns the list of observers.
+
+      :returns: The list of observers.
+
+
+   .. py:method:: notify(event, obj)
+
+      Notifies an event to all the observers.
+
+      :param event: The event to notify.
+      :param obj: The object to pass to the observer. For each event, the object is different (check it at the ``Event`` class).
+
+
+
+.. py:class:: Observer
+
+   Class for the **Observer** at the observer pattern.
+
+   :param event: The event that is notified.
+   :param obj: The object that is passed by the observable.
+
+   .. py:method:: update(event, obj)
+
+
+

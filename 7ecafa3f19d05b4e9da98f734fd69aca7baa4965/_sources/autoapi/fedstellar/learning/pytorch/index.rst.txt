@@ -1,0 +1,25 @@
+:py:mod:`fedstellar.learning.pytorch`
+=====================================
+
+.. py:module:: fedstellar.learning.pytorch
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   femnist/index.rst
+   mnist/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   lightninglearner/index.rst
+
+

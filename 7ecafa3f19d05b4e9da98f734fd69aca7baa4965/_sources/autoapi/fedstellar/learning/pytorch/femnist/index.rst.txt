@@ -1,0 +1,24 @@
+:py:mod:`fedstellar.learning.pytorch.femnist`
+=============================================
+
+.. py:module:: fedstellar.learning.pytorch.femnist
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   models/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   femnist/index.rst
+
+

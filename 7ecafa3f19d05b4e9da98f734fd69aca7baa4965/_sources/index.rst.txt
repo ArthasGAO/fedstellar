@@ -1,8 +1,3 @@
-.. fedstellar documentation master file, created by
-   sphinx-quickstart on Tue Nov  8 20:02:23 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 .. role:: raw-html(raw)
     :format: html
 
@@ -49,8 +44,7 @@ For any questions, please contact Enrique Tomás Martínez Beltrán (enriquetoma
    :maxdepth: 2
    :caption: Contents:
 
-   modules
-
+   autoapi/index
 
 * :ref:`genindex`
 * :ref:`modindex`

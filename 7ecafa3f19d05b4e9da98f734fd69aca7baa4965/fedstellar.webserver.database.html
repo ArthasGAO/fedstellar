@@ -3,12 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="fedstellar.base_node module" href="fedstellar.base_node.html" /><link rel="prev" title="fedstellar.webserver.config module" href="fedstellar.webserver.config.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>fedstellar.webserver.database module - fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -155,69 +156,69 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">fedstellar</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="fedstellar.html">fedstellar package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.config.html">fedstellar.config package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.config.html">fedstellar.config.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.mender.html">fedstellar.config.mender module</a></li>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/fedstellar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/mender/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.mender</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.learning.html">fedstellar.learning package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4 has-children"><a class="reference internal" href="fedstellar.learning.aggregators.html">fedstellar.learning.aggregators package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.aggregator.html">fedstellar.learning.aggregators.aggregator module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.fedavg.html">fedstellar.learning.aggregators.fedavg module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/aggregator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.aggregator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/fedavg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.fedavg</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.html">fedstellar.learning.pytorch package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.html">fedstellar.learning.pytorch.femnist package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.html">fedstellar.learning.pytorch.femnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html">fedstellar.learning.pytorch.femnist.models.cnn module</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models.cnn</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.femnist.html">fedstellar.learning.pytorch.femnist.femnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.femnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.html">fedstellar.learning.pytorch.mnist package</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.html">fedstellar.learning.pytorch.mnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.cnn.html">fedstellar.learning.pytorch.mnist.models.cnn module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.mlp.html">fedstellar.learning.pytorch.mnist.models.mlp module</a></li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.cnn</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.mlp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.mnist.html">fedstellar.learning.pytorch.mnist.mnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.mnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.pytorch.lightninglearner.html">fedstellar.learning.pytorch.lightninglearner module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.exceptions.html">fedstellar.learning.exceptions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.learner.html">fedstellar.learning.learner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/exceptions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/learner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.learner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.utils.html">fedstellar.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.env.html">fedstellar.utils.env module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html">fedstellar.utils.observer module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.topologymanager.html">fedstellar.utils.topologymanager module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/env/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.env</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/observer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.observer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/topologymanager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.topologymanager</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 current has-children"><a class="reference internal" href="fedstellar.webserver.html">fedstellar.webserver package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html">fedstellar.webserver.app module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.config.html">fedstellar.webserver.config module</a></li>
-<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">fedstellar.webserver.database module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/webserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/app/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.app</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/database/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.database</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html">fedstellar.base_node module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html">fedstellar.command module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html">fedstellar.communication_protocol module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html">fedstellar.controller module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html">fedstellar.encrypter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html">fedstellar.gossiper module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html">fedstellar.heartbeater module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html">fedstellar.node module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html">fedstellar.node_connection module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_start.html">fedstellar.node_start module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html">fedstellar.role module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.single_device.html">fedstellar.single_device module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/base_node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.base_node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/command/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.command</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/communication_protocol/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.communication_protocol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/controller/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.controller</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/encrypter/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.encrypter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/gossiper/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.gossiper</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/heartbeater/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.heartbeater</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_connection/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_connection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_start/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/role/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.role</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/single_device/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.single_device</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -260,87 +261,87 @@
 <span id="fedstellar-webserver-database-module"></span><h1>fedstellar.webserver.database module<a class="headerlink" href="#module-fedstellar.webserver.database" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.add_user">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">add_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#add_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.add_user" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">add_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.add_user" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.delete_image_from_db">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">delete_image_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#delete_image_from_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.delete_image_from_db" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">delete_image_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.delete_image_from_db" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.delete_note_from_db">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">delete_note_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">note_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#delete_note_from_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.delete_note_from_db" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">delete_note_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">note_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.delete_note_from_db" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.delete_user_from_db">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">delete_user_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#delete_user_from_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.delete_user_from_db" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">delete_user_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.delete_user_from_db" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.get_active_scenario">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_active_scenario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#get_active_scenario"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.get_active_scenario" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_active_scenario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_active_scenario" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.get_all_scenarios">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_all_scenarios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'start_time'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#get_all_scenarios"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.get_all_scenarios" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_all_scenarios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'start_time'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_all_scenarios" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.get_image_file_name">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_image_file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#get_image_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.get_image_file_name" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_image_file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_image_file_name" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.get_scenario_by_name">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_scenario_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#get_scenario_by_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.get_scenario_by_name" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_scenario_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_scenario_by_name" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.get_user_info">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_user_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#get_user_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.get_user_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_user_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_user_info" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.image_upload_record">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">image_upload_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#image_upload_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.image_upload_record" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">image_upload_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.image_upload_record" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.list_images_for_user">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">list_images_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#list_images_for_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.list_images_for_user" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">list_images_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.list_images_for_user" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.list_nodes">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">list_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'idx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#list_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.list_nodes" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">list_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'idx'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.list_nodes" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.list_users">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">list_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#list_users"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.list_users" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">list_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.list_users" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.match_user_id_with_image_uid">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">match_user_id_with_image_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#match_user_id_with_image_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.match_user_id_with_image_uid" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">match_user_id_with_image_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.match_user_id_with_image_uid" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.match_user_id_with_note_id">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">match_user_id_with_note_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">note_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#match_user_id_with_note_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.match_user_id_with_note_id" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">match_user_id_with_note_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">note_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.match_user_id_with_note_id" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.read_note_from_db">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">read_note_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#read_note_from_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.read_note_from_db" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">read_note_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.read_note_from_db" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.remove_all_nodes">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">remove_all_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#remove_all_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.remove_all_nodes" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">remove_all_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.remove_all_nodes" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
@@ -351,27 +352,27 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.scenario_set_all_status_to_finished">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">scenario_set_all_status_to_finished</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#scenario_set_all_status_to_finished"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.scenario_set_all_status_to_finished" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">scenario_set_all_status_to_finished</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.scenario_set_all_status_to_finished" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.scenario_update_record">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">scenario_update_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#scenario_update_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.scenario_update_record" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">scenario_update_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.scenario_update_record" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.update_node_record">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">update_node_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighbors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">federation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scenario</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#update_node_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.update_node_record" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">update_node_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighbors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">federation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scenario</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.update_node_record" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.verify">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">verify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#verify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.verify" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">verify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.verify" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.write_note_into_db">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">write_note_into_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">note_to_write</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/webserver/database.html#write_note_into_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.webserver.database.write_note_into_db" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">write_note_into_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">note_to_write</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.write_note_into_db" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -381,26 +382,8 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="fedstellar.base_node.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">fedstellar.base_node module</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="fedstellar.webserver.config.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">fedstellar.webserver.config module</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -455,6 +438,29 @@
 <li><a class="reference internal" href="#fedstellar.webserver.database.update_node_record"><code class="docutils literal notranslate"><span class="pre">update_node_record()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.verify"><code class="docutils literal notranslate"><span class="pre">verify()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.write_note_into_db"><code class="docutils literal notranslate"><span class="pre">write_note_into_db()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.add_user">add_user</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.delete_image_from_db">delete_image_from_db</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.delete_note_from_db">delete_note_from_db</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.delete_user_from_db">delete_user_from_db</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.get_active_scenario">get_active_scenario</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.get_all_scenarios">get_all_scenarios</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.get_image_file_name">get_image_file_name</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.get_scenario_by_name">get_scenario_by_name</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.get_user_info">get_user_info</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.image_upload_record">image_upload_record</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.list_images_for_user">list_images_for_user</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.list_nodes">list_nodes</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.list_users">list_users</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.match_user_id_with_image_uid">match_user_id_with_image_uid</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.match_user_id_with_note_id">match_user_id_with_note_id</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.read_note_from_db">read_note_from_db</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.remove_all_nodes">remove_all_nodes</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.scenario_db_file_location">scenario_db_file_location</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.scenario_set_all_status_to_finished">scenario_set_all_status_to_finished</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.scenario_update_record">scenario_update_record</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.update_node_record">update_node_record</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.verify">verify</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.write_note_into_db">write_note_into_db</a></li>
 </ul>
 </li>
 </ul>

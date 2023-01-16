@@ -1,0 +1,54 @@
+:py:mod:`fedstellar.learning.pytorch.mnist.models.cnn`
+======================================================
+
+.. py:module:: fedstellar.learning.pytorch.mnist.models.cnn
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.mnist.models.cnn.CNN
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.mnist.models.cnn.IMAGE_SIZE
+
+
+.. py:data:: IMAGE_SIZE
+   :annotation: = 28
+
+   
+
+.. py:class:: CNN(in_channels=1, out_channels=10, metric=Accuracy(num_classes=10, task='multiclass'), lr_rate=0.001, seed=None)
+
+   Bases: :py:obj:`pytorch_lightning.LightningModule`
+
+   Convolutional Neural Network (CNN) to solve MNIST with PyTorch Lightning.
+
+   .. py:method:: forward(x)
+
+
+   .. py:method:: configure_optimizers()
+
+
+   .. py:method:: training_step(batch, batch_id)
+
+
+   .. py:method:: validation_step(batch, batch_idx)
+
+
+   .. py:method:: test_step(batch, batch_idx)
+
+
+

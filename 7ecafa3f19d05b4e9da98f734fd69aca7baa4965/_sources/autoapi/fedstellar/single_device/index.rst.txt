@@ -1,0 +1,22 @@
+:py:mod:`fedstellar.single_device`
+==================================
+
+.. py:module:: fedstellar.single_device
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.single_device.main
+
+
+
+.. py:function:: main()
+
+

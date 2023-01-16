@@ -3,12 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="fedstellar.webserver package" href="fedstellar.webserver.html" /><link rel="prev" title="fedstellar.utils.observer module" href="fedstellar.utils.observer.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>fedstellar.utils.topologymanager module - fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -155,69 +156,69 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">fedstellar</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="fedstellar.html">fedstellar package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.config.html">fedstellar.config package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.config.html">fedstellar.config.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.mender.html">fedstellar.config.mender module</a></li>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/fedstellar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/mender/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.mender</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.learning.html">fedstellar.learning package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4 has-children"><a class="reference internal" href="fedstellar.learning.aggregators.html">fedstellar.learning.aggregators package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.aggregator.html">fedstellar.learning.aggregators.aggregator module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.fedavg.html">fedstellar.learning.aggregators.fedavg module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/aggregator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.aggregator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/fedavg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.fedavg</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.html">fedstellar.learning.pytorch package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.html">fedstellar.learning.pytorch.femnist package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.html">fedstellar.learning.pytorch.femnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html">fedstellar.learning.pytorch.femnist.models.cnn module</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models.cnn</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.femnist.html">fedstellar.learning.pytorch.femnist.femnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.femnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.html">fedstellar.learning.pytorch.mnist package</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.html">fedstellar.learning.pytorch.mnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.cnn.html">fedstellar.learning.pytorch.mnist.models.cnn module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.mlp.html">fedstellar.learning.pytorch.mnist.models.mlp module</a></li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.cnn</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.mlp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.mnist.html">fedstellar.learning.pytorch.mnist.mnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.mnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.pytorch.lightninglearner.html">fedstellar.learning.pytorch.lightninglearner module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.exceptions.html">fedstellar.learning.exceptions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.learner.html">fedstellar.learning.learner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/exceptions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/learner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.learner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 current has-children"><a class="reference internal" href="fedstellar.utils.html">fedstellar.utils package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.env.html">fedstellar.utils.env module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html">fedstellar.utils.observer module</a></li>
-<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">fedstellar.utils.topologymanager module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/env/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.env</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/observer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.observer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/topologymanager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.topologymanager</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.webserver.html">fedstellar.webserver package</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html">fedstellar.webserver.app module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.config.html">fedstellar.webserver.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html">fedstellar.webserver.database module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/webserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/app/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.app</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/database/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.database</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html">fedstellar.base_node module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html">fedstellar.command module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html">fedstellar.communication_protocol module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html">fedstellar.controller module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html">fedstellar.encrypter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html">fedstellar.gossiper module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html">fedstellar.heartbeater module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html">fedstellar.node module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html">fedstellar.node_connection module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_start.html">fedstellar.node_start module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html">fedstellar.role module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.single_device.html">fedstellar.single_device module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/base_node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.base_node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/command/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.command</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/communication_protocol/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.communication_protocol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/controller/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.controller</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/encrypter/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.encrypter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/gossiper/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.gossiper</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/heartbeater/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.heartbeater</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_connection/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_connection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_start/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/role/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.role</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/single_device/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.single_device</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -260,76 +261,76 @@
 <span id="fedstellar-utils-topologymanager-module"></span><h1>fedstellar.utils.topologymanager module<a class="headerlink" href="#module-fedstellar.utils.topologymanager" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.utils.topologymanager.</span></span><span class="sig-name descname"><span class="pre">TopologyManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_symmetric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undirected_neighbor_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.utils.topologymanager.</span></span><span class="sig-name descname"><span class="pre">TopologyManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_symmetric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undirected_neighbor_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.add_nodes">
-<span class="sig-name descname"><span class="pre">add_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.add_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.add_nodes" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.add_nodes" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.draw_graph">
-<span class="sig-name descname"><span class="pre">draw_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.draw_graph" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">draw_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.draw_graph" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.generate_custom_topology">
-<span class="sig-name descname"><span class="pre">generate_custom_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.generate_custom_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_custom_topology" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">generate_custom_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_custom_topology" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.generate_ring_topology">
-<span class="sig-name descname"><span class="pre">generate_ring_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">increase_convergence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.generate_ring_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_ring_topology" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">generate_ring_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">increase_convergence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_ring_topology" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.generate_server_topology">
-<span class="sig-name descname"><span class="pre">generate_server_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.generate_server_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_server_topology" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">generate_server_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_server_topology" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.generate_topology">
-<span class="sig-name descname"><span class="pre">generate_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.generate_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_topology" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">generate_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.generate_topology" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_matrix_adjacency_from_neighbors">
-<span class="sig-name descname"><span class="pre">get_matrix_adjacency_from_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neighbors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_matrix_adjacency_from_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_matrix_adjacency_from_neighbors" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_matrix_adjacency_from_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neighbors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_matrix_adjacency_from_neighbors" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_neighbors">
-<span class="sig-name descname"><span class="pre">get_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_neighbors_string">
-<span class="sig-name descname"><span class="pre">get_neighbors_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_neighbors_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors_string" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_neighbors_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors_string" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_node">
-<span class="sig-name descname"><span class="pre">get_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_node" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_node" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_nodes">
-<span class="sig-name descname"><span class="pre">get_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_nodes" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_nodes" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.get_topology">
-<span class="sig-name descname"><span class="pre">get_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.get_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_topology" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_topology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.get_topology" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.update_nodes">
-<span class="sig-name descname"><span class="pre">update_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_participants</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.update_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.update_nodes" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">update_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_participants</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.update_nodes" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.utils.topologymanager.TopologyManager.update_topology_3d_json">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_topology_3d_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">participants</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/utils/topologymanager.html#TopologyManager.update_topology_3d_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.update_topology_3d_json" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_topology_3d_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">participants</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.utils.topologymanager.TopologyManager.update_topology_3d_json" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -341,26 +342,8 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="fedstellar.webserver.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">fedstellar.webserver package</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="fedstellar.utils.observer.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">fedstellar.utils.observer module</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -407,6 +390,23 @@
 <li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_topology"><code class="docutils literal notranslate"><span class="pre">TopologyManager.get_topology()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.update_nodes"><code class="docutils literal notranslate"><span class="pre">TopologyManager.update_nodes()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.update_topology_3d_json"><code class="docutils literal notranslate"><span class="pre">TopologyManager.update_topology_3d_json()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager">TopologyManager</a><ul>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.add_nodes">add_nodes</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.draw_graph">draw_graph</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.generate_custom_topology">generate_custom_topology</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.generate_ring_topology">generate_ring_topology</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.generate_server_topology">generate_server_topology</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.generate_topology">generate_topology</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_matrix_adjacency_from_neighbors">get_matrix_adjacency_from_neighbors</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors">get_neighbors</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_neighbors_string">get_neighbors_string</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_node">get_node</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_nodes">get_nodes</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.get_topology">get_topology</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.update_nodes">update_nodes</a></li>
+<li><a class="reference internal" href="#fedstellar.utils.topologymanager.TopologyManager.update_topology_3d_json">update_topology_3d_json</a></li>
 </ul>
 </li>
 </ul>

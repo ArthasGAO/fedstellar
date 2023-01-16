@@ -1,0 +1,171 @@
+:py:mod:`fedstellar.webserver.app`
+==================================
+
+.. py:module:: fedstellar.webserver.app
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.webserver.app.signal_handler
+   fedstellar.webserver.app.fedstellar_401
+   fedstellar.webserver.app.fedstellar_403
+   fedstellar.webserver.app.fedstellar_404
+   fedstellar.webserver.app.fedstellar_405
+   fedstellar.webserver.app.fedstellar_413
+   fedstellar.webserver.app.fedstellar_home
+   fedstellar.webserver.app.fedstellar_private
+   fedstellar.webserver.app.fedstellar_admin
+   fedstellar.webserver.app.fedstellar_write_note
+   fedstellar.webserver.app.fedstellar_delete_note
+   fedstellar.webserver.app.allowed_file
+   fedstellar.webserver.app.fedstellar_upload_image
+   fedstellar.webserver.app.fedstellar_get_image
+   fedstellar.webserver.app.send_from_directory
+   fedstellar.webserver.app.fedstellar_delete_image
+   fedstellar.webserver.app.fedstellar_login
+   fedstellar.webserver.app.fedstellar_logout
+   fedstellar.webserver.app.fedstellar_delete_user
+   fedstellar.webserver.app.fedstellar_add_user
+   fedstellar.webserver.app.fedstellar_monitoring
+   fedstellar.webserver.app.update_topology
+   fedstellar.webserver.app.fedstellar_update_node
+   fedstellar.webserver.app.fedstellar_update_node_logs
+   fedstellar.webserver.app.fedstellar_monitoring_log
+   fedstellar.webserver.app.fedstellar_monitoring_log_debug
+   fedstellar.webserver.app.fedstellar_monitoring_log_x
+   fedstellar.webserver.app.fedstellar_monitoring_image
+   fedstellar.webserver.app.fedstellar_monitoring_stop_scenario
+   fedstellar.webserver.app.fedstellar_private_scenario
+   fedstellar.webserver.app.fedstellar_monitoring_participant_file
+   fedstellar.webserver.app.fedstellar_private_scenario_run
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.webserver.app.app
+   fedstellar.webserver.app.ALLOWED_EXTENSIONS
+
+
+.. py:data:: app
+   
+
+   
+
+.. py:function:: signal_handler(signal, frame)
+
+
+.. py:function:: fedstellar_401(error)
+
+
+.. py:function:: fedstellar_403(error)
+
+
+.. py:function:: fedstellar_404(error)
+
+
+.. py:function:: fedstellar_405(error)
+
+
+.. py:function:: fedstellar_413(error)
+
+
+.. py:function:: fedstellar_home()
+
+
+.. py:function:: fedstellar_private(scenario_name)
+
+
+.. py:function:: fedstellar_admin()
+
+
+.. py:function:: fedstellar_write_note()
+
+
+.. py:function:: fedstellar_delete_note(note_id)
+
+
+.. py:data:: ALLOWED_EXTENSIONS
+   
+
+   
+
+.. py:function:: allowed_file(filename)
+
+
+.. py:function:: fedstellar_upload_image()
+
+
+.. py:function:: fedstellar_get_image(image_uid)
+
+
+.. py:function:: send_from_directory(directory, filename, **options)
+
+   Sends a file from a given directory with :func:`send_file`.
+
+   :param directory: the directory to look for the file in.
+   :param filename: the name of the file to send.
+   :param options: the options to forward to :func:`send_file`.
+
+
+.. py:function:: fedstellar_delete_image(image_uid)
+
+
+.. py:function:: fedstellar_login()
+
+
+.. py:function:: fedstellar_logout()
+
+
+.. py:function:: fedstellar_delete_user(user)
+
+
+.. py:function:: fedstellar_add_user()
+
+
+.. py:function:: fedstellar_monitoring()
+
+
+.. py:function:: update_topology(scenario_name, nodes_list, nodes_config)
+
+
+.. py:function:: fedstellar_update_node(uid)
+
+
+.. py:function:: fedstellar_update_node_logs(uid)
+
+
+.. py:function:: fedstellar_monitoring_log(uid)
+
+
+.. py:function:: fedstellar_monitoring_log_debug(uid)
+
+
+.. py:function:: fedstellar_monitoring_log_x(uid, number)
+
+
+.. py:function:: fedstellar_monitoring_image(scenario_name)
+
+
+.. py:function:: fedstellar_monitoring_stop_scenario(scenario_name)
+
+
+.. py:function:: fedstellar_private_scenario()
+
+
+.. py:function:: fedstellar_monitoring_participant_file()
+
+
+.. py:function:: fedstellar_private_scenario_run()
+
+

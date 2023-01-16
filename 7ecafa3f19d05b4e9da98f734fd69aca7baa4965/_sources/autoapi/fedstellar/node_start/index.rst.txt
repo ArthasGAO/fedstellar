@@ -1,0 +1,22 @@
+:py:mod:`fedstellar.node_start`
+===============================
+
+.. py:module:: fedstellar.node_start
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.node_start.main
+
+
+
+.. py:function:: main()
+
+

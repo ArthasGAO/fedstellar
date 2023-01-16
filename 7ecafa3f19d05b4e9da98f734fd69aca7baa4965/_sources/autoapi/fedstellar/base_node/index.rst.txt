@@ -1,0 +1,190 @@
+:py:mod:`fedstellar.base_node`
+==============================
+
+.. py:module:: fedstellar.base_node
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.base_node.BaseNode
+
+
+
+
+.. py:class:: BaseNode(experiment_name, hostdemo=None, host='127.0.0.1', port=None, encrypt=False, config=None)
+
+   Bases: :py:obj:`threading.Thread`, :py:obj:`fedstellar.utils.observer.Observer`
+
+   This class represents a base node in the network (without **FL**). It is a thread, so it's going to process all messages in a background thread using the CommunicationProtocol.
+
+   :param host: The host of the node.
+   :type host: str
+   :param port: The port of the node.
+   :type port: int
+   :param simulation: If False, communication will be encrypted.
+   :type simulation: bool
+
+   .. attribute:: host
+
+      The host of the node.
+
+      :type: str
+
+   .. attribute:: port
+
+      The port of the node.
+
+      :type: int
+
+   .. attribute:: simulation
+
+      If the node is in simulation mode or not. Basically, simulation nodes don't have encryption and metrics aren't sent to network nodes.
+
+      :type: bool
+
+   .. attribute:: heartbeater
+
+      The heartbeater of the node.
+
+      :type: Heartbeater
+
+   .. attribute:: gossiper
+
+      The gossiper of the node.
+
+      :type: Gossiper
+
+   .. py:method:: get_addr()
+
+      :returns: The address of the node.
+      :rtype: tuple
+
+
+   .. py:method:: get_name()
+
+      :returns: The name of the node.
+      :rtype: str
+
+
+   .. py:method:: get_name_demo()
+
+      :returns: The name of the node.
+      :rtype: str
+
+
+   .. py:method:: setup_logging(log_dir)
+
+
+   .. py:method:: start()
+
+      Starts the node (node loop in a thread). It will listen for new connections and process them. Heartbeater and Gossiper will be started too.
+
+      Note that a node is a thread, so an instance can only be started once.
+
+
+   .. py:method:: stop()
+
+      Stops the node. Heartbeater and Gossiper will be stopped too.
+
+
+   .. py:method:: run()
+
+      Main loop of the node, when a node is running, this method is being executed. It will listen for new connections and process them.
+
+
+   .. py:method:: connect_to(h, p, full=False, force=False)
+
+      Connects a node to another.
+
+      :param h: The host of the node.
+      :type h: str
+      :param p: The port of the node.
+      :type p: int
+      :param full: If True, the node will be connected to the entire network.
+      :type full: bool
+      :param force: If True, the node will be connected even though it should not be.
+      :type force: bool
+
+      :returns: The node that has been connected to.
+      :rtype: node
+
+
+   .. py:method:: disconnect_from(h, p)
+
+      Disconnects from a node.
+
+      :param h: The host of the node.
+      :type h: str
+      :param p: The port of the node.
+      :type p: int
+
+
+   .. py:method:: get_neighbor(h, p, thread_safe=True)
+
+      Get a ``NodeConnection`` from the neighbors list.
+
+      :param h: The host of the node.
+      :type h: str
+      :param p: The port of the node.
+      :type p: int
+
+         thread_safe (bool): If True, the method will be thread safe.
+
+      :returns: The connection with the node.
+      :rtype: NodeConnection
+
+
+   .. py:method:: get_neighbors()
+
+      :returns: The neighbors of the node.
+      :rtype: list
+
+
+   .. py:method:: get_neighbors_names()
+
+      :returns: The names of the neighbors of the node.
+      :rtype: list
+
+
+   .. py:method:: rm_neighbor(n)
+
+      Removes a neighbor from the neighbors list.
+
+      :param n: The neighbor to be removed.
+      :type n: NodeConnection
+
+
+   .. py:method:: get_network_nodes()
+
+      :returns: The nodes of the network -> The neighbors of the node (by heartbeater).
+      :rtype: list
+
+
+   .. py:method:: broadcast(msg, exc=[], thread_safe=True)
+
+      Broadcasts a message to all the neighbors.
+
+      :param msg: The message to be broadcast.
+      :type msg: str
+      :param exc: The neighbors to be excluded.
+      :type exc: list
+      :param thread_safe: If True, the broadcast will access the neighbors list in a thread safe mode.
+      :type thread_safe: bool
+
+
+   .. py:method:: update(event, obj)
+
+      Observer update method. Used to handle events that can occur with the different components and connections of the node.
+
+      :param event: Event that has occurred.
+      :type event: Events
+      :param obj: Information about the change or event.
+
+
+

@@ -1,0 +1,82 @@
+:py:mod:`fedstellar.learning.aggregators.aggregator`
+====================================================
+
+.. py:module:: fedstellar.learning.aggregators.aggregator
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.aggregators.aggregator.Aggregator
+
+
+
+
+.. py:class:: Aggregator(node_name='unknown', config=None)
+
+   Bases: :py:obj:`threading.Thread`, :py:obj:`fedstellar.utils.observer.Observable`
+
+   Class to manage the aggregation of models. It is a thread so, aggregation will be done in background if all models were added or timeouts have gone.
+   Also, it is an observable so, it will notify the node when the aggregation was done.
+
+   :param node_name: (str): String with the name of the node.
+
+   .. py:method:: run()
+
+      Wait for the aggregation to be done or timeout. Then, aggregate the models and notify it.
+
+
+   .. py:method:: aggregate(models)
+
+      Aggregate the models.
+
+
+   .. py:method:: set_nodes_to_aggregate(listnodes)
+
+      List with the name of nodes to aggregate.
+
+      :param listnodes: List of nodes to aggregate. Empty for no aggregation.
+
+
+   .. py:method:: set_waiting_aggregated_model()
+
+      Indicates that the node is waiting for an aggregation. It won't participate in aggregation process.
+
+
+   .. py:method:: add_model(model, nodes, weight)
+
+      Add a model. The first model to be added starts the `run` method (timeout).
+
+      :param model: Model to add.
+      :param nodes: Nodes that collaborated to get the model.
+      :param weight: Number of samples used to get the model.
+
+
+   .. py:method:: get_partial_aggregation(except_nodes)
+
+      Get the partial aggregation of the models.
+
+      :param except_nodes: Nodes to exclude.
+
+      :returns: Model, nodes and number of samples for the partial aggregation.
+      :rtype: (model, nodes, weight)
+
+
+   .. py:method:: check_and_run_aggregation(force=False)
+
+      Check if all models have been added and start aggregation if so.
+
+      :param force: If true, aggregation will be started even if not all models have been added.
+
+
+   .. py:method:: clear()
+
+      Clear all for a new aggregation.
+
+
+

@@ -1,0 +1,143 @@
+:py:mod:`fedstellar.webserver.database`
+=======================================
+
+.. py:module:: fedstellar.webserver.database
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.webserver.database.list_users
+   fedstellar.webserver.database.get_user_info
+   fedstellar.webserver.database.verify
+   fedstellar.webserver.database.delete_user_from_db
+   fedstellar.webserver.database.add_user
+   fedstellar.webserver.database.read_note_from_db
+   fedstellar.webserver.database.match_user_id_with_note_id
+   fedstellar.webserver.database.write_note_into_db
+   fedstellar.webserver.database.delete_note_from_db
+   fedstellar.webserver.database.image_upload_record
+   fedstellar.webserver.database.get_image_file_name
+   fedstellar.webserver.database.list_images_for_user
+   fedstellar.webserver.database.match_user_id_with_image_uid
+   fedstellar.webserver.database.delete_image_from_db
+   fedstellar.webserver.database.list_nodes
+   fedstellar.webserver.database.update_node_record
+   fedstellar.webserver.database.remove_all_nodes
+   fedstellar.webserver.database.get_all_scenarios
+   fedstellar.webserver.database.scenario_update_record
+   fedstellar.webserver.database.scenario_set_all_status_to_finished
+   fedstellar.webserver.database.get_active_scenario
+   fedstellar.webserver.database.get_scenario_by_name
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.webserver.database.user_db_file_location
+   fedstellar.webserver.database.note_db_file_location
+   fedstellar.webserver.database.image_db_file_location
+   fedstellar.webserver.database.node_db_file_location
+   fedstellar.webserver.database.scenario_db_file_location
+
+
+.. py:data:: user_db_file_location
+   :annotation: = database_file/users.db
+
+   
+
+.. py:data:: note_db_file_location
+   :annotation: = database_file/notes.db
+
+   
+
+.. py:data:: image_db_file_location
+   :annotation: = database_file/images.db
+
+   
+
+.. py:data:: node_db_file_location
+   :annotation: = database_file/nodes.db
+
+   
+
+.. py:data:: scenario_db_file_location
+   :annotation: = database_file/scenarios.db
+
+   User Management
+
+.. py:function:: list_users(all_info=False)
+
+
+.. py:function:: get_user_info(user)
+
+
+.. py:function:: verify(user, password)
+
+
+.. py:function:: delete_user_from_db(user)
+
+
+.. py:function:: add_user(user, password, role)
+
+
+.. py:function:: read_note_from_db(id)
+
+
+.. py:function:: match_user_id_with_note_id(note_id)
+
+
+.. py:function:: write_note_into_db(id, note_to_write)
+
+
+.. py:function:: delete_note_from_db(note_id)
+
+
+.. py:function:: image_upload_record(uid, owner, image_name, timestamp)
+
+
+.. py:function:: get_image_file_name(image_uid)
+
+
+.. py:function:: list_images_for_user(owner)
+
+
+.. py:function:: match_user_id_with_image_uid(image_uid)
+
+
+.. py:function:: delete_image_from_db(image_uid)
+
+
+.. py:function:: list_nodes(sort_by='idx')
+
+
+.. py:function:: update_node_record(node_uid, idx, ip, port, role, neighbors, latitude, longitude, timestamp, federation, scenario)
+
+
+.. py:function:: remove_all_nodes()
+
+
+.. py:function:: get_all_scenarios(sort_by='start_time')
+
+
+.. py:function:: scenario_update_record(scenario_name, start_time, end_time, description, status)
+
+
+.. py:function:: scenario_set_all_status_to_finished()
+
+
+.. py:function:: get_active_scenario()
+
+
+.. py:function:: get_scenario_by_name(scenario_name)
+
+

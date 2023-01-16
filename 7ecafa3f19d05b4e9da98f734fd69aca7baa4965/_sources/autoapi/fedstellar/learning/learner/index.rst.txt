@@ -1,0 +1,142 @@
+:py:mod:`fedstellar.learning.learner`
+=====================================
+
+.. py:module:: fedstellar.learning.learner
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.learner.NodeLearner
+
+
+
+
+.. py:class:: NodeLearner
+
+   Template to implement learning processes, including metric monitoring during training.
+
+   .. py:method:: set_model(model)
+
+      Set the model of the learner. (not wheights)
+
+      :param model: The model of the learner.
+
+      :raises ModelNotMatchingError: If the model is not matching the learner.
+
+
+   .. py:method:: set_data(data)
+
+      Set the data of the learner. It is used to fit the model.
+
+      :param data: The data of the learner.
+
+
+   .. py:method:: encode_parameters(params=None, contributors=None, weight=None)
+
+      Encode the parameters of the model. (binary)
+      If params are not provided, self parameters are encoded.
+
+      :param params: The parameters of the model. (non-binary)
+      :param contributors: The contributors of the model.
+      :param weight: The weight of the model.
+
+      :returns: The encoded parameters of the model (params, contributors, weight).
+
+
+   .. py:method:: decode_parameters(data)
+
+      Decode the parameters of the model. (binary)
+
+      :param data: The encoded parameters of the model.
+
+      :returns: The decoded parameters of the model. (params, contributors, weight)
+
+      :raises DecodingParamsError: If the decoding of the parameters fails.
+
+
+   .. py:method:: check_parameters(params)
+
+      Check if the parameters are compatible with the model.
+
+      :param params: The parameters to check. (non-binary)
+
+      :returns: True if the parameters are compatible with the model.
+
+
+   .. py:method:: set_parameters(params)
+
+      Set the parameters of the model.
+
+      :param params: The parameters of the model. (non-binary)
+
+      :raises ModelNotMatchingError: If the model is not matching the learner.
+
+
+   .. py:method:: get_parameters()
+
+      Get the parameters of the model.
+
+      :returns: The parameters of the model. (non-binary)
+
+
+   .. py:method:: set_epochs(epochs)
+
+      Set the number of epochs of the model.
+
+      :param epochs: The number of epochs of the model.
+
+
+   .. py:method:: fit()
+
+      Fit the model.
+
+
+   .. py:method:: interrupt_fit()
+
+      Interrupt the fit process.
+
+
+   .. py:method:: evaluate()
+
+      Evaluate the model with actual parameters.
+
+
+   .. py:method:: log_validation_metrics(loss, metric, round=None, name=None)
+
+      Log the validation metrics. It also can be used to log the other node metrics.
+
+
+   .. py:method:: get_num_samples()
+
+      Get the number of samples of the model.
+
+      :returns: The number of samples of the model.
+
+
+   .. py:method:: init()
+
+      Init the learner.
+
+
+   .. py:method:: close()
+
+      Close the learner.
+
+
+   .. py:method:: finalize_round()
+
+      Determine the end of the round.
+
+
+   .. py:method:: create_trainer()
+
+      Create the trainer.
+
+
+

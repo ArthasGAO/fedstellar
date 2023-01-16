@@ -1,0 +1,320 @@
+:py:mod:`fedstellar.communication_protocol`
+===========================================
+
+.. py:module:: fedstellar.communication_protocol
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.communication_protocol.CommunicationProtocol
+
+
+
+
+.. py:class:: CommunicationProtocol(command_dict, config: fedstellar.config.config.Config)
+
+   Manages the meaning of node communication messages. Some messages contain a hash at end, it is used as a unique identifier for the message,
+   this kind of messages are gossiped to the entire network.
+
+   The valid messages can be classified into gossiped and non-gossiped:
+       Gossiped messages:
+           - BEAT <node> <HASH>
+           - ROLE <node> <role> <HASH>
+           - START_LEARNING <rounds> <epoches> <HASH>
+           - STOP_LEARNING <HASH>
+           - VOTE_TRAIN_SET <node> (<node> <punct>)* VOTE_TRAIN_SET_CLOSE <HASH>
+           - METRICS <node> <round> <loss> <metric> <HASH>
+
+       Non Gossiped messages (communication over only 2 nodes):
+           - CONNECT <ip> <port> <full> <force>
+           - CONNECT_TO <ip> <port>
+           - STOP
+           - PARAMS <data> \PARAMS
+           - MODELS_READY <round>
+           - MODELS_AGGREGATED <node>* MODELS_AGGREGATED_CLOSE
+           - MODEL_INITIALIZED
+
+   Furthermore, all messages consist of encoded text (utf-8), except the `PARAMS` message, which contains serialized binaries.
+
+   Non-static methods are used to process the different messages. Static methods are used to build messages and process only the `CONNECT` message (handshake).
+
+   :param command_dict: Dictionary with the callbacks to execute at `process_message`.
+
+   .. attribute:: command_dict
+
+      Dictionary with the callbacks to execute at `process_message`.
+
+   .. attribute:: last_messages
+
+      List of the last messages received.
+
+   .. py:attribute:: TRANSFER_LEADERSHIP
+      :annotation: = TRANSFER_LEADERSHIP
+
+      Beat message header.
+
+   .. py:attribute:: BEAT
+      :annotation: = BEAT
+
+      Role message header.
+
+   .. py:attribute:: ROLE
+      :annotation: = ROLE
+
+      Stop message header.
+
+   .. py:attribute:: STOP
+      :annotation: = STOP
+
+      Connection message header.
+
+   .. py:attribute:: CONN
+      :annotation: = CONNECT
+
+      Connection to message header.
+
+   .. py:attribute:: CONN_TO
+      :annotation: = CONNECT_TO
+
+      Start learning message header.
+
+   .. py:attribute:: START_LEARNING
+      :annotation: = START_LEARNING
+
+      Stop learning message header.
+
+   .. py:attribute:: STOP_LEARNING
+      :annotation: = STOP_LEARNING
+
+      Parameters message header.
+
+   .. py:attribute:: PARAMS
+      :annotation: = PARAMS
+
+      Parameters message closing.
+
+   .. py:attribute:: PARAMS_CLOSE
+      :annotation: = \PARAMS
+
+      Models ready message header.
+
+   .. py:attribute:: MODELS_READY
+      :annotation: = MODELS_READY
+
+      Metrics message header.
+
+   .. py:attribute:: METRICS
+      :annotation: = METRICS
+
+      Vote train set message header.
+
+   .. py:attribute:: VOTE_TRAIN_SET
+      :annotation: = VOTE_TRAIN_SET
+
+      Vote train set message closing.
+
+   .. py:attribute:: VOTE_TRAIN_SET_CLOSE
+      :annotation: = \VOTE_TRAIN_SET
+
+      Models aggregated message header.
+
+   .. py:attribute:: MODELS_AGGREGATED
+      :annotation: = MODELS_AGGREGATED
+
+      Models aggregated message closing.
+
+   .. py:attribute:: MODELS_AGGREGATED_CLOSE
+      :annotation: = \MODELS_AGGREGATED
+
+      Model initialized message header.
+
+   .. py:attribute:: MODEL_INITIALIZED
+      :annotation: = MODEL_INITIALIZED
+
+      
+
+   .. py:method:: add_processed_messages(messages)
+
+      Add messages to the last messages list. If ammount is higher than ``AMOUNT_LAST_MESSAGES_SAVED`` remove the oldest to keep the size.
+
+      :param messages: List of hashes of the messages.
+
+
+   .. py:method:: process_message(msg)
+
+      Processes messages and executes the callback associated with it (from ``command_dict``).
+
+      :param msg: The message to process.
+
+      :returns: (messages_executed, error) messages_executed is a list of the messages executed, error true if there was an error.
+      :rtype: tuple
+
+
+   .. py:method:: process_connection(message, callback)
+      :staticmethod:
+
+      Static method that checks if the message is a valid connection message and executes the callback (accept connection).
+
+      :param message: The message to check.
+      :param callback: What do if the connection message is legit.
+
+      :returns: True if connection was accepted, False otherwise.
+
+
+   .. py:method:: check_collapse(msg)
+      :staticmethod:
+
+      Static method that checks if in the message there is a collapse (a binary message (it should fill all the buffer) and a non-binary message before it).
+
+      Actually, collapses can only happen with ``PARAMS`` binary message.
+
+      :param msg: The message to check.
+
+      :returns: Length of the collapse (number of bytes to the binary headear).
+
+
+   .. py:method:: check_params_incomplete(msg, block_size)
+      :staticmethod:
+
+      Checks if a params message is incomplete. If the message is complete or is not a params message, it returns 0.
+
+      :returns: Number of bytes that needs to be complete
+
+
+   .. py:method:: generate_hased_message(msg)
+      :staticmethod:
+
+      Static method that given a non-encoded message generates a hashed and encoded message.
+
+      :param msg: Non encoded message.
+
+      :returns: Hashed and encoded message.
+
+
+   .. py:method:: build_beat_msg(node)
+      :staticmethod:
+
+      Static method that builds a beat message.
+      CommunicationProtocol.BEAT + node
+      :returns: An encoded beat message.
+
+
+   .. py:method:: build_role_msg(node, role)
+      :staticmethod:
+
+      Static method that builds a role message.
+      CommunicationProtocol.ROLE + node + role
+      :returns: An encoded role message.
+
+
+   .. py:method:: build_stop_msg()
+      :staticmethod:
+
+      :returns: An encoded stop message.
+
+
+   .. py:method:: build_connect_to_msg(ip, port)
+      :staticmethod:
+
+      :param ip: The ip address to connect to.
+      :param port: The port to connect to.
+
+      :returns: An encoded connect to message.
+
+
+   .. py:method:: build_start_learning_msg(rounds, epochs)
+      :staticmethod:
+
+      :param rounds: The number of rounds to train.
+      :param epochs: The number of epochs to train.
+
+      :returns: An encoded start learning message.
+
+
+   .. py:method:: build_stop_learning_msg()
+      :staticmethod:
+
+      :returns: An encoded stop learning message.
+
+
+   .. py:method:: build_models_ready_msg(round)
+      :staticmethod:
+
+      :param round: The last round finished.
+
+      :returns: An encoded ready message.
+
+
+   .. py:method:: build_metrics_msg(node, round, loss, metric)
+      :staticmethod:
+
+      :param node: The node that sent the message.
+      :param round: The round when the metrics were calculated.
+      :param loss: The loss of the last round.
+      :param metric: The metric of the last round.
+
+      :returns: An encoded metrics message.
+
+
+   .. py:method:: build_vote_train_set_msg(node, votes)
+      :staticmethod:
+
+      :param node: The node that sent the message.
+      :param votes: Votes of the node.
+
+      :returns: An encoded vote train set message.
+
+
+   .. py:method:: build_models_aggregated_msg(nodes)
+      :staticmethod:
+
+      :param nodes: List of strings to indicate aggregated nodes.
+
+      :returns: An encoded models aggregated message.
+
+
+   .. py:method:: build_model_initialized_msg()
+      :staticmethod:
+
+      :returns: An encoded model inicialized message.
+
+
+   .. py:method:: build_connect_msg(ip, port, broadcast, force)
+      :staticmethod:
+
+      Build Handshake message.
+      Not Hashed. Special case of message.
+
+      :param ip: The ip address of the node that tries to connect.
+      :param port: The port of the node that tries to connect.
+      :param broadcast: Whether to broadcast the message.
+      :param force: Whether to force connection.
+
+      :returns: An encoded connect message.
+
+
+   .. py:method:: build_params_msg(data, block_size)
+      :staticmethod:
+
+      Build model serialized messages.
+      Not Hashed. Special case of message (binary message).
+
+      :param block_size:
+      :param data: The model parameters to send (encoded).
+
+      :returns: A list of fragments messages of the params.
+
+
+   .. py:method:: build_transfer_leadership_msg()
+      :staticmethod:
+
+      :returns: An encoded leadership transfer message.
+
+
+

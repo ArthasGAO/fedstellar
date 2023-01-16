@@ -1,0 +1,34 @@
+:py:mod:`fedstellar.learning.aggregators.fedavg`
+================================================
+
+.. py:module:: fedstellar.learning.aggregators.fedavg
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.aggregators.fedavg.FedAvg
+
+
+
+
+.. py:class:: FedAvg(node_name='unknown', config=None)
+
+   Bases: :py:obj:`fedstellar.learning.aggregators.aggregator.Aggregator`
+
+   Federated Averaging (FedAvg) [McMahan et al., 2016]
+   Paper: https://arxiv.org/abs/1602.05629
+
+   .. py:method:: aggregate(models)
+
+      Ponderated average of the models.
+
+      :param models: Dictionary with the models (node: model,num_samples).
+
+
+

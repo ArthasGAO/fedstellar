@@ -1,0 +1,38 @@
+:py:mod:`fedstellar`
+====================
+
+.. py:module:: fedstellar
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   config/index.rst
+   learning/index.rst
+   utils/index.rst
+   webserver/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   base_node/index.rst
+   command/index.rst
+   communication_protocol/index.rst
+   controller/index.rst
+   encrypter/index.rst
+   gossiper/index.rst
+   heartbeater/index.rst
+   node/index.rst
+   node_connection/index.rst
+   node_start/index.rst
+   role/index.rst
+   single_device/index.rst
+
+

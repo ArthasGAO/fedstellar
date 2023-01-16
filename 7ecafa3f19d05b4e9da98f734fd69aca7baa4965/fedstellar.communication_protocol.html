@@ -3,12 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="fedstellar.controller module" href="fedstellar.controller.html" /><link rel="prev" title="fedstellar.command module" href="fedstellar.command.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>fedstellar.communication_protocol module - fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -155,69 +156,69 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">fedstellar</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="fedstellar.html">fedstellar package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.config.html">fedstellar.config package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.config.html">fedstellar.config.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.mender.html">fedstellar.config.mender module</a></li>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/fedstellar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/mender/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.mender</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.learning.html">fedstellar.learning package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4 has-children"><a class="reference internal" href="fedstellar.learning.aggregators.html">fedstellar.learning.aggregators package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.aggregator.html">fedstellar.learning.aggregators.aggregator module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.fedavg.html">fedstellar.learning.aggregators.fedavg module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/aggregator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.aggregator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/fedavg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.fedavg</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.html">fedstellar.learning.pytorch package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.html">fedstellar.learning.pytorch.femnist package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.html">fedstellar.learning.pytorch.femnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html">fedstellar.learning.pytorch.femnist.models.cnn module</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models.cnn</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.femnist.html">fedstellar.learning.pytorch.femnist.femnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.femnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.html">fedstellar.learning.pytorch.mnist package</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.html">fedstellar.learning.pytorch.mnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.cnn.html">fedstellar.learning.pytorch.mnist.models.cnn module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.mlp.html">fedstellar.learning.pytorch.mnist.models.mlp module</a></li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.cnn</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.mlp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.mnist.html">fedstellar.learning.pytorch.mnist.mnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.mnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.pytorch.lightninglearner.html">fedstellar.learning.pytorch.lightninglearner module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.exceptions.html">fedstellar.learning.exceptions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.learner.html">fedstellar.learning.learner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/exceptions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/learner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.learner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.utils.html">fedstellar.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.env.html">fedstellar.utils.env module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html">fedstellar.utils.observer module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.topologymanager.html">fedstellar.utils.topologymanager module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/env/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.env</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/observer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.observer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/topologymanager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.topologymanager</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.webserver.html">fedstellar.webserver package</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html">fedstellar.webserver.app module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.config.html">fedstellar.webserver.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html">fedstellar.webserver.database module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/webserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/app/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.app</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/database/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.database</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html">fedstellar.base_node module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html">fedstellar.command module</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">fedstellar.communication_protocol module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html">fedstellar.controller module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html">fedstellar.encrypter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html">fedstellar.gossiper module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html">fedstellar.heartbeater module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html">fedstellar.node module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html">fedstellar.node_connection module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_start.html">fedstellar.node_start module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html">fedstellar.role module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.single_device.html">fedstellar.single_device module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/base_node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.base_node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/command/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.command</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/communication_protocol/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.communication_protocol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/controller/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.controller</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/encrypter/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.encrypter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/gossiper/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.gossiper</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/heartbeater/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.heartbeater</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_connection/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_connection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_start/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/role/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.role</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/single_device/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.single_device</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -260,7 +261,7 @@
 <span id="fedstellar-communication-protocol-module"></span><h1>fedstellar.communication_protocol module<a class="headerlink" href="#module-fedstellar.communication_protocol" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.communication_protocol.</span></span><span class="sig-name descname"><span class="pre">CommunicationProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="fedstellar.config.config.html#fedstellar.config.config.Config" title="fedstellar.config.config.Config"><span class="pre">Config</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.communication_protocol.</span></span><span class="sig-name descname"><span class="pre">CommunicationProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="fedstellar.config.config.html#fedstellar.config.config.Config" title="fedstellar.config.config.Config"><span class="pre">Config</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manages the meaning of node communication messages. Some messages contain a hash at end, it is used as a unique identifier for the message,
 this kind of messages are gossiped to the entire network.</p>
@@ -410,7 +411,7 @@ this kind of messages are gossiped to the entire network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.add_processed_messages">
-<span class="sig-name descname"><span class="pre">add_processed_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">messages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.add_processed_messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.add_processed_messages" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_processed_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">messages</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.add_processed_messages" title="Permalink to this definition">#</a></dt>
 <dd><p>Add messages to the last messages list. If ammount is higher than <code class="docutils literal notranslate"><span class="pre">AMOUNT_LAST_MESSAGES_SAVED</span></code> remove the oldest to keep the size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -421,7 +422,7 @@ this kind of messages are gossiped to the entire network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_beat_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_beat_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_beat_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_beat_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_beat_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_beat_msg" title="Permalink to this definition">#</a></dt>
 <dd><p>Static method that builds a beat message.
 CommunicationProtocol.BEAT + node
 :returns: An encoded beat message.</p>
@@ -429,7 +430,7 @@ CommunicationProtocol.BEAT + node
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_connect_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_connect_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">broadcast</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_connect_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_connect_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">broadcast</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_msg" title="Permalink to this definition">#</a></dt>
 <dd><p>Build Handshake message.
 Not Hashed. Special case of message.</p>
 <dl class="field-list simple">
@@ -449,7 +450,7 @@ Not Hashed. Special case of message.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_connect_to_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_connect_to_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_connect_to_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_to_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_connect_to_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_to_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -465,7 +466,7 @@ Not Hashed. Special case of message.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_metrics_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_metrics_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_metrics_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_metrics_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_metrics_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_metrics_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -483,7 +484,7 @@ Not Hashed. Special case of message.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_model_initialized_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_model_initialized_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_model_initialized_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_model_initialized_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_model_initialized_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_model_initialized_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An encoded model inicialized message.</p>
@@ -493,7 +494,7 @@ Not Hashed. Special case of message.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_models_aggregated_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_models_aggregated_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_models_aggregated_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_aggregated_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_models_aggregated_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_aggregated_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>nodes</strong> – List of strings to indicate aggregated nodes.</p>
@@ -506,7 +507,7 @@ Not Hashed. Special case of message.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_models_ready_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_models_ready_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_models_ready_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_ready_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_models_ready_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_ready_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>round</strong> – The last round finished.</p>
@@ -519,7 +520,7 @@ Not Hashed. Special case of message.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_params_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_params_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_params_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_params_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_params_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_params_msg" title="Permalink to this definition">#</a></dt>
 <dd><p>Build model serialized messages.
 Not Hashed. Special case of message (binary message).</p>
 <dl class="field-list simple">
@@ -537,7 +538,7 @@ Not Hashed. Special case of message (binary message).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_role_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_role_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_role_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_role_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_role_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_role_msg" title="Permalink to this definition">#</a></dt>
 <dd><p>Static method that builds a role message.
 CommunicationProtocol.ROLE + node + role
 :returns: An encoded role message.</p>
@@ -545,7 +546,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_start_learning_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_start_learning_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_start_learning_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_start_learning_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_start_learning_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_start_learning_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -561,7 +562,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_stop_learning_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_stop_learning_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_stop_learning_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_learning_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_stop_learning_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_learning_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An encoded stop learning message.</p>
@@ -571,7 +572,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_stop_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_stop_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_stop_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_stop_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An encoded stop message.</p>
@@ -581,7 +582,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_transfer_leadership_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_transfer_leadership_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_transfer_leadership_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_transfer_leadership_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_transfer_leadership_msg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_transfer_leadership_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An encoded leadership transfer message.</p>
@@ -591,7 +592,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.build_vote_train_set_msg">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_vote_train_set_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">votes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.build_vote_train_set_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_vote_train_set_msg" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_vote_train_set_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">votes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.build_vote_train_set_msg" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -607,7 +608,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.check_collapse">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_collapse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.check_collapse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.check_collapse" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_collapse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.check_collapse" title="Permalink to this definition">#</a></dt>
 <dd><p>Static method that checks if in the message there is a collapse (a binary message (it should fill all the buffer) and a non-binary message before it).</p>
 <p>Actually, collapses can only happen with <code class="docutils literal notranslate"><span class="pre">PARAMS</span></code> binary message.</p>
 <dl class="field-list simple">
@@ -622,7 +623,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_params_incomplete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.check_params_incomplete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_params_incomplete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete" title="Permalink to this definition">#</a></dt>
 <dd><p>Checks if a params message is incomplete. If the message is complete or is not a params message, it returns 0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -633,7 +634,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_hased_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.generate_hased_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_hased_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message" title="Permalink to this definition">#</a></dt>
 <dd><p>Static method that given a non-encoded message generates a hashed and encoded message.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -647,7 +648,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.process_connection">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.process_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.process_connection" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.process_connection" title="Permalink to this definition">#</a></dt>
 <dd><p>Static method that checks if the message is a valid connection message and executes the callback (accept connection).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -664,7 +665,7 @@ CommunicationProtocol.ROLE + node + role
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.communication_protocol.CommunicationProtocol.process_message">
-<span class="sig-name descname"><span class="pre">process_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/communication_protocol.html#CommunicationProtocol.process_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.process_message" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.communication_protocol.CommunicationProtocol.process_message" title="Permalink to this definition">#</a></dt>
 <dd><p>Processes messages and executes the callback associated with it (from <code class="docutils literal notranslate"><span class="pre">command_dict</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -688,26 +689,8 @@ CommunicationProtocol.ROLE + node + role
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="fedstellar.controller.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">fedstellar.controller module</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="fedstellar.command.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">fedstellar.command module</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -779,6 +762,48 @@ CommunicationProtocol.ROLE + node + role
 <li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.generate_hased_message()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.process_connection"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.process_connection()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.process_message"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.process_message()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol">CommunicationProtocol</a><ul>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.command_dict">command_dict</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.last_messages">last_messages</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.BEAT">BEAT</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.CONN">CONN</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.CONN_TO">CONN_TO</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.METRICS">METRICS</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED">MODELS_AGGREGATED</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED_CLOSE">MODELS_AGGREGATED_CLOSE</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.MODELS_READY">MODELS_READY</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.MODEL_INITIALIZED">MODEL_INITIALIZED</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.PARAMS">PARAMS</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.PARAMS_CLOSE">PARAMS_CLOSE</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.ROLE">ROLE</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.START_LEARNING">START_LEARNING</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.STOP">STOP</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.STOP_LEARNING">STOP_LEARNING</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.TRANSFER_LEADERSHIP">TRANSFER_LEADERSHIP</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET">VOTE_TRAIN_SET</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET_CLOSE">VOTE_TRAIN_SET_CLOSE</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.add_processed_messages">add_processed_messages</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_beat_msg">build_beat_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_msg">build_connect_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_connect_to_msg">build_connect_to_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_metrics_msg">build_metrics_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_model_initialized_msg">build_model_initialized_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_aggregated_msg">build_models_aggregated_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_models_ready_msg">build_models_ready_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_params_msg">build_params_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_role_msg">build_role_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_start_learning_msg">build_start_learning_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_learning_msg">build_stop_learning_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_stop_msg">build_stop_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_transfer_leadership_msg">build_transfer_leadership_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.build_vote_train_set_msg">build_vote_train_set_msg</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.check_collapse">check_collapse</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete">check_params_incomplete</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message">generate_hased_message</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.process_connection">process_connection</a></li>
+<li><a class="reference internal" href="#fedstellar.communication_protocol.CommunicationProtocol.process_message">process_message</a></li>
 </ul>
 </li>
 </ul>

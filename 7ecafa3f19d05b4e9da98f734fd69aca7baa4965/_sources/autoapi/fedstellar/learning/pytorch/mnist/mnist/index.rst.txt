@@ -1,0 +1,64 @@
+:py:mod:`fedstellar.learning.pytorch.mnist.mnist`
+=================================================
+
+.. py:module:: fedstellar.learning.pytorch.mnist.mnist
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.mnist.mnist.MNISTDataModule
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.mnist.mnist.dm
+
+
+.. py:class:: MNISTDataModule(sub_id=0, number_sub=1, batch_size=32, num_workers=4, val_percent=0.1, iid=True)
+
+   Bases: :py:obj:`pytorch_lightning.LightningDataModule`
+
+   LightningDataModule of partitioned MNIST.
+
+   :param sub_id: Subset id of partition. (0 <= sub_id < number_sub)
+   :param number_sub: Number of subsets.
+   :param batch_size: The batch size of the data.
+   :param num_workers: The number of workers of the data.
+   :param val_percent: The percentage of the validation set.
+
+   .. py:attribute:: mnist_train
+      
+
+      
+
+   .. py:attribute:: mnist_val
+      
+
+      
+
+   .. py:method:: train_dataloader()
+
+
+   .. py:method:: val_dataloader()
+
+
+   .. py:method:: test_dataloader()
+
+
+
+.. py:data:: dm
+   
+
+   
+

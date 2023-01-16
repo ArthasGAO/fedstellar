@@ -3,12 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="fedstellar.node_start module" href="fedstellar.node_start.html" /><link rel="prev" title="fedstellar.node module" href="fedstellar.node.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>fedstellar.node_connection module - fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -155,69 +156,69 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">fedstellar</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="fedstellar.html">fedstellar package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.config.html">fedstellar.config package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.config.html">fedstellar.config.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.mender.html">fedstellar.config.mender module</a></li>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/fedstellar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/mender/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.mender</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.learning.html">fedstellar.learning package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4 has-children"><a class="reference internal" href="fedstellar.learning.aggregators.html">fedstellar.learning.aggregators package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.aggregator.html">fedstellar.learning.aggregators.aggregator module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.fedavg.html">fedstellar.learning.aggregators.fedavg module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/aggregator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.aggregator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/fedavg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.fedavg</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.html">fedstellar.learning.pytorch package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.html">fedstellar.learning.pytorch.femnist package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.html">fedstellar.learning.pytorch.femnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html">fedstellar.learning.pytorch.femnist.models.cnn module</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models.cnn</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.femnist.html">fedstellar.learning.pytorch.femnist.femnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.femnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.html">fedstellar.learning.pytorch.mnist package</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.html">fedstellar.learning.pytorch.mnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.cnn.html">fedstellar.learning.pytorch.mnist.models.cnn module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.mlp.html">fedstellar.learning.pytorch.mnist.models.mlp module</a></li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.cnn</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.mlp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.mnist.html">fedstellar.learning.pytorch.mnist.mnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.mnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.pytorch.lightninglearner.html">fedstellar.learning.pytorch.lightninglearner module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.exceptions.html">fedstellar.learning.exceptions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.learner.html">fedstellar.learning.learner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/exceptions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/learner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.learner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.utils.html">fedstellar.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.env.html">fedstellar.utils.env module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html">fedstellar.utils.observer module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.topologymanager.html">fedstellar.utils.topologymanager module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/env/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.env</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/observer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.observer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/topologymanager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.topologymanager</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.webserver.html">fedstellar.webserver package</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html">fedstellar.webserver.app module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.config.html">fedstellar.webserver.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html">fedstellar.webserver.database module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/webserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/app/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.app</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/database/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.database</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html">fedstellar.base_node module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html">fedstellar.command module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html">fedstellar.communication_protocol module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html">fedstellar.controller module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html">fedstellar.encrypter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html">fedstellar.gossiper module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html">fedstellar.heartbeater module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html">fedstellar.node module</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">fedstellar.node_connection module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_start.html">fedstellar.node_start module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html">fedstellar.role module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.single_device.html">fedstellar.single_device module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/base_node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.base_node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/command/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.command</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/communication_protocol/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.communication_protocol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/controller/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.controller</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/encrypter/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.encrypter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/gossiper/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.gossiper</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/heartbeater/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.heartbeater</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_connection/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_connection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_start/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/role/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.role</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/single_device/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.single_device</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -260,7 +261,7 @@
 <span id="fedstellar-node-connection-module"></span><h1>fedstellar.node_connection module<a class="headerlink" href="#module-fedstellar.node_connection" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.node_connection.</span></span><span class="sig-name descname"><span class="pre">NodeConnection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_node_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aes_cipher</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tcp_buffer_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(None,</span> <span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="fedstellar.config.config.html#fedstellar.config.config.Config" title="fedstellar.config.config.Config"><span class="pre">Config</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.node_connection.</span></span><span class="sig-name descname"><span class="pre">NodeConnection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_node_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aes_cipher</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tcp_buffer_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(None,</span> <span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="fedstellar.config.config.html#fedstellar.config.config.Config" title="fedstellar.config.config.Config"><span class="pre">Config</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Thread</span></code>, <a class="reference internal" href="fedstellar.utils.observer.html#fedstellar.utils.observer.Observable" title="fedstellar.utils.observer.Observable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code></a></p>
 <p>This class represents a connection to a node. It is a thread, so it’s going to process all messages in a background thread using the CommunicationProtocol.</p>
 <dl class="simple">
@@ -282,7 +283,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.add_models_aggregated">
-<span class="sig-name descname"><span class="pre">add_models_aggregated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.add_models_aggregated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.add_models_aggregated" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_models_aggregated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.add_models_aggregated" title="Permalink to this definition">#</a></dt>
 <dd><p>Add the models aggregated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -293,7 +294,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.add_param_segment">
-<span class="sig-name descname"><span class="pre">add_param_segment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.add_param_segment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.add_param_segment" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_param_segment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.add_param_segment" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a segment of parameters to the buffer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -304,7 +305,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.add_processed_messages">
-<span class="sig-name descname"><span class="pre">add_processed_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.add_processed_messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.add_processed_messages" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_processed_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.add_processed_messages" title="Permalink to this definition">#</a></dt>
 <dd><p>Add to a list of communication protocol messages that have been processed. (By other nodes)
 Messages are added to avoid multiple processing of the same messages, also the non-processing
 of these messages avoid cycles in the network.</p>
@@ -317,19 +318,19 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.clear_buffer">
-<span class="sig-name descname"><span class="pre">clear_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.clear_buffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.clear_buffer" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clear_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.clear_buffer" title="Permalink to this definition">#</a></dt>
 <dd><p>Clear the params buffer.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.clear_models_aggregated">
-<span class="sig-name descname"><span class="pre">clear_models_aggregated</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.clear_models_aggregated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.clear_models_aggregated" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clear_models_aggregated</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.clear_models_aggregated" title="Permalink to this definition">#</a></dt>
 <dd><p>Clear models aggregated.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.get_addr">
-<span class="sig-name descname"><span class="pre">get_addr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.get_addr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_addr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_addr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_addr" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(ip, port) The address of the node that is connected to.</p>
@@ -339,7 +340,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.get_model_initialized">
-<span class="sig-name descname"><span class="pre">get_model_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.get_model_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_model_initialized" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_model_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_model_initialized" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The model initialized.</p>
@@ -349,7 +350,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.get_model_ready_status">
-<span class="sig-name descname"><span class="pre">get_model_ready_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.get_model_ready_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_model_ready_status" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_model_ready_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_model_ready_status" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The last ready round of the other node.</p>
@@ -359,7 +360,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.get_models_aggregated">
-<span class="sig-name descname"><span class="pre">get_models_aggregated</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.get_models_aggregated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_models_aggregated" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_models_aggregated</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_models_aggregated" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The models aggregated.</p>
@@ -369,7 +370,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.get_name">
-<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_name" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_name" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The name of the node connected to.</p>
@@ -379,7 +380,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.get_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_params" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.get_params" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The parameters buffer content.</p>
@@ -389,49 +390,49 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.notify_conn_to">
-<span class="sig-name descname"><span class="pre">notify_conn_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.notify_conn_to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_conn_to" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">notify_conn_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_conn_to" title="Permalink to this definition">#</a></dt>
 <dd><p>Notify to the parent node that <cite>CONN_TO</cite> has been received.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.notify_heartbeat">
-<span class="sig-name descname"><span class="pre">notify_heartbeat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.notify_heartbeat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_heartbeat" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">notify_heartbeat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_heartbeat" title="Permalink to this definition">#</a></dt>
 <dd><p>Notify that a heartbeat was received.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.notify_metrics">
-<span class="sig-name descname"><span class="pre">notify_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.notify_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_metrics" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">notify_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_metrics" title="Permalink to this definition">#</a></dt>
 <dd><p>Notify to the parent node that <cite>METRICS</cite> has been received.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.notify_params">
-<span class="sig-name descname"><span class="pre">notify_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.notify_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_params" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">notify_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_params" title="Permalink to this definition">#</a></dt>
 <dd><p>Notify to the parent node that <cite>PARAMS</cite> has been received.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.notify_role">
-<span class="sig-name descname"><span class="pre">notify_role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.notify_role"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_role" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">notify_role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_role" title="Permalink to this definition">#</a></dt>
 <dd><p>Notify that a heartbeat was received.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.notify_start_learning">
-<span class="sig-name descname"><span class="pre">notify_start_learning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.notify_start_learning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_start_learning" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">notify_start_learning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_start_learning" title="Permalink to this definition">#</a></dt>
 <dd><p>Notify to the parent node that <cite>START_LEARNING_EVENT</cite> has been received.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.notify_stop_learning">
-<span class="sig-name descname"><span class="pre">notify_stop_learning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.notify_stop_learning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_stop_learning" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">notify_stop_learning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_stop_learning" title="Permalink to this definition">#</a></dt>
 <dd><p>Notify to the parent node that <cite>START_LEARNING_EVENT</cite> has been received.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.notify_train_set_votes">
-<span class="sig-name descname"><span class="pre">notify_train_set_votes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">votes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.notify_train_set_votes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_train_set_votes" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">notify_train_set_votes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">votes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.notify_train_set_votes" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the last ready round of the other node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -446,13 +447,13 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.run" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.run" title="Permalink to this definition">#</a></dt>
 <dd><p>NodeConnection loop. Receive and process messages.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.send">
-<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.send"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.send" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.send" title="Permalink to this definition">#</a></dt>
 <dd><p>Tries to send a message to the other node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -466,7 +467,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.set_model_initialized">
-<span class="sig-name descname"><span class="pre">set_model_initialized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.set_model_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.set_model_initialized" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_model_initialized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.set_model_initialized" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the model initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -477,7 +478,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.set_model_ready_status">
-<span class="sig-name descname"><span class="pre">set_model_ready_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.set_model_ready_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.set_model_ready_status" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_model_ready_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.set_model_ready_status" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the last ready round of the other node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -488,7 +489,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.set_transfer_leadership">
-<span class="sig-name descname"><span class="pre">set_transfer_leadership</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.set_transfer_leadership"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.set_transfer_leadership" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_transfer_leadership</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.set_transfer_leadership" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the role of the node when the transfer leadership is received.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -499,7 +500,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.start" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.start" title="Permalink to this definition">#</a></dt>
 <dd><p>Start the connection. It will start the connection thread, this thread is receiving messages and processing them.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -510,7 +511,7 @@ of these messages avoid cycles in the network.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.node_connection.NodeConnection.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/node_connection.html#NodeConnection.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.stop" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.node_connection.NodeConnection.stop" title="Permalink to this definition">#</a></dt>
 <dd><p>Stop the connection. Stops the main loop and closes the socket.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -528,26 +529,8 @@ of these messages avoid cycles in the network.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="fedstellar.node_start.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">fedstellar.node_start module</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="fedstellar.node.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">fedstellar.node module</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -606,6 +589,35 @@ of these messages avoid cycles in the network.</p>
 <li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.set_transfer_leadership"><code class="docutils literal notranslate"><span class="pre">NodeConnection.set_transfer_leadership()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.start"><code class="docutils literal notranslate"><span class="pre">NodeConnection.start()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.stop"><code class="docutils literal notranslate"><span class="pre">NodeConnection.stop()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection">NodeConnection</a><ul>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.add_models_aggregated">add_models_aggregated</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.add_param_segment">add_param_segment</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.add_processed_messages">add_processed_messages</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.clear_buffer">clear_buffer</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.clear_models_aggregated">clear_models_aggregated</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.get_addr">get_addr</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.get_model_initialized">get_model_initialized</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.get_model_ready_status">get_model_ready_status</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.get_models_aggregated">get_models_aggregated</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.get_name">get_name</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.get_params">get_params</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.notify_conn_to">notify_conn_to</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.notify_heartbeat">notify_heartbeat</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.notify_metrics">notify_metrics</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.notify_params">notify_params</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.notify_role">notify_role</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.notify_start_learning">notify_start_learning</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.notify_stop_learning">notify_stop_learning</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.notify_train_set_votes">notify_train_set_votes</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.run">run</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.send">send</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.set_model_initialized">set_model_initialized</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.set_model_ready_status">set_model_ready_status</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.set_transfer_leadership">set_transfer_leadership</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.start">start</a></li>
+<li><a class="reference internal" href="#fedstellar.node_connection.NodeConnection.stop">stop</a></li>
 </ul>
 </li>
 </ul>

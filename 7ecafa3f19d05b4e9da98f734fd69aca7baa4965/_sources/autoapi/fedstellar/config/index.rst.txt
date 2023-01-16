@@ -1,0 +1,16 @@
+:py:mod:`fedstellar.config`
+===========================
+
+.. py:module:: fedstellar.config
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   config/index.rst
+   mender/index.rst
+
+

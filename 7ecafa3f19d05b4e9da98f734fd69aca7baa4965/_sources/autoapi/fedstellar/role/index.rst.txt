@@ -1,0 +1,49 @@
+:py:mod:`fedstellar.role`
+=========================
+
+.. py:module:: fedstellar.role
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.role.Role
+
+
+
+
+.. py:class:: Role
+
+   This class defines the participant roles of the framework.
+
+   .. py:attribute:: TRAINER
+      :annotation: = trainer
+
+      Aggregator role:
+
+   .. py:attribute:: AGGREGATOR
+      :annotation: = aggregator
+
+      Proxy role:
+
+   .. py:attribute:: PROXY
+      :annotation: = proxy
+
+      Idle role:
+
+   .. py:attribute:: IDLE
+      :annotation: = idle
+
+      Server role:
+
+   .. py:attribute:: SERVER
+      :annotation: = server
+
+      
+
+

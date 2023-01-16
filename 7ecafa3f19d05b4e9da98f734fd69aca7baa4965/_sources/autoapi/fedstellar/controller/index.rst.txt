@@ -1,0 +1,89 @@
+:py:mod:`fedstellar.controller`
+===============================
+
+.. py:module:: fedstellar.controller
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.controller.Controller
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.controller.signal_handler
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.controller.log_console_format
+   fedstellar.controller.console_handler
+
+
+.. py:data:: log_console_format
+   :annotation: = [0;35m[%(levelname)s] - %(asctime)s - Controller -[0m %(message)s
+
+   
+
+.. py:data:: console_handler
+   
+
+   
+
+.. py:function:: signal_handler(sig, frame)
+
+
+.. py:class:: Controller(args)
+
+   Controller class that manages the nodes
+
+   .. py:method:: start()
+
+      Start the controller
+
+
+   .. py:method:: run_webserver()
+
+
+   .. py:method:: init()
+
+
+   .. py:method:: killports(term='python')
+      :staticmethod:
+
+
+   .. py:method:: killport(port)
+      :staticmethod:
+
+
+   .. py:method:: load_configurations_and_start_nodes()
+
+
+   .. py:method:: create_topology(matrix=None)
+
+
+   .. py:method:: start_node(idx)
+
+
+   .. py:method:: start_nodes(idx_start_node)
+
+
+   .. py:method:: remove_config_files()
+      :classmethod:
+
+
+

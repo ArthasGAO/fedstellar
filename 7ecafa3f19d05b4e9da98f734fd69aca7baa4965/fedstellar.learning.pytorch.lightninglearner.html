@@ -3,12 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="fedstellar.learning.exceptions module" href="fedstellar.learning.exceptions.html" /><link rel="prev" title="fedstellar.learning.pytorch.mnist.mnist module" href="fedstellar.learning.pytorch.mnist.mnist.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>fedstellar.learning.pytorch.lightninglearner module - fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -155,69 +156,69 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">fedstellar</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="fedstellar.html">fedstellar package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.config.html">fedstellar.config package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.config.html">fedstellar.config.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.mender.html">fedstellar.config.mender module</a></li>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/fedstellar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/config/mender/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.mender</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 current has-children"><a class="reference internal" href="fedstellar.learning.html">fedstellar.learning package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4 has-children"><a class="reference internal" href="fedstellar.learning.aggregators.html">fedstellar.learning.aggregators package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.aggregator.html">fedstellar.learning.aggregators.aggregator module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="fedstellar.learning.aggregators.fedavg.html">fedstellar.learning.aggregators.fedavg module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/aggregator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.aggregator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/aggregators/fedavg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.fedavg</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4 current has-children"><a class="reference internal" href="fedstellar.learning.pytorch.html">fedstellar.learning.pytorch package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.html">fedstellar.learning.pytorch.femnist package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.html">fedstellar.learning.pytorch.femnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html">fedstellar.learning.pytorch.femnist.models.cnn module</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models.cnn</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.femnist.html">fedstellar.learning.pytorch.femnist.femnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/femnist/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.femnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.html">fedstellar.learning.pytorch.mnist package</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.html">fedstellar.learning.pytorch.mnist.models package</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.cnn.html">fedstellar.learning.pytorch.mnist.models.cnn module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.models.mlp.html">fedstellar.learning.pytorch.mnist.models.mlp module</a></li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.cnn</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.mlp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="fedstellar.learning.pytorch.mnist.mnist.html">fedstellar.learning.pytorch.mnist.mnist module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/mnist/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.mnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5 current current-page"><a class="current reference internal" href="#">fedstellar.learning.pytorch.lightninglearner module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.exceptions.html">fedstellar.learning.exceptions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.learner.html">fedstellar.learning.learner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/exceptions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/learning/learner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.learner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.utils.html">fedstellar.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.env.html">fedstellar.utils.env module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html">fedstellar.utils.observer module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.topologymanager.html">fedstellar.utils.topologymanager module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/env/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.env</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/observer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.observer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/utils/topologymanager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.topologymanager</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="fedstellar.webserver.html">fedstellar.webserver package</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html">fedstellar.webserver.app module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.config.html">fedstellar.webserver.config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html">fedstellar.webserver.database module</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/fedstellar/webserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/app/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.app</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/fedstellar/webserver/database/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.database</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html">fedstellar.base_node module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html">fedstellar.command module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html">fedstellar.communication_protocol module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html">fedstellar.controller module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html">fedstellar.encrypter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html">fedstellar.gossiper module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html">fedstellar.heartbeater module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html">fedstellar.node module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html">fedstellar.node_connection module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_start.html">fedstellar.node_start module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html">fedstellar.role module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.single_device.html">fedstellar.single_device module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/base_node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.base_node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/command/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.command</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/communication_protocol/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.communication_protocol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/controller/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.controller</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/encrypter/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.encrypter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/gossiper/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.gossiper</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/heartbeater/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.heartbeater</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_connection/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_connection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/node_start/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/role/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.role</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/fedstellar/single_device/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.single_device</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -260,7 +261,7 @@
 <span id="fedstellar-learning-pytorch-lightninglearner-module"></span><h1>fedstellar.learning.pytorch.lightninglearner module<a class="headerlink" href="#module-fedstellar.learning.pytorch.lightninglearner" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.lightninglearner.</span></span><span class="sig-name descname"><span class="pre">LightningLearner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.lightninglearner.</span></span><span class="sig-name descname"><span class="pre">LightningLearner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner" title="fedstellar.learning.learner.NodeLearner"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeLearner</span></code></a></p>
 <p>Learner with PyTorch Lightning.</p>
 <dl class="simple">
@@ -272,7 +273,7 @@ logger: Logger.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.check_parameters">
-<span class="sig-name descname"><span class="pre">check_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.check_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.check_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">check_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.check_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if the parameters are compatible with the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -286,19 +287,19 @@ logger: Logger.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.close" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.close" title="Permalink to this definition">#</a></dt>
 <dd><p>Close the learner.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.create_trainer">
-<span class="sig-name descname"><span class="pre">create_trainer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.create_trainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.create_trainer" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_trainer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.create_trainer" title="Permalink to this definition">#</a></dt>
 <dd><p>Create the trainer.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.decode_parameters">
-<span class="sig-name descname"><span class="pre">decode_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.decode_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.decode_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">decode_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.decode_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Decode the parameters of the model. (binary)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -315,7 +316,7 @@ logger: Logger.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.encode_parameters">
-<span class="sig-name descname"><span class="pre">encode_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.encode_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.encode_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">encode_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.encode_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Encode the parameters of the model. (binary)
 If params are not provided, self parameters are encoded.</p>
 <dl class="field-list simple">
@@ -334,25 +335,25 @@ If params are not provided, self parameters are encoded.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.evaluate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.evaluate" title="Permalink to this definition">#</a></dt>
 <dd><p>Evaluate the model with actual parameters.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.finalize_round">
-<span class="sig-name descname"><span class="pre">finalize_round</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.finalize_round"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.finalize_round" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">finalize_round</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.finalize_round" title="Permalink to this definition">#</a></dt>
 <dd><p>Determine the end of the round.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.fit" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.fit" title="Permalink to this definition">#</a></dt>
 <dd><p>Fit the model.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_num_samples">
-<span class="sig-name descname"><span class="pre">get_num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.get_num_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_num_samples" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_num_samples" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the number of samples of the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -363,7 +364,7 @@ If params are not provided, self parameters are encoded.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_parameters">
-<span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.get_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the parameters of the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -374,25 +375,25 @@ If params are not provided, self parameters are encoded.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.init">
-<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.init" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.init" title="Permalink to this definition">#</a></dt>
 <dd><p>Init the learner.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.interrupt_fit">
-<span class="sig-name descname"><span class="pre">interrupt_fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.interrupt_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.interrupt_fit" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">interrupt_fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.interrupt_fit" title="Permalink to this definition">#</a></dt>
 <dd><p>Interrupt the fit process.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.log_validation_metrics">
-<span class="sig-name descname"><span class="pre">log_validation_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.log_validation_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.log_validation_metrics" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_validation_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.log_validation_metrics" title="Permalink to this definition">#</a></dt>
 <dd><p>Log the validation metrics. It also can be used to log the other node metrics.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_data">
-<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_data" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the data of the learner. It is used to fit the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -403,7 +404,7 @@ If params are not provided, self parameters are encoded.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs">
-<span class="sig-name descname"><span class="pre">set_epochs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.set_epochs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_epochs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the number of epochs of the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -414,7 +415,7 @@ If params are not provided, self parameters are encoded.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model">
-<span class="sig-name descname"><span class="pre">set_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.set_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the model of the learner. (not wheights)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -428,7 +429,7 @@ If params are not provided, self parameters are encoded.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters">
-<span class="sig-name descname"><span class="pre">set_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fedstellar/learning/pytorch/lightninglearner.html#LightningLearner.set_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the parameters of the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -449,26 +450,8 @@ If params are not provided, self parameters are encoded.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="fedstellar.learning.exceptions.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">fedstellar.learning.exceptions module</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="fedstellar.learning.pytorch.mnist.mnist.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">fedstellar.learning.pytorch.mnist.mnist module</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -518,6 +501,26 @@ If params are not provided, self parameters are encoded.</p>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs"><code class="docutils literal notranslate"><span class="pre">LightningLearner.set_epochs()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model"><code class="docutils literal notranslate"><span class="pre">LightningLearner.set_model()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters"><code class="docutils literal notranslate"><span class="pre">LightningLearner.set_parameters()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner">LightningLearner</a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.check_parameters">check_parameters</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.close">close</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.create_trainer">create_trainer</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.decode_parameters">decode_parameters</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.encode_parameters">encode_parameters</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.evaluate">evaluate</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.finalize_round">finalize_round</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.fit">fit</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_num_samples">get_num_samples</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_parameters">get_parameters</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.init">init</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.interrupt_fit">interrupt_fit</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.log_validation_metrics">log_validation_metrics</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_data">set_data</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs">set_epochs</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model">set_model</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters">set_parameters</a></li>
 </ul>
 </li>
 </ul>

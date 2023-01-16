@@ -1,0 +1,137 @@
+:py:mod:`fedstellar.node`
+=========================
+
+.. py:module:: fedstellar.node
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.node.Node
+
+
+
+
+.. py:class:: Node(idx, experiment_name, model, data, hostdemo=None, host='127.0.0.1', port=None, config=Config, learner=LightningLearner, encrypt=False)
+
+   Bases: :py:obj:`fedstellar.base_node.BaseNode`
+
+   Class based on a base node that allows **FEDERATED LEARNING**.
+
+   Metrics will be saved under a folder with the name of the node.
+
+   :param model: Model to be learned. Careful, model should be compatible with data and the learner.
+   :param data: Dataset to be used in the learning process. Careful, model should be compatible with data and the learner.
+   :param host: Host where the node will be listening.
+   :type host: str
+   :param port: Port where the node will be listening.
+   :type port: int
+   :param learner: Learner to be used in the learning process. Default: LightningLearner.
+   :type learner: NodeLearner
+   :param simulation: If True, the node will be simulated. Default: True.
+   :type simulation: bool
+   :param encrypt: If True, node will encrypt the communications. Default: False.
+   :type encrypt: bool
+
+   .. attribute:: round
+
+      Round of the learning process.
+
+      :type: int
+
+   .. attribute:: totalrounds
+
+      Total number of rounds of the learning process.
+
+      :type: int
+
+   .. attribute:: learner
+
+      Learner to be used in the learning process.
+
+      :type: NodeLearner
+
+   .. attribute:: aggregator
+
+      Aggregator to be used in the learning process.
+
+      :type: Aggregator
+
+   .. py:method:: connect_to(h, p, full=False, force=False)
+
+      Connects a node to another. If learning is running, connections are not allowed (it should be forced).
+      Careful, if connection is forced with a new node, it will produce timeouts in the network.
+
+      :param h: The host of the node.
+      :type h: str
+      :param p: The port of the node.
+      :type p: int
+      :param full: If True, the node will be connected to the entire network.
+      :type full: bool
+      :param force: If True, the node will be connected even though it should not be.
+      :type force: bool
+
+      :returns: The node that has been connected to.
+      :rtype: node
+
+
+   .. py:method:: stop()
+
+      Stop the node and the learning if it is running.
+
+
+   .. py:method:: set_data(data)
+
+      Set the data to be used in the learning process (learner).
+
+      :param data: Dataset to be used in the learning process.
+
+
+   .. py:method:: set_model(model)
+
+      Set the model to use.
+      Carefully, model, not only weights.
+
+      :param model: Model to be learned.
+
+
+   .. py:method:: set_start_learning(rounds=1, epochs=1)
+
+      Start the learning process in the entire network.
+      If the node is not the "starting" node, it will wait for the starting node to start the learning process.
+
+      NOTE:
+      In first instance, this functionality only is used in one node of the network (defined by the controller).
+      After that, the other participants can start this functionality when they receive Events.START_LEARNING_EVENT
+
+      :param rounds: Number of rounds of the learning process.
+      :param epochs: Number of epochs of the learning process.
+
+
+   .. py:method:: set_stop_learning()
+
+      Stop the learning process in the entire network.
+
+
+   .. py:method:: add_model(m)
+
+      Add a model. If the model isn't inicializated, the recieved model is used for it. Otherwise, the model is aggregated using the **aggregator**.
+
+      :param m: Encoded model. Contains model and their contributors
+
+
+   .. py:method:: update(event, obj)
+
+      Observer update method. Used to handle events that can occur in the different components and connections of the node.
+
+      :param event: Event that has occurred.
+      :type event: Events
+      :param obj: Object that has been updated.
+
+
+

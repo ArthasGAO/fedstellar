@@ -1,0 +1,16 @@
+:py:mod:`fedstellar.learning.aggregators`
+=========================================
+
+.. py:module:: fedstellar.learning.aggregators
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   aggregator/index.rst
+   fedavg/index.rst
+
+

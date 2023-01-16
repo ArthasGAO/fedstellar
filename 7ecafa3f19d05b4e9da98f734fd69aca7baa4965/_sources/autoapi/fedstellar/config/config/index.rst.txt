@@ -1,0 +1,67 @@
+:py:mod:`fedstellar.config.config`
+==================================
+
+.. py:module:: fedstellar.config.config
+
+.. autoapi-nested-parse::
+
+   Module to define constants for the DFL system.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.config.config.Config
+
+
+
+
+.. py:class:: Config(entity, topology_config_file=None, participant_config_file=None)
+
+   Class to define global config for the DFL system.
+
+   .. py:attribute:: topology
+      
+
+      
+
+   .. py:attribute:: participant
+      
+
+      
+
+   .. py:attribute:: participants
+      :annotation: = []
+
+      
+
+   .. py:attribute:: participants_path
+      :annotation: = []
+
+      
+
+   .. py:method:: get_topology_config()
+
+
+   .. py:method:: get_participant_config()
+
+
+   .. py:method:: set_participant_config(participant_config)
+
+
+   .. py:method:: set_topology_config(topology_config_file)
+
+
+   .. py:method:: add_participant_config(participant_config)
+
+
+   .. py:method:: set_participants_config(participants_config)
+
+
+

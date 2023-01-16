@@ -1,0 +1,139 @@
+:py:mod:`fedstellar.encrypter`
+==============================
+
+.. py:module:: fedstellar.encrypter
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.encrypter.Encrypter
+   fedstellar.encrypter.RSACipher
+   fedstellar.encrypter.AESCipher
+
+
+
+
+.. py:class:: Encrypter
+
+   Class with methods to encrypt and decrypt messages.
+
+   .. py:method:: encrypt(message)
+
+
+   .. py:method:: decrypt(message)
+
+
+   .. py:method:: get_key()
+
+
+
+.. py:class:: RSACipher
+
+   Bases: :py:obj:`Encrypter`
+
+   Class with methods to encrypt and decrypt messages using RSA asymetric encryption.
+
+   .. py:method:: encrypt(message)
+
+      Encrypts a message using RSA. Message is encrypted using the public key of the pair (the other node key).
+
+      :param message: (bytes) The message to encrypt.
+
+      :returns: (bytes) The encrypted message.
+      :rtype: message
+
+
+   .. py:method:: decrypt(message)
+
+      Decrypts a message using RSA. Message is decripted using the private key.
+
+      :param message: (bytes) The message to decrypt.
+
+      :returns: (bytes) The decrypted message.
+      :rtype: message
+
+
+   .. py:method:: load_pair_public_key(key)
+
+      Loads the public key of the pair (other node).
+
+      :param key: The key to use to decrypt the message encoded at base64.
+
+
+   .. py:method:: get_key()
+
+      Get the serialized RSA public key.
+
+      :returns: The serialized key encoded at base64.
+      :rtype: key
+
+
+
+.. py:class:: AESCipher(key=None)
+
+   Bases: :py:obj:`Encrypter`
+
+   Class with methods to encrypt and decrypt messages using AES symetric encryption.
+
+   .. py:method:: encrypt(message)
+
+      Encrypts a message using AES. Message is encrypted using the shared key.
+      Keep in mind that AES uses a block cipher, so the message sould be filled with padding.
+
+      :param message: (str) The message to encrypt.
+
+      :returns: (str) The encrypted message.
+      :rtype: message
+
+
+   .. py:method:: decrypt(message)
+
+      Decrypts a message using AES. Message is decripted using the shared key.
+      Keep in mind that AES uses a block cipher, so the message can be a filled message with padding.
+
+      :param message: (bytes) The message to decrypt.
+
+      :returns: (bytes) The decrypted message.
+      :rtype: message
+
+
+   .. py:method:: add_padding(msg)
+
+      Add padding to an encoded UTF-8 text. Adds " " charactets (1 byte) to fill the rest with the block.
+      Careful: in this case, the filling content doesn't affect to the meaning of messages.
+
+      :param msg: (bytes) The encoded text.
+
+      :returns: (bytes) The encoded text with padding.
+      :rtype: msg
+
+
+   .. py:method:: get_key()
+
+      Get the shared RSA key.
+
+      :returns: The shared key.
+      :rtype: key
+
+
+   .. py:method:: get_block_size()
+      :staticmethod:
+
+      :returns: (int) The length of the block in bytes.
+      :rtype: block_size
+
+
+   .. py:method:: key_len()
+      :staticmethod:
+
+      :returns: (int) The length of the key in bytes.
+      :rtype: key_len
+
+
+

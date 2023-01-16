@@ -1,0 +1,177 @@
+:py:mod:`fedstellar.command`
+============================
+
+.. py:module:: fedstellar.command
+
+.. autoapi-nested-parse::
+
+   Module that implements commands of the command pattern.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.command.Command
+   fedstellar.command.Beat_cmd
+   fedstellar.command.Role_cmd
+   fedstellar.command.Stop_cmd
+   fedstellar.command.Conn_to_cmd
+   fedstellar.command.Start_learning_cmd
+   fedstellar.command.Stop_learning_cmd
+   fedstellar.command.Params_cmd
+   fedstellar.command.Models_Ready_cmd
+   fedstellar.command.Metrics_cmd
+   fedstellar.command.Vote_train_set_cmd
+   fedstellar.command.Models_aggregated_cmd
+   fedstellar.command.Model_initialized_cmd
+   fedstellar.command.Transfer_leadership_cmd
+
+
+
+
+.. py:class:: Command(node_connection)
+
+   Class that represents a command.
+
+   :param node_connection: The node connection that is going to execute the command.
+
+   .. py:method:: execute(*args)
+
+
+
+.. py:class:: Beat_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **beat** message.
+
+   .. py:method:: execute(node1)
+
+
+
+.. py:class:: Role_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **beat** message.
+
+   .. py:method:: execute(node, role)
+
+
+
+.. py:class:: Stop_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that it should be executed as a response to a **stop** message.
+
+   .. py:method:: execute()
+
+
+
+.. py:class:: Conn_to_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **conn_to** message.
+
+   .. py:method:: execute(h, p)
+
+
+
+.. py:class:: Start_learning_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **start_learning** message.
+
+   .. py:method:: execute(rounds, epochs)
+
+
+
+.. py:class:: Stop_learning_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **stop_learning** message.
+
+   .. py:method:: execute()
+
+
+
+.. py:class:: Params_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **params** message.
+
+   .. py:method:: execute(msg, done)
+
+
+
+.. py:class:: Models_Ready_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **ready** message.
+
+   .. py:method:: execute(round)
+
+
+
+.. py:class:: Metrics_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **metrics** message.
+
+   .. py:method:: execute(node, round, loss, metric)
+
+
+
+.. py:class:: Vote_train_set_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **vote** message.
+
+   .. py:method:: execute(node, votes)
+
+
+
+.. py:class:: Models_aggregated_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **models_aggregated** message.
+
+   .. py:method:: execute(node_list)
+
+
+
+.. py:class:: Model_initialized_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **model_initialized** message.
+
+   .. py:method:: execute()
+
+
+
+.. py:class:: Transfer_leadership_cmd(node_connection)
+
+   Bases: :py:obj:`Command`
+
+   Command that should be executed as a response to a **transfer_leadership** message.
+
+   .. py:method:: execute()
+
+
+

@@ -1,0 +1,192 @@
+:py:mod:`fedstellar.node_connection`
+====================================
+
+.. py:module:: fedstellar.node_connection
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.node_connection.NodeConnection
+
+
+
+
+.. py:class:: NodeConnection(parent_node_name, s, addr, aes_cipher, tcp_buffer_size=(None, None), config = None)
+
+   Bases: :py:obj:`threading.Thread`, :py:obj:`fedstellar.utils.observer.Observable`
+
+   This class represents a connection to a node. It is a thread, so it's going to process all messages in a background thread using the CommunicationProtocol.
+
+   The NodeConnection can receive many messages in a single recv and exists 2 kinds of messages:
+       - Binary messages (models)
+       - Text messages (commands)
+
+   Be careful, if the connection is broken, it will be closed. If the user wants to reconnect, he/she should create a new connection.
+
+   :param parent_node: The parent node of this connection.
+   :param s: The socket of the connection.
+   :param addr: The address of the node that is connected to.
+
+   .. py:method:: get_addr()
+
+      :returns: (ip, port) The address of the node that is connected to.
+
+
+   .. py:method:: get_name()
+
+      :returns: The name of the node connected to.
+
+
+   .. py:method:: start(force=False)
+
+      Start the connection. It will start the connection thread, this thread is receiving messages and processing them.
+
+      :param force: Determine if connection is going to keep alive even if it should not.
+
+
+   .. py:method:: run()
+
+      NodeConnection loop. Receive and process messages.
+
+
+   .. py:method:: stop(local=False)
+
+      Stop the connection. Stops the main loop and closes the socket.
+
+      :param local: If true, the connection will be closed without notifying the other node.
+
+
+   .. py:method:: add_processed_messages(msgs)
+
+      Add to a list of communication protocol messages that have been processed. (By other nodes)
+      Messages are added to avoid multiple processing of the same messages, also the non-processing
+      of these messages avoid cycles in the network.
+
+      :param msgs: The list of messages that have been processed.
+
+
+   .. py:method:: set_model_ready_status(round)
+
+      Set the last ready round of the other node.
+
+      :param round: The last ready round of the other node.
+
+
+   .. py:method:: get_model_ready_status()
+
+      :returns: The last ready round of the other node.
+
+
+   .. py:method:: set_model_initialized(value)
+
+      Set the model initialized.
+
+      :param value: True if the model is initialized, false otherwise.
+
+
+   .. py:method:: get_model_initialized()
+
+      :returns: The model initialized.
+
+
+   .. py:method:: add_models_aggregated(models)
+
+      Add the models aggregated.
+
+      :param models: Models aggregated.
+
+
+   .. py:method:: clear_models_aggregated()
+
+      Clear models aggregated.
+
+
+   .. py:method:: get_models_aggregated()
+
+      :returns: The models aggregated.
+
+
+   .. py:method:: add_param_segment(data)
+
+      Add a segment of parameters to the buffer.
+
+      :param data: The segment of parameters.
+
+
+   .. py:method:: get_params()
+
+      :returns: The parameters buffer content.
+
+
+   .. py:method:: clear_buffer()
+
+      Clear the params buffer.
+
+
+   .. py:method:: send(data)
+
+      Tries to send a message to the other node.
+
+      :param data: The message to send.
+
+      :returns: True if the message was sent, False otherwise.
+
+
+   .. py:method:: notify_heartbeat(node)
+
+      Notify that a heartbeat was received.
+
+
+   .. py:method:: notify_role(node, role)
+
+      Notify that a heartbeat was received.
+
+
+   .. py:method:: notify_conn_to(h, p)
+
+      Notify to the parent node that `CONN_TO` has been received.
+
+
+   .. py:method:: notify_start_learning(r, e)
+
+      Notify to the parent node that `START_LEARNING_EVENT` has been received.
+
+
+   .. py:method:: notify_stop_learning(cmd)
+
+      Notify to the parent node that `START_LEARNING_EVENT` has been received.
+
+
+   .. py:method:: notify_params(params)
+
+      Notify to the parent node that `PARAMS` has been received.
+
+
+   .. py:method:: notify_metrics(node, round, loss, metric)
+
+      Notify to the parent node that `METRICS` has been received.
+
+
+   .. py:method:: notify_train_set_votes(node, votes)
+
+      Set the last ready round of the other node.
+
+      :param votes:
+      :param node:
+      :param round: The last ready round of the other node.
+
+
+   .. py:method:: set_transfer_leadership(value)
+
+      Set the role of the node when the transfer leadership is received.
+
+      :param value: The role of the node when the transfer leadership is received.
+
+
+

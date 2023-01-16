@@ -1,0 +1,53 @@
+:py:mod:`fedstellar.gossiper`
+=============================
+
+.. py:module:: fedstellar.gossiper
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.gossiper.Gossiper
+
+
+
+
+.. py:class:: Gossiper(node_name, neighbors, config)
+
+   Bases: :py:obj:`threading.Thread`, :py:obj:`fedstellar.utils.observer.Observable`
+
+   Thread based gossiper. It gossips messages from list of pending messages. ``GOSSIP_MESSAGES_PER_ROUND`` are sended per iteration (``GOSSIP_FREC`` times per second).
+
+   Communicates with node via observer pattern.
+
+   :param nodo_padre: Name of the parent node.
+   :type nodo_padre: str
+   :param neighbors: List of neighbors.
+   :type neighbors: list
+
+   .. py:method:: add_messages(msgs, node)
+
+      Add messages to the list of pending messages.
+
+      :param msgs: List of messages to add.
+      :type msgs: list
+      :param node: Node that sent the messages.
+      :type node: Node
+
+
+   .. py:method:: run()
+
+      Gossiper Main Loop. Sends `GOSSIP_MODEL_SENDS_BY_ROUND` messages ``GOSSIP_FREC`` times per second.
+
+
+   .. py:method:: stop()
+
+      Stop the gossiper.
+
+
+

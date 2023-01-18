@@ -157,6 +157,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="api/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="api/fedstellar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="api/fedstellar/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -280,11 +281,6 @@
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="fedstellar.webserver.database.get_active_scenario">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_active_scenario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_active_scenario" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.get_all_scenarios">
 <span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_all_scenarios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'start_time'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_all_scenarios" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
@@ -292,6 +288,11 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.get_image_file_name">
 <span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_image_file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_image_file_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fedstellar.webserver.database.get_running_scenario">
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_running_scenario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_running_scenario" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -317,6 +318,11 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.list_nodes">
 <span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">list_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'idx'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.list_nodes" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fedstellar.webserver.database.list_nodes_by_scenario_name">
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">list_nodes_by_scenario_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.list_nodes_by_scenario_name" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -357,7 +363,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.scenario_update_record">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">scenario_update_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.scenario_update_record" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">scenario_update_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.scenario_update_record" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -419,14 +425,15 @@
 <li><a class="reference internal" href="#fedstellar.webserver.database.delete_image_from_db"><code class="docutils literal notranslate"><span class="pre">delete_image_from_db()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.delete_note_from_db"><code class="docutils literal notranslate"><span class="pre">delete_note_from_db()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.delete_user_from_db"><code class="docutils literal notranslate"><span class="pre">delete_user_from_db()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.webserver.database.get_active_scenario"><code class="docutils literal notranslate"><span class="pre">get_active_scenario()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_all_scenarios"><code class="docutils literal notranslate"><span class="pre">get_all_scenarios()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_image_file_name"><code class="docutils literal notranslate"><span class="pre">get_image_file_name()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.get_running_scenario"><code class="docutils literal notranslate"><span class="pre">get_running_scenario()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_scenario_by_name"><code class="docutils literal notranslate"><span class="pre">get_scenario_by_name()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_user_info"><code class="docutils literal notranslate"><span class="pre">get_user_info()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.image_upload_record"><code class="docutils literal notranslate"><span class="pre">image_upload_record()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.list_images_for_user"><code class="docutils literal notranslate"><span class="pre">list_images_for_user()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.list_nodes"><code class="docutils literal notranslate"><span class="pre">list_nodes()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.list_nodes_by_scenario_name"><code class="docutils literal notranslate"><span class="pre">list_nodes_by_scenario_name()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.list_users"><code class="docutils literal notranslate"><span class="pre">list_users()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.match_user_id_with_image_uid"><code class="docutils literal notranslate"><span class="pre">match_user_id_with_image_uid()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.match_user_id_with_note_id"><code class="docutils literal notranslate"><span class="pre">match_user_id_with_note_id()</span></code></a></li>
@@ -442,14 +449,15 @@
 <li><a class="reference internal" href="#fedstellar.webserver.database.delete_image_from_db">delete_image_from_db</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.delete_note_from_db">delete_note_from_db</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.delete_user_from_db">delete_user_from_db</a></li>
-<li><a class="reference internal" href="#fedstellar.webserver.database.get_active_scenario">get_active_scenario</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_all_scenarios">get_all_scenarios</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_image_file_name">get_image_file_name</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.get_running_scenario">get_running_scenario</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_scenario_by_name">get_scenario_by_name</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_user_info">get_user_info</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.image_upload_record">image_upload_record</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.list_images_for_user">list_images_for_user</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.list_nodes">list_nodes</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.list_nodes_by_scenario_name">list_nodes_by_scenario_name</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.list_users">list_users</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.match_user_id_with_image_uid">match_user_id_with_image_uid</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.match_user_id_with_note_id">match_user_id_with_note_id</a></li>

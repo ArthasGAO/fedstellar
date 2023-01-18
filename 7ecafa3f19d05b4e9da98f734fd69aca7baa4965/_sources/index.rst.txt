@@ -44,6 +44,7 @@ For any questions, please contact Enrique Tomás Martínez Beltrán (enriquetoma
    :maxdepth: 2
    :caption: Contents:
 
+   installation
    autoapi/index
 
 * :ref:`genindex`

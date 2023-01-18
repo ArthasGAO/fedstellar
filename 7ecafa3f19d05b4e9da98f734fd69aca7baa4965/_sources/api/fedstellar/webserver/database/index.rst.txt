@@ -28,12 +28,13 @@ Functions
    fedstellar.webserver.database.match_user_id_with_image_uid
    fedstellar.webserver.database.delete_image_from_db
    fedstellar.webserver.database.list_nodes
+   fedstellar.webserver.database.list_nodes_by_scenario_name
    fedstellar.webserver.database.update_node_record
    fedstellar.webserver.database.remove_all_nodes
    fedstellar.webserver.database.get_all_scenarios
    fedstellar.webserver.database.scenario_update_record
    fedstellar.webserver.database.scenario_set_all_status_to_finished
-   fedstellar.webserver.database.get_active_scenario
+   fedstellar.webserver.database.get_running_scenario
    fedstellar.webserver.database.get_scenario_by_name
 
 
@@ -120,6 +121,9 @@ Attributes
 .. py:function:: list_nodes(sort_by='idx')
 
 
+.. py:function:: list_nodes_by_scenario_name(scenario_name)
+
+
 .. py:function:: update_node_record(node_uid, idx, ip, port, role, neighbors, latitude, longitude, timestamp, federation, scenario)
 
 
@@ -129,13 +133,13 @@ Attributes
 .. py:function:: get_all_scenarios(sort_by='start_time')
 
 
-.. py:function:: scenario_update_record(scenario_name, start_time, end_time, description, status)
+.. py:function:: scenario_update_record(scenario_name, start_time, end_time, title, description, status)
 
 
 .. py:function:: scenario_set_all_status_to_finished()
 
 
-.. py:function:: get_active_scenario()
+.. py:function:: get_running_scenario()
 
 
 .. py:function:: get_scenario_by_name(scenario_name)

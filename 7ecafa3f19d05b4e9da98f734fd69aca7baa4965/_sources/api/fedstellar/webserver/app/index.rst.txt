@@ -20,7 +20,7 @@ Functions
    fedstellar.webserver.app.fedstellar_405
    fedstellar.webserver.app.fedstellar_413
    fedstellar.webserver.app.fedstellar_home
-   fedstellar.webserver.app.fedstellar_private
+   fedstellar.webserver.app.fedstellar_scenario_private
    fedstellar.webserver.app.fedstellar_admin
    fedstellar.webserver.app.fedstellar_write_note
    fedstellar.webserver.app.fedstellar_delete_note
@@ -33,7 +33,8 @@ Functions
    fedstellar.webserver.app.fedstellar_logout
    fedstellar.webserver.app.fedstellar_delete_user
    fedstellar.webserver.app.fedstellar_add_user
-   fedstellar.webserver.app.fedstellar_monitoring
+   fedstellar.webserver.app.fedstellar_scenario
+   fedstellar.webserver.app.fedstellar_scenario_monitoring
    fedstellar.webserver.app.update_topology
    fedstellar.webserver.app.fedstellar_update_node
    fedstellar.webserver.app.fedstellar_update_node_logs
@@ -41,10 +42,13 @@ Functions
    fedstellar.webserver.app.fedstellar_monitoring_log_debug
    fedstellar.webserver.app.fedstellar_monitoring_log_x
    fedstellar.webserver.app.fedstellar_monitoring_image
-   fedstellar.webserver.app.fedstellar_monitoring_stop_scenario
-   fedstellar.webserver.app.fedstellar_private_scenario
+   fedstellar.webserver.app.stop_scenario
+   fedstellar.webserver.app.fedstellar_stop_scenario
+   fedstellar.webserver.app.fedstellar_scenario_statistics
+   fedstellar.webserver.app.fedstellar_scenario_deployment
    fedstellar.webserver.app.fedstellar_monitoring_participant_file
-   fedstellar.webserver.app.fedstellar_private_scenario_run
+   fedstellar.webserver.app.fedstellar_scenario_deployment_run
+   fedstellar.webserver.app.fedstellar_scenario_deployment_reload
 
 
 
@@ -55,6 +59,7 @@ Attributes
 
    fedstellar.webserver.app.app
    fedstellar.webserver.app.ALLOWED_EXTENSIONS
+   fedstellar.webserver.app.parser
 
 
 .. py:data:: app
@@ -83,7 +88,7 @@ Attributes
 .. py:function:: fedstellar_home()
 
 
-.. py:function:: fedstellar_private(scenario_name)
+.. py:function:: fedstellar_scenario_private(scenario_name)
 
 
 .. py:function:: fedstellar_admin()
@@ -133,39 +138,56 @@ Attributes
 .. py:function:: fedstellar_add_user()
 
 
-.. py:function:: fedstellar_monitoring()
+.. py:function:: fedstellar_scenario()
+
+
+.. py:function:: fedstellar_scenario_monitoring(scenario_name)
 
 
 .. py:function:: update_topology(scenario_name, nodes_list, nodes_config)
 
 
-.. py:function:: fedstellar_update_node(uid)
+.. py:function:: fedstellar_update_node(scenario_name)
 
 
-.. py:function:: fedstellar_update_node_logs(uid)
+.. py:function:: fedstellar_update_node_logs(scenario_name, uid)
 
 
-.. py:function:: fedstellar_monitoring_log(uid)
+.. py:function:: fedstellar_monitoring_log(scenario_name, uid)
 
 
-.. py:function:: fedstellar_monitoring_log_debug(uid)
+.. py:function:: fedstellar_monitoring_log_debug(scenario_name, uid)
 
 
-.. py:function:: fedstellar_monitoring_log_x(uid, number)
+.. py:function:: fedstellar_monitoring_log_x(scenario_name, uid, number)
 
 
 .. py:function:: fedstellar_monitoring_image(scenario_name)
 
 
-.. py:function:: fedstellar_monitoring_stop_scenario(scenario_name)
+.. py:function:: stop_scenario(scenario_name=None)
 
 
-.. py:function:: fedstellar_private_scenario()
+.. py:function:: fedstellar_stop_scenario(scenario_name)
+
+
+.. py:function:: fedstellar_scenario_statistics(scenario_name)
+
+
+.. py:function:: fedstellar_scenario_deployment()
 
 
 .. py:function:: fedstellar_monitoring_participant_file()
 
 
-.. py:function:: fedstellar_private_scenario_run()
+.. py:function:: fedstellar_scenario_deployment_run()
 
+
+.. py:function:: fedstellar_scenario_deployment_reload(scenario_name)
+
+
+.. py:data:: parser
+   
+
+   
 

@@ -280,29 +280,29 @@ called <cite>venv</cite> with roughly the same functionality.</p>
 <section id="create-virtual-environment">
 <h3>Create virtual environment<a class="headerlink" href="#create-virtual-environment" title="Permalink to this heading">#</a></h3>
 <p>In order to create a virtual environment called e.g. fedstellar using <cite>venv</cite>, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m venv fedstellar
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m venv fedstellar-venv
 </pre></div>
 </div>
 </section>
 <section id="activate-the-environment">
 <h3>Activate the environment<a class="headerlink" href="#activate-the-environment" title="Permalink to this heading">#</a></h3>
 <p>Once the environment is created, you need to activate it. Just change
-directory into it and source the script <cite>bin/activate</cite>.</p>
+directory into it and source the script <cite>Scripts/activate</cite> or <cite>bin/activate</cite>.</p>
 <p>With bash:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd fedstellar
-$ . bin/activate
-(fedstellar) $
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd fedstellar-venv
+$ . Scripts/activate
+(fedstellar-venv) $
 </pre></div>
 </div>
 <p>With csh/tcsh:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd fedstellar
-$ source bin/activate
-(fedstellar) $
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd fedstellar-venv
+$ source Scripts/activate
+(fedstellar-venv) $
 </pre></div>
 </div>
 <p>Notice that the prompt changes once you are activate the environment. To
 deactivate it just type deactivate:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(fedstellar) $ deactivate
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(fedstellar-venv) $ deactivate
 $
 </pre></div>
 </div>

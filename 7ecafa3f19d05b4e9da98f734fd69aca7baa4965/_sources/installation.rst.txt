@@ -29,29 +29,29 @@ Create virtual environment
 --------------------------
 In order to create a virtual environment called e.g. fedstellar using `venv`, run::
 
-  $ python3 -m venv fedstellar
+  $ python3 -m venv fedstellar-venv
 
 Activate the environment
 ------------------------
 Once the environment is created, you need to activate it. Just change
-directory into it and source the script `bin/activate`.
+directory into it and source the script `Scripts/activate` or `bin/activate`.
 
 With bash::
 
-  $ cd fedstellar
-  $ . bin/activate
-  (fedstellar) $
+  $ cd fedstellar-venv
+  $ . Scripts/activate
+  (fedstellar-venv) $
 
 With csh/tcsh::
 
-  $ cd fedstellar
-  $ source bin/activate
-  (fedstellar) $
+  $ cd fedstellar-venv
+  $ source Scripts/activate
+  (fedstellar-venv) $
 
 Notice that the prompt changes once you are activate the environment. To
 deactivate it just type deactivate::
 
-  (fedstellar) $ deactivate
+  (fedstellar-venv) $ deactivate
   $
 
 After you have created the environment, you can install fedstellar following the instructions below.

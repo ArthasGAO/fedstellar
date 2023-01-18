@@ -117,4 +117,10 @@ To change the default port, you can use the following command line::
 
     python app/main.py --webserver --port 8080
 
+Fedstellar Webserver
+==================
+You can login with the following credentials:
+
+- User: admin
+- Password: admin
 

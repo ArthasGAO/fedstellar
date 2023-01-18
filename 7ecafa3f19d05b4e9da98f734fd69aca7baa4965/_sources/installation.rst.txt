@@ -105,7 +105,11 @@ You can show the PARAMS using::
 
 For a correct execution of the framework, it is necessary to indicate the python path (absolute path)::
 
-    python app/main.py --python /Users/enrique/fedstellar-venv/bin/python 
+    python app/main.py --python /Users/enrique/fedstellar-venv/bin/python
+
+or::
+
+    python app/main.py --python /Users/enrique/fedstellar-venv/Scripts/python
 
 The webserver will be available at http://127.0.0.1:5000 (by default)
 

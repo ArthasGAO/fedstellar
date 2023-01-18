@@ -346,7 +346,15 @@ by listing the version of the Fedstellar with the following command line:</p>
 <section id="running-fedstellar">
 <h2>Running Fedstellar<a class="headerlink" href="#running-fedstellar" title="Permalink to this heading">#</a></h2>
 <p>To run Fedstellar, you can use the following command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">webserver</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">webserver</span> <span class="p">[</span><span class="n">PARAMS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can show the PARAMS using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>For a correct execution of the framework, it is necessary to indicate the python path (absolute path):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">python</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">enrique</span><span class="o">/</span><span class="n">fedstellar</span><span class="o">-</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span>
 </pre></div>
 </div>
 <p>The webserver will be available at <a class="reference external" href="http://127.0.0.1:5000">http://127.0.0.1:5000</a> (by default)</p>

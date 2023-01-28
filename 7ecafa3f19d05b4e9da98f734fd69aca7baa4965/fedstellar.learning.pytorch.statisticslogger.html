@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
-        <title>fedstellar.learning.pytorch.femnist.models package - Fedstellar 0.1 documentation</title>
+        <title>fedstellar.learning.pytorch.statisticslogger module - Fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -259,39 +259,190 @@
           </label>
         </div>
         <article role="main">
-          <section id="fedstellar-learning-pytorch-femnist-models-package">
-<h1>fedstellar.learning.pytorch.femnist.models package<a class="headerlink" href="#fedstellar-learning-pytorch-femnist-models-package" title="Permalink to this heading">#</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html">fedstellar.learning.pytorch.femnist.models.cnn module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN"><code class="docutils literal notranslate"><span class="pre">CNN</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">CNN.configure_optimizers()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.forward"><code class="docutils literal notranslate"><span class="pre">CNN.forward()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.test_step"><code class="docutils literal notranslate"><span class="pre">CNN.test_step()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.training"><code class="docutils literal notranslate"><span class="pre">CNN.training</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.training_step"><code class="docutils literal notranslate"><span class="pre">CNN.training_step()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.validation_step"><code class="docutils literal notranslate"><span class="pre">CNN.validation_step()</span></code></a></li>
+          <section id="module-fedstellar.learning.pytorch.statisticslogger">
+<span id="fedstellar-learning-pytorch-statisticslogger-module"></span><h1>fedstellar.learning.pytorch.statisticslogger module<a class="headerlink" href="#module-fedstellar.learning.pytorch.statisticslogger" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.statisticslogger.</span></span><span class="sig-name descname"><span class="pre">FedstellarLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lightning_logs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_hp_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>save_dir</strong> (<em>str</em><em> | </em><em>Path</em>) – </p></li>
+<li><p><strong>name</strong> (<em>str</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>version</strong> (<em>int</em><em> | </em><em>str</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>log_graph</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>default_hp_metric</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>prefix</strong> (<em>str</em>) – </p></li>
+<li><p><strong>sub_dir</strong> (<em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>kwargs</strong> (<em>Any</em>) – </p></li>
 </ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN">CNN</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.configure_optimizers">configure_optimizers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.forward">forward</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.test_step">test_step</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.training">training</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.training_step">training_step</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.pytorch.femnist.models.cnn.html#fedstellar.learning.pytorch.femnist.models.cnn.CNN.validation_step">validation_step</a></li>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.LOGGER_JOIN_CHAR">
+<span class="sig-name descname"><span class="pre">LOGGER_JOIN_CHAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'-'</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.LOGGER_JOIN_CHAR" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.NAME_HPARAMS_FILE">
+<span class="sig-name descname"><span class="pre">NAME_HPARAMS_FILE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'hparams.yaml'</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.NAME_HPARAMS_FILE" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.experiment">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">experiment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SummaryWriter</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.experiment" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tensorboardX.SummaryWriter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.finalize">
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.finalize" title="Permalink to this definition">#</a></dt>
+<dd><p>Do any processing that is necessary to finalize an experiment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>status</strong> (<em>str</em>) – Status that the experiment finished with (e.g. success, failed, aborted)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_graph">
+<span class="sig-name descname"><span class="pre">log_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_graph" title="Permalink to this definition">#</a></dt>
+<dd><p>Record model graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>LightningModule</em>) – lightning model</p></li>
+<li><p><strong>input_array</strong> (<em>Tensor</em><em> | </em><em>None</em>) – input passes to <cite>model.forward</cite></p></li>
 </ul>
-</li>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_hyperparams">
+<span class="sig-name descname"><span class="pre">log_hyperparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_hyperparams" title="Permalink to this definition">#</a></dt>
+<dd><p>Record hyperparameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>Namespace</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Namespace</span></code> or <cite>Dict</cite> containing the hyperparameters</p></li>
+<li><p><strong>args</strong> – Optional positional arguments, depends on the specific logger being used</p></li>
+<li><p><strong>kwargs</strong> – Optional keyword arguments, depends on the specific logger being used</p></li>
+<li><p><strong>metrics</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – </p></li>
 </ul>
-</li>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_metrics">
+<span class="sig-name descname"><span class="pre">log_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_metrics" title="Permalink to this definition">#</a></dt>
+<dd><p>Records metrics. This method logs metrics as soon as it received them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metrics</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – Dictionary with metric names as keys and measured quantities as values</p></li>
+<li><p><strong>step</strong> (<em>int</em><em> | </em><em>None</em>) – Step number at which the metrics should be recorded</p></li>
 </ul>
-</div>
-</section>
-<section id="module-fedstellar.learning.pytorch.femnist.models">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-fedstellar.learning.pytorch.femnist.models" title="Permalink to this heading">#</a></h2>
-</section>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.name" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the experiment name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save" title="Permalink to this definition">#</a></dt>
+<dd><p>Save log data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save_dir" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the root directory where experiment logs get saved, or <cite>None</cite> if the logger does not save data
+locally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.sub_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sub_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.sub_dir" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.version">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.version" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the experiment version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[int, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -331,9 +482,41 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">fedstellar.learning.pytorch.femnist.models package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-fedstellar.learning.pytorch.femnist.models">Module contents</a></li>
+<li><a class="reference internal" href="#">fedstellar.learning.pytorch.statisticslogger module</a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger</span></code></a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.LOGGER_JOIN_CHAR"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.LOGGER_JOIN_CHAR</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.NAME_HPARAMS_FILE"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.NAME_HPARAMS_FILE</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.experiment"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.experiment</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.finalize"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.finalize()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.log_dir</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_graph"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.log_graph()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_hyperparams"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.log_hyperparams()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_metrics"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.log_metrics()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.name"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.name</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.root_dir</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.save()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save_dir"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.save_dir</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.sub_dir"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.sub_dir</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.version"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.version</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger">FedstellarLogger</a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.LOGGER_JOIN_CHAR">LOGGER_JOIN_CHAR</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.NAME_HPARAMS_FILE">NAME_HPARAMS_FILE</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.experiment">experiment</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.finalize">finalize</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir">log_dir</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_graph">log_graph</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_hyperparams">log_hyperparams</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_metrics">log_metrics</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.name">name</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir">root_dir</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save">save</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save_dir">save_dir</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.sub_dir">sub_dir</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.version">version</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

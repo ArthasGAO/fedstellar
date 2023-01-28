@@ -1,0 +1,118 @@
+:py:mod:`fedstellar.learning.pytorch.statisticslogger`
+======================================================
+
+.. py:module:: fedstellar.learning.pytorch.statisticslogger
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.statisticslogger.FedstellarLogger
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.statisticslogger.log
+
+
+.. py:data:: log
+   
+
+   
+
+.. py:class:: FedstellarLogger(save_dir, name = 'lightning_logs', version = None, log_graph = False, default_hp_metric = True, prefix = '', sub_dir = None, **kwargs)
+
+   Bases: :py:obj:`pytorch_lightning.loggers.logger.Logger`
+
+   Base class for experiment loggers.
+
+   .. py:property:: root_dir
+      :type: str
+
+
+   .. py:property:: log_dir
+      :type: str
+
+
+   .. py:property:: save_dir
+      :type: str
+
+      Return the root directory where experiment logs get saved, or `None` if the logger does not save data
+      locally.
+
+   .. py:property:: sub_dir
+      :type: Optional[str]
+
+
+   .. py:property:: experiment
+      :type: tensorboardX.SummaryWriter
+
+
+   .. py:property:: name
+      :type: str
+
+      Return the experiment name.
+
+   .. py:property:: version
+      :type: Union[int, str]
+
+      Return the experiment version.
+
+   .. py:attribute:: NAME_HPARAMS_FILE
+      :annotation: = hparams.yaml
+
+      
+
+   .. py:attribute:: LOGGER_JOIN_CHAR
+      :annotation: = -
+
+      
+
+   .. py:method:: log_hyperparams(params, metrics = None)
+
+      Record hyperparameters.
+
+      :param params: :class:`~argparse.Namespace` or `Dict` containing the hyperparameters
+      :param args: Optional positional arguments, depends on the specific logger being used
+      :param kwargs: Optional keyword arguments, depends on the specific logger being used
+
+
+   .. py:method:: log_metrics(metrics, step = None)
+
+      Records metrics. This method logs metrics as soon as it received them.
+
+      :param metrics: Dictionary with metric names as keys and measured quantities as values
+      :param step: Step number at which the metrics should be recorded
+
+
+   .. py:method:: log_graph(model, input_array = None)
+
+      Record model graph.
+
+      :param model: lightning model
+      :param input_array: input passes to `model.forward`
+
+
+   .. py:method:: save()
+
+      Save log data.
+
+
+   .. py:method:: finalize(status)
+
+      Do any processing that is necessary to finalize an experiment.
+
+      :param status: Status that the experiment finished with (e.g. success, failed, aborted)
+
+
+

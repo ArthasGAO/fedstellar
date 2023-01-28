@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
-        <title>fedstellar.learning.pytorch.lightninglearner - Fedstellar 0.1 documentation</title>
+        <title>fedstellar.learning.pytorch.statisticslogger - Fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
@@ -189,8 +189,8 @@
 <li class="toctree-l6"><a class="reference internal" href="../mnist/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.mnist</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
-<li class="toctree-l5"><a class="reference internal" href="../statisticslogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
+<li class="toctree-l5 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../exceptions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.exceptions</span></code></a></li>
@@ -259,8 +259,8 @@
           </label>
         </div>
         <article role="main">
-          <section id="module-fedstellar.learning.pytorch.lightninglearner">
-<span id="fedstellar-learning-pytorch-lightninglearner"></span><h1><a class="reference internal" href="../../../../../fedstellar.learning.pytorch.lightninglearner.html#module-fedstellar.learning.pytorch.lightninglearner" title="fedstellar.learning.pytorch.lightninglearner"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a><a class="headerlink" href="#module-fedstellar.learning.pytorch.lightninglearner" title="Permalink to this heading">#</a></h1>
+          <section id="module-fedstellar.learning.pytorch.statisticslogger">
+<span id="fedstellar-learning-pytorch-statisticslogger"></span><h1><a class="reference internal" href="../../../../../fedstellar.learning.pytorch.statisticslogger.html#module-fedstellar.learning.pytorch.statisticslogger" title="fedstellar.learning.pytorch.statisticslogger"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a><a class="headerlink" href="#module-fedstellar.learning.pytorch.statisticslogger" title="Permalink to this heading">#</a></h1>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
 <section id="classes">
@@ -268,192 +268,208 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../../../fedstellar.learning.pytorch.lightninglearner.html#fedstellar.learning.pytorch.lightninglearner.LightningLearner" title="fedstellar.learning.pytorch.lightninglearner.LightningLearner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LightningLearner</span></code></a></p></td>
-<td><p>Learner with PyTorch Lightning.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../../../../fedstellar.learning.pytorch.statisticslogger.html#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger" title="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FedstellarLogger</span></code></a></p></td>
+<td><p>Base class for experiment loggers.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">#</a></h3>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.log" title="fedstellar.learning.pytorch.statisticslogger.log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py data">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.log">
+<span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.statisticslogger.</span></span><span class="sig-name descname"><span class="pre">log</span></span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.log" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py class">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.lightninglearner.</span></span><span class="sig-name descname"><span class="pre">LightningLearner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../../../../fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner" title="fedstellar.learning.learner.NodeLearner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fedstellar.learning.learner.NodeLearner</span></code></a></p>
-<p>Learner with PyTorch Lightning.</p>
-<dl class="simple">
-<dt>Atributes:</dt><dd><p>model: Model to train.
-data: Data to train the model.
-epochs: Number of epochs to train.
-logger: Logger.</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model">
-<span class="sig-name descname"><span class="pre">set_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model" title="Permalink to this definition">#</a></dt>
-<dd><p>Set the model of the learner. (not wheights)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>model</strong> – The model of the learner.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../../../../../fedstellar.learning.exceptions.html#fedstellar.learning.exceptions.ModelNotMatchingError" title="fedstellar.learning.exceptions.ModelNotMatchingError"><strong>ModelNotMatchingError</strong></a> – If the model is not matching the learner.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_data">
-<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_data" title="Permalink to this definition">#</a></dt>
-<dd><p>Set the data of the learner. It is used to fit the model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> – The data of the learner.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.encode_parameters">
-<span class="sig-name descname"><span class="pre">encode_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.encode_parameters" title="Permalink to this definition">#</a></dt>
-<dd><p>Encode the parameters of the model. (binary)
-If params are not provided, self parameters are encoded.</p>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.statisticslogger.</span></span><span class="sig-name descname"><span class="pre">FedstellarLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lightning_logs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_hp_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">pytorch_lightning.loggers.logger.Logger</span></code></p>
+<p>Base class for experiment loggers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>params</strong> – The parameters of the model. (non-binary)</p></li>
-<li><p><strong>contributors</strong> – The contributors of the model.</p></li>
-<li><p><strong>weight</strong> – The weight of the model.</p></li>
+<li><p><strong>save_dir</strong> (<em>lightning_lite.utilities.types._PATH</em>) – </p></li>
+<li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>version</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>log_graph</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>default_hp_metric</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>prefix</strong> (<em>str</em>) – </p></li>
+<li><p><strong>sub_dir</strong> (<em>Optional</em><em>[</em><em>lightning_lite.utilities.types._PATH</em><em>]</em>) – </p></li>
+<li><p><strong>kwargs</strong> (<em>Any</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The encoded parameters of the model (params, contributors, weight).</p>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save_dir" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the root directory where experiment logs get saved, or <cite>None</cite> if the logger does not save data
+locally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.sub_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sub_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.sub_dir" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.experiment">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">experiment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tensorboardX.SummaryWriter</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.experiment" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tensorboardX.SummaryWriter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.name" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the experiment name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.version">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.version" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the experiment version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[int, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.NAME_HPARAMS_FILE">
+<span class="sig-name descname"><span class="pre">NAME_HPARAMS_FILE</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">hparams.yaml</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.NAME_HPARAMS_FILE" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.LOGGER_JOIN_CHAR">
+<span class="sig-name descname"><span class="pre">LOGGER_JOIN_CHAR</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">-</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.LOGGER_JOIN_CHAR" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.decode_parameters">
-<span class="sig-name descname"><span class="pre">decode_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.decode_parameters" title="Permalink to this definition">#</a></dt>
-<dd><p>Decode the parameters of the model. (binary)</p>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_hyperparams">
+<span class="sig-name descname"><span class="pre">log_hyperparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_hyperparams" title="Permalink to this definition">#</a></dt>
+<dd><p>Record hyperparameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> – The encoded parameters of the model.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>Union</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>argparse.Namespace</em><em>]</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Namespace</span></code> or <cite>Dict</cite> containing the hyperparameters</p></li>
+<li><p><strong>args</strong> – Optional positional arguments, depends on the specific logger being used</p></li>
+<li><p><strong>kwargs</strong> – Optional keyword arguments, depends on the specific logger being used</p></li>
+<li><p><strong>metrics</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – </p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The decoded parameters of the model. (params, contributors, weight)</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../../../../../fedstellar.learning.exceptions.html#fedstellar.learning.exceptions.DecodingParamsError" title="fedstellar.learning.exceptions.DecodingParamsError"><strong>DecodingParamsError</strong></a> – If the decoding of the parameters fails.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.check_parameters">
-<span class="sig-name descname"><span class="pre">check_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.check_parameters" title="Permalink to this definition">#</a></dt>
-<dd><p>Check if the parameters are compatible with the model.</p>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_metrics">
+<span class="sig-name descname"><span class="pre">log_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_metrics" title="Permalink to this definition">#</a></dt>
+<dd><p>Records metrics. This method logs metrics as soon as it received them.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>params</strong> – The parameters to check. (non-binary)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metrics</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – Dictionary with metric names as keys and measured quantities as values</p></li>
+<li><p><strong>step</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Step number at which the metrics should be recorded</p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if the parameters are compatible with the model.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters">
-<span class="sig-name descname"><span class="pre">set_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters" title="Permalink to this definition">#</a></dt>
-<dd><p>Set the parameters of the model.</p>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_graph">
+<span class="sig-name descname"><span class="pre">log_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_graph" title="Permalink to this definition">#</a></dt>
+<dd><p>Record model graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>params</strong> – The parameters of the model. (non-binary)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>pytorch_lightning.LightningModule</em>) – lightning model</p></li>
+<li><p><strong>input_array</strong> (<em>Optional</em><em>[</em><em>torch.Tensor</em><em>]</em>) – input passes to <cite>model.forward</cite></p></li>
+</ul>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../../../../../fedstellar.learning.exceptions.html#fedstellar.learning.exceptions.ModelNotMatchingError" title="fedstellar.learning.exceptions.ModelNotMatchingError"><strong>ModelNotMatchingError</strong></a> – If the model is not matching the learner.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_parameters">
-<span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_parameters" title="Permalink to this definition">#</a></dt>
-<dd><p>Get the parameters of the model.</p>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save" title="Permalink to this definition">#</a></dt>
+<dd><p>Save log data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The parameters of the model. (non-binary)</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs">
-<span class="sig-name descname"><span class="pre">set_epochs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs" title="Permalink to this definition">#</a></dt>
-<dd><p>Set the number of epochs of the model.</p>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.finalize">
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.finalize" title="Permalink to this definition">#</a></dt>
+<dd><p>Do any processing that is necessary to finalize an experiment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>epochs</strong> – The number of epochs of the model.</p>
+<dd class="field-odd"><p><strong>status</strong> (<em>str</em>) – Status that the experiment finished with (e.g. success, failed, aborted)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.fit" title="Permalink to this definition">#</a></dt>
-<dd><p>Fit the model.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.interrupt_fit">
-<span class="sig-name descname"><span class="pre">interrupt_fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.interrupt_fit" title="Permalink to this definition">#</a></dt>
-<dd><p>Interrupt the fit process.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.evaluate" title="Permalink to this definition">#</a></dt>
-<dd><p>Evaluate the model with actual parameters.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.log_validation_metrics">
-<span class="sig-name descname"><span class="pre">log_validation_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.log_validation_metrics" title="Permalink to this definition">#</a></dt>
-<dd><p>Log the validation metrics. It also can be used to log the other node metrics.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_num_samples">
-<span class="sig-name descname"><span class="pre">get_num_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_num_samples" title="Permalink to this definition">#</a></dt>
-<dd><p>Get the number of samples of the model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The number of samples of the model.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.init">
-<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.init" title="Permalink to this definition">#</a></dt>
-<dd><p>Init the learner.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.close" title="Permalink to this definition">#</a></dt>
-<dd><p>Close the learner.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.finalize_round">
-<span class="sig-name descname"><span class="pre">finalize_round</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.finalize_round" title="Permalink to this definition">#</a></dt>
-<dd><p>Determine the end of the round.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.lightninglearner.LightningLearner.create_trainer">
-<span class="sig-name descname"><span class="pre">create_trainer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.create_trainer" title="Permalink to this definition">#</a></dt>
-<dd><p>Create the trainer.</p>
 </dd></dl>
 
 </dd></dl>
@@ -499,47 +515,44 @@ If params are not provided, self parameters are encoded.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a><ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a><ul>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#classes">Classes</a><ul>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner"><code class="docutils literal notranslate"><span class="pre">LightningLearner</span></code></a><ul>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model"><code class="docutils literal notranslate"><span class="pre">LightningLearner.set_model()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_data"><code class="docutils literal notranslate"><span class="pre">LightningLearner.set_data()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.encode_parameters"><code class="docutils literal notranslate"><span class="pre">LightningLearner.encode_parameters()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.decode_parameters"><code class="docutils literal notranslate"><span class="pre">LightningLearner.decode_parameters()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.check_parameters"><code class="docutils literal notranslate"><span class="pre">LightningLearner.check_parameters()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters"><code class="docutils literal notranslate"><span class="pre">LightningLearner.set_parameters()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_parameters"><code class="docutils literal notranslate"><span class="pre">LightningLearner.get_parameters()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs"><code class="docutils literal notranslate"><span class="pre">LightningLearner.set_epochs()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.fit"><code class="docutils literal notranslate"><span class="pre">LightningLearner.fit()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.interrupt_fit"><code class="docutils literal notranslate"><span class="pre">LightningLearner.interrupt_fit()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.evaluate"><code class="docutils literal notranslate"><span class="pre">LightningLearner.evaluate()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.log_validation_metrics"><code class="docutils literal notranslate"><span class="pre">LightningLearner.log_validation_metrics()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_num_samples"><code class="docutils literal notranslate"><span class="pre">LightningLearner.get_num_samples()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.init"><code class="docutils literal notranslate"><span class="pre">LightningLearner.init()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.close"><code class="docutils literal notranslate"><span class="pre">LightningLearner.close()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.finalize_round"><code class="docutils literal notranslate"><span class="pre">LightningLearner.finalize_round()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.create_trainer"><code class="docutils literal notranslate"><span class="pre">LightningLearner.create_trainer()</span></code></a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#attributes">Attributes</a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.log"><code class="docutils literal notranslate"><span class="pre">log</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger</span></code></a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.root_dir</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.log_dir</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save_dir"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.save_dir</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.sub_dir"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.sub_dir</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.experiment"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.experiment</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.name"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.name</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.version"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.version</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.NAME_HPARAMS_FILE"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.NAME_HPARAMS_FILE</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.LOGGER_JOIN_CHAR"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.LOGGER_JOIN_CHAR</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_hyperparams"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.log_hyperparams()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_metrics"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.log_metrics()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_graph"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.log_graph()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.save()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.finalize"><code class="docutils literal notranslate"><span class="pre">FedstellarLogger.finalize()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner">LightningLearner</a><ul>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_model">set_model</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_data">set_data</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.encode_parameters">encode_parameters</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.decode_parameters">decode_parameters</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.check_parameters">check_parameters</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_parameters">set_parameters</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_parameters">get_parameters</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.set_epochs">set_epochs</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.fit">fit</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.interrupt_fit">interrupt_fit</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.evaluate">evaluate</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.log_validation_metrics">log_validation_metrics</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.get_num_samples">get_num_samples</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.init">init</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.close">close</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.finalize_round">finalize_round</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.lightninglearner.LightningLearner.create_trainer">create_trainer</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.log">log</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger">FedstellarLogger</a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir">root_dir</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir">log_dir</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save_dir">save_dir</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.sub_dir">sub_dir</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.experiment">experiment</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.name">name</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.version">version</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.NAME_HPARAMS_FILE">NAME_HPARAMS_FILE</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.LOGGER_JOIN_CHAR">LOGGER_JOIN_CHAR</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_hyperparams">log_hyperparams</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_metrics">log_metrics</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_graph">log_graph</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.save">save</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.finalize">finalize</a></li>
 </ul>
 </li>
 </ul>

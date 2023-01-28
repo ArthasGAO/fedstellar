@@ -190,6 +190,7 @@
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../learning/pytorch/statisticslogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../learning/exceptions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.exceptions</span></code></a></li>
@@ -321,19 +322,25 @@
 <tr class="row-even"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.remove_all_nodes" title="fedstellar.webserver.database.remove_all_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_all_nodes</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.get_all_scenarios" title="fedstellar.webserver.database.get_all_scenarios"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_all_scenarios</span></code></a>([sort_by])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.remove_nodes_by_scenario_name" title="fedstellar.webserver.database.remove_nodes_by_scenario_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_nodes_by_scenario_name</span></code></a>(scenario_name)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.scenario_update_record" title="fedstellar.webserver.database.scenario_update_record"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scenario_update_record</span></code></a>(scenario_name, start_time, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.get_all_scenarios" title="fedstellar.webserver.database.get_all_scenarios"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_all_scenarios</span></code></a>([sort_by])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.scenario_set_all_status_to_finished" title="fedstellar.webserver.database.scenario_set_all_status_to_finished"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scenario_set_all_status_to_finished</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.scenario_update_record" title="fedstellar.webserver.database.scenario_update_record"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scenario_update_record</span></code></a>(scenario_name, start_time, ...)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.get_running_scenario" title="fedstellar.webserver.database.get_running_scenario"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_running_scenario</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.scenario_set_all_status_to_finished" title="fedstellar.webserver.database.scenario_set_all_status_to_finished"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scenario_set_all_status_to_finished</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.get_scenario_by_name" title="fedstellar.webserver.database.get_scenario_by_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scenario_by_name</span></code></a>(scenario_name)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.get_running_scenario" title="fedstellar.webserver.database.get_running_scenario"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_running_scenario</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.get_scenario_by_name" title="fedstellar.webserver.database.get_scenario_by_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scenario_by_name</span></code></a>(scenario_name)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../../../fedstellar.webserver.database.html#fedstellar.webserver.database.remove_scenario_by_name" title="fedstellar.webserver.database.remove_scenario_by_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_scenario_by_name</span></code></a>(scenario_name)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -480,6 +487,11 @@
 <dd></dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="fedstellar.webserver.database.remove_nodes_by_scenario_name">
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">remove_nodes_by_scenario_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.remove_nodes_by_scenario_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.get_all_scenarios">
 <span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_all_scenarios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'start_time'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_all_scenarios" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
@@ -502,6 +514,11 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.database.get_scenario_by_name">
 <span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">get_scenario_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.get_scenario_by_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fedstellar.webserver.database.remove_scenario_by_name">
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.database.</span></span><span class="sig-name descname"><span class="pre">remove_scenario_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.database.remove_scenario_by_name" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -572,11 +589,13 @@
 <li><a class="reference internal" href="#fedstellar.webserver.database.list_nodes_by_scenario_name"><code class="docutils literal notranslate"><span class="pre">list_nodes_by_scenario_name()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.update_node_record"><code class="docutils literal notranslate"><span class="pre">update_node_record()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.remove_all_nodes"><code class="docutils literal notranslate"><span class="pre">remove_all_nodes()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.remove_nodes_by_scenario_name"><code class="docutils literal notranslate"><span class="pre">remove_nodes_by_scenario_name()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_all_scenarios"><code class="docutils literal notranslate"><span class="pre">get_all_scenarios()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.scenario_update_record"><code class="docutils literal notranslate"><span class="pre">scenario_update_record()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.scenario_set_all_status_to_finished"><code class="docutils literal notranslate"><span class="pre">scenario_set_all_status_to_finished()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_running_scenario"><code class="docutils literal notranslate"><span class="pre">get_running_scenario()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_scenario_by_name"><code class="docutils literal notranslate"><span class="pre">get_scenario_by_name()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.remove_scenario_by_name"><code class="docutils literal notranslate"><span class="pre">remove_scenario_by_name()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.user_db_file_location">user_db_file_location</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.note_db_file_location">note_db_file_location</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.image_db_file_location">image_db_file_location</a></li>
@@ -600,11 +619,13 @@
 <li><a class="reference internal" href="#fedstellar.webserver.database.list_nodes_by_scenario_name">list_nodes_by_scenario_name</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.update_node_record">update_node_record</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.remove_all_nodes">remove_all_nodes</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.remove_nodes_by_scenario_name">remove_nodes_by_scenario_name</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_all_scenarios">get_all_scenarios</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.scenario_update_record">scenario_update_record</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.scenario_set_all_status_to_finished">scenario_set_all_status_to_finished</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_running_scenario">get_running_scenario</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.database.get_scenario_by_name">get_scenario_by_name</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.database.remove_scenario_by_name">remove_scenario_by_name</a></li>
 </ul>
 </li>
 </ul>

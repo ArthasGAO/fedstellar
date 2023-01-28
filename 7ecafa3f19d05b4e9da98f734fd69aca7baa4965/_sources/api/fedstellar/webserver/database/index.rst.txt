@@ -31,11 +31,13 @@ Functions
    fedstellar.webserver.database.list_nodes_by_scenario_name
    fedstellar.webserver.database.update_node_record
    fedstellar.webserver.database.remove_all_nodes
+   fedstellar.webserver.database.remove_nodes_by_scenario_name
    fedstellar.webserver.database.get_all_scenarios
    fedstellar.webserver.database.scenario_update_record
    fedstellar.webserver.database.scenario_set_all_status_to_finished
    fedstellar.webserver.database.get_running_scenario
    fedstellar.webserver.database.get_scenario_by_name
+   fedstellar.webserver.database.remove_scenario_by_name
 
 
 
@@ -130,6 +132,9 @@ Attributes
 .. py:function:: remove_all_nodes()
 
 
+.. py:function:: remove_nodes_by_scenario_name(scenario_name)
+
+
 .. py:function:: get_all_scenarios(sort_by='start_time')
 
 
@@ -143,5 +148,8 @@ Attributes
 
 
 .. py:function:: get_scenario_by_name(scenario_name)
+
+
+.. py:function:: remove_scenario_by_name(scenario_name)
 
 

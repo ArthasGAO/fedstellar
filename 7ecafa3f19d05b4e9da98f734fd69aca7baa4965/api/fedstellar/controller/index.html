@@ -190,6 +190,7 @@
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../learning/pytorch/statisticslogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../learning/exceptions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.exceptions</span></code></a></li>
@@ -331,6 +332,11 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.controller.Controller.run_statistics">
+<span class="sig-name descname"><span class="pre">run_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.controller.Controller.run_statistics" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.controller.Controller.init">
 <span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.controller.Controller.init" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
@@ -368,6 +374,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.controller.Controller.remove_config_files">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_config_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.controller.Controller.remove_config_files" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.controller.Controller.remove_files_by_scenario">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_files_by_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.controller.Controller.remove_files_by_scenario" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -424,6 +435,7 @@
 <li><a class="reference internal" href="#fedstellar.controller.Controller"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a><ul>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.start"><code class="docutils literal notranslate"><span class="pre">Controller.start()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.run_webserver"><code class="docutils literal notranslate"><span class="pre">Controller.run_webserver()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.controller.Controller.run_statistics"><code class="docutils literal notranslate"><span class="pre">Controller.run_statistics()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.init"><code class="docutils literal notranslate"><span class="pre">Controller.init()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.killports"><code class="docutils literal notranslate"><span class="pre">Controller.killports()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.killport"><code class="docutils literal notranslate"><span class="pre">Controller.killport()</span></code></a></li>
@@ -432,6 +444,7 @@
 <li><a class="reference internal" href="#fedstellar.controller.Controller.start_node"><code class="docutils literal notranslate"><span class="pre">Controller.start_node()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.start_nodes"><code class="docutils literal notranslate"><span class="pre">Controller.start_nodes()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.remove_config_files"><code class="docutils literal notranslate"><span class="pre">Controller.remove_config_files()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.controller.Controller.remove_files_by_scenario"><code class="docutils literal notranslate"><span class="pre">Controller.remove_files_by_scenario()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#fedstellar.controller.log_console_format">log_console_format</a></li>
@@ -440,6 +453,7 @@
 <li><a class="reference internal" href="#fedstellar.controller.Controller">Controller</a><ul>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.start">start</a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.run_webserver">run_webserver</a></li>
+<li><a class="reference internal" href="#fedstellar.controller.Controller.run_statistics">run_statistics</a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.init">init</a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.killports">killports</a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.killport">killport</a></li>
@@ -448,6 +462,7 @@
 <li><a class="reference internal" href="#fedstellar.controller.Controller.start_node">start_node</a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.start_nodes">start_nodes</a></li>
 <li><a class="reference internal" href="#fedstellar.controller.Controller.remove_config_files">remove_config_files</a></li>
+<li><a class="reference internal" href="#fedstellar.controller.Controller.remove_files_by_scenario">remove_files_by_scenario</a></li>
 </ul>
 </li>
 </ul>

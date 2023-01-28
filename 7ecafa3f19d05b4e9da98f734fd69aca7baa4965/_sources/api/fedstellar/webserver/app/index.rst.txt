@@ -44,7 +44,10 @@ Functions
    fedstellar.webserver.app.fedstellar_monitoring_image
    fedstellar.webserver.app.stop_scenario
    fedstellar.webserver.app.fedstellar_stop_scenario
+   fedstellar.webserver.app.remove_scenario
+   fedstellar.webserver.app.fedstellar_remove_scenario
    fedstellar.webserver.app.fedstellar_scenario_statistics
+   fedstellar.webserver.app.fedstellar_scenario_statistics_download
    fedstellar.webserver.app.fedstellar_scenario_deployment
    fedstellar.webserver.app.fedstellar_monitoring_participant_file
    fedstellar.webserver.app.fedstellar_scenario_deployment_run
@@ -171,7 +174,16 @@ Attributes
 .. py:function:: fedstellar_stop_scenario(scenario_name)
 
 
-.. py:function:: fedstellar_scenario_statistics(scenario_name)
+.. py:function:: remove_scenario(scenario_name=None)
+
+
+.. py:function:: fedstellar_remove_scenario(scenario_name)
+
+
+.. py:function:: fedstellar_scenario_statistics()
+
+
+.. py:function:: fedstellar_scenario_statistics_download(scenario_name)
 
 
 .. py:function:: fedstellar_scenario_deployment()

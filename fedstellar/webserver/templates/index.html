@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block page_title %}Fedstellar: Framework for Decentralized Federated Learning{% endblock %}
+{% block body %}
+{{ super() }}
+
+<br>
+<div id="info-container" class="col-md-6">
+    <h3>Introduction</h3>
+    <p>Fedstellar is a modular, adaptable and extensible framework for creating centralized and decentralized architectures using Federated Learning. Also, the framework enables the creation of a standard approach for developing, deploying, and managing federated learning applications.</p>
+    <p>The framework enables developers to create distributed applications that use federated learning algorithms to improve user experience, security, and privacy. It provides features for managing data, managing models, and managing federated learning processes. It also provides a comprehensive
+        set of
+        tools to help developers monitor and analyze the performance of their applications.</p>
+    <p>Fedstellar is developed by <a href="https://enriquetomasmb.com/">Enrique Tomás Martínez Beltrán</a> in collaboration with the <a href="https://um.es/en">University of Murcia</a>, <a href="https://www.armasuisse.ch/">Armasuisse</a> and the <a href="https://www.uzh.ch/">University of Zurich
+        (UZH)</a>.</p>
+
+    <h3>Documentation</h3>
+    <p>The documentation of the framework is available <a href="https://fedstellar.enriquetomasmb.com/">here</a>. The documentation includes a <a href="https://fedstellar.enriquetomasmb.com/7ecafa3f19d05b4e9da98f734fd69aca7baa4965/installation.html">installation guide</a> and a <a
+            href="https://fedstellar.enriquetomasmb.com/7ecafa3f19d05b4e9da98f734fd69aca7baa4965/api/index.html">API reference</a>.</p>
+
+</div>
+<div id="video-column" class="col-md-6">
+    <h3>Functionality Demonstration</h3>
+    <p>The following video shows the functionality of the framework. It shows how to create a decentralized topology with different nodes using collaborative learning.</p>
+    <div class="video-container">
+        <iframe class="video" src="https://www.youtube-nocookie.com/embed/J_6OjNiIP3Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+</div>
+
+<style>
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .video {
+        aspect-ratio: 16 / 9;
+        width: 100%;
+    }
+</style>
+
+
+{% endblock %}

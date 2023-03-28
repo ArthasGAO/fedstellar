@@ -1,0 +1,186 @@
+@media (min-width: 1200px) {
+    .container {
+        width: 80%;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 80%;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 80%;
+    }
+}
+
+.nav-item label {
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.container.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Height of the footer */
+    background-color: #f5f5f5;
+}
+
+div {
+    text-align: justify;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: left;
+}
+
+.label {
+    font-weight: normal;
+    border: 0 !important;
+    line-height: 0 !important;
+}
+
+.table {
+    display: block !important;
+}
+
+@media screen and (max-width: 1200px) {
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        overflow-x: auto;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #dddddd;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+.fa {
+    padding: 3px;
+}
+
+.label {
+    line-height: revert;
+}
+
+.btn-cream {
+    color: #000000;
+    background-color: #FFEFCB;
+    border-color: #FFEFCB;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #f8f9fa;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #007bff;
+}
+
+.dropdown-item.disabled,
+.dropdown-item:disabled {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: transparent;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+.dropdown-toggle:empty::after {
+    margin-left: 0;
+}
+
+@media (min-width: 992px) {
+    #copyright {
+        float: left;
+    }
+
+    #fedstellar-logo-footer {
+        float: right;
+    }
+}
+
+@media (max-width: 992px) {
+    #copyright {
+        text-align: center;
+    }
+
+    #fedstellar-logo-footer {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+    #fedstellar-logo-footer img {
+        width: 100%;
+    }
+}
+

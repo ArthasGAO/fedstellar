@@ -1,0 +1,12 @@
+__version__ = "0.1"
+__author__ = "Enrique Tomás Martínez Beltrán"
+__email__ = "enriquetomas@um.es"
+__status__ = "Development"
+__license__ = "MIT"
+__credits__ = ["Enrique Tomás Martínez Beltrán"]
+__maintainer__ = "Enrique Tomás Martínez Beltrán"
+__url__ = "https://enriquetomasmb.com"
+__description__ = "Fedstellar: A Framework for Decentralized Federated Learning"
+__long_description__ = "Fedstellar: A Framework for Decentralized Federated Learning"
+__long_description_content_type__ = "text/markdown"
+__keywords__ = "federated learning, decentralized federated learning, machine learning, deep learning, neural networks"

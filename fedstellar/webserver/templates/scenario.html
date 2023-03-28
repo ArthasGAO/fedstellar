@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+{% block page_title %}Scenario Management{% endblock %}
+{% block body %}
+{{ super() }}
+
+<!-- Modal confirm -->
+<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div id="confirm-modal-body" class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" id="yes-button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>Deploy, analyze and monitor scenarios</h4>
+<hr>
+
+{% if not scenario_running %}
+
+<h4>There are no deployed scenarios</h4>
+<a href="{{ url_for('fedstellar_scenario_deployment') }}" class="btn btn-primary">Deploy scenario</a>
+<a href="{{ url_for('fedstellar_scenario_statistics') }}" class="btn btn-info">Scenario statistics</a>
+<!--<label id="eraseLogs" class="form-text text-muted" style="float: right; cursor: pointer">
+    <i id="eraseLogsIcon" class="fa fa-times-circle" data-original-title="" title=""></i>
+</label>
+<a href="{{ url_for('fedstellar_logs') }}" target="_blank" class="btn btn-info" style="float: right"><b>Fedstellar Core</b> Logs</a>-->
+
+
+{% elif scenario_running %}
+<h4>There is a scenario running.</h4>
+
+<h3>Scenario</h3>
+<h5>Scenario name: <b id="scenario_name">{{ scenario_running[0] }}</b></h5>
+<h5>Scenario title: <b id="scenario_title">{{ scenario_running[3] }}</b></h5>
+<h5>Scenario description: <b id="scenario_description">{{ scenario_running[4] }}</b></h5>
+<h5>Scenario start time: <b id="scenario_start_time">{{ scenario_running[1] }}</b></h5>
+
+<a href="{{ url_for('fedstellar_scenario_private', scenario_name=scenario_running[0]) }}" class="btn btn-primary">Private page</a>
+
+<a href="{{ url_for('fedstellar_stop_scenario', scenario_name=scenario_running[0]) }}" class="btn btn-danger">Stop scenario</a>
+<a id="new-scenario-btn" href="{{ url_for('fedstellar_scenario_deployment') }}" class="btn btn-primary">Deploy new scenario</a>
+<a href="{{ url_for('fedstellar_scenario_statistics') }}" class="btn btn-info">Scenario statistics</a>
+<!--<label id="eraseLogs" class="form-text text-muted" style="float: right; cursor: pointer">
+    <i id="eraseLogsIcon" class="fa fa-times-circle" data-original-title="" title=""></i>
+</label>
+<a href="{{ url_for('fedstellar_logs') }}" target="_blank" class="btn btn-info" style="float: right"><b>Fedstellar Core</b> Logs</a>-->
+<hr>
+
+{% endif %}
+
+{% if scenarios %}
+
+<h3>Scenarios in the database</h3>
+<div class="table-responsive">
+    <table id="table-scenarios" class="table small">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+        </thead>
+        {% for name, start_time, end_time, title, description, status in scenarios %}
+        <tr id="scenario-vars">
+            <td id="name">{{ name }}</td>
+            <td id="start_time">{{ start_time }}</td>
+            <td id="end_time">{{ end_time }}</td>
+            <td id="title">{{ title }}</td>
+            <td id="description">{{ description }}</td>
+            {% if status == "running" %}
+            <td id="status"><span class="label label-success">Running</span></td>
+            {% else %}
+            <td id="status"><span class="label label-danger">Finished</span></td>
+            {% endif %}
+            <td class="td-icons">
+                <a href="{{ url_for('fedstellar_scenario_private', scenario_name=name) }}" class="label btn btn-info">Private</a>
+                <a href="{{ url_for('fedstellar_scenario_monitoring', scenario_name=name) }}" class="label btn btn-info">Monitor</a>
+                <a href="{{ url_for('fedstellar_scenario_statistics_download', scenario_name=name) }}" class="label btn btn-info">Download Statistics</a>
+                {% if status == "running" %}
+                <a href="{{ url_for('fedstellar_stop_scenario', scenario_name=name) }}" class="label btn btn-danger">Stop scenario</a>
+                {% else %}
+                <a id="reload-btn" data-scenario-name="{{ name }}" class="label btn btn-info">Reload</a>
+                <a id="remove-btn" data-scenario-name="{{ name }}" class="label btn btn-danger"><i class="fa fa-times"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endif %}
+
+<script>
+    // When clicking on reload-btn (there are many in the document), show a modal to confirm the action
+    $(document).on('click', '#reload-btn', function () {
+        var scenario_name = $(this).data('scenario-name');
+        $('#confirm-modal').modal('show');
+        $('#confirm-modal .modal-title').text('Reload scenario');
+        $('#confirm-modal #confirm-modal-body').html('Are you sure you want to reload the scenario ' + scenario_name + '?<br><br><p style="color: red">Warning: this will stop the running scenario and start a new one.</p>');
+        $('#confirm-modal #yes-button').click(function () {
+            window.location.href = "/scenario/" + scenario_name + "/deployment/reload";
+        });
+    });
+</script>
+
+<script>
+    $(document).on('click', '#remove-btn', function () {
+        var scenario_name = $(this).data('scenario-name');
+        $('#confirm-modal').modal('show');
+        $('#confirm-modal .modal-title').text('Remove scenario');
+        $('#confirm-modal #confirm-modal-body').html('Are you sure you want to remove the scenario ' + scenario_name + '?<br><br><p style="color: red">Warning: this will remove the scenario from the database.</p>');
+        $('#confirm-modal #yes-button').click(function () {
+            window.location.href = "/scenario/" + scenario_name + "/remove";
+        });
+    });
+</script>
+
+<script>
+    $(document).on('click', '#eraseLogsIcon', function () {
+        $('#confirm-modal').modal('show');
+        $('#confirm-modal .modal-title').text('Erase logs');
+        $('#confirm-modal #confirm-modal-body').html('Are you sure you want to erase the logs?<br><br><p style="color: red">Warning: this will erase the logs of the FedStellar Core.</p>');
+        $('#confirm-modal #yes-button').click(function () {
+            window.location.href = "/logs/erase";
+        });
+    });
+</script>
+
+{% endblock %}

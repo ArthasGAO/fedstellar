@@ -1,0 +1,2003 @@
+[
+  {
+    "id": "6ddf831f-cfd0-4252-8b27-237c533f12b9",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T07:32:11.542Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:06.918Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "name",
+        "value": "",
+        "scope": "tags",
+        "timestamp": "2022-07-07T12:51:40.474Z"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "bananapim2ultra",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:06.918Z"
+  },
+  {
+    "id": "fa5cce58-cbb7-4b85-bf77-8db3d1c9a76a",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T07:38:55.681Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:05.576Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "bananapim2ultra",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:05.576Z"
+  },
+  {
+    "id": "2d34f0de-1bea-46bf-9919-e8b626991646",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T07:39:46.295Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:06.391Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "bananapim2ultra",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:06.391Z"
+  },
+  {
+    "id": "f341418e-83ff-4943-bc72-f4d6359cd880",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T07:40:20.85Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:06.722Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "bananapim2ultra",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:06.722Z"
+  },
+  {
+    "id": "84cabf04-691c-4056-9a0f-cbc0ca67b8fd",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T07:40:50.407Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:06.646Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "bananapim2ultra",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:06.646Z"
+  },
+  {
+    "id": "c136004b-2904-43fa-a697-3facd41e8f76",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T07:41:09.208Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:05.884Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "bananapim2ultra",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:05.884Z"
+  },
+  {
+    "id": "2ff3e344-0cc8-460c-9f3a-ada37746ff29",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T07:41:48.283Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:06.317Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "bananapim2ultra",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:06.317Z"
+  },
+  {
+    "id": "c7718310-9007-4f07-a946-97fc8bd48c86",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T07:42:23.51Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:06.016Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "bananapim2ultra",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:06.016Z"
+  },
+  {
+    "id": "95c8b7c8-b4dc-4498-9a37-ca740a410e0a",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T07:42:52.857Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:07.372Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "bananapim2ultra",
+        "scope": "inventory"
+      },
+      {
+        "name": "name",
+        "value": "test benchmark",
+        "scope": "tags",
+        "timestamp": "2022-07-18T10:18:53.615Z"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:07.372Z"
+  },
+  {
+    "id": "6e12a592-335a-4d75-a9b7-77ba02e5c8f7",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T08:54:29.559Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T02:19:16.592Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T02:19:16.592Z"
+  },
+  {
+    "id": "34ae4e3f-89df-4cab-b46a-c4c2ad3da135",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T08:55:12.379Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T02:19:16.627Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T02:19:16.627Z"
+  },
+  {
+    "id": "08897ada-0c8a-434a-8545-21b1e5582278",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T08:55:43.938Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:41.215Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:41.215Z"
+  },
+  {
+    "id": "30dac3d6-7917-4927-810b-ec95b3f57098",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:21:20.166Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:08:53.33Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:08:53.33Z"
+  },
+  {
+    "id": "6cef232c-3036-4c47-bbbc-13d5170ed320",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:21:44.766Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:08:53.181Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:08:53.181Z"
+  },
+  {
+    "id": "7cbd799e-5b77-498b-b71a-1719cd17ac2a",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:22:17.138Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:08:50.294Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:08:50.294Z"
+  },
+  {
+    "id": "387a20d8-756a-41f1-a734-6ee4700a1c66",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:26:42.743Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:01.568Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:01.568Z"
+  },
+  {
+    "id": "4635119b-e66f-40f3-b3e9-86b7797ddf6e",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:27:42.034Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:08:50.284Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:08:50.284Z"
+  },
+  {
+    "id": "86c07d72-2fdf-43b8-8e9c-b7ce63318f05",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:54:59.915Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:58.305Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi1-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:58.305Z"
+  },
+  {
+    "id": "fd61cfcf-3f35-48c6-ac92-3bdb22e8a5cf",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:55:00.29Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:58.221Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi1-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:58.221Z"
+  },
+  {
+    "id": "92362079-6623-4136-9c30-dc62368621c4",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:56:05.6Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:58.785Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi1-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:58.785Z"
+  },
+  {
+    "id": "5269b68a-ca90-4e2d-9639-1e30205618c2",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:56:46.119Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:58.947Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi1-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:58.947Z"
+  },
+  {
+    "id": "bb4e2b6f-2d49-4c2a-a000-bb9e6d85147c",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:57:14.052Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:58.583Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi1-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:58.583Z"
+  },
+  {
+    "id": "eacdffee-50b0-44e2-8d0f-ab1382208662",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:58:21.86Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:58.646Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi1-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:58.646Z"
+  },
+  {
+    "id": "52678871-a08b-4f1b-878d-a6b7ec885163",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:59:11.256Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T08:37:46.835Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi1-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T08:37:46.835Z"
+  },
+  {
+    "id": "ba5eb23e-b864-4622-a255-12a30decc720",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T09:59:46.271Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:58.683Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi1-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:58.683Z"
+  },
+  {
+    "id": "69277433-1660-47bb-8fef-55268a6007b4",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T10:01:39.122Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:58.031Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi1-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:58.031Z"
+  },
+  {
+    "id": "9b20614b-7d88-4eb0-8701-8e158706ae30",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T10:28:32.323Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:27.379Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:27.379Z"
+  },
+  {
+    "id": "f006b7e6-b8c8-4660-a4ab-02b0b6ad58b1",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T10:42:39.085Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:30.595Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:30.595Z"
+  },
+  {
+    "id": "860aa3a5-6f9f-4ba2-bf52-5e9f0c457a88",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T10:43:46.818Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T09:22:38.181Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T09:22:38.181Z"
+  },
+  {
+    "id": "b6d34e06-5c3b-4749-84bd-b72c876275c3",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T11:09:29.712Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:35.118Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:35.118Z"
+  },
+  {
+    "id": "fe823755-6f87-41f5-a717-78e81841f937",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T16:37:14.587Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T03:29:39.895Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T03:29:39.895Z"
+  },
+  {
+    "id": "9a4556c6-8def-42f2-b3aa-e1db737f78ab",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-07T16:41:40.45Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:08:50.642Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:08:50.642Z"
+  },
+  {
+    "id": "d6e07da0-505c-4c9d-bc6a-098eff9594c1",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-08T07:10:57.705Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T02:19:16.439Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T02:19:16.439Z"
+  },
+  {
+    "id": "1e4dbd78-99d4-43b5-a3f6-2f1842c442e2",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-08T07:48:49.356Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T02:19:16.45Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T02:19:16.45Z"
+  },
+  {
+    "id": "f198c1b7-7122-4879-a40b-358fe7791b76",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-08T08:04:00.943Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T02:19:18.119Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T02:19:18.119Z"
+  },
+  {
+    "id": "9bf695b5-d11c-4f4d-9df2-d40da237ff65",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-08T09:03:17.215Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:41.518Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:41.518Z"
+  },
+  {
+    "id": "9814a04b-6bdc-4875-8e2f-654db387d5ea",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-11T07:35:48.544Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T13:53:46.284Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "mismo_type",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster-murcia",
+        "scope": "inventory"
+      },
+      {
+        "name": "name",
+        "value": "",
+        "scope": "tags",
+        "timestamp": "2022-07-15T07:54:45.355Z"
+      }
+    ],
+    "updated_ts": "2022-11-18T13:53:46.284Z"
+  },
+  {
+    "id": "f4f36ae8-a497-4a9d-80d8-054c5c6a2f7f",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-14T16:09:58.292Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T12:01:22.961Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "mismo_type",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster-murcia",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T12:01:22.961Z"
+  },
+  {
+    "id": "8f29da60-98f6-44aa-a48b-8a891dd30e63",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-14T16:11:21.054Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T09:31:07.138Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster-murcia",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T09:31:07.138Z"
+  },
+  {
+    "id": "7d7d64f4-abc9-4a46-85c1-8595d911baf4",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-14T16:11:42.73Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T09:30:07.042Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster-murcia",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T09:30:07.042Z"
+  },
+  {
+    "id": "a1ef66f5-a247-480e-9ff4-0af9c387ca79",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-14T16:12:14.786Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T09:30:31.969Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster-murcia",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T09:30:31.969Z"
+  },
+  {
+    "id": "7281827d-75c9-4287-b8b3-d8bdcf216ba8",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-14T18:06:36.851Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-09-20T05:09:25.244Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "rock64-cluster-murcia",
+        "scope": "inventory"
+      },
+      {
+        "name": "name",
+        "value": "test g++",
+        "scope": "tags",
+        "timestamp": "2022-09-13T07:12:41.439Z"
+      }
+    ],
+    "updated_ts": "2022-09-20T05:09:25.244Z"
+  },
+  {
+    "id": "f56baeb7-314f-4ae0-ba7c-2094b28b866d",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-15T08:03:53.894Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T06:28:12.924Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "orangepilite2-cluster-murcia",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T06:28:12.924Z"
+  },
+  {
+    "id": "fa6fe102-54d1-44ff-ba86-7beaa4d4e0fe",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-15T08:04:34.796Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T06:28:22.957Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "rock64-cluster-murcia",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T06:28:22.957Z"
+  },
+  {
+    "id": "7751c01a-bca0-4f89-8f82-44f4ab464716",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-15T08:05:47.528Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T06:28:12.725Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "orangepilite2-cluster-murcia",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T06:28:12.725Z"
+  },
+  {
+    "id": "dd85da1c-c0f3-4b26-b434-de0521c8ce12",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-15T08:06:18.944Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T07:18:05.205Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "rockpro64-cluster-murcia",
+        "scope": "inventory"
+      },
+      {
+        "name": "name",
+        "value": "test benchmark",
+        "scope": "tags",
+        "timestamp": "2022-07-18T10:30:23.249Z"
+      }
+    ],
+    "updated_ts": "2022-11-18T07:18:05.205Z"
+  },
+  {
+    "id": "b542f0b2-503c-402f-ab60-b2951afbd6f0",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-15T08:08:59.459Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T07:09:20.447Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "rockpro64-cluster-murcia",
+        "scope": "inventory"
+      },
+      {
+        "name": "name",
+        "value": "test 3",
+        "scope": "tags",
+        "timestamp": "2022-07-26T16:18:03.313Z"
+      }
+    ],
+    "updated_ts": "2022-11-18T07:09:20.447Z"
+  },
+  {
+    "id": "03c2053d-2581-4c87-8449-8e878160bdb5",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-15T08:09:13.541Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T10:04:52.255Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "rockpro64-cluster-murcia",
+        "scope": "inventory"
+      },
+      {
+        "name": "name",
+        "value": "test 2",
+        "scope": "tags",
+        "timestamp": "2022-07-19T10:06:31.664Z"
+      }
+    ],
+    "updated_ts": "2022-11-18T10:04:52.255Z"
+  },
+  {
+    "id": "dfb0eeb0-9d51-4269-94ae-a35f12a0dbbb",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-15T08:11:10.677Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T06:28:12.706Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "orangepilite2-cluster-murcia",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T06:28:12.706Z"
+  },
+  {
+    "id": "2263864e-a0ab-4702-b1d7-1df1b0d8e8ee",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-07-21T08:25:52.625Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T06:28:21.534Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "rock64-cluster-murcia",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T06:28:21.534Z"
+  },
+  {
+    "id": "a06ae3c1-fa22-4ae6-b5d1-58d42853c68d",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-09-22T09:04:20.001Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T02:19:16.556Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T02:19:16.556Z"
+  },
+  {
+    "id": "9f5fd5f9-ca4b-4b9d-94a5-6f7b97e56ffe",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-09-22T09:08:10.301Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:34.379Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:34.379Z"
+  },
+  {
+    "id": "c329c0fd-87ef-4faa-bcae-2a658535328e",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-09-22T09:21:04.887Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:34.808Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi4-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:34.808Z"
+  },
+  {
+    "id": "c9fbb88f-6a21-4791-bbed-095cdb7680d0",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-09-22T09:52:37.951Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:08:53.111Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:08:53.111Z"
+  },
+  {
+    "id": "9f71e177-fa40-4269-9f6b-5b118963f869",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-09-22T11:15:44.556Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:08:50.66Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:08:50.66Z"
+  },
+  {
+    "id": "37f8473b-6e16-41fb-8fef-dbbb5209e23c",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-09-30T13:08:03.789Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-18T13:48:41.267Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "name",
+        "value": "RPi_F",
+        "scope": "tags",
+        "timestamp": "2022-09-30T13:17:42.994Z"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-18T13:48:41.267Z"
+  },
+  {
+    "id": "05405140-59d7-490a-89da-238245ed4974",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-11-04T15:01:09.686Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T05:06:50.397Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T05:06:50.397Z"
+  },
+  {
+    "id": "bf2052ee-ff27-4fc9-9428-a125d63a8476",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-11-04T15:01:09.998Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T05:07:00.288Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T05:07:00.288Z"
+  },
+  {
+    "id": "855a38e4-dd29-4e1f-babd-7b490b96d78d",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-11-04T15:01:34.933Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:19.887Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:19.887Z"
+  },
+  {
+    "id": "f3f80179-cc5a-4f9a-97cb-c0a03466d723",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-11-04T15:02:15.225Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:21.006Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:21.006Z"
+  },
+  {
+    "id": "b7f17d45-e97c-4344-bff2-64c008984b66",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-11-04T15:02:15.317Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:09:20.784Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypiZero-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:09:20.784Z"
+  },
+  {
+    "id": "4110a4e8-be78-4bc3-8d1f-a55e6616d0f5",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-11-07T09:22:54.957Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:08:50.445Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:08:50.445Z"
+  },
+  {
+    "id": "ff5dd372-48c7-4763-ac57-968127749847",
+    "attributes": [
+      {
+        "name": "created_ts",
+        "value": "2022-11-07T09:26:59.468Z",
+        "scope": "system"
+      },
+      {
+        "name": "updated_ts",
+        "value": "2022-11-15T04:08:50.37Z",
+        "scope": "system"
+      },
+      {
+        "name": "status",
+        "value": "accepted",
+        "scope": "identity"
+      },
+      {
+        "name": "artifact_name",
+        "value": "unknown",
+        "scope": "inventory"
+      },
+      {
+        "name": "device_type",
+        "value": "raspberrypi3-cluster",
+        "scope": "inventory"
+      }
+    ],
+    "updated_ts": "2022-11-15T04:08:50.37Z"
+  }
+]

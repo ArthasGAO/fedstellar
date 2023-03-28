@@ -1,0 +1,83 @@
+{
+  "scenario_args": {
+    "name": "",
+    "start_time": "",
+    "federation": "DFL",
+    "rounds": 10,
+    "simulation": true,
+    "controller": "127.0.0.1:5000",
+    "random_seed": 0,
+    "n_nodes": 0,
+    "config_version": "development",
+    "debug": true
+  },
+  "device_args": {
+    "uid": "",
+    "idx": "",
+    "username": "pi",
+    "password": "pi",
+    "role": "aggregator",
+    "start": false,
+    "accelerator": "cpu",
+    "devices": 2,
+    "strategy": "ddp"
+  },
+  "geo_args": {
+    "latitude": "46.762520",
+    "longitude": "7.600490"
+  },
+  "network_args": {
+    "ip": "",
+    "ipdemo": "",
+    "port": 0,
+    "neighbors": "",
+    "interface": "eth0",
+    "rate": "1Mbps",
+    "loss": "0.1%",
+    "delay": "100ms",
+    "delay-distro": 0
+  },
+  "data_args": {
+    "dataset": "MNIST"
+  },
+  "model_args": {
+    "model": "MLP"
+  },
+  "training_args": {
+    "epochs": 3
+  },
+  "aggregator_args": {
+    "algorithm": "FedAvg"
+  },
+  "tracking_args": {
+    "enable_remote_tracking": false,
+    "local_tracking": "web",
+    "log_dir": "/Users/enrique/Documents/PhD/fedstellar/app/logs",
+    "config_dir": "/Users/enrique/Documents/PhD/fedstellar/app/config",
+    "wandb_key": [
+      "your wandb key"
+    ],
+    "wandb_entity": "enriquetomasmb",
+    "wandb_project": "framework-enrique"
+  },
+  "mender_args": {
+    "id": "",
+    "mac": "",
+    "device_type": ""
+  },
+  "BLOCK_SIZE": 2048,
+  "NODE_TIMEOUT": 20,
+  "VOTE_TIMEOUT": 60,
+  "AGGREGATION_TIMEOUT": 300,
+  "HEARTBEAT_PERIOD": 4,
+  "HEARTBEATER_REFRESH_NEIGHBORS_BY_PERIOD": 4,
+  "WAIT_HEARTBEATS_CONVERGENCE": 10,
+  "TRAIN_SET_SIZE": 10,
+  "TRAIN_SET_CONNECT_TIMEOUT": 5,
+  "AMOUNT_LAST_MESSAGES_SAVED": 100,
+  "GOSSIP_MESSAGES_FREC": 100,
+  "GOSSIP_MESSAGES_PER_ROUND": 500,
+  "GOSSIP_EXIT_ON_X_EQUAL_ROUNDS": 40,
+  "GOSSIP_MODELS_FREC": 1,
+  "GOSSIP_MODELS_PER_ROUND": 20
+}

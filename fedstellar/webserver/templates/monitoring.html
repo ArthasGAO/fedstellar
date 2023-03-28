@@ -1,0 +1,463 @@
+{% extends "layout.html" %}
+{% block page_title %}Scenario Monitoring{% endblock %}
+{% block body %}
+{{ super() }}
+
+<h4>Monitor scenario using Fedstellar</h4>
+<hr>
+
+{% if not scenario %}
+
+<h4>There are no scenario named {{ scenario_name }}.</h4>
+
+{% else %}
+
+<h3>Scenario</h3>
+<h5>Scenario name: <b id="scenario_name">{{ scenario[0] }}</b></h5>
+<h5>Scenario title: <b id="scenario_title">{{ scenario[3] }}</b></h5>
+<h5>Scenario description: <b id="scenario_description">{{ scenario[4] }}</b></h5>
+<h5>Scenario start time: <b id="scenario_start_time">{{ scenario[1] }}</b></h5>
+<h5>Scenario end time: <b id="scenario_end_time">{{ scenario[2] }}</b></h5>
+{% if scenario[5] == "running" %}
+<h5>Scenario status: <span id="scenario_status" class="label label-success">Running</span></h5>
+<a href="{{ url_for('fedstellar_stop_scenario', scenario_name=scenario[0]) }}" class="btn btn-danger">Stop scenario</a>
+{% else %}
+<h5>Scenario status: <span id="scenario_status" class="label label-danger">Finished</span></h5>
+{% endif %}
+
+<a href="{{ url_for('fedstellar_scenario_private', scenario_name=scenario[0]) }}" class="btn btn-primary">Private page</a>
+<hr>
+
+<h3>Nodes in the database</h3>
+
+<div class="table-responsive">
+    <table id="table-nodes" class="table small">
+        <thead>
+        <tr>
+            <th>UID</th>
+            <th>IDX</th>
+            <th>IP</th>
+            <th>Port</th>
+            <th>Role</th>
+            <th>Neighbors</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Timestamp</th>
+            <th>Federation</th>
+            <th>Status</th>
+            <th>Logs</th>
+
+        </tr>
+        </thead>
+        {% for uid, idx, ip, port, role, neighbors, latitude, longitude, timestamp, federation, scenario, status in nodes %}
+        <tr id="node-vars">
+            <td id="uid"> {{ uid }}</td>
+            <td id="idx"> {{ idx }}</td>
+            <td id="ip"> {{ ip }}</td>
+            <td id="port"> {{ port }}</td>
+            <td id="role"> {{ role }}</td>
+            <td id="neighbors"> {{ neighbors }}</td>
+            <td id="latitude">{{ latitude }}</td>
+            <td id="longitude">{{ longitude }}</td>
+            <td id="timestamp"> {{ timestamp }}</td>
+            <td id="federation"> {{ federation }}</td>
+            {% if status %}
+            <td id="status"><span class="label label-success">Online</span></td>
+            {% else %}
+            <td id="status"><span class="label label-danger">Offline</span></td>
+            {% endif %}
+            <td class="td-icons" id="logs">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" style="pointer-events: none;">
+                            <input type="checkbox" class="form-check-input" id="logicon" style="pointer-events: all">
+                            Show logs
+                        </a>
+                        <a class="dropdown-item download" href="/scenario/{{ scenario_name }}/node/{{ idx }}/infolog">
+                            <i class="fa fa-download"></i>
+                            Download INFO logs
+                        </a>
+                        <a class="dropdown-item download" href="/scenario/{{ scenario_name }}/node/{{ idx }}/debuglog">
+                            <i class="fa fa-download"></i>
+                            Download DEBUG logs
+                        </a>
+                        <a class="dropdown-item download" href="/scenario/{{ scenario_name }}/node/{{ idx }}/errorlog">
+                            <i class="fa fa-download"></i>
+                            Download ERROR logs
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr class="dropdown-content" style="display: none;">
+            <td colspan="12">
+                <div id="logscontainer" data-id="{{ idx }}" data-scenario="{{ scenario_name }}">
+                    <p id="logstext" style="color: black; font-weight: bold"></p>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<h3>Map</h3>
+<p>This functionality enables you to visualize the nodes in a real-time map. Click on a node to see its details.</p>
+
+<div class="row">
+    <div id="map"></div>
+</div>
+
+
+<h3>Topology Image</h3>
+<p>This functionality enables you to generate a topology image of the scenario. The image is generated using the following button.</p>
+<a class="btn btn-primary" style="padding: 10px;margin-bottom: 10px" href="{{ url_for('fedstellar_monitoring_image', scenario_name=scenario[0]) }}">Download topology</a>
+
+<h3>Topology 3D</h3>
+<p>This functionality enables you to generate a 3D topology image of the scenario. The grey nodes are the ones that are not online. The image is generated below automatically.</p>
+<div id="3d-graph-container" class="row" style="width: 100%">
+    <div id="3d-graph" style="width: 100%"></div>
+</div>
+
+<style>
+    #map {
+        position: relative;
+        border: 1px solid black;
+        border-radius: 8px;
+        height: 400px; /* or as desired */
+        width: 100%; /* This means "100% of the width of its container", the .col-md-8 */
+    }
+
+    .dropdown-content {
+        background-color: #f9f9f9;
+    }
+
+    .ansi36 {
+        color: blue;
+        font-weight: bold;
+    }
+
+    #logicon {
+        margin-right: 5px;
+        margin-left: 2px;
+    }
+
+
+</style>
+
+<script>
+    var downloadLinks = document.getElementsByClassName('download');
+    // Loop through the tags and add event listeners. When user click to a tag, do a fetch request to the link and get the response. If the response is 200, then the file exists and the link is enabled. If the response is 404, then the file does not exist and the link is disabled.
+    for (var i = 0; i < downloadLinks.length; i++) {
+        downloadLinks[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            var link = this;
+            fetch(link.href)
+                .then(function (response) {
+                    if (!response.ok) {
+                        // If the file is not found, display the alert
+                        showAlert('danger', 'File not found');
+                    } else {
+                        // If the file is found, redirect to it
+                        window.location.href = link.href;
+                    }
+                });
+        });
+    }
+
+</script>
+
+<script>
+    var logicons = document.querySelectorAll("#logicon");
+    // Get the icon element
+    logicons.forEach(function (logicon) {
+        // Attack the checkbox event
+        logicon.addEventListener("change", function (event) {
+            // Get the checkbox
+            var checkbox = event.target;
+            // Get the row
+            // var row = checkbox.parentNode.parentNode.parentNode.parentNode.parentNode;
+            var row = checkbox.closest('tr');
+            // Get the dropdown content
+            var dropdownContent = row.nextElementSibling;
+            // Toggle the dropdown content
+            dropdownContent.style.display = dropdownContent.style.display === "none" ? "table-row" : "none";
+            // Toggle the icon
+            //icon.className = icon.className === "fa fa-caret-down" ? "fa fa-caret-right" : "fa fa-caret-down";
+        });
+    });
+</script>
+
+<script>
+    // If dropdown is open, get logscontainer and get the logs every 5 seconds
+    // If not, not get the logs
+    setInterval(function () {
+        var dropdowns = document.querySelectorAll(".dropdown-content");
+        dropdowns.forEach(function (dropdown) {
+            if (dropdown.style.display === "table-row") {
+                var logscontainer = dropdown.querySelector("#logscontainer");
+                var participant_id = logscontainer.getAttribute("data-id");
+                var scenario = logscontainer.getAttribute("data-scenario");
+                fetch('/scenario/' + scenario + '/node/' + participant_id + '/infolog/10')
+                    .then(function (response) {
+                        if (!response.ok) {
+                            console.log("Error");
+                            return;
+                        }
+                        // Examine the text in the response (is not a json file)
+                        response.text().then(function (data) {
+                            // Change \n to <br>
+                            data = data.replace(/\n/g, "<br>");
+                            // Change ANSI color to HTML color
+                            data = data.replace(/\x1b\[36m/g, "<span class='ansi36'>");
+                            data = data.replace(/\x1b\[0m/g, "</span>");
+                            // Change the text
+                            logscontainer.innerHTML = data;
+                        });
+                    });
+            }
+        });
+    }, 2000);
+
+    // if (document.getElementById("logicon").checked) {
+    //     // Get the logscontainer
+    //     var logscontainers = document.querySelectorAll("#logscontainer");
+    //     // Get the icon element
+    //     //var icon = document.getElementById("icon");
+    //     logscontainers.forEach(function (logscontainer) {
+    //         var participant_id = logscontainer.getAttribute("data-id");
+    //         var scenario = logscontainer.getAttribute("data-scenario");
+    //
+    //         setInterval(function () {
+    //             // Obtiene el log del servidor y lo muestra en la página
+    //             fetch('/scenario/' + scenario + '/node/' + participant_id + '/infolog/10')
+    //                 .then(function (response) {
+    //                     if (!response.ok) {
+    //                         console.log("Error");
+    //                         return;
+    //                     }
+    //                     // Examine the text in the response (is not a json file)
+    //                     response.text().then(function (data) {
+    //                         // Change \n to <br>
+    //                         data = data.replace(/\n/g, "<br>");
+    //                         // Change ANSI color to HTML color
+    //                         data = data.replace(/\x1b\[36m/g, "<span class='ansi36'>");
+    //                         data = data.replace(/\x1b\[0m/g, "</span>");
+    //                         // Change the text
+    //                         logscontainer.innerHTML = data;
+    //                     });
+    //                 });
+    //         }, 3000);
+    //     });
+    // }
+
+
+</script>
+
+<script>
+    var map = L.map('map').setView([44.194021, 0.397141], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'}).addTo(map);
+
+    //{{ markers | safe }}
+
+</script>
+
+<script>
+    const width = document.getElementById('3d-graph').offsetWidth;
+    // When resize the window, resize the graph
+    window.addEventListener("resize", function () {
+        Graph.width(document.getElementById('3d-graph').offsetWidth);
+    });
+
+    const offlineNodes = new Set();
+
+    const Graph = ForceGraph3D()
+    (document.getElementById('3d-graph'))
+        .width(width)
+        .height(700)
+        .backgroundColor('#ffffff')
+        .nodeId('ipport')
+        .nodeLabel(node => `<p style="color: black">ID: ${node.id} | IP: ${node.ipport} | Role: ${node.role}</p>`)
+        .onNodeClick(node => {
+            const distance = 40;
+            const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+            const newPos = node.x || node.y || node.z
+                ? {x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio}
+                : {x: 0, y: 0, z: distance}; // special case if node is in (0,0,0)
+            Graph.cameraPosition(
+                newPos, // new position
+                node, // lookAt ({ x, y, z })
+                3000  // ms transition duration
+            )
+        })
+        //.linkSource('source')
+        //.linkTarget('target')
+
+        .nodeColor(node => offlineNodes.has(node.ipport) ? 'grey' :
+            (node.role === "trainer" ? '#0173B2'
+                : (node.role === "aggregator" ? 'rgba(255,136,0,0.6)'
+                    : (node.role === "evaluator" ? '#F44336' : undefined))))
+        .linkColor(link => link.color ? 'red' : 'black')
+        .linkOpacity(0.6)
+        .linkWidth(0.3)
+        .linkDirectionalParticles("value")
+        .linkDirectionalParticleSpeed(d => d.value * 0.001)
+        .linkDirectionalParticleWidth(1);
+
+    Graph.cameraPosition({x: 0, y: 0, z: 70}, {x: 0, y: 0, z: 0}, 0);
+    document.getElementsByClassName("scene-nav-info")[0].innerHTML = "Only visualization purpose. Click on a node to zoom in.";
+</script>
+
+<script>
+    function updateGraph(gData) {
+        // Global update of the graph
+        //gDataUpdate(gData);
+        Graph.graphData(gData);
+    }
+
+    function gDataUpdate(gData) {
+        console.log("gDataUpdate");
+        console.log(gData);
+        // Remove duplicated links
+        for (var i = 0; i < gData.links.length; i++) {
+            for (var j = i + 1; j < gData.links.length; j++) {
+                if ((gData.links[i].source === gData.links[j].source && gData.links[i].target === gData.links[j].target) ||
+                    gData.links[i].source === gData.links[j].target && gData.links[i].target === gData.links[j].source) {
+                    gData.links.splice(j, 1);
+                }
+            }
+        }
+    }
+</script>
+
+<script>
+    var initizalization = false;
+
+    function async_update_nodes_page() {
+        // Get all divs with id "node-vars" and update them with value returned by async GET request
+        var scenario_name = document.getElementById('scenario_name').innerHTML;
+        var node_row = document.querySelectorAll("#node-vars");
+
+        // Get the table
+        fetch('/api/scenario/' + scenario_name + '/monitoring')
+            .then(function (response) {
+                if (!response.ok) {
+                    showAlert("danger", "Error: " + response.status + " " + response.statusText);
+                    return;
+                }
+                // Examine the json in the response
+                response.json().then(function (data) {
+                    // Update the table with the values of the json and maintain the style of HTML
+                    var markers = Array();
+                    var markers_neighborhood = Array();
+                    var latlngs = Array();
+                    var nodes_offline = Array();
+
+                    data['nodes_table'].forEach(function (node) {
+                        for (var i = 0; i < node_row.length; i++) {
+                            var uid_row = node_row[i].querySelector("#uid").innerHTML.trim();
+                            if (uid_row === node[0]) {
+                                node_row[i].querySelector("#idx").innerHTML = node[1];
+                                node_row[i].querySelector("#ip").innerHTML = node[2];
+                                node_row[i].querySelector("#port").innerHTML = node[3];
+                                node_row[i].querySelector("#role").innerHTML = node[4];
+                                node_row[i].querySelector("#neighbors").innerHTML = node[5];
+                                node_row[i].querySelector("#latitude").innerHTML = node[6];
+                                node_row[i].querySelector("#longitude").innerHTML = node[7];
+                                node_row[i].querySelector("#timestamp").innerHTML = node[8];
+                                node_row[i].querySelector("#federation").innerHTML = node[9];
+                                if (node[11]) {
+                                    node_row[i].querySelector("#status").innerHTML = '<span class="label label-success">Online</span>';
+                                } else {
+                                    nodes_offline.push(node[2] + ":" + node[3]);
+                                    offlineNodes.add(node[2] + ":" + node[3]);
+                                    node_row[i].querySelector("#status").innerHTML = '<span class="label label-danger">Offline</span>';
+                                }
+                                break;
+                            }
+                        }
+                        if (!initizalization || Graph.graphData().nodes.length < data['nodes_table'].length) {
+                            var markerExists = false;
+
+                            map.eachLayer(function (layer) {
+                                if (layer instanceof L.Marker) {
+                                    if (layer.options.title === node[0] && layer._latlng.lat === node[6] && layer._latlng.lng === node[7]) {
+                                        markerExists = true;
+                                    } else if (layer.options.title === node[0] && (layer._latlng.lat !== node[6] || layer._latlng.lng !== node[7])) {
+                                        map.removeLayer(layer);
+                                    }
+                                } else if (layer instanceof L.Polyline) {
+                                    map.removeLayer(layer);
+                                }
+                            });
+                            if (!markerExists) {
+                                var marker = L.marker([node[6], node[7]], {title: node[0]}).addTo(map)
+                                marker.bindPopup('UID: ' + node[0] + '<br>IP:' + node[2] + ':' + node[3] + '<br>CLUSTER: Spain-Switzerland');
+                            }
+                        }
+                    });
+
+                    data['nodes_table'].forEach(function (node) {
+                        var marker = L.marker([node[6], node[7]], {title: node[0]})
+                        var neighborhood = data['nodes_table'].filter(n => n[5].includes(node[2] + ":" + node[3]));
+                        neighborhood.forEach(function (n) {
+                            var marker_nei = L.marker([n[6], n[7]], {title: n[0]})
+                            L.polyline([marker.getLatLng(), marker_nei.getLatLng()], {color: 'red', opacity: 0.2, smoothFactor: 1}).addTo(map);
+                        });
+                    });
+
+                    // Add data to the Graph topology
+                    // Check if there are new nodes to add to the graph
+                    if (!initizalization || Graph.graphData().nodes.length < data['nodes_table'].length) {
+                        const gData = {
+                            // if data['nodes_table'][i][0] is not in nodes_offline, then add the node to the graph
+                            nodes: data['nodes_table'].map(node => ({
+                                id: node[1],
+                                ip: node[2],
+                                port: node[3],
+                                ipport: node[2] + ":" + node[3],
+                                role: node[4],
+                                color: offlineNodes.has(node[2] + ":" + node[3]) ? 'grey' :
+                                    (node[4] === "trainer" ? '#0173B2'
+                                        : (node[4] === "aggregator" ? 'rgba(255,136,0,0.6)'
+                                            : (node[4] === "evaluator" ? '#F44336' : undefined))),
+                            })),
+                            links: data['nodes_table'].map(node => {
+                                var links = [];
+                                if (node[5] !== "") {
+                                    var neighbors = node[5].split(" ");
+                                    neighbors.forEach(function (neighbor) {
+                                        links.push({
+                                            source: node[2] + ":" + node[3],
+                                            target: neighbor,
+                                            value: offlineNodes.has(node[2] + ":" + node[3]) || offlineNodes.has(neighbor) ? 0 : 1,
+                                        });
+                                    });
+                                }
+                                return links;
+                            }).flat()
+                        };
+
+                        // cross-link node objects
+                        console.log(gData);
+                        updateGraph(gData);
+                    }
+
+                    if (!initizalization) {
+                        initizalization = true;
+                    }
+
+                });
+            })
+    }
+
+    window.onload = async function () {
+        await async_update_nodes_page();
+    };
+    setInterval(async_update_nodes_page, 5000); // Update the nodes every 2 seconds
+</script>
+
+{% endif %}
+{% endblock %}

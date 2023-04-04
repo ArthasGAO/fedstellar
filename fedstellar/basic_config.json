@@ -1,0 +1,58 @@
+{
+  "scenario_name": "",
+  "scenario_title": "",
+  "scenario_description": "",
+  "config": "/Users/janosch/Repos/fedstellar-robust/app/config",
+  "logs": "/Users/janosch/Repos/fedstellar-robust/app/logs",
+  "models": "/Users/janosch/Repos/fedstellar-robust/app/models",
+  "n_nodes": 3,
+  "matrix": [],
+  "federation": "DFL",
+  "topology": "ring",
+  "simulation": true,
+  "env": null,
+  "webserver": false,
+  "python": "/Users/janosch/opt/anaconda3/envs/fedstellar/bin/python",
+  "attack": "Label Flipping",
+  "poisoned_node_percent": 20,
+  "poisoned_sample_percent": 20,
+  "poisoned_ratio": 20,
+  "rounds": 3,
+  "epochs": 3,
+  "dataset": "MNIST",
+  "model": "MLP",
+  "accelerator": "cpu",
+  "aggregation": "Krum",
+  "attack_matrix": [
+    [
+      0,
+      "No Attack",
+      0,
+      0
+    ],
+    [
+      1,
+      "Label Flipping",
+      0.2,
+      0.2
+    ],
+    [
+      2,
+      "No Attack",
+      0,
+      0
+    ],
+    [
+      3,
+      "No Attack",
+      0,
+      0
+    ],
+    [
+      4,
+      "No Attack",
+      0,
+      0
+    ]
+  ]
+}

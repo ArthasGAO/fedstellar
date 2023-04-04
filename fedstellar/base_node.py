@@ -209,7 +209,7 @@ class BaseNode(threading.Thread, Observer):
 
         # Stop Node
         logging.info(
-            "[BASENODE] Stopping node. Disconnecting from {} nodos".format(
+            "[BASENODE] Stopping node. Disconnecting from {} nodes".format(
                 len(self.__neighbors)
             )
         )

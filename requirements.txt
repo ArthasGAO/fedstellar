@@ -3,8 +3,8 @@
 
 netifaces==0.11.0
 numpy==1.24.1
-torch==2.0.0.dev20230112
-torchvision==0.15.0.dev20230114
+torch== 2.1.0.dev20230326
+torchvision==0.16.0.dev20230326
 flask==2.2.2
 pytest==7.2.0
 python-dotenv==0.21.0
@@ -23,3 +23,4 @@ pytorch-lightning==1.8.6
 sphinx-autoapi==2.0.0
 tensorboard==2.11.2
 psutil==5.9.4
+scikit-image

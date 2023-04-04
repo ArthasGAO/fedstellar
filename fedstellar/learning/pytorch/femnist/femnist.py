@@ -17,7 +17,7 @@ from torch.utils.data import DataLoader, Subset, random_split, Dataset
 from torchvision.datasets import MNIST, utils
 from torchvision import transforms
 import numpy as np
-
+from fedstellar.learning.pytorch.changeablesubset import ChangeableSubset
 torch.multiprocessing.set_sharing_strategy("file_system")
 
 
@@ -62,7 +62,7 @@ class FEMNIST(MNIST):
         paths = [f'{self.root}/FEMNIST/raw/', f'{self.root}/FEMNIST/processed/']
         for path in paths:
             if not os.path.exists(path):
-                os.makedirs(path)
+                os.makedirs(path, exist_ok=True)
 
         # download files
         filename = self.download_link.split('/')[-1]
@@ -107,7 +107,17 @@ class FEMNISTDataModule(LightningDataModule):
             batch_size=32,
             num_workers=8,
             val_percent=0.1,
+            iid=True,
             root_dir=None,
+            label_flipping=False,
+            data_poisoning=False,
+            poisoned_persent=0,
+            poisoned_ratio=0,
+            targeted=False,
+            target_label=0,
+            target_changed_label=0,
+            noise_type="salt",
+            indices_dir=None
     ):
         super().__init__()
         self.sub_id = sub_id
@@ -115,20 +125,59 @@ class FEMNISTDataModule(LightningDataModule):
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.val_percent = val_percent
-        self.root_dir = root_dir
+        self.idd = iid
+        self.root_dir = root_dir,
+        self.label_flipping = label_flipping
+        self.data_poisoning = data_poisoning
+        self.poisoned_persent = poisoned_persent
+        self.poisoned_ratio = poisoned_ratio
+        self.targeted = targeted
+        self.target_label = target_label
+        self.target_changed_label = target_changed_label
+        self.noise_type = noise_type,
+        self.indices_dir = indices_dir
+
 
         transform_data = transforms.Compose(
             [
-                transforms.CenterCrop((96, 96)),
-                transforms.Grayscale(num_output_channels=1),
-                transforms.Resize((28, 28)),
-                transforms.ColorJitter(contrast=3),
+                # transforms.CenterCrop((96, 96)),
+                # transforms.Grayscale(num_output_channels=1),
+                # transforms.Resize((28, 28)),
+                # transforms.ColorJitter(contrast=3),
                 transforms.ToTensor(),
-                transforms.Normalize((0.1307,), (0.3081,))]
+                transforms.Normalize((0.5,), (0.5,))]
         )
 
         self.train = FEMNIST(sub_id=self.sub_id, number_sub=self.number_sub, root_dir=root_dir, train=True, transform=transform_data, target_transform=None, download=True)
         self.test = FEMNIST(sub_id=self.sub_id, number_sub=self.number_sub, root_dir=root_dir, train=False, transform=transform_data, target_transform=None, download=True)
+
+
+        if iid:
+            train_len = len(self.train.targets)
+            train_index = np.arange(train_len)
+            np.random.shuffle(train_index)
+
+            test_len = len(self.test.targets)
+            test_index = np.arange(test_len)
+            np.random.shuffle(test_index)
+
+            self.train.data=self.train.data[train_index]
+            self.train.targets=self.train.targets[train_index]
+
+            self.test.data=self.test.data[test_index]
+            self.test.targets=self.test.targets[test_index]
+            
+        if not iid:
+            train_sorted_index = self.train.targets.sort()[1]
+
+            test_sorted_index = self.test.targets.sort()[1]
+
+            self.train.data=self.train.data[train_sorted_index]
+            self.train.targets=self.train.targets[train_sorted_index]
+
+            self.test.data=self.test.data[test_sorted_index]
+            self.test.targets=self.test.targets[test_sorted_index]
+
 
         if len(self.test) < self.number_sub:
             raise ("Too much partitions")
@@ -136,9 +185,14 @@ class FEMNISTDataModule(LightningDataModule):
         # Training / validation set
         trainset = self.train
         rows_by_sub = floor(len(trainset) / self.number_sub)
-        tr_subset = Subset(
-            trainset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub)
+
+        tr_subset = ChangeableSubset(
+            trainset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub), \
+            label_flipping=self.label_flipping, data_poisoning=self.data_poisoning, poisoned_persent=self.poisoned_persent, \
+            poisoned_ratio=self.poisoned_ratio, targeted=self.targeted, target_label=self.target_label, \
+            target_changed_label=self.target_changed_label, noise_type=self.noise_type
         )
+
         femnist_train, femnist_val = random_split(
             tr_subset,
             [
@@ -150,7 +204,7 @@ class FEMNISTDataModule(LightningDataModule):
         # Test set
         testset = self.test
         rows_by_sub = floor(len(testset) / self.number_sub)
-        te_subset = Subset(
+        te_subset = ChangeableSubset(
             testset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub)
         )
 

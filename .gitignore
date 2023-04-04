@@ -129,7 +129,5 @@ dmypy.json
 .pyre/
 
 # Custom
-/app/logs/
-/app/config/
 *.DS_Store
 fedstellar/data/

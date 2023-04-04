@@ -19,7 +19,7 @@ class CNN(pl.LightningModule):
             self,
             in_channels=1,
             out_channels=62,
-            metric=Accuracy(num_classes=10, task="multiclass"),
+            metric=Accuracy(num_classes=62, task="multiclass"),
             lr_rate=0.001,
             momentum=0,
             seed=None,
@@ -39,6 +39,7 @@ class CNN(pl.LightningModule):
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(32, 64, 3, padding=1)
         self.out = nn.Linear(64 * 7 * 7, out_channels)
+        # self.softmax = nn.Softmax(dim=1)
 
         self.loss_fn = nn.CrossEntropyLoss()
 
@@ -48,6 +49,7 @@ class CNN(pl.LightningModule):
         x = self.pool(self.relu(self.conv1(x)))
         x = self.pool(self.relu(self.conv2(x)))
         x = x.flatten(1)
+        # x = self.softmax(x)
         # return self.dense2(self.act(self.dense1(x)))
         return self.out(x)
 

@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 from fedstellar.config.config import Config
 from fedstellar.config.mender import Mender
 from fedstellar.utils.topologymanager import TopologyManager
+# from fedstellar.start_without_webserver import generate_controller_configs, create_particiants_configs
 
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
@@ -83,6 +84,7 @@ class Controller:
         self.simulation = args.simulation
         self.config_dir = args.config
         self.log_dir = args.logs
+        self.model_dir = args.models
         self.env_path = args.env
         self.python_path = args.python
         self.matrix = args.matrix if hasattr(args, 'matrix') else None
@@ -118,6 +120,7 @@ class Controller:
         logging.info("Saving configuration in environment variables...")
         os.environ["FEDSTELLAR_LOGS_DIR"] = self.log_dir
         os.environ["FEDSTELLAR_CONFIG_DIR"] = self.config_dir
+        os.environ["FEDSTELLAR_MODELS_DIR"] = self.model_dir
         os.environ["FEDSTELLAR_PYTHON_PATH"] = self.python_path
         os.environ["FEDSTELLAR_STATISTICS_PORT"] = str(self.statistics_port)
 
@@ -125,8 +128,9 @@ class Controller:
             self.run_webserver()
             self.run_statistics()
         else:
-            logging.info("The controller without webserver is under development. Please, use the webserver (--webserver) option.")
+            # logging.info("The controller without webserver is under development. Please, use the webserver (--webserver) option.")
             # self.load_configurations_and_start_nodes()
+            self.start_without_server()
             if self.mender:
                 logging.info("[Mender.module] Mender module initialized")
                 time.sleep(2)
@@ -146,7 +150,7 @@ class Controller:
                     # mender.deploy_artifact_device("my-update-2.0.mender", i['device_args']['idx'])
                     logging.info("[Mender.module] \tSending configuration...")
                     time.sleep(5)
-            sys.exit(0)
+            # sys.exit(0)
 
         logging.info('Press Ctrl+C for exit from Fedstellar (global exit)')
         while True:
@@ -166,8 +170,7 @@ class Controller:
             current_dir = os.path.dirname(os.path.abspath(__file__))
             webserver_path = os.path.join(current_dir, "webserver")
             with open(f'{self.log_dir}/server.log', 'w', encoding='utf-8') as log_file:
-                # Remove option --reload for production
-                subprocess.Popen(["gunicorn", "--workers", "4", "--threads", "4", "--bind", f"unix:/tmp/fedstellar.sock", "--access-logfile", f"{self.log_dir}/server.log", "app:app"], cwd=webserver_path, env=controller_env, stdout=log_file, stderr=log_file, encoding='utf-8')
+                subprocess.Popen(["gunicorn", "--reload", "--workers", "3", "--threads", "2", "--bind", f"unix:/tmp/fedstellar.sock", "--access-logfile", f"{self.log_dir}/server.log", "app:app"], cwd=webserver_path, env=controller_env, stdout=log_file, stderr=log_file, encoding='utf-8')
 
         else:
             logging.info(f"Running Fedstellar Webserver (local): http://127.0.0.1:{self.webserver_port}")
@@ -220,11 +223,21 @@ class Controller:
         elif sys.platform == "linux":
             command = '''kill -9 $(lsof -i :''' + str(port) + ''' | grep python | awk '{print $2}') > /dev/null 2>&1'''
         elif sys.platform == "win32":
-            command = 'taskkill /F /PID $(FOR /F "tokens=5" %P IN (\'netstat -a -n -o ^| findstr :' + str(port) + '\') DO echo %P)'
+            try:
+                command = 'taskkill /F /PID $(FOR /F "tokens=5" %P IN (\'netstat -a -n -o ^| findstr :' + str(port) + '\') DO echo %P)'
+            except Exception as e:
+                logging.error("Failed to kill port{}, raise an exception {}".format(str(port), str(e)))
         else:
             raise ValueError("Unknown platform")
 
         os.system(command)
+
+    def start_without_server(self):
+        controller_env = os.environ.copy()
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        # webserver_path = os.path.join(current_dir, "webserver")
+        with open(f'{self.log_dir}/server.log', 'w', encoding='utf-8') as log_file:
+            subprocess.Popen([self.python_path, "start_without_webserver.py"], cwd=current_dir, env=controller_env, stdout=log_file, stderr=log_file, encoding='utf-8')
 
     def load_configurations_and_start_nodes(self):
         if not self.scenario_name:
@@ -232,6 +245,9 @@ class Controller:
         # Once the scenario_name is defined, we can update the config_dir
         self.config_dir = os.path.join(self.config_dir, self.scenario_name)
         os.makedirs(self.config_dir, exist_ok=True)
+
+        self.model_dir = os.path.join(self.model_dir, self.scenario_name)
+        os.makedirs(self.model_dir, exist_ok=True)
 
         os.makedirs(os.path.join(self.log_dir, self.scenario_name), exist_ok=True)
         self.start_date_scenario = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -267,6 +283,7 @@ class Controller:
 
             participant_config['tracking_args']['log_dir'] = self.log_dir
             participant_config['tracking_args']['config_dir'] = self.config_dir
+            participant_config['tracking_args']['model_dir'] = self.model_dir
             if participant_config["device_args"]["start"]:
                 if not is_start_node:
                     is_start_node = True
@@ -370,3 +387,4 @@ class Controller:
         import shutil
         shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_CONFIG_DIR"], scenario_name))
         shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_LOGS_DIR"], scenario_name))
+        shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_MODELS_DIR"], scenario_name))

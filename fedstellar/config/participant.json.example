@@ -49,6 +49,11 @@
   "aggregator_args": {
     "algorithm": "FedAvg"
   },
+  "adversarial_args": {
+    "attacks": "No Attack",
+    "poisoned_sample_persent": 0,
+    "poisoned_ratio": 0
+  },
   "tracking_args": {
     "enable_remote_tracking": false,
     "local_tracking": "web",

@@ -25,3 +25,4 @@ tensorboard==2.11.2
 psutil==5.9.4
 gunicorn==20.1.0
 nvidia-ml-py==11.525.84
+scikit-image

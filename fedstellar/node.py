@@ -23,18 +23,20 @@ logging.getLogger("fsspec").setLevel(logging.WARNING)
 import random
 import threading
 import time
-
+import pickle
 from pytorch_lightning.loggers import WandbLogger, CSVLogger
 
 from fedstellar.base_node import BaseNode
 from fedstellar.communication_protocol import CommunicationProtocol
 from fedstellar.config.config import Config
 from fedstellar.learning.aggregators.fedavg import FedAvg
+from fedstellar.learning.aggregators.krum import Krum
+from fedstellar.learning.aggregators.trimmedmean import TrimmedMean
+from fedstellar.learning.aggregators.median import Median
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.role import Role
 from fedstellar.utils.observer import Events, Observer
-
 
 class Node(BaseNode):
     """
@@ -94,6 +96,8 @@ class Node(BaseNode):
         self.__initial_neighbors = []
         self.__start_thread_lock = threading.Lock()
 
+        self.model_dir = self.config.participant['tracking_args']["model_dir"]
+        self.model_name = f"{self.model_dir}/participant_{self.idx}_model.pk"
         # Learner and learner logger
         # log_model="all" to log model
         # mode="disabled" to disable wandb
@@ -121,6 +125,12 @@ class Node(BaseNode):
         # Aggregator
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
             self.aggregator = FedAvg(node_name=self.get_name(), config=self.config)
+        if self.config.participant["aggregator_args"]["algorithm"] == "Krum":
+            self.aggregator = Krum(node_name=self.get_name(), config=self.config)
+        if self.config.participant["aggregator_args"]["algorithm"] == "Median":
+            self.aggregator = Median(node_name=self.get_name(), config=self.config)
+        if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
+            self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
 
         self.aggregator.add_observer(self)
 
@@ -241,6 +251,7 @@ class Node(BaseNode):
             )
             # Learning Thread
             self.__start_learning_thread(rounds, epochs)
+            
         else:
             logging.info("[NODE] Learning already started")
 
@@ -265,6 +276,7 @@ class Node(BaseNode):
         learning_thread.name = "learning_thread-" + self.get_name()
         learning_thread.daemon = True
         learning_thread.start()
+        logging.info("[is_alive ????????] {}".format(learning_thread.is_alive()))
 
     def __start_learning(self, rounds, epochs):
         """
@@ -300,6 +312,11 @@ class Node(BaseNode):
             self.learner.create_trainer()
             self.__train_step()
             logging.info("[NODE.__start_learning] Thread __start_learning finished in node {}".format(self.get_name()))
+            # self.__stop_learning()
+            time.sleep(30)
+            self.stop()
+            time.sleep(10)
+            # self.join()
 
     def __stop_learning(self):
         """
@@ -451,6 +468,7 @@ class Node(BaseNode):
 
             # Evaluate and send metrics
             if self.round is not None:
+                logging.info("[NODE.__evaluate_step] Evaluating the local model")
                 self.__evaluate()
 
             # Train
@@ -585,12 +603,21 @@ class Node(BaseNode):
         logging.info("[NODE.__train] Start training...")
         self.learner.fit()
         logging.info("[NODE.__train] Finish training...")
+        logging.warning("[NODE.__train] Evaluate the local model..")
+        results = self.learner.evaluate()
+        if results is not None:
+            logging.warning(
+                "[NODE] Evaluated. Losss: {}, Metric: {}".format(
+                    results[0], results[1]
+                )
+            )
+            logging.info("[NODE.__train] Finish the local evaluation...")
 
     def __evaluate(self):
         logging.info("[NODE.__evaluate] Start evaluation...")
         results = self.learner.evaluate()
         if results is not None:
-            logging.info(
+            logging.warning(
                 "[NODE] Evaluated. Losss: {}, Metric: {}".format(
                     results[0], results[1]
                 )
@@ -644,6 +671,8 @@ class Node(BaseNode):
             logging.debug("[NODE] FL finished | Models aggregated = {}".format([nc.get_models_aggregated() for nc in self.get_neighbors()]))
             # At end, all nodes compute metrics
             self.__evaluate()
+            with open(self.model_name, 'wb') as f:
+                pickle.dump(self.learner.model, f)
             # Finish
             logging.info(
                 "[NODE] FL experiment finished | Round: {} | Total rounds: {} | [!] Both to None".format(
@@ -962,7 +991,7 @@ class Node(BaseNode):
         ram_percent = psutil.virtual_memory().percent
         # Gather disk usage information
         disk_percent = psutil.disk_usage("/").percent
-        logging.info(f'Resources: CPU {cpu_percent}%, CPU temp {cpu_temp}C, RAM {ram_percent}%, Disk {disk_percent}%')
+        # logging.info(f'Resources: CPU {cpu_percent}%, CPU temp {cpu_temp}C, RAM {ram_percent}%, Disk {disk_percent}%')
         self.learner.logger.log_metrics({"Resources/CPU_percent": cpu_percent, "Resources/CPU_temp": cpu_temp, "Resources/RAM_percent": ram_percent, "Resources/Disk_percent": disk_percent}, step=step)
 
         # Gather network usage information
@@ -972,12 +1001,12 @@ class Node(BaseNode):
         packets_sent = net_io_counters.packets_sent
         packets_recv = net_io_counters.packets_recv
 
-        logging.info(f'Resources: Bytes sent {bytes_sent}, Bytes recv {bytes_recv}, Packets sent {packets_sent}, Packets recv {packets_recv}')
+        # logging.info(f'Resources: Bytes sent {bytes_sent}, Bytes recv {bytes_recv}, Packets sent {packets_sent}, Packets recv {packets_recv}')
         self.learner.logger.log_metrics({"Resources/Bytes_sent": bytes_sent, "Resources/Bytes_recv": bytes_recv, "Resources/Packets_sent": packets_sent, "Resources/Packets_recv": packets_recv}, step=step)
 
         # Log uptime information
         uptime = psutil.boot_time()
-        logging.info(f'Resources: Uptime {uptime}')
+        # logging.info(f'Resources: Uptime {uptime}')
         self.learner.logger.log_metrics({"Resources/Uptime": uptime}, step=step)
 
         # Check if pynvml is available
@@ -991,10 +1020,11 @@ class Node(BaseNode):
                 gpu_temp = pynvml.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
                 gpu_mem = pynvml.nvmlDeviceGetMemoryInfo(handle)
                 gpu_mem_percent = gpu_mem.used / gpu_mem.total * 100
-                logging.info(f'Resources: GPU-{i} {gpu_percent}%, GPU temp {gpu_temp}C, GPU mem {gpu_mem_percent}%')
+                # logging.info(f'Resources: GPU-{i} {gpu_percent}%, GPU temp {gpu_temp}C, GPU mem {gpu_mem_percent}%')
                 self.learner.logger.log_metrics({f"Resources/GPU{i}_percent": gpu_percent, f"Resources/GPU{i}_temp": gpu_temp, f"Resources/GPU{i}_mem_percent": gpu_mem_percent}, step=step)
         except ModuleNotFoundError:
-            logging.info(f'pynvml not found, skipping GPU usage')
+            gpu_percent = 0
+            # logging.info(f'pynvml not found, skipping GPU usage')
 
     def __store_model_parameters(self, obj):
         """

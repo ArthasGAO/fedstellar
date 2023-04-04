@@ -1,20 +1,15 @@
 import json
-import os, sys
-from datetime import datetime
-import networkx
+import os
 import random
+import sys
+from datetime import datetime
+
+import networkx
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedstellar module
-import fedstellar
 from fedstellar.controller import Controller
-import numpy as np
 import math
 import logging
-
-from fedstellar.webserver.database import list_users, verify, delete_user_from_db, add_user, scenario_update_record, \
-    scenario_set_all_status_to_finished, get_running_scenario, get_user_info, get_scenario_by_name, \
-    list_nodes_by_scenario_name, get_all_scenarios, remove_nodes_by_scenario_name, \
-    remove_scenario_by_name
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -59,29 +54,29 @@ def create_topo_matrix(basic_config):
     elif basic_config["topology"] == "fully":
         matrix = []
         for i in node_range:
-            node_adjcent = []
+            node_adjacent = []
             for j in node_range:
                 if i != j:
-                    node_adjcent.append(1)
+                    node_adjacent.append(1)
                 else:
-                    node_adjcent.append(0)
-            matrix.append(node_adjcent)
+                    node_adjacent.append(0)
+            matrix.append(node_adjacent)
     elif basic_config["topology"] == "ring":
         matrix = []
         for i in node_range:
-            node_adjcent = []
+            node_adjacent = []
             for j in node_range:
                 if j == i + 1:
-                    node_adjcent.append(1)
+                    node_adjacent.append(1)
                 elif j == i - 1:
-                    node_adjcent.append(1)
+                    node_adjacent.append(1)
                 elif i == 0 and j == node_range[-1]:
-                    node_adjcent.append(1)
+                    node_adjacent.append(1)
                 elif i == node_range[-1] and j == 0:
-                    node_adjcent.append(1)
+                    node_adjacent.append(1)
                 else:
-                    node_adjcent.append(0)
-            matrix.append(node_adjcent)
+                    node_adjacent.append(0)
+            matrix.append(node_adjacent)
     elif basic_config["topology"] == "random":
         random_seed = random.randint(0, 100)
         matrix = []
@@ -91,15 +86,15 @@ def create_topo_matrix(basic_config):
     elif basic_config["topology"] == "star":
         matrix = []
         for i in node_range:
-            node_adjcent = []
+            node_adjacent = []
             for j in node_range:
                 if i == 0 and j != 0:
-                    node_adjcent.append(1)
+                    node_adjacent.append(1)
                 elif i != 0 and j == 0:
-                    node_adjcent.append(1)
+                    node_adjacent.append(1)
                 else:
-                    node_adjcent.append(0)
-            matrix.append(node_adjcent)
+                    node_adjacent.append(0)
+            matrix.append(node_adjacent)
     return matrix
 
 
@@ -130,17 +125,17 @@ def create_attack_matrix(basic_config):
     # Assign the role of each node
     for node in node_range:
         node_att = 'No Attack'
-        attack_sample_persent = 0
+        attack_sample_percent = 0
         attack_ratio = 0
         if node in attacked_nodes:
             node_att = attack
-            attack_sample_persent = poisoned_sample_percent / 100
+            attack_sample_percent = poisoned_sample_percent / 100
             attack_ratio = poisoned_ratio / 100
-        attack_matrix.append([node, node_att, attack_sample_persent, attack_ratio])
+        attack_matrix.append([node, node_att, attack_sample_percent, attack_ratio])
     return attack_matrix
 
 
-def create_participants_configs(basic_config, example_node_config_path=example_node_config_path, start_port=25000):
+def create_participants_configs(basic_config, node_config_path=example_node_config_path, start_port=25000):
     start_date_scenario = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     scenario_name = basic_config['scenario_name']
     logging.info("Generating the scenario {} at {}".format(scenario_name, start_date_scenario))
@@ -156,7 +151,7 @@ def create_participants_configs(basic_config, example_node_config_path=example_n
         participant_file = os.path.join(config_dir, scenario_name, f'participant_{node}.json')
         os.makedirs(os.path.dirname(participant_file), exist_ok=True)
         # Create a copy of participant.json.example
-        shutil.copy(example_node_config_path, participant_file)
+        shutil.copy(node_config_path, participant_file)
 
         # Update IP, port, and role
         with open(participant_file) as f:

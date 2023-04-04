@@ -51,7 +51,7 @@ def signal_handler(sig, frame):
     # Controller.remove_config_files()
     # logging.info("Remove configuration and topology files... Done")
     logging.info('Finishing all scenarios and nodes...')
-    Controller.killports("tensorboa")
+    Controller.killports("tensorboard")
     Controller.killports("python")
     if sys.platform == "darwin":
         os.system("""osascript -e 'tell application "Terminal" to quit'""")

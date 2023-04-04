@@ -5,10 +5,10 @@
   "config": "/Users/janosch/Repos/fedstellar-robust/app/config",
   "logs": "/Users/janosch/Repos/fedstellar-robust/app/logs",
   "models": "/Users/janosch/Repos/fedstellar-robust/app/models",
-  "n_nodes": 2,
+  "n_nodes": 3,
   "matrix": [],
   "federation": "DFL",
-  "topology": "star",
+  "topology": "ring",
   "simulation": true,
   "env": null,
   "webserver": false,
@@ -22,7 +22,7 @@
   "dataset": "MNIST",
   "model": "MLP",
   "accelerator": "cpu",
-  "aggregation": "FedAvg",
+  "aggregation": "Krum",
   "attack_matrix": [
     [
       0,

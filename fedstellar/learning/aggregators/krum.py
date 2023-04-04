@@ -54,7 +54,7 @@ class Krum(Aggregator):
         # Create model distance list
         total_models = len(models)
         distance_list = [0 for i in range(0, total_models)]
-        
+
         # Calculate the L2 Norm between xi and xj
         min_index = 0
         min_distance_sum = float('inf')
@@ -64,7 +64,7 @@ class Krum(Aggregator):
             for j in range(0, total_models):
                 m2, _ = models[j]
                 distance = 0
-                if i==j:
+                if i == j:
                     distance = 0
                 else:
                     for layer in m1:
@@ -73,9 +73,11 @@ class Krum(Aggregator):
 
                         l2 = m2[layer]
                         # l2 = l2.view(len(l2), 1)
-                        distance += numpy.linalg.norm(l1-l2)
+                        distance += numpy.linalg.norm(l1 - l2)
                 distance_list[i] += distance
-            
+
+            logging.info("[Krum.aggregate] Distances: distance_list={}".format(distance_list))
+
             if min_distance_sum > distance_list[i]:
                 min_distance_sum = distance_list[i]
                 min_index = i
@@ -84,5 +86,7 @@ class Krum(Aggregator):
         m, _ = models[min_index]
         for layer in m:
             accum[layer] = accum[layer] + m[layer]
+
+        logging.info("[Krum.aggregate] Aggregated model: accum={}".format(accum))
 
         return accum

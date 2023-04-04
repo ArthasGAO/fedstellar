@@ -58,6 +58,12 @@ def main():
 
     if aggregation_algorithm == "FedAvg":
         pass
+    elif aggregation_algorithm == "Krum":
+        pass
+    elif aggregation_algorithm == "Median":
+        pass
+    elif aggregation_algorithm == "TrimmedMean":
+        pass
     else:
         raise ValueError(f"Aggregation algorithm {aggregation_algorithm} not supported")
 

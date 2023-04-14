@@ -3,13 +3,14 @@ import os
 import random
 import sys
 from datetime import datetime
-
-import networkx
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedstellar module
-from fedstellar.controller import Controller
 import math
 import logging
+import time
+import networkx
+import signal
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedstellar module
+from controller import Controller, signal_handler
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -184,6 +185,9 @@ def create_participants_configs(basic_config, node_config_path=example_node_conf
         participant_config["device_args"]["accelerator"] = basic_config["accelerator"]  # same for all nodes
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
 
+        # Logging configuration
+        # participant_config['tracking_args']['enable_remote_tracking'] = True
+
         # Get attack config for each node
         for atts in attack_matrix:
             if node == atts[0]:
@@ -220,6 +224,12 @@ def create_participants_configs(basic_config, node_config_path=example_node_conf
     # Generate/Update the scenario in the database
     # scenario_update_record(scenario_name=controller.scenario_name, start_time=controller.start_date_scenario, end_time="", status="running", title=basic_config["scenario_title"], description=basic_config["scenario_description"])
 
+    # logging.info('Press Ctrl+C for exit from Fedstellar (global exit)')
+    # while True:
+    #     time.sleep(1)
+
+
+signal.signal(signal.SIGINT, signal_handler)
 
 if __name__ == "__main__":
     # Parse args from command line

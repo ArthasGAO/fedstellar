@@ -8,6 +8,7 @@ import math
 import os
 from datetime import datetime, timedelta
 
+from fedstellar.learning.aggregators.fltrust import FlTrust
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
 
@@ -131,6 +132,8 @@ class Node(BaseNode):
             self.aggregator = Median(node_name=self.get_name(), config=self.config)
         if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
             self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
+        if self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
+            self.aggregator = FlTrust(node_name=self.get_name(), config=self.config)
 
         self.aggregator.add_observer(self)
 

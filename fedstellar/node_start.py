@@ -64,6 +64,8 @@ def main():
         pass
     elif aggregation_algorithm == "TrimmedMean":
         pass
+    elif aggregation_algorithm == "FlTrust":
+        pass
     else:
         raise ValueError(f"Aggregation algorithm {aggregation_algorithm} not supported")
 

@@ -25,7 +25,11 @@ def generate_controller_configs(basic_config_path=basic_config_path):
 
     scenario_name = basic_config['scenario_name']
     if len(scenario_name) == 0:
-        scenario_name = f'fedstellar_{basic_config["federation"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
+        scenario_name = f'{basic_config["aggregation"]}_{basic_config["attack"].replace(" ", "")}' \
+                        f'{basic_config["poisoned_node_percent"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
+        print(scenario_name)
+    #if len(scenario_name) == 0:
+    #    scenario_name = f'fedstellar_{basic_config["federation"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
     basic_config['scenario_name'] = scenario_name
     basic_config["topology"] = basic_config["topology"].lower()
 
@@ -34,6 +38,8 @@ def generate_controller_configs(basic_config_path=basic_config_path):
 
     attack_matrix = create_attack_matrix(basic_config)
     basic_config['attack_matrix'] = attack_matrix
+
+
 
     config_dir = os.path.join(basic_config['config'], scenario_name)
     print(config_dir)
@@ -186,7 +192,7 @@ def create_participants_configs(basic_config, node_config_path=example_node_conf
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
 
         # Logging configuration
-        # participant_config['tracking_args']['enable_remote_tracking'] = True
+        participant_config['tracking_args']['enable_remote_tracking'] = basic_config["remote_tracking"]
 
         # Get attack config for each node
         for atts in attack_matrix:

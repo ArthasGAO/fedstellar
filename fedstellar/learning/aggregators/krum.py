@@ -5,11 +5,9 @@
 
 
 import logging
+
 import torch
 import numpy
-from statistics import mean
-import copy
-from torch.nn.functional import cosine_similarity
 from fedstellar.learning.aggregators.aggregator import Aggregator
 
 
@@ -27,7 +25,7 @@ class Krum(Aggregator):
 
     def aggregate(self, models):
         """
-        Krum selects one of the m local models that is similar to other models 
+        Krum selects one of the m local models that is similar to other models
         as the global model, the euclidean distance between two local models is used.
 
         Args:
@@ -40,67 +38,58 @@ class Krum(Aggregator):
             )
             return None
 
-        # The aggregator's update is considered trusted
-        bootstrap = models.get(self.node_name)[0]  # change
-
-        untrusted_models = {k: models[k] for k in models.keys() - {self.node_name}}  # change
-        similarities = dict.fromkeys(untrusted_models.keys(), [])
-        similarities[self.node_name] = [1]
-
-        for client, message in untrusted_models.items():
-            state_dict = message[0]
-            for layer in bootstrap:
-                l1 = bootstrap[layer]
-                l2 = state_dict[layer]
-
-                cosine_similarity = torch.nn.CosineSimilarity(dim=l1.dim() - 1)
-                # does it make sense to take mean from row-wise similarity?
-                cos_mean = torch.mean(cosine_similarity(l1, l2)).mean()
-                similarities[client].append(cos_mean.item())
-
-        for client in similarities:
-            cos = torch.Tensor(similarities[client])
-            avg_cos = torch.mean(cos)
-            relu_cos = torch.nn.functional.relu(avg_cos)
-            similarities[client] = relu_cos.item()
-
-        # norm bounding
-        normalised_models = copy.deepcopy(untrusted_models)
-        # calculate layer-wise norm of flattened layers
-        trusted_norms = dict([k, torch.norm(bootstrap[k].data.view(-1))] for k in bootstrap.keys())
-
-        for client, message in untrusted_models.items():
-            state_dict = message[0]
-            norm_state_dict = state_dict.copy()
-            for layer in state_dict:
-                layer_norm = torch.norm(state_dict[layer].data.view(-1))
-                scaling_factor = trusted_norms[layer] / layer_norm
-                normalised_layer = torch.mul(state_dict[layer], scaling_factor)
-                normalised_models[client][0][layer] = normalised_layer
-
         models = list(models.values())
 
-        normalised_models[self.node_name] = models.get(self.node_name)
-        normed_models = list(normalised_models.values())
+        # Total Samples
+        total_samples = sum([y for _, y in models])
 
         # Create a Zero Model
-        accum = (normed_models[-1][0]).copy()
+        accum = (models[-1][0]).copy()
         for layer in accum:
             accum[layer] = torch.zeros_like(accum[layer])
 
-        for client, message in untrusted_models.items():
-            model = message[0]
-            for layer in model:
-                accum[layer] = accum[layer] + model[layer] * similarities[client]
+        # Add weighteds models
+        logging.info("[Krum.aggregate] Aggregating models: num={}".format(len(models)))
 
-        # Normalize Accum
-        total_similarity = mean(similarities.values())
-        print(total_similarity)
-        for layer in accum:
-            accum[layer] = accum[layer] / total_similarity
+        # Create model distance list
+        total_models = len(models)
+        distance_list = [0 for i in range(0, total_models)]
 
-        print(accum)
+        # Calculate the L2 Norm between xi and xj
+        min_index = 0
+        min_distance_sum = float('inf')
+
+        for i in range(0, total_models):
+            m1, _ = models[i]
+            for j in range(0, total_models):
+                m2, _ = models[j]
+                distance = 0
+                if i == j:
+                    if i == j:
+                        distance = 0
+                    else:
+                        for layer in m1:
+                            l1 = m1[layer]
+                            # l1 = l1.view(len(l1), 1)
+
+                            l2 = m2[layer]
+                            # l2 = l2.view(len(l2), 1)
+                            distance += numpy.linalg.norm(l1 - l2)
+                            distance += numpy.linalg.norm(l1 - l2)
+                distance_list[i] += distance
+
+            logging.info("[Krum.aggregate] Distances: distance_list={}".format(distance_list))
+
+            if min_distance_sum > distance_list[i]:
+                min_distance_sum = distance_list[i]
+                min_index = i
+
+        # Assign the model with min distance with others as the aggregated model
+        m, _ = models[min_index]
+        for layer in m:
+            accum[layer] = accum[layer] + m[layer]
 
         logging.info("[Krum.aggregate] Aggregated model: accum={}".format(accum))
 
         return accum
+

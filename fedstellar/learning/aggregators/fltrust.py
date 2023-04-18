@@ -6,9 +6,9 @@
 
 import logging
 import pickle
-
+import copy
 import torch
-
+from statistics import mean
 from fedstellar.learning.aggregators.aggregator import Aggregator
 
 
@@ -24,57 +24,94 @@ class FlTrust(Aggregator):
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[FLTrust] My config is {}".format(self.config))
 
+    def cosine_similarities(self, untrusted_models, trusted_model):
+        similarities = dict.fromkeys(untrusted_models.keys(), [])
+        similarities[self.node_name] = [1]
+
+        bootstrap = trusted_model[0]
+
+        for client, message in untrusted_models.items():
+            state_dict = message[0]
+            client_similarities = []
+
+            for layer in bootstrap:
+                l1 = bootstrap[layer]
+                l2 = state_dict[layer]
+                cosine_similarity = torch.nn.CosineSimilarity(dim=l1.dim() - 1)
+                # does it make sense to take mean from row-wise similarity?
+                cos_mean = torch.mean(cosine_similarity(l1, l2)).mean()
+                client_similarities.append(cos_mean)
+
+            similarities[client] = client_similarities
+
+        for client in similarities:
+            cos = torch.Tensor(similarities[client])
+            avg_cos = torch.mean(cos)
+            relu_cos = torch.nn.functional.relu(avg_cos)
+            similarities[client] = relu_cos.item()
+
+        return similarities
+
+    def normalise_layers(self, untrusted_models, trusted_model):
+        bootstrap = trusted_model[0]
+        trusted_norms = dict([k, torch.norm(bootstrap[k].data.view(-1))] for k in bootstrap.keys())
+
+        normalised_models = copy.deepcopy(untrusted_models)
+        for client, message in untrusted_models.items():
+            state_dict = message[0]
+            norm_state_dict = state_dict.copy()
+            for layer in state_dict:
+                layer_norm = torch.norm(state_dict[layer].data.view(-1))
+                scaling_factor = trusted_norms[layer] / layer_norm
+                normalised_layer = torch.mul(state_dict[layer], scaling_factor)
+                normalised_models[client][0][layer] = normalised_layer
+
+        return normalised_models
 
     def aggregate(self, models):
         """
-        Ponderated average of the models.
+         Krum selects one of the m local models that is similar to other models
+         as the global model, the euclidean distance between two local models is used.
 
-        Args:
-            models: Dictionary with the models (node: model,num_samples).
-        """
-
-        logging.debug("[FlTrust.aggregate] Self {}. Keys {} \n, ".format(self.node_name, models.keys()))
-
+         Args:
+             models: Dictionary with the models (node: model,num_samples).
+         """
         # Check if there are models to aggregate
         if len(models) == 0:
-            logging.error("[FlTrust.aggregate] Trying to aggregate models when there is no models")
+            logging.error("[FlTrust] Trying to aggregate models when there is no models")
             return None
 
-        # Extract node's own local model as trusted reference
-        trusted = models.get(self.node_name)
-        models_untrusted = {k: models[k] for k in set(list(models.keys())) - set(self.node_name)}
-        if trusted is None:
-            logging.error("[FlTrust.aggregate] No local model available at {}".format(self.node_name))
+        # The model of the aggregator serves as a trusted reference
+        my_model = models.get(self.node_name)  # change
+        if my_model is None:
+            logging.error("[FlTrust] Own model as bootstrap is not available")
             return None
 
-        logging.debug("trust model: {}".format(trusted))
+        untrusted_models = {k: models[k] for k in models.keys() - {self.node_name}}  # change
 
+        # Compute cosine similarities for all neighboring models
+        similarities = self.cosine_similarities(untrusted_models, my_model)
 
-
-        cosine_similarity = torch.nn.CosineSimilarity(dim=0, eps=1e-6)
-
-        # Store data (serialize)
-        with open('/Users/janosch/Desktop/models.pk', 'wb') as handle:
-            pickle.dump(models, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-        models = list(models.values())
-
-        # Total Samples
-        total_samples = sum([y for _, y in models])
+        # Normalise the untrusted models
+        normalised_models = self.normalise_layers(untrusted_models, my_model)
+        normalised_models[self.node_name] = my_model
 
         # Create a Zero Model
-        accum = (models[-1][0]).copy()
+        accum = (list(models.values())[-1][0]).copy()
         for layer in accum:
             accum[layer] = torch.zeros_like(accum[layer])
 
-        # Add weighteds models
-        logging.info("[FlTrust.aggregate] Aggregating models: num={}".format(len(models)))
-        for m, w in models:
-            for layer in m:
-                accum[layer] = accum[layer] + m[layer] * w
+        # Aggregate
+        for client, message in normalised_models.items():
+            client_model = message[0]
+            for layer in client_model:
+                accum[layer] = accum[layer] + client_model[layer] * similarities[client]
 
         # Normalize Accum
+        avg_similarity = mean(similarities.values())
         for layer in accum:
-            accum[layer] = accum[layer] / total_samples
+            accum[layer] = accum[layer] / avg_similarity
+
+        logging.info("[FlTrust.aggregate] Aggregated model with weights: similarities={}".format(similarities))
 
         return accum

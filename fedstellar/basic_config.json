@@ -4,9 +4,9 @@
   "scenario_name": "",
   "scenario_title": "",
   "scenario_description": "",
-  "config": "/Users/janosch/Repos/fedstellar-robust/app/config",
-  "logs": "/Users/janosch/Repos/fedstellar-robust/app/logs",
-  "models": "/Users/janosch/Repos/fedstellar-robust/app/models",
+  "config": "../app/config",
+  "logs": "../app/logs",
+  "models": "../app/models",
   "n_nodes": 5,
   "matrix": [],
   "federation": "DFL",
@@ -20,40 +20,40 @@
   "dataset": "MNIST",
   "model": "MLP",
   "accelerator": "cpu",
-  "attack": "Label Flipping",
-  "poisoned_node_percent": 100,
-  "poisoned_sample_percent": 100,
-  "poisoned_ratio": 100,
+  "attack": "No Attack",
+  "poisoned_node_percent": 0,
+  "poisoned_sample_percent": 0,
+  "poisoned_ratio": 0,
   "attack_matrix": [
     [
       0,
-      "Label Flipping",
-      100,
-      100
+      "No Attack",
+      0,
+      0
     ],
     [
       1,
-      "Label Flipping",
-      100,
-      100
+      "No Attack",
+      0,
+      0
     ],
     [
       2,
-      "Label Flipping",
-      100,
-      100
+      "No Attack",
+      0,
+      0
     ],
     [
       3,
-      "Label Flipping",
-      100,
-      100
+      "No Attack",
+      0,
+      0
     ],
     [
       4,
-      "Label Flipping",
-      100,
-      100
+      "No Attack",
+      0,
+      0
     ]
   ]
 }

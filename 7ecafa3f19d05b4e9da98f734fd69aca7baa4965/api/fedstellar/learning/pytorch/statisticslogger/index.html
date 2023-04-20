@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>fedstellar.learning.pytorch.statisticslogger - Fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -190,6 +190,7 @@
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../remotelogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.remotelogger</span></code></a></li>
 <li class="toctree-l5 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
 </ul>
 </li>
@@ -294,18 +295,18 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.statisticslogger.</span></span><span class="sig-name descname"><span class="pre">FedstellarLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lightning_logs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_hp_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">pytorch_lightning.loggers.logger.Logger</span></code></p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">lightning.pytorch.loggers.logger.Logger</span></code></p>
 <p>Base class for experiment loggers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>save_dir</strong> (<em>lightning_lite.utilities.types._PATH</em>) – </p></li>
+<li><p><strong>save_dir</strong> (<em>lightning.fabric.utilities.types._PATH</em>) – </p></li>
 <li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>version</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em><em>]</em>) – </p></li>
 <li><p><strong>log_graph</strong> (<em>bool</em>) – </p></li>
 <li><p><strong>default_hp_metric</strong> (<em>bool</em>) – </p></li>
 <li><p><strong>prefix</strong> (<em>str</em>) – </p></li>
-<li><p><strong>sub_dir</strong> (<em>Optional</em><em>[</em><em>lightning_lite.utilities.types._PATH</em><em>]</em>) – </p></li>
+<li><p><strong>sub_dir</strong> (<em>Optional</em><em>[</em><em>lightning.fabric.utilities.types._PATH</em><em>]</em>) – </p></li>
 <li><p><strong>kwargs</strong> (<em>Any</em>) – </p></li>
 </ul>
 </dd>
@@ -313,7 +314,9 @@
 <dl class="py property">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.root_dir" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Return the root directory where all versions of an experiment get saved, or <cite>None</cite> if the logger does
+not save data locally.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
@@ -323,7 +326,9 @@
 <dl class="py property">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.statisticslogger.FedstellarLogger.log_dir" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Return directory the current version of the experiment gets saved, or <cite>None</cite> if the logger does not save
+data locally.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
@@ -437,7 +442,7 @@ locally.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> (<em>pytorch_lightning.LightningModule</em>) – lightning model</p></li>
+<li><p><strong>model</strong> (<em>lightning.LightningModule</em>) – the model with an implementation of <code class="docutils literal notranslate"><span class="pre">forward</span></code>.</p></li>
 <li><p><strong>input_array</strong> (<em>Optional</em><em>[</em><em>torch.Tensor</em><em>]</em>) – input passes to <cite>model.forward</cite></p></li>
 </ul>
 </dd>

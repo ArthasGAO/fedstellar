@@ -1,0 +1,135 @@
+:py:mod:`fedstellar.learning.pytorch.remotelogger`
+==================================================
+
+.. py:module:: fedstellar.learning.pytorch.remotelogger
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.remotelogger.FedstellarWBLogger
+
+
+
+
+.. py:class:: FedstellarWBLogger(name = None, save_dir = '.', version = None, offline = False, dir = None, id = None, anonymous = None, project = 'lightning_logs', log_model = False, experiment = None, prefix = '', checkpoint_name = None, **kwargs)
+
+   Bases: :py:obj:`lightning.pytorch.loggers.logger.Logger`
+
+   Base class for experiment loggers.
+
+   .. py:property:: experiment
+      :type: Union[wandb.wandb_run.Run, wandb.sdk.lib.RunDisabled]
+
+
+   .. py:property:: save_dir
+      :type: Optional[str]
+
+      Gets the save directory.
+
+      :returns: The path to the save directory.
+
+   .. py:property:: name
+      :type: Optional[str]
+
+      The project name of this experiment.
+
+      :returns: The name of the project the current experiment belongs to. This name is not the same as `wandb.Run`'s
+                name. To access wandb's internal experiment name, use ``logger.experiment.name`` instead.
+
+   .. py:property:: version
+      :type: Optional[str]
+
+      Gets the id of the experiment.
+
+      :returns: The id of the experiment if the experiment exists else the id given to the constructor.
+
+   .. py:attribute:: LOGGER_JOIN_CHAR
+      :annotation: = -
+
+      
+
+   .. py:method:: watch(model, log = 'gradients', log_freq = 100, log_graph = True)
+
+
+   .. py:method:: log_hyperparams(params)
+
+      Record hyperparameters.
+
+      :param params: :class:`~argparse.Namespace` or `Dict` containing the hyperparameters
+      :param args: Optional positional arguments, depends on the specific logger being used
+      :param kwargs: Optional keyword arguments, depends on the specific logger being used
+
+
+   .. py:method:: log_metrics(metrics, step = None)
+
+      Records metrics. This method logs metrics as soon as it received them.
+
+      :param metrics: Dictionary with metric names as keys and measured quantities as values
+      :param step: Step number at which the metrics should be recorded
+
+
+   .. py:method:: log_table(key, columns = None, data = None, dataframe = None, step = None)
+
+      Log a Table containing any object type (text, image, audio, video, molecule, html, etc).
+
+      Can be defined either with `columns` and `data` or with `dataframe`.
+
+
+   .. py:method:: log_text(key, columns = None, data = None, dataframe = None, step = None)
+
+      Log text as a Table.
+
+      Can be defined either with `columns` and `data` or with `dataframe`.
+
+
+   .. py:method:: log_image(key, images, step = None, **kwargs)
+
+      Log images (tensors, numpy arrays, PIL Images or file paths).
+
+      Optional kwargs are lists passed to each image (ex: caption, masks, boxes).
+
+
+   .. py:method:: after_save_checkpoint(checkpoint_callback)
+
+      Called after model checkpoint callback saves a new checkpoint.
+
+      :param checkpoint_callback: the model checkpoint callback instance
+
+
+   .. py:method:: download_artifact(artifact, save_dir = None, artifact_type = None, use_artifact = True)
+      :staticmethod:
+
+      Downloads an artifact from the wandb server.
+
+      :param artifact: The path of the artifact to download.
+      :param save_dir: The directory to save the artifact to.
+      :param artifact_type: The type of artifact to download.
+      :param use_artifact: Whether to add an edge between the artifact graph.
+
+      :returns: The path to the downloaded artifact.
+
+
+   .. py:method:: use_artifact(artifact, artifact_type = None)
+
+      Logs to the wandb dashboard that the mentioned artifact is used by the run.
+
+      :param artifact: The path of the artifact.
+      :param artifact_type: The type of artifact being used.
+
+      :returns: wandb Artifact object for the artifact.
+
+
+   .. py:method:: finalize(status)
+
+      Do any processing that is necessary to finalize an experiment.
+
+      :param status: Status that the experiment finished with (e.g. success, failed, aborted)
+
+
+

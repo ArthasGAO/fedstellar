@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>fedstellar.webserver.app module - Fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -190,6 +190,7 @@
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/remotelogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.remotelogger</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/statisticslogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
 </ul>
 </li>
@@ -337,28 +338,38 @@
 <dd></dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_logs">
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_logs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_logs" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_logs_erase">
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_logs_erase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_logs_erase" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_monitoring_image">
 <span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_monitoring_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_monitoring_image" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_monitoring_log">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_monitoring_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_monitoring_log" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_monitoring_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_monitoring_log" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_monitoring_log_debug">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_monitoring_log_debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_monitoring_log_debug" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_monitoring_log_debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_monitoring_log_debug" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_monitoring_log_error">
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_monitoring_log_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_monitoring_log_error" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_monitoring_log_x">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_monitoring_log_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_monitoring_log_x" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_monitoring_participant_file">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_monitoring_participant_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_monitoring_participant_file" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_monitoring_log_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_monitoring_log_x" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -414,11 +425,6 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_update_node">
 <span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_update_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_update_node" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="fedstellar.webserver.app.fedstellar_update_node_logs">
-<span class="sig-prename descclassname"><span class="pre">fedstellar.webserver.app.</span></span><span class="sig-name descname"><span class="pre">fedstellar_update_node_logs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.webserver.app.fedstellar_update_node_logs" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -521,11 +527,13 @@
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_home"><code class="docutils literal notranslate"><span class="pre">fedstellar_home()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_login"><code class="docutils literal notranslate"><span class="pre">fedstellar_login()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_logout"><code class="docutils literal notranslate"><span class="pre">fedstellar_logout()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_logs"><code class="docutils literal notranslate"><span class="pre">fedstellar_logs()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_logs_erase"><code class="docutils literal notranslate"><span class="pre">fedstellar_logs_erase()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_image"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_image()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_log"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_log()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_log_debug"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_log_debug()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_log_error"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_log_error()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_log_x"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_log_x()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_participant_file"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_participant_file()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_remove_scenario"><code class="docutils literal notranslate"><span class="pre">fedstellar_remove_scenario()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_scenario"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_scenario_deployment"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario_deployment()</span></code></a></li>
@@ -537,7 +545,6 @@
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_scenario_statistics_download"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario_statistics_download()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_stop_scenario"><code class="docutils literal notranslate"><span class="pre">fedstellar_stop_scenario()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_update_node"><code class="docutils literal notranslate"><span class="pre">fedstellar_update_node()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_update_node_logs"><code class="docutils literal notranslate"><span class="pre">fedstellar_update_node_logs()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_upload_image"><code class="docutils literal notranslate"><span class="pre">fedstellar_upload_image()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_write_note"><code class="docutils literal notranslate"><span class="pre">fedstellar_write_note()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.remove_scenario"><code class="docutils literal notranslate"><span class="pre">remove_scenario()</span></code></a></li>
@@ -560,11 +567,13 @@
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_home">fedstellar_home</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_login">fedstellar_login</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_logout">fedstellar_logout</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_logs">fedstellar_logs</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_logs_erase">fedstellar_logs_erase</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_image">fedstellar_monitoring_image</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_log">fedstellar_monitoring_log</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_log_debug">fedstellar_monitoring_log_debug</a></li>
+<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_log_error">fedstellar_monitoring_log_error</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_log_x">fedstellar_monitoring_log_x</a></li>
-<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_monitoring_participant_file">fedstellar_monitoring_participant_file</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_remove_scenario">fedstellar_remove_scenario</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_scenario">fedstellar_scenario</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_scenario_deployment">fedstellar_scenario_deployment</a></li>
@@ -576,7 +585,6 @@
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_scenario_statistics_download">fedstellar_scenario_statistics_download</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_stop_scenario">fedstellar_stop_scenario</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_update_node">fedstellar_update_node</a></li>
-<li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_update_node_logs">fedstellar_update_node_logs</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_upload_image">fedstellar_upload_image</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.fedstellar_write_note">fedstellar_write_note</a></li>
 <li><a class="reference internal" href="#fedstellar.webserver.app.remove_scenario">remove_scenario</a></li>

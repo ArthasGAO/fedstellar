@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>fedstellar.learning.aggregators.aggregator module - Fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -190,6 +190,7 @@
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/remotelogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.remotelogger</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/statisticslogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
 </ul>
 </li>
@@ -328,6 +329,12 @@ Also, it is an observable so, it will notify the node when the aggregation was d
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.aggregators.aggregator.Aggregator.get_waiting_aggregated_model">
+<span class="sig-name descname"><span class="pre">get_waiting_aggregated_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.aggregators.aggregator.Aggregator.get_waiting_aggregated_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Indicates that the node is waiting for an aggregation. It won’t participate in aggregation process.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.aggregators.aggregator.Aggregator.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.aggregators.aggregator.Aggregator.run" title="Permalink to this definition">#</a></dt>
 <dd><p>Wait for the aggregation to be done or timeout. Then, aggregate the models and notify it.</p>
@@ -398,6 +405,7 @@ Also, it is an observable so, it will notify the node when the aggregation was d
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.check_and_run_aggregation"><code class="docutils literal notranslate"><span class="pre">Aggregator.check_and_run_aggregation()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.clear"><code class="docutils literal notranslate"><span class="pre">Aggregator.clear()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.get_partial_aggregation"><code class="docutils literal notranslate"><span class="pre">Aggregator.get_partial_aggregation()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.get_waiting_aggregated_model"><code class="docutils literal notranslate"><span class="pre">Aggregator.get_waiting_aggregated_model()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.run"><code class="docutils literal notranslate"><span class="pre">Aggregator.run()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.set_nodes_to_aggregate"><code class="docutils literal notranslate"><span class="pre">Aggregator.set_nodes_to_aggregate()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.set_waiting_aggregated_model"><code class="docutils literal notranslate"><span class="pre">Aggregator.set_waiting_aggregated_model()</span></code></a></li>
@@ -409,6 +417,7 @@ Also, it is an observable so, it will notify the node when the aggregation was d
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.check_and_run_aggregation">check_and_run_aggregation</a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.clear">clear</a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.get_partial_aggregation">get_partial_aggregation</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.get_waiting_aggregated_model">get_waiting_aggregated_model</a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.run">run</a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.set_nodes_to_aggregate">set_nodes_to_aggregate</a></li>
 <li><a class="reference internal" href="#fedstellar.learning.aggregators.aggregator.Aggregator.set_waiting_aggregated_model">set_waiting_aggregated_model</a></li>

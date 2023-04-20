@@ -32,17 +32,21 @@ Attributes
 
 .. py:class:: FedstellarLogger(save_dir, name = 'lightning_logs', version = None, log_graph = False, default_hp_metric = True, prefix = '', sub_dir = None, **kwargs)
 
-   Bases: :py:obj:`pytorch_lightning.loggers.logger.Logger`
+   Bases: :py:obj:`lightning.pytorch.loggers.logger.Logger`
 
    Base class for experiment loggers.
 
    .. py:property:: root_dir
       :type: str
 
+      Return the root directory where all versions of an experiment get saved, or `None` if the logger does
+      not save data locally.
 
    .. py:property:: log_dir
       :type: str
 
+      Return directory the current version of the experiment gets saved, or `None` if the logger does not save
+      data locally.
 
    .. py:property:: save_dir
       :type: str
@@ -99,7 +103,7 @@ Attributes
 
       Record model graph.
 
-      :param model: lightning model
+      :param model: the model with an implementation of ``forward``.
       :param input_array: input passes to `model.forward`
 
 

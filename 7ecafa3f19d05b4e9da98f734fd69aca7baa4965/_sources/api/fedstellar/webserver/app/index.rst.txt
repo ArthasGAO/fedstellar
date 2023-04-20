@@ -37,10 +37,12 @@ Functions
    fedstellar.webserver.app.fedstellar_scenario_monitoring
    fedstellar.webserver.app.update_topology
    fedstellar.webserver.app.fedstellar_update_node
-   fedstellar.webserver.app.fedstellar_update_node_logs
+   fedstellar.webserver.app.fedstellar_logs
+   fedstellar.webserver.app.fedstellar_logs_erase
    fedstellar.webserver.app.fedstellar_monitoring_log
-   fedstellar.webserver.app.fedstellar_monitoring_log_debug
    fedstellar.webserver.app.fedstellar_monitoring_log_x
+   fedstellar.webserver.app.fedstellar_monitoring_log_debug
+   fedstellar.webserver.app.fedstellar_monitoring_log_error
    fedstellar.webserver.app.fedstellar_monitoring_image
    fedstellar.webserver.app.stop_scenario
    fedstellar.webserver.app.fedstellar_stop_scenario
@@ -49,7 +51,6 @@ Functions
    fedstellar.webserver.app.fedstellar_scenario_statistics
    fedstellar.webserver.app.fedstellar_scenario_statistics_download
    fedstellar.webserver.app.fedstellar_scenario_deployment
-   fedstellar.webserver.app.fedstellar_monitoring_participant_file
    fedstellar.webserver.app.fedstellar_scenario_deployment_run
    fedstellar.webserver.app.fedstellar_scenario_deployment_reload
 
@@ -153,16 +154,22 @@ Attributes
 .. py:function:: fedstellar_update_node(scenario_name)
 
 
-.. py:function:: fedstellar_update_node_logs(scenario_name, uid)
+.. py:function:: fedstellar_logs()
 
 
-.. py:function:: fedstellar_monitoring_log(scenario_name, uid)
+.. py:function:: fedstellar_logs_erase()
 
 
-.. py:function:: fedstellar_monitoring_log_debug(scenario_name, uid)
+.. py:function:: fedstellar_monitoring_log(scenario_name, id)
 
 
-.. py:function:: fedstellar_monitoring_log_x(scenario_name, uid, number)
+.. py:function:: fedstellar_monitoring_log_x(scenario_name, id, number)
+
+
+.. py:function:: fedstellar_monitoring_log_debug(scenario_name, id)
+
+
+.. py:function:: fedstellar_monitoring_log_error(scenario_name, id)
 
 
 .. py:function:: fedstellar_monitoring_image(scenario_name)
@@ -187,9 +194,6 @@ Attributes
 
 
 .. py:function:: fedstellar_scenario_deployment()
-
-
-.. py:function:: fedstellar_monitoring_participant_file()
 
 
 .. py:function:: fedstellar_scenario_deployment_run()

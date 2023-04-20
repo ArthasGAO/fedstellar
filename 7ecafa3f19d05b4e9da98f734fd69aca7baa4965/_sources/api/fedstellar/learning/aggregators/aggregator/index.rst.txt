@@ -48,6 +48,11 @@ Classes
       Indicates that the node is waiting for an aggregation. It won't participate in aggregation process.
 
 
+   .. py:method:: get_waiting_aggregated_model()
+
+      Indicates that the node is waiting for an aggregation. It won't participate in aggregation process.
+
+
    .. py:method:: add_model(model, nodes, weight)
 
       Add a model. The first model to be added starts the `run` method (timeout).

@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: LightningLearner(model, data, logger=None)
+.. py:class:: LightningLearner(model, data, config=None, logger=None)
 
    Bases: :py:obj:`fedstellar.learning.learner.NodeLearner`
 

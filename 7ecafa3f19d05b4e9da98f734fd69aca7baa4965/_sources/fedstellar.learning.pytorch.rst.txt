@@ -17,6 +17,7 @@ Submodules
    :maxdepth: 4
 
    fedstellar.learning.pytorch.lightninglearner
+   fedstellar.learning.pytorch.remotelogger
    fedstellar.learning.pytorch.statisticslogger
 
 Module contents

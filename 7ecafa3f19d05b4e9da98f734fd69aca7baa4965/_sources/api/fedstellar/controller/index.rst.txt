@@ -12,6 +12,7 @@ Classes
 
 .. autoapisummary::
 
+   fedstellar.controller.TermEscapeCodeFormatter
    fedstellar.controller.Controller
 
 
@@ -34,8 +35,29 @@ Attributes
    fedstellar.controller.console_handler
 
 
+.. py:class:: TermEscapeCodeFormatter(fmt=None, datefmt=None, style='%', validate=True)
+
+   Bases: :py:obj:`logging.Formatter`
+
+   A class to strip the escape codes from the
+
+   .. py:method:: format(record)
+
+      Format the specified record as text.
+
+      The record's attribute dictionary is used as the operand to a
+      string formatting operation which yields the returned string.
+      Before formatting the dictionary, a couple of preparatory steps
+      are carried out. The message attribute of the record is computed
+      using LogRecord.getMessage(). If the formatting string uses the
+      time (as determined by a call to usesTime(), formatTime() is
+      called to format the event time. If there is exception information,
+      it is formatted using formatException() and appended to the message.
+
+
+
 .. py:data:: log_console_format
-   :annotation: = [0;35m[%(levelname)s] - %(asctime)s - Controller -[0m %(message)s
+   :annotation: = [%(levelname)s] - %(asctime)s - Controller - %(message)s
 
    
 
@@ -62,14 +84,15 @@ Attributes
    .. py:method:: run_statistics()
 
 
-   .. py:method:: init()
-
-
    .. py:method:: killports(term='python')
       :staticmethod:
 
 
    .. py:method:: killport(port)
+      :staticmethod:
+
+
+   .. py:method:: killdockers()
       :staticmethod:
 
 
@@ -79,10 +102,13 @@ Attributes
    .. py:method:: create_topology(matrix=None)
 
 
+   .. py:method:: start_nodes_docker(idx_start_node)
+
+
    .. py:method:: start_node(idx)
 
 
-   .. py:method:: start_nodes(idx_start_node)
+   .. py:method:: start_nodes_cmd(idx_start_node)
 
 
    .. py:method:: remove_config_files()

@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="&lt;no title&gt;" href="index.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>Installation - Fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -190,6 +190,7 @@
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/remotelogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.remotelogger</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/statisticslogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
 </ul>
 </li>
@@ -268,10 +269,11 @@
 <ul class="simple">
 <li><p>Python 3.8 or higher</p></li>
 <li><p>pip3</p></li>
+<li><p>Docker</p></li>
 </ul>
 </section>
-<section id="deployment-in-a-virtual-environment">
-<span id="deploy-venv"></span><h2>Deployment in a virtual environment<a class="headerlink" href="#deployment-in-a-virtual-environment" title="Permalink to this heading">#</a></h2>
+<section id="deploy-a-virtual-environment">
+<span id="deploy-venv"></span><h2>Deploy a virtual environment<a class="headerlink" href="#deploy-a-virtual-environment" title="Permalink to this heading">#</a></h2>
 <p><a href="#id1"><span class="problematic" id="id2">`Virtualenv`_</span></a> is a tool to build isolated Python environments.</p>
 <p>It’s a great way to quickly test new libraries without cluttering your
 global site-packages or run multiple projects on the same machine which
@@ -312,8 +314,8 @@ $
 </section>
 <section id="building-from-source">
 <h2>Building from source<a class="headerlink" href="#building-from-source" title="Permalink to this heading">#</a></h2>
-<section id="obtaining-the-source">
-<h3>Obtaining the source<a class="headerlink" href="#obtaining-the-source" title="Permalink to this heading">#</a></h3>
+<section id="obtaining-the-framework">
+<h3>Obtaining the framework<a class="headerlink" href="#obtaining-the-framework" title="Permalink to this heading">#</a></h3>
 <p>You can obtain the source code from <a class="reference external" href="https://github.com/enriquetomasmb/fedstellar">https://github.com/enriquetomasmb/fedstellar</a></p>
 <p>Or, if you happen to have git configured, you can clone the repository:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">enriquetomasmb</span><span class="o">/</span><span class="n">fedstellar</span><span class="o">.</span><span class="n">git</span>
@@ -323,9 +325,6 @@ $
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">fedstellar</span>
 </pre></div>
 </div>
-</section>
-<section id="installing-from-source">
-<h3>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this heading">#</a></h3>
 </section>
 <section id="dependencies">
 <h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading">#</a></h3>
@@ -344,6 +343,17 @@ by listing the version of the Fedstellar with the following command line:</p>
 </div>
 </section>
 </section>
+<section id="building-the-fedstellar-docker-image">
+<h2>Building the fedstellar docker image<a class="headerlink" href="#building-the-fedstellar-docker-image" title="Permalink to this heading">#</a></h2>
+<p>You can build the docker image using the following command line in the root directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">fedstellar</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>You can check the image using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">images</span>
+</pre></div>
+</div>
+</section>
 <section id="running-fedstellar">
 <h2>Running Fedstellar<a class="headerlink" href="#running-fedstellar" title="Permalink to this heading">#</a></h2>
 <p>To run Fedstellar, you can use the following command line:</p>
@@ -355,16 +365,16 @@ by listing the version of the Fedstellar with the following command line:</p>
 </pre></div>
 </div>
 <p>For a correct execution of the framework, it is necessary to indicate the python path (absolute path):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">python</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">enrique</span><span class="o">/</span><span class="n">fedstellar</span><span class="o">-</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">webserver</span> <span class="o">--</span><span class="n">python</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">enrique</span><span class="o">/</span><span class="n">fedstellar</span><span class="o">-</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span>
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">python</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">enrique</span><span class="o">/</span><span class="n">fedstellar</span><span class="o">-</span><span class="n">venv</span><span class="o">/</span><span class="n">Scripts</span><span class="o">/</span><span class="n">python</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">webserver</span> <span class="o">--</span><span class="n">python</span> <span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">enrique</span><span class="o">/</span><span class="n">fedstellar</span><span class="o">-</span><span class="n">venv</span><span class="o">/</span><span class="n">Scripts</span><span class="o">/</span><span class="n">python</span>
 </pre></div>
 </div>
 <p>The webserver will be available at <a class="reference external" href="http://127.0.0.1:5000">http://127.0.0.1:5000</a> (by default)</p>
 <p>To change the default port, you can use the following command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">webserver</span> <span class="o">--</span><span class="n">port</span> <span class="mi">8080</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">app</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">webserver</span> <span class="o">--</span><span class="n">port</span> <span class="mi">8080</span> <span class="o">--</span><span class="n">python</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">enrique</span><span class="o">/</span><span class="n">fedstellar</span><span class="o">-</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span>
 </pre></div>
 </div>
 </section>
@@ -375,6 +385,36 @@ by listing the version of the Fedstellar with the following command line:</p>
 <li><p>User: admin</p></li>
 <li><p>Password: admin</p></li>
 </ul>
+<p>If not working the default credentials, send an email to <a class="reference external" href="mailto:enriquetomas&#37;&#52;&#48;um&#46;es">enriquetomas<span>&#64;</span>um<span>&#46;</span>es</a> to get the credentials.</p>
+</section>
+<section id="possible-issues-during-the-installation-or-execution">
+<h2>Possible issues during the installation or execution<a class="headerlink" href="#possible-issues-during-the-installation-or-execution" title="Permalink to this heading">#</a></h2>
+<p>If webserver is not working, check the logs in app/logs/server.log</p>
+<hr class="docutils" />
+<p>Network fedstellar_X  Error failed to create network fedstellar_X: Error response from daemon: Pool overlaps with other one on this address space</p>
+<p>Solution: Delete the docker network fedstellar_X</p>
+<blockquote>
+<div><p>docker network rm fedstellar_X</p>
+</div></blockquote>
+<hr class="docutils" />
+<p>Error: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</p>
+<p>Solution: Start the docker daemon</p>
+<blockquote>
+<div><p>sudo dockerd</p>
+</div></blockquote>
+<hr class="docutils" />
+<p>Error: Cannot connect to the Docker daemon at <a class="reference external" href="tcp://X.X.X.X:2375">tcp://X.X.X.X:2375</a>. Is the docker daemon running?</p>
+<p>Solution: Start the docker daemon</p>
+<blockquote>
+<div><p>sudo dockerd -H <a class="reference external" href="tcp://X.X.X.X:2375">tcp://X.X.X.X:2375</a></p>
+</div></blockquote>
+<hr class="docutils" />
+<p>If webserver is not working, kill all process related to the webserver</p>
+<blockquote>
+<div><p>ps aux | grep python
+kill -9 PID</p>
+</div></blockquote>
+<hr class="docutils" />
 </section>
 </section>
 
@@ -427,20 +467,21 @@ by listing the version of the Fedstellar with the following command line:</p>
             <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li><a class="reference internal" href="#deployment-in-a-virtual-environment">Deployment in a virtual environment</a><ul>
+<li><a class="reference internal" href="#deploy-a-virtual-environment">Deploy a virtual environment</a><ul>
 <li><a class="reference internal" href="#create-virtual-environment">Create virtual environment</a></li>
 <li><a class="reference internal" href="#activate-the-environment">Activate the environment</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#building-from-source">Building from source</a><ul>
-<li><a class="reference internal" href="#obtaining-the-source">Obtaining the source</a></li>
-<li><a class="reference internal" href="#installing-from-source">Installing from source</a></li>
+<li><a class="reference internal" href="#obtaining-the-framework">Obtaining the framework</a></li>
 <li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li><a class="reference internal" href="#checking-the-installation">Checking the installation</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#building-the-fedstellar-docker-image">Building the fedstellar docker image</a></li>
 <li><a class="reference internal" href="#running-fedstellar">Running Fedstellar</a></li>
 <li><a class="reference internal" href="#fedstellar-webserver">Fedstellar Webserver</a></li>
+<li><a class="reference internal" href="#possible-issues-during-the-installation-or-execution">Possible issues during the installation or execution</a></li>
 </ul>
 </li>
 </ul>

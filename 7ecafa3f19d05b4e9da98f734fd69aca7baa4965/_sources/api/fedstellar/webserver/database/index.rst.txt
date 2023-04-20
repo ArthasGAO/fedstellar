@@ -138,7 +138,7 @@ Attributes
 .. py:function:: get_all_scenarios(sort_by='start_time')
 
 
-.. py:function:: scenario_update_record(scenario_name, start_time, end_time, title, description, status)
+.. py:function:: scenario_update_record(scenario_name, start_time, end_time, title, description, status, network_subnet)
 
 
 .. py:function:: scenario_set_all_status_to_finished()

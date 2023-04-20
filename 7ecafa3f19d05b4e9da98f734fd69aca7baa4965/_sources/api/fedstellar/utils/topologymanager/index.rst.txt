@@ -43,6 +43,10 @@ Classes
    .. py:method:: get_nodes()
 
 
+   .. py:method:: get_coordinates(random_geo=True)
+      :staticmethod:
+
+
    .. py:method:: add_nodes(nodes)
 
 

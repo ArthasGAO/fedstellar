@@ -21,6 +21,7 @@ Submodules
    :maxdepth: 1
 
    lightninglearner/index.rst
+   remotelogger/index.rst
    statisticslogger/index.rst
 
 

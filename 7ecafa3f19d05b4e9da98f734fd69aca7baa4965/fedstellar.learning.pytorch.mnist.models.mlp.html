@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>fedstellar.learning.pytorch.mnist.models.mlp module - Fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -190,6 +190,7 @@
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/remotelogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.remotelogger</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/statisticslogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
 </ul>
 </li>
@@ -281,24 +282,6 @@
 <span class="sig-name descname"><span class="pre">test_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.test_step" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.mlp.MLP.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.training" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.mlp.MLP.training_epoch_end">
-<span class="sig-name descname"><span class="pre">training_epoch_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.training_epoch_end" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>outputs</strong> (<em>List</em><em>[</em><em>Tensor</em><em> | </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – </p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.mlp.MLP.training_step">
 <span class="sig-name descname"><span class="pre">training_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.training_step" title="Permalink to this definition">#</a></dt>
@@ -355,8 +338,6 @@
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">MLP.configure_optimizers()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.forward"><code class="docutils literal notranslate"><span class="pre">MLP.forward()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.test_step"><code class="docutils literal notranslate"><span class="pre">MLP.test_step()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.training"><code class="docutils literal notranslate"><span class="pre">MLP.training</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.training_epoch_end"><code class="docutils literal notranslate"><span class="pre">MLP.training_epoch_end()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.training_step"><code class="docutils literal notranslate"><span class="pre">MLP.training_step()</span></code></a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.validation_step"><code class="docutils literal notranslate"><span class="pre">MLP.validation_step()</span></code></a></li>
 </ul>
@@ -365,8 +346,6 @@
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.configure_optimizers">configure_optimizers</a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.forward">forward</a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.test_step">test_step</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.training">training</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.training_epoch_end">training_epoch_end</a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.training_step">training_step</a></li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.mlp.MLP.validation_step">validation_step</a></li>
 </ul>

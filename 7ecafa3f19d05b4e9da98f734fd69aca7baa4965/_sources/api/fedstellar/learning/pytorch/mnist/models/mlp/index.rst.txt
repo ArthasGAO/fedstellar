@@ -17,9 +17,22 @@ Classes
 
 
 
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.mnist.models.mlp.EPOCH_OUTPUT
+
+
+.. py:data:: EPOCH_OUTPUT
+   
+
+   
+
 .. py:class:: MLP(metric=Accuracy, out_channels=10, lr_rate=0.001, seed=None)
 
-   Bases: :py:obj:`pytorch_lightning.LightningModule`
+   Bases: :py:obj:`lightning.LightningModule`
 
    Multilayer Perceptron (MLP) to solve MNIST with PyTorch Lightning.
 
@@ -30,9 +43,6 @@ Classes
 
 
    .. py:method:: training_step(batch, batch_id)
-
-
-   .. py:method:: training_epoch_end(outputs)
 
 
    .. py:method:: validation_step(batch, batch_idx)

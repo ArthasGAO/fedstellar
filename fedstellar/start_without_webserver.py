@@ -11,8 +11,6 @@ import numpy as np
 import math
 import logging
 
-from fedstellar.webserver.database import list_users, verify, delete_user_from_db, add_user, scenario_update_record, scenario_set_all_status_to_finished, get_running_scenario, get_user_info, get_scenario_by_name, list_nodes_by_scenario_name, get_all_scenarios, remove_nodes_by_scenario_name, \
-    remove_scenario_by_name
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -137,7 +135,7 @@ def create_attack_matrix(basic_config):
     return attack_matrix  
 
 
-def create_particiants_configs(basic_config, example_node_config_path=example_node_config_path, start_port=25000):
+def create_particiants_configs(basic_config, example_node_config_path=example_node_config_path, start_port=45000):
     start_date_scenario = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     scenario_name = basic_config['scenario_name']
     logging.info("Generating the scenario {} at {}".format(scenario_name, start_date_scenario))

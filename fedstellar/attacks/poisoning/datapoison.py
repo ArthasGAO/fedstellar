@@ -3,6 +3,7 @@ import random
 import torch
 import torchvision.transforms as transforms
 from skimage.util import random_noise
+import numpy as np
 
 
 def datapoison(dataset, indices, poisoned_persent, poisoned_ratio, targeted=False, target_label=3, noise_type="salt"):
@@ -13,7 +14,6 @@ def datapoison(dataset, indices, poisoned_persent, poisoned_ratio, targeted=Fals
     train_data = new_dataset.data
     targets = new_dataset.targets
     num_indices = len(indices)
-    print(target_label)
 
     if targeted == False:
         num_poisoned = int(poisoned_persent*num_indices)
@@ -34,6 +34,9 @@ def datapoison(dataset, indices, poisoned_persent, poisoned_ratio, targeted=Fals
             elif noise_type == "s&p":
                 # Replaces random pixels with either 1 or low_val, where low_val is 0 for unsigned images or -1 for signed images.
                 poisoned = torch.tensor(random_noise(t, mode=noise_type, amount=poisoned_ratio))
+            elif noise_type == "nlp_rawdata":
+                # for NLP data, change the word vector to 0 with p=poisoned_ratio
+                poisoned = poison_to_nlp_rawdata(t, poisoned_ratio)
             else:
                 print("ERROR: poison attack type not supported.")
                 poisoned = t
@@ -56,3 +59,22 @@ def add_x_to_image(img):
             if i+j<=9 or i==j:
                 img[i][j]=255
     return torch.tensor(img)
+
+def poison_to_nlp_rawdata(text_data, poisoned_ratio):
+    """
+    for NLP data, change the word vector to 0 with p=poisoned_ratio
+    """
+    non_zero_vector_indice = [i for i in range(0, len(text_data)) if text_data[i][0]!=0]
+    non_zero_vector_len = len(non_zero_vector_indice) 
+        
+    num_poisoned_token = int(poisoned_ratio*non_zero_vector_len)
+    if num_poisoned_token == 0:
+        return text_data
+    if num_poisoned_token > non_zero_vector_len:
+        return text_data
+
+    poisoned_token_indice = random.sample(non_zero_vector_indice, num_poisoned_token)
+    zero_vector = torch.Tensor(np.zeros(len(text_data[0][0])))
+    for i in poisoned_token_indice:
+        text_data[i]=zero_vector
+    return text_data

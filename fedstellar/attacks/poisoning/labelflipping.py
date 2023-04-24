@@ -13,9 +13,10 @@ def labelFlipping(dataset, indices, poisoned_persent=0, targeted=False, target_l
     new_dataset = copy.deepcopy(dataset)
     targets = new_dataset.targets.detach().clone()
     num_indices = len(indices)
-    classes = new_dataset.classes
-    class_to_idx = new_dataset.class_to_idx
-    class_list = [class_to_idx[i] for i in classes]
+    # classes = new_dataset.classes
+    # class_to_idx = new_dataset.class_to_idx
+    # class_list = [class_to_idx[i] for i in classes]
+    class_list = set(targets.tolist())
     if targeted==False:
         num_flipped = int(poisoned_persent*num_indices)
         if num_indices == 0:

@@ -37,6 +37,7 @@ from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatching
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.role import Role
 from fedstellar.utils.observer import Events, Observer
+from fedstellar.attacks.poisoning.modelpoison import modelpoison
 
 class Node(BaseNode):
     """
@@ -76,6 +77,9 @@ class Node(BaseNode):
             config=Config,
             learner=LightningLearner,
             encrypt=False,
+            model_poisoning=False,
+            poisoned_ratio=0,
+            noise_type='gaussian'
     ):
         # Super init
         BaseNode.__init__(self, experiment_name, hostdemo, host, port, encrypt, config)
@@ -98,6 +102,10 @@ class Node(BaseNode):
 
         self.model_dir = self.config.participant['tracking_args']["model_dir"]
         self.model_name = f"{self.model_dir}/participant_{self.idx}_model.pk"
+        self.model_poisoning = model_poisoning
+        self.poisoned_ratio = poisoned_ratio,
+        self.noise_type = noise_type
+
         # Learner and learner logger
         # log_model="all" to log model
         # mode="disabled" to disable wandb
@@ -604,6 +612,11 @@ class Node(BaseNode):
         self.learner.fit()
         logging.info("[NODE.__train] Finish training...")
         logging.warning("[NODE.__train] Evaluate the local model..")
+        if self.model_poisoning:
+            model_param = self.learner.get_parameters()
+            poisoned_model_param = modelpoison(model_param, poisoned_ratio=self.poisoned_ratio,\
+                noise_type=self.noise_type)
+            self.learner.set_parameters(poisoned_model_param)
         results = self.learner.evaluate()
         if results is not None:
             logging.warning(
@@ -939,7 +952,7 @@ class Node(BaseNode):
         try:
             response = requests.post(url, data=json.dumps(self.config.participant), headers={'Content-Type': 'application/json'})
         except requests.exceptions.ConnectionError:
-            logging.error(f'Error connecting to the controller at {url}')
+            # logging.error(f'Error connecting to the controller at {url}')
             return
 
         # If endpoint is not available, log the error
@@ -1023,8 +1036,7 @@ class Node(BaseNode):
                 # logging.info(f'Resources: GPU-{i} {gpu_percent}%, GPU temp {gpu_temp}C, GPU mem {gpu_mem_percent}%')
                 self.learner.logger.log_metrics({f"Resources/GPU{i}_percent": gpu_percent, f"Resources/GPU{i}_temp": gpu_temp, f"Resources/GPU{i}_mem_percent": gpu_mem_percent}, step=step)
         except ModuleNotFoundError:
-            gpu_percent = 0
-            # logging.info(f'pynvml not found, skipping GPU usage')
+            logging.info(f'pynvml not found, skipping GPU usage')
 
     def __store_model_parameters(self, obj):
         """

@@ -1,10 +1,10 @@
 --pre
---extra-index-url https://download.pytorch.org/whl/nightly/cpu
+--extra-index-url https://download.pytorch.org/whl/cu118
 
 netifaces==0.11.0
 numpy==1.24.1
-torch== 2.1.0.dev20230326
-torchvision==0.16.0.dev20230326
+torch==2.0.0
+torchvision
 flask==2.2.2
 pytest==7.2.0
 python-dotenv==0.21.0
@@ -24,3 +24,8 @@ sphinx-autoapi==2.0.0
 tensorboard==2.11.2
 psutil==5.9.4
 scikit-image
+torchtext
+spacy
+nltk
+datasets
+scikit-learn

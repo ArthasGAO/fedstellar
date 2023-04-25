@@ -15,6 +15,11 @@ def modelpoison(model: OrderedDict, poisoned_ratio, noise_type="gaussian"):
     for layer in model:
         bt = model[layer]
         t = bt.detach().clone()
+        single_point = False
+        if len(t.shape)==0:
+            t = t.view(-1)
+            single_point=True
+        # print(t)
         if noise_type == "salt":
             # Replaces random pixels with 1.
             poisoned = torch.tensor(random_noise(t, mode=noise_type, amount=poisoned_ratio))
@@ -27,6 +32,8 @@ def modelpoison(model: OrderedDict, poisoned_ratio, noise_type="gaussian"):
         else:
             print("ERROR: poison attack type not supported.")
             poisoned = t
+        if single_point:
+            poisoned = poisoned[0]
         poisoned_model[layer] = poisoned                
     
     return poisoned_model

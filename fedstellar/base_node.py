@@ -18,7 +18,6 @@ from fedstellar.heartbeater import Heartbeater
 from fedstellar.node_connection import NodeConnection
 from fedstellar.utils.observer import Events, Observer
 
-
 class BaseNode(threading.Thread, Observer):
     """
     This class represents a base node in the network (without **FL**). It is a thread, so it's going to process all messages in a background thread using the CommunicationProtocol.
@@ -81,7 +80,7 @@ class BaseNode(threading.Thread, Observer):
             os.makedirs(self.log_dir)
         self.log_filename = f"{self.log_dir}/participant_{config.participant['device_args']['idx']}" if self.hostdemo else f"{self.log_dir}/participant_{config.participant['device_args']['idx']}"
         os.makedirs(os.path.dirname(self.log_filename), exist_ok=True)
-        console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler = self.setup_logging(self.log_filename)
+        console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler, file_handler_only_warning = self.setup_logging(self.log_filename)
 
         level = logging.DEBUG if config.participant["scenario_args"]["debug"] else logging.WARNING
         logging.basicConfig(level=level,
@@ -89,7 +88,8 @@ class BaseNode(threading.Thread, Observer):
                                 console_handler,
                                 file_handler,
                                 file_handler_only_debug,
-                                exp_errors_file_handler
+                                exp_errors_file_handler,
+                                file_handler_only_warning
                             ])
 
         # Heartbeater and Gossiper
@@ -139,10 +139,16 @@ class BaseNode(threading.Thread, Observer):
         file_handler_only_debug.setFormatter(Formatter(debug_file_format))
 
         exp_errors_file_handler = FileHandler('{}_error.log'.format(log_dir), mode='w')
-        exp_errors_file_handler.setLevel(logging.WARNING)
+        exp_errors_file_handler.setLevel(logging.ERROR)
         exp_errors_file_handler.setFormatter(Formatter(debug_file_format))
 
-        return console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler
+        file_handler_only_warning = FileHandler('{}_performance.log'.format(log_dir), mode='w')
+        file_handler_only_warning.setLevel(logging.WARNING)
+        # Add filter to file_handler_only_debug for only add warning messages
+        file_handler_only_warning.addFilter(lambda record: record.levelno == logging.WARNING)
+        file_handler_only_warning.setFormatter(Formatter(debug_file_format))
+
+        return console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler, file_handler_only_warning
 
     #######################
     #   Node Management   #
@@ -217,6 +223,7 @@ class BaseNode(threading.Thread, Observer):
         for n in nei_copy_list:
             n.stop()
         self.__node_socket.close()
+        
 
     def __process_new_connection(self, node_socket, h, p, full, force):
         try:

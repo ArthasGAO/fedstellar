@@ -1,4 +1,4 @@
-# 
+#
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
 # 
@@ -7,8 +7,10 @@
 from collections import OrderedDict
 
 import torch
-
+import copy
+import numpy as np
 from fedstellar.learning.aggregators.fedavg import FedAvg
+from fedstellar.learning.aggregators.fltrust import FlTrust
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.learning.pytorch.mnist.models.mlp import MLP
 from fedstellar.node import Node
@@ -79,3 +81,6 @@ def test_avg_complex():
         a = torch.trunc(params[layer] * 10)
         b = torch.trunc(result[layer] * 10)
         assert torch.eq(a, b).all()
+
+
+

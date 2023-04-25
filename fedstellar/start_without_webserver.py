@@ -22,8 +22,12 @@ def generate_controller_configs(basic_config_path=basic_config_path):
     basic_config = ''
     with open(basic_config_path) as f:
         basic_config = json.load(f)
-    
+
     scenario_name = basic_config['scenario_name']
+    if len(scenario_name) == 0:
+        scenario_name = f'{basic_config["aggregation"]}_{basic_config["dataset"]}_{basic_config["attack"].replace(" ", "")}_' \
+                        f'{basic_config["poisoned_node_persent"]}_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+        print(scenario_name)
     if len(scenario_name) == 0:
         scenario_name = f'fedstellar_{basic_config["federation"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
     basic_config['scenario_name'] = scenario_name
@@ -81,7 +85,7 @@ def create_topo_matrix(basic_config):
     elif basic_config["topology"] == "random":
         random_seed = random.randint(0,100)
         matrix = []
-        graph = networkx.erdos_renyi_graph(num_nodes, 0.6, seed=random_seed)  
+        graph = networkx.erdos_renyi_graph(num_nodes, 0.6, seed=random_seed)
         adj_matrix = networkx.adjacency_matrix(graph)
         matrix = adj_matrix.todense().tolist()
     elif basic_config["topology"] == "star":
@@ -112,7 +116,7 @@ def create_attack_matrix(basic_config):
             nodes_index = node_range
     else:
         nodes_index = node_range[1:]
-    
+
     n_nodes = len(nodes_index)
     # Number of attacked nodes, round up
     num_attacked =  int(math.ceil(poisoned_node_persent/100 * n_nodes))
@@ -132,7 +136,7 @@ def create_attack_matrix(basic_config):
             attack_sample_persent = poisoned_sample_persent/100
             attack_ratio = poisoned_ratio/100
         attack_matrix.append([node, node_att, attack_sample_persent, attack_ratio])
-    return attack_matrix  
+    return attack_matrix
 
 
 def create_particiants_configs(basic_config, example_node_config_path=example_node_config_path, start_port=45000):
@@ -156,7 +160,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         # Update IP, port, and role
         with open(participant_file) as f:
             participant_config = json.load(f)
-        
+
         # Update IP, port, and role
         participant_config['network_args']['ip'] = "127.0.0.1"
         participant_config['network_args']['ipdemo'] = "127.0.0.1"  # legacy code
@@ -184,7 +188,8 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["device_args"]["accelerator"] = basic_config["accelerator"]  # same for all nodes
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
 
-
+        # Logging configuration
+        participant_config['tracking_args']['enable_remote_tracking'] = basic_config["remote_tracking"]
 
         # Get attack config for each node
         for atts in attack_matrix:

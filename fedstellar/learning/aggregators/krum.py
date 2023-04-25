@@ -25,7 +25,7 @@ class Krum(Aggregator):
 
     def aggregate(self, models):
         """
-        Krum selects one of the m local models that is similar to other models 
+        Krum selects one of the m local models that is similar to other models
         as the global model, the euclidean distance between two local models is used.
 
         Args:
@@ -65,15 +65,17 @@ class Krum(Aggregator):
                 m2, _ = models[j]
                 distance = 0
                 if i == j:
-                    distance = 0
-                else:
-                    for layer in m1:
-                        l1 = m1[layer]
-                        # l1 = l1.view(len(l1), 1)
+                    if i == j:
+                        distance = 0
+                    else:
+                        for layer in m1:
+                            l1 = m1[layer]
+                            # l1 = l1.view(len(l1), 1)
 
-                        l2 = m2[layer]
-                        # l2 = l2.view(len(l2), 1)
-                        distance += numpy.linalg.norm(l1 - l2)
+                            l2 = m2[layer]
+                            # l2 = l2.view(len(l2), 1)
+                            distance += numpy.linalg.norm(l1 - l2)
+                            distance += numpy.linalg.norm(l1 - l2)
                 distance_list[i] += distance
 
             logging.info("[Krum.aggregate] Distances: distance_list={}".format(distance_list))
@@ -90,3 +92,4 @@ class Krum(Aggregator):
         logging.info("[Krum.aggregate] Aggregated model: accum={}".format(accum))
 
         return accum
+

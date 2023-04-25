@@ -8,6 +8,7 @@ import math
 import os
 from datetime import datetime, timedelta
 
+from fedstellar.learning.aggregators.fltrust import FlTrust
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
 
@@ -139,6 +140,8 @@ class Node(BaseNode):
             self.aggregator = Median(node_name=self.get_name(), config=self.config)
         if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
             self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
+        if self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
+            self.aggregator = FlTrust(node_name=self.get_name(), config=self.config)
 
         self.aggregator.add_observer(self)
 
@@ -684,8 +687,8 @@ class Node(BaseNode):
             logging.debug("[NODE] FL finished | Models aggregated = {}".format([nc.get_models_aggregated() for nc in self.get_neighbors()]))
             # At end, all nodes compute metrics
             self.__evaluate()
-            with open(self.model_name, 'wb') as f:
-                pickle.dump(self.learner.model, f)
+            #with open(self.model_name, 'wb') as f:
+            #    pickle.dump(self.learner.model, f)
             # Finish
             logging.info(
                 "[NODE] FL experiment finished | Round: {} | Total rounds: {} | [!] Both to None".format(

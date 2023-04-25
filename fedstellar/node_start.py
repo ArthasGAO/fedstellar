@@ -55,7 +55,7 @@ def main():
     rounds = config.participant["scenario_args"]["rounds"]
     epochs = config.participant["training_args"]["epochs"]
 
-    aggregation_algorithm = config.participant["aggregator_args"]["algorithm"]    
+    aggregation_algorithm = config.participant["aggregator_args"]["algorithm"]
     attacks = config.participant["adversarial_args"]["attacks"]
     poisoned_persent = config.participant["adversarial_args"]["poisoned_sample_persent"]
     poisoned_ratio = config.participant["adversarial_args"]["poisoned_ratio"]
@@ -97,7 +97,7 @@ def main():
 
 
     # config of datasets
-    if dataset == "MNIST":     
+    if dataset == "MNIST":
         dataset = MNISTDATASET(iid=is_iid)
         if model == "MLP":
             model = MLP()
@@ -163,6 +163,8 @@ def main():
     elif aggregation_algorithm == "Median":
         pass
     elif aggregation_algorithm == "TrimmedMean":
+        pass
+    elif aggregation_algorithm == "FlTrust":
         pass
     else:
         raise ValueError(f"Aggregation algorithm {aggregation_algorithm} not supported")

@@ -37,6 +37,13 @@ class FedAvg(Aggregator):
             )
             return None
 
+        """
+        if len(models) >= 3:
+            with open('/Users/janosch/Desktop/models.pk', 'wb') as handle:
+                logging.info("Saving received models")
+                pickle.dump(models, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        """
+
         models = list(models.values())
 
         # Total Samples

@@ -241,7 +241,7 @@ class Controller:
 
     def load_configurations_and_start_nodes(self):
         if not self.scenario_name:
-            self.scenario_name = f'fedstellar_{self.federation}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
+            self.scenario_name = f'fedstellar_{self.federation}_{self.config}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
         # Once the scenario_name is defined, we can update the config_dir
         self.config_dir = os.path.join(self.config_dir, self.scenario_name)
         os.makedirs(self.config_dir, exist_ok=True)

@@ -129,6 +129,7 @@ class LightningLearner(NodeLearner):
 
     def log_validation_metrics(self, loss, metric, round=None, name=None):
         self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
+        #self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=round)
         pass
 
     def get_num_samples(self):

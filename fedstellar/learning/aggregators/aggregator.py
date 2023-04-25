@@ -138,9 +138,8 @@ class Aggregator(threading.Thread, Observable):
                 logging.info("[Aggregator.add_model] Adding model from nodes {} ||||| __train_set = {} | len(models_added) = {}".format(nodes, self.__train_set, len(models_added)))
 
                 # Check if aggregation is needed
-                # __train_set tiene a todos mis vecinos (y yo)
-                # models_added tiene a todos los vecinos los cuales ya tengo sus parámetros del modelo
-                # Agrego
+                # __train_set has all my neighbors (and me)
+                # models_added has all the neighbors which I already have their model parameters added
                 if len(self.__train_set) > len(models_added):
                     # Check if all nodes are in the train_set
                     # if all([n in self.__train_set for n in nodes]):

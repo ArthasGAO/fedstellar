@@ -9,7 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directo
 
 from fedstellar.config.config import Config
 # from fedstellar.learning.pytorch.mnist.mnist import MNISTDataModule
-from fedstellar.learning.pytorch.mnist.models.mlp import MLP
+from fedstellar.learning.pytorch.mnist.models.mlp import MLP as MLP_mnist
 from fedstellar.learning.pytorch.femnist.models.mlp import MLP as MLP_femnist
 from fedstellar.learning.pytorch.mnist.models.cnn import CNN as CNN_mnist
 from fedstellar.learning.pytorch.femnist.models.cnn import CNN as CNN_femnist
@@ -100,7 +100,7 @@ def main():
     if dataset == "MNIST":
         dataset = MNISTDATASET(iid=is_iid)
         if model == "MLP":
-            model = MLP()
+            model = MLP_mnist()
         elif model == "CNN":
             model = CNN_mnist()
         else:
@@ -108,7 +108,7 @@ def main():
     elif dataset == "FEMNIST":
         dataset = FEMNISTDATASET(iid=is_iid)
         if model == "MLP":
-            model = MLP()
+            model = MLP_femnist()
         elif model == "CNN":
             model = CNN_femnist()
         else:

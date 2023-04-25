@@ -29,3 +29,4 @@ spacy
 nltk
 datasets
 scikit-learn
+wandb

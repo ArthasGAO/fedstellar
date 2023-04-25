@@ -25,8 +25,12 @@ def generate_controller_configs(basic_config_path=basic_config_path):
 
     scenario_name = basic_config['scenario_name']
     if len(scenario_name) == 0:
-        scenario_name = f'{basic_config["aggregation"]}_{basic_config["dataset"]}_{basic_config["attack"].replace(" ", "")}_' \
-                        f'{basic_config["poisoned_node_persent"]}_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+        scenario_name = f'{basic_config["dataset"]}_{basic_config["model"]}_{basic_config["aggregation"]}_' \
+                        f'{basic_config["topology"].replace(" ", "")}_' \
+                        f'{basic_config["attack"].replace(" ", "")}_{basic_config["targeted"]}_' \
+                        f'{basic_config["poisoned_node_persent"]}_{basic_config["poisoned_node_persent"]}_' \
+                        f'{basic_config["noise_type"].replace(" ", "")}_' \
+                        f'{datetime.now().strftime("%Y%m%d_%H%M%S")}'
         print(scenario_name)
     if len(scenario_name) == 0:
         scenario_name = f'fedstellar_{basic_config["federation"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'

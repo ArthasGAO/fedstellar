@@ -25,11 +25,11 @@ def generate_controller_configs(basic_config_path=basic_config_path):
 
     scenario_name = basic_config['scenario_name']
     if len(scenario_name) == 0:
-        scenario_name = f'{basic_config["aggregation"]}_{basic_config["attack"].replace(" ", "")}' \
-                        f'{basic_config["poisoned_node_percent"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
+        scenario_name = f'{basic_config["aggregation"]}_{basic_config["dataset"]}_{basic_config["attack"].replace(" ", "")}_' \
+                        f'{basic_config["poisoned_node_persent"]}_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
         print(scenario_name)
-    #if len(scenario_name) == 0:
-    #    scenario_name = f'fedstellar_{basic_config["federation"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
+    if len(scenario_name) == 0:
+        scenario_name = f'fedstellar_{basic_config["federation"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
     basic_config['scenario_name'] = scenario_name
     basic_config["topology"] = basic_config["topology"].lower()
 
@@ -38,8 +38,6 @@ def generate_controller_configs(basic_config_path=basic_config_path):
 
     attack_matrix = create_attack_matrix(basic_config)
     basic_config['attack_matrix'] = attack_matrix
-
-
 
     config_dir = os.path.join(basic_config['config'], scenario_name)
     print(config_dir)
@@ -112,8 +110,8 @@ def create_attack_matrix(basic_config):
     node_range = range(0, num_nodes)
     federation = basic_config["federation"]
     nodes_index = []
-    poisoned_node_percent = int(basic_config["poisoned_node_percent"])
-    poisoned_sample_percent = int(basic_config["poisoned_sample_percent"])
+    poisoned_node_persent = int(basic_config["poisoned_node_persent"])
+    poisoned_sample_persent = int(basic_config["poisoned_sample_persent"])
     poisoned_ratio = int(basic_config["poisoned_ratio"])
     if federation == "DFL":
         nodes_index = node_range
@@ -122,7 +120,7 @@ def create_attack_matrix(basic_config):
 
     n_nodes = len(nodes_index)
     # Number of attacked nodes, round up
-    num_attacked = int(math.ceil(poisoned_node_percent / 100 * n_nodes))
+    num_attacked = int(math.ceil(poisoned_node_persent / 100 * n_nodes))
     if num_attacked > n_nodes:
         num_attacked = n_nodes
 
@@ -136,7 +134,7 @@ def create_attack_matrix(basic_config):
         attack_ratio = 0
         if node in attacked_nodes:
             node_att = attack
-            attack_sample_percent = poisoned_sample_percent / 100
+            attack_sample_percent = poisoned_sample_persent / 100
             attack_ratio = poisoned_ratio / 100
         attack_matrix.append([node, node_att, attack_sample_percent, attack_ratio])
     return attack_matrix
@@ -198,10 +196,10 @@ def create_participants_configs(basic_config, node_config_path=example_node_conf
         for atts in attack_matrix:
             if node == atts[0]:
                 attack = atts[1]
-                poisoned_sample_percent = atts[2]
+                poisoned_sample_persent = atts[2]
                 poisoned_ratio = atts[3]
         participant_config["adversarial_args"]["attacks"] = attack
-        participant_config["adversarial_args"]["poisoned_sample_percent"] = poisoned_sample_percent
+        participant_config["adversarial_args"]["poisoned_sample_persent"] = poisoned_sample_persent
         participant_config["adversarial_args"]["poisoned_ratio"] = poisoned_ratio
 
         with open(participant_file, 'w') as f:

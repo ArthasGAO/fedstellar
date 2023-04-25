@@ -13,6 +13,8 @@ from torch.utils.data import DataLoader, Subset, random_split
 from torchvision import transforms
 from torchvision.datasets import MNIST
 
+from fedstellar.learning.pytorch.changeablesubset import ChangeableSubset
+
 torch.multiprocessing.set_sharing_strategy("file_system")
 
 
@@ -87,9 +89,14 @@ class MNISTDataModule(LightningDataModule):
         # Training / validation set
         trainset = MNISTDataModule.mnist_train
         rows_by_sub = floor(len(trainset) / self.number_sub)
-        tr_subset = Subset(
-            trainset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub)
+
+        tr_subset = ChangeableSubset(
+            trainset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub),
+            # label_flipping=self.label_flipping, data_poisoning=self.data_poisoning, poisoned_persent=self.poisoned_persent,
+            # poisoned_ratio=self.poisoned_ratio, targeted=self.targeted, target_label=self.target_label,
+            # target_changed_label=self.target_changed_label, noise_type=self.noise_type
         )
+
         mnist_train, mnist_val = random_split(
             tr_subset,
             [

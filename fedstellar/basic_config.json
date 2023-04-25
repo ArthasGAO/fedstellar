@@ -7,7 +7,7 @@
   "config": "../app/config",
   "logs": "../app/logs",
   "models": "../app/models",
-  "n_nodes": 5,
+  "n_nodes": 2,
   "matrix": [],
   "federation": "DFL",
   "topology": "fully",
@@ -17,20 +17,14 @@
   "python": "/Users/janosch/opt/anaconda3/envs/fedstellar/bin/python",
   "rounds": 3,
   "epochs": 3,
-  "dataset": "MNIST",
+  "dataset": "FEMNIST",
   "model": "MLP",
-  "accelerator": "cpu",
-  "attack": "No Attack",
-  "poisoned_node_percent": 0,
-  "poisoned_sample_percent": 0,
-  "poisoned_ratio": 0,
+  "accelerator": "gpu",
+  "attack": "Label Flipping",
+  "poisoned_node_persent": 50,
+  "poisoned_sample_persent": 50,
+  "poisoned_ratio": 50,
   "attack_matrix": [
-    [
-      0,
-      "No Attack",
-      0,
-      0
-    ],
     [
       1,
       "No Attack",
@@ -38,22 +32,10 @@
       0
     ],
     [
-      2,
-      "No Attack",
-      0,
-      0
-    ],
-    [
-      3,
-      "No Attack",
-      0,
-      0
-    ],
-    [
-      4,
-      "No Attack",
-      0,
-      0
+      1,
+      "Label Flipping",
+      50,
+      50
     ]
   ]
 }

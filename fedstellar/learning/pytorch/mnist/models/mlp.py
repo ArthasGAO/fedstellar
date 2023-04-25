@@ -16,6 +16,7 @@ class MLP(pl.LightningModule):
     """
 
     def __init__(
+            # change to out_channels
             self, metric=Accuracy, out_channels=10, lr_rate=0.001, seed=None
     ):  # low lr to avoid overfitting
 

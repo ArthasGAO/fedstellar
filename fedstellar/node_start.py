@@ -32,13 +32,25 @@ def main():
 
     rounds = config.participant["scenario_args"]["rounds"]
     epochs = config.participant["training_args"]["epochs"]
-
     aggregation_algorithm = config.participant["aggregator_args"]["algorithm"]
 
+    attacks = config.participant["adversarial_args"]["attacks"]
+    poisoned_sample_persent = config.participant["adversarial_args"]["poisoned_sample_persent"]
+    poisoned_ratio = config.participant["adversarial_args"]["poisoned_ratio"]
+
+    is_label_flipping = "Label Flipping" in attacks
+    is_data_poisoning = "Data Poisoning" in attacks
 
     dataset = config.participant["data_args"]["dataset"]
     if dataset == "MNIST":
-        dataset = MNISTDataModule(sub_id=idx, number_sub=n_nodes, iid=True)
+        dataset = MNISTDataModule(sub_id=idx,
+                                  number_sub=n_nodes,
+                                  iid=True,
+                                  # label_flipping=is_label_flipping,
+                                  # data_poisoning=is_data_poisoning,
+                                  # poisoned_sample_persent=poisoned_sample_persent,
+                                  # poisoned_ratio=poisoned_ratio
+                                  )
         if model == "MLP":
             model = MLP()
         elif model == "CNN":

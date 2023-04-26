@@ -60,14 +60,14 @@
   },
   "tracking_args": {
     "enable_remote_tracking": false,
-    "local_tracking": "web",
-    "log_dir": "/Users/enrique/Documents/PhD/fedstellar/app/logs",
-    "config_dir": "/Users/enrique/Documents/PhD/fedstellar/app/config",
+    "local_tracking": "csv",
+    "log_dir": "../app/logs",
+    "config_dir": "../app/config",
     "wandb_key": [
       "your wandb key"
     ],
     "wandb_entity": "janousy",
-    "wandb_project": "framework-enrique"
+    "wandb_project": "fedstellar"
   },
   "mender_args": {
     "id": "",

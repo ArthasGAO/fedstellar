@@ -14,7 +14,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-basic_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'basic_config_noattack.json')
+basic_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'basic_config.json')
 example_node_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config/participant.json.example')
 
 
@@ -28,7 +28,8 @@ def generate_controller_configs(basic_config_path=basic_config_path):
         scenario_name = f'{basic_config["dataset"]}_{basic_config["model"]}_{basic_config["aggregation"]}_' \
                         f'{basic_config["topology"].replace(" ", "")}_' \
                         f'{basic_config["attack"].replace(" ", "")}_{basic_config["targeted"]}_' \
-                        f'{basic_config["poisoned_node_persent"]}_{basic_config["poisoned_node_persent"]}_' \
+                        f'N{basic_config["poisoned_node_persent"]}-S{basic_config["poisoned_sample_persent"]}_' \
+                        f'R{basic_config["poisoned_ratio"]}_' \
                         f'{basic_config["noise_type"].replace(" ", "")}_' \
                         f'{datetime.now().strftime("%Y%m%d_%H%M%S")}'
         print(scenario_name)

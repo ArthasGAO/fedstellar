@@ -115,9 +115,15 @@ class Node(BaseNode):
             logging.info("[NODE] Tracking W&B enabled")
             logging.getLogger("wandb").setLevel(logging.ERROR)
             if self.hostdemo:
-                wandblogger = FedstellarWBLogger(project="framework-enrique", group=self.experiment_name, name=f"participant_{self.idx}")
+                wandblogger = FedstellarWBLogger(project="framework-enrique",
+                                                 group=self.experiment_name,
+                                                 name=f"participant_{self.idx}",
+                                                 config=self.config.participant)
             else:
-                wandblogger = FedstellarWBLogger(project="framework-enrique", group=self.experiment_name, name=f"participant_{self.idx}")
+                wandblogger = FedstellarWBLogger(project="framework-enrique",
+                                                 group=self.experiment_name,
+                                                 name=f"participant_{self.idx}",
+                                                 config=self.config.participant)
             wandblogger.watch(model, log="all")
             self.learner = learner(model, data, config=self.config, logger=wandblogger)
             self.logger = wandblogger

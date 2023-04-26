@@ -17,8 +17,8 @@ class FedAvg(Aggregator):
     Paper: https://arxiv.org/abs/1602.05629
     """
 
-    def __init__(self, node_name="unknown", config=None):
-        super().__init__(node_name, config)
+    def __init__(self, node_name="unknown", config=None, logger=None):
+        super().__init__(node_name, config, logger)
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[FedAvg] My config is {}".format(self.config))

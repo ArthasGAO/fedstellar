@@ -18,8 +18,8 @@ class FlTrust(Aggregator):
     Paper: https://arxiv.org/abs/1602.05629
     """
 
-    def __init__(self, node_name="unknown", config=None):
-        super().__init__(node_name, config)
+    def __init__(self, node_name="unknown", config=None, logger=None):
+        super().__init__(node_name, config, logger)
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[FLTrust] My config is {}".format(self.config))
@@ -109,9 +109,17 @@ class FlTrust(Aggregator):
 
         # Normalize Accum
         avg_similarity = mean(similarities.values())
+        total_similarity = sum(similarities.values())
         for layer in accum:
-            accum[layer] = accum[layer] / avg_similarity
+            accum[layer] = accum[layer] / total_similarity
 
-        logging.info("[FlTrust.aggregate] Aggregated model with weights: similarities={}".format(similarities))
+        logging.info("[FlTrust.aggregate] Aggregated model at host {} with weights: similarities={} "
+                     "and avg. similarity: {}"
+                     .format(self.node_name, similarities, avg_similarity))
+        if self.logger is not None:
+            key = "similarities"
+            columns = list(similarities.keys())
+            data = [list(similarities.values())]
+            self.logger.log_text(key=key, columns=columns, data=data, step=0)
 
         return accum

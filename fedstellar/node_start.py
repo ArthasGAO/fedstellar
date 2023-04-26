@@ -156,15 +156,7 @@ def main():
     else:
         raise ValueError(f"Dataset {dataset} not supported")
 
-    if aggregation_algorithm in ["FedAvg", "Krum", "Median", "TrimmedMean"]:
-        pass
-    elif aggregation_algorithm == "Krum":
-        pass
-    elif aggregation_algorithm == "Median":
-        pass
-    elif aggregation_algorithm == "TrimmedMean":
-        pass
-    elif aggregation_algorithm == "FlTrust":
+    if aggregation_algorithm in ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust"]:
         pass
     else:
         raise ValueError(f"Aggregation algorithm {aggregation_algorithm} not supported")

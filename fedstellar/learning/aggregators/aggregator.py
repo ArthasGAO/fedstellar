@@ -20,12 +20,13 @@ class Aggregator(threading.Thread, Observable):
         node_name: (str): String with the name of the node.
     """
 
-    def __init__(self, node_name="unknown", config=None):
+    def __init__(self, node_name="unknown", config=None, logger=None):
         self.node_name = node_name
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         threading.Thread.__init__(self, name="aggregator-" + node_name)
         self.daemon = True
+        self.logger = logger
         Observable.__init__(self)
         self.__train_set = []
         self.__waiting_aggregated_model = False
@@ -36,6 +37,7 @@ class Aggregator(threading.Thread, Observable):
         self.__aggregation_lock = threading.Lock()
         self.__aggregation_lock.acquire()
         self.__thread_executed = False
+
 
     def run(self):
         """

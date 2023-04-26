@@ -14,7 +14,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-basic_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'basic_config.json')
+basic_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'basic_config_noattack.json')
 example_node_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config/participant.json.example')
 
 

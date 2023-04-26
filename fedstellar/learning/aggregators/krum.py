@@ -17,8 +17,8 @@ class Krum(Aggregator):
     Paper: https://papers.nips.cc/paper/2017/hash/f4b9ec30ad9f68f89b29639786cb62ef-Abstract.html
     """
 
-    def __init__(self, node_name="unknown", config=None):
-        super().__init__(node_name, config)
+    def __init__(self, node_name="unknown", config=None, logger=None):
+        super().__init__(node_name, config, logger)
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[Krum] My config is {}".format(self.config))

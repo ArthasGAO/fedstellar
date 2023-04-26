@@ -1,13 +1,12 @@
 {
-  "remote_tracking": true,
-  "aggregation": "FlTrust",
   "scenario_name": "",
-  "scenario_title": "",
+  "remote_tracking": "True",
+  "scenario_title": "KISTSUN_MLP_DFL_FedAvg_fully_Model Poisoning_False_20_80_gaussian_2",
   "scenario_description": "",
   "config": "../app/config",
   "logs": "../app/logs",
   "models": "../app/models",
-  "n_nodes": 2,
+  "n_nodes": 3,
   "matrix": [],
   "federation": "DFL",
   "topology": "fully",
@@ -15,17 +14,18 @@
   "env": null,
   "webserver": false,
   "python": "/opt/homebrew/anaconda3/envs/fedstellar/bin/python",
+  "attack": "Model Poisoning",
+  "targeted": false,
+  "noise_type": "gaussian",
+  "poisoned_node_persent": 20,
+  "poisoned_sample_persent": 80,
+  "poisoned_ratio": 2,
   "rounds": 3,
   "epochs": 3,
   "dataset": "MNIST",
   "model": "MLP",
   "accelerator": "cpu",
-  "attack": "No Attack",
-  "targeted": false,
-  "poisoned_node_persent": 0,
-  "poisoned_sample_persent": 0,
-  "poisoned_ratio": 0,
-  "noise_type": "none",
+  "aggregation": "FlTrust",
   "attack_matrix": [
     [
       0,
@@ -33,26 +33,26 @@
       0,
       0
     ],
-     [
-      0,
-      "No Attack",
-      0,
-      0
+    [
+      1,
+      "Label Flipping",
+      0.2,
+      0.2
     ],
-     [
-      0,
+    [
+      2,
       "No Attack",
       0,
       0
     ],
     [
-      0,
+      3,
       "No Attack",
       0,
       0
     ],
     [
-      0,
+      4,
       "No Attack",
       0,
       0

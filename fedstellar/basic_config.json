@@ -18,14 +18,14 @@
   "targeted": false,
   "noise_type": "gaussian",
   "poisoned_node_persent": 20,
-  "poisoned_sample_persent": 80,
+  "poisoned_sample_persent": 20,
   "poisoned_ratio": 2,
-  "rounds": 3,
-  "epochs": 3,
-  "dataset": "FEMNIST",
+  "rounds": 5,
+  "epochs": 5,
+  "dataset": "MNIST",
   "model": "MLP",
-  "accelerator": "mps",
-  "aggregation": "FedAvg",
+  "accelerator": "cpu",
+  "aggregation": "FlTrust",
   "attack_matrix": [
     [
       0,
@@ -36,8 +36,8 @@
     [
       1,
       "Label Flipping",
-      0.2,
-      0.2
+      0.5,
+      0.5
     ],
     [
       2,

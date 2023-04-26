@@ -80,7 +80,7 @@ class Node(BaseNode):
             encrypt=False,
             model_poisoning=False,
             poisoned_ratio=0,
-            noise_type='gaussian'
+            noise_type='gaussian',
     ):
         # Super init
         BaseNode.__init__(self, experiment_name, hostdemo, host, port, encrypt, config)
@@ -88,6 +88,7 @@ class Node(BaseNode):
 
         self.idx = idx
         logging.debug("[NODE] My idx is {}".format(self.idx))
+        self.logger = None
 
         # Import configuration file
         self.config = config
@@ -119,6 +120,8 @@ class Node(BaseNode):
                 wandblogger = FedstellarWBLogger(project="framework-enrique", group=self.experiment_name, name=f"participant_{self.idx}")
             wandblogger.watch(model, log="all")
             self.learner = learner(model, data, config=self.config, logger=wandblogger)
+            self.logger = wandblogger
+            logging.info("[NODE] Assinged WandBlogger: " + str(self.logger))
         else:
             if self.config.participant['tracking_args']['local_tracking'] == 'csv':
                 logging.info("[NODE] Tracking CSV enabled")
@@ -133,7 +136,7 @@ class Node(BaseNode):
 
         # Aggregator
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
-            self.aggregator = FedAvg(node_name=self.get_name(), config=self.config)
+            self.aggregator = FedAvg(node_name=self.get_name(), config=self.config, logger=self.logger)
         if self.config.participant["aggregator_args"]["algorithm"] == "Krum":
             self.aggregator = Krum(node_name=self.get_name(), config=self.config)
         if self.config.participant["aggregator_args"]["algorithm"] == "Median":
@@ -141,7 +144,7 @@ class Node(BaseNode):
         if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
             self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
         if self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
-            self.aggregator = FlTrust(node_name=self.get_name(), config=self.config)
+            self.aggregator = FlTrust(node_name=self.get_name(), config=self.config, logger=self.logger)
 
         self.aggregator.add_observer(self)
 
@@ -918,7 +921,8 @@ class Node(BaseNode):
         elif event == Events.REPORT_STATUS_TO_CONTROLLER_EVENT:
             self.__report_status_to_controller()
             # self.__report_logs_to_controller()
-            self.__report_resources()
+            # TODO: fix NVML error
+            #self.__report_resources()
 
         elif event == Events.STORE_MODEL_PARAMETERS_EVENT:
             if obj is not None:

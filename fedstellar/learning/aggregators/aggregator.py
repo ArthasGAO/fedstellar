@@ -50,9 +50,11 @@ class Aggregator(threading.Thread, Observable):
         except Exception as e:
             logging.error("[Aggregator] Error waiting for aggregation: {}".format(e))
 
+        logging.info("[Aggregator] Aggregating models, timeout reached.")
+
         # Check if node still running (could happen if aggregation thread was a residual thread)
         if not self.__train_set:
-            logging.info("[Aggregator] Shutting Down Aggregator Process")
+            logging.info("[Aggregator] Shutting Down Aggregator Process | __train_set={} --> None or only me --> No aggregation".format(self.__train_set))
             self.notify(
                 Events.AGGREGATION_FINISHED_EVENT, None
             )  # To avoid residual training-thread
@@ -64,9 +66,8 @@ class Aggregator(threading.Thread, Observable):
         )
         if n_model_aggregated != len(self.__train_set):
             logging.info(
-                "[Aggregator] Aggregating models, timeout reached. __models={} | __train_set={} || Missing models: {}".format(
-                    self.__models, self.__train_set, set(self.__train_set) - set(self.__models.keys())
-                )
+                "[Aggregator] __train_set={} || Missing models: {}".format(self.__train_set, set(self.__train_set) - set(self.__models.keys())
+                                                                           )
             )
         else:
             logging.info("[Aggregator] Aggregating models.")

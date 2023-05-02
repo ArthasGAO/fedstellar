@@ -9,14 +9,14 @@ from tensorboardX import SummaryWriter
 from tensorboardX.summary import hparams
 from torch import Tensor
 
-import pytorch_lightning as pl
-from lightning_lite.utilities.cloud_io import get_filesystem
-from lightning_lite.utilities.types import _PATH
-from pytorch_lightning.core.saving import save_hparams_to_yaml
-from pytorch_lightning.loggers.logger import Logger, rank_zero_experiment
-from pytorch_lightning.utilities.logger import _add_prefix, _convert_params, _flatten_dict
-from pytorch_lightning.utilities.logger import _sanitize_params as _utils_sanitize_params
-from pytorch_lightning.utilities.rank_zero import rank_zero_only, rank_zero_warn
+import lightning as pl
+from lightning.fabric.utilities.cloud_io import get_filesystem
+from lightning.fabric.utilities.types import _PATH
+from lightning.pytorch.core.saving import save_hparams_to_yaml
+from lightning.pytorch.loggers.logger import Logger, rank_zero_experiment
+from lightning.fabric.utilities.logger import _add_prefix, _convert_params, _flatten_dict, _sanitize_callable_params
+from lightning.fabric.utilities.logger import _sanitize_params as _utils_sanitize_params
+from lightning.pytorch.utilities.rank_zero import rank_zero_only, rank_zero_warn
 
 log = logging.getLogger(__name__)
 
@@ -173,7 +173,7 @@ class FedstellarLogger(Logger):
         else:
             input_array = model._on_before_batch_transfer(input_array)
             input_array = model._apply_batch_transfer_handler(input_array)
-            with pl.core.module._jit_is_scripting():
+            with pl.pytorch.core.module._jit_is_scripting():
                 self.experiment.add_graph(model, input_array)
 
     @rank_zero_only

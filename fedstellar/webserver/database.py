@@ -313,7 +313,7 @@ def get_all_scenarios(sort_by="start_time"):
     return result
 
 
-def scenario_update_record(scenario_name, start_time, end_time, title, description, status):
+def scenario_update_record(scenario_name, start_time, end_time, title, description, status, network_subnet):
     _conn = sqlite3.connect(scenario_db_file_location)
     _c = _conn.cursor()
 
@@ -323,10 +323,10 @@ def scenario_update_record(scenario_name, start_time, end_time, title, descripti
 
     if result is None:
         # Create a new record
-        _c.execute("INSERT INTO scenarios VALUES (?, ?, ?, ?, ?, ?)", (scenario_name, start_time, end_time, title, description, status))
+        _c.execute("INSERT INTO scenarios VALUES (?, ?, ?, ?, ?, ?, ?)", (scenario_name, start_time, end_time, title, description, status, network_subnet))
     else:
         # Update the record
-        command = "UPDATE scenarios SET start_time = '" + start_time + "', end_time = '" + end_time + "', title = '" + title + "', description = '" + description + "', status = '" + status + "' WHERE name = '" + scenario_name + "';"
+        command = "UPDATE scenarios SET start_time = '" + start_time + "', end_time = '" + end_time + "', title = '" + title + "', description = '" + description + "', status = '" + status + "', network_subnet = '" + network_subnet + "' WHERE name = '" + scenario_name + "';"
         _c.execute(command)
 
     _conn.commit()

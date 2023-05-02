@@ -15,7 +15,6 @@ from dotenv import load_dotenv
 from fedstellar.config.config import Config
 from fedstellar.config.mender import Mender
 from fedstellar.utils.topologymanager import TopologyManager
-# from fedstellar.start_without_webserver import generate_controller_configs, create_particiants_configs
 
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
@@ -47,20 +46,18 @@ logging.basicConfig(level=logging.DEBUG,
 # Detect ctrl+c and run killports
 def signal_handler(sig, frame):
     logging.info('You pressed Ctrl+C!')
-    # logging.info("Remove configuration and topology files...")
-    # Controller.remove_config_files()
-    # logging.info("Remove configuration and topology files... Done")
     logging.info('Finishing all scenarios and nodes...')
     Controller.killports("tensorboa")
     Controller.killports("python")
-    if sys.platform == "darwin":
-        os.system("""osascript -e 'tell application "Terminal" to quit'""")
-    elif sys.platform == "linux":
-        # Kill all python processes
-        os.system("""killall python""")
-    else:
-        os.system("""taskkill /IM cmd.exe /F""")
-        os.system("""taskkill /IM powershell.exe /F""")
+    Controller.killdockers()
+    # if sys.platform == "darwin":
+    #     os.system("""osascript -e 'tell application "Terminal" to quit'""")
+    # elif sys.platform == "linux":
+    #     # Kill all python processes
+    #     os.system("""killall python""")
+    # else:
+    #     os.system("""taskkill /IM cmd.exe /F""")
+    #     os.system("""taskkill /IM powershell.exe /F""")
     sys.exit(0)
 
 
@@ -82,12 +79,16 @@ class Controller:
         self.webserver_port = args.webport if hasattr(args, "webport") else 5000
         self.statistics_port = args.statsport if hasattr(args, "statsport") else 5100
         self.simulation = args.simulation
+        self.docker = args.docker if hasattr(args, 'docker') else None
         self.config_dir = args.config
         self.log_dir = args.logs
-        self.model_dir = args.models
         self.env_path = args.env
         self.python_path = args.python
         self.matrix = args.matrix if hasattr(args, 'matrix') else None
+
+        # Network configuration (nodes deployment in a network)
+        self.network_subnet = args.network_subnet if hasattr(args, 'network_subnet') else None
+        self.network_gateway = args.network_gateway if hasattr(args, 'network_gateway') else None
 
         self.config = Config(entity="controller")
         self.topologymanager = None
@@ -118,9 +119,9 @@ class Controller:
 
         # Save the configuration in environment variables
         logging.info("Saving configuration in environment variables...")
+        os.environ["FEDSTELLAR_ROOT"] = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         os.environ["FEDSTELLAR_LOGS_DIR"] = self.log_dir
         os.environ["FEDSTELLAR_CONFIG_DIR"] = self.config_dir
-        os.environ["FEDSTELLAR_MODELS_DIR"] = self.model_dir
         os.environ["FEDSTELLAR_PYTHON_PATH"] = self.python_path
         os.environ["FEDSTELLAR_STATISTICS_PORT"] = str(self.statistics_port)
 
@@ -128,9 +129,8 @@ class Controller:
             self.run_webserver()
             self.run_statistics()
         else:
-            # logging.info("The controller without webserver is under development. Please, use the webserver (--webserver) option.")
+            logging.info("The controller without webserver is under development. Please, use the webserver (--webserver) option.")
             # self.load_configurations_and_start_nodes()
-            self.start_without_server()
             if self.mender:
                 logging.info("[Mender.module] Mender module initialized")
                 time.sleep(2)
@@ -150,7 +150,7 @@ class Controller:
                     # mender.deploy_artifact_device("my-update-2.0.mender", i['device_args']['idx'])
                     logging.info("[Mender.module] \tSending configuration...")
                     time.sleep(5)
-            # sys.exit(0)
+            sys.exit(0)
 
         logging.info('Press Ctrl+C for exit from Fedstellar (global exit)')
         while True:
@@ -170,7 +170,8 @@ class Controller:
             current_dir = os.path.dirname(os.path.abspath(__file__))
             webserver_path = os.path.join(current_dir, "webserver")
             with open(f'{self.log_dir}/server.log', 'w', encoding='utf-8') as log_file:
-                subprocess.Popen(["gunicorn", "--reload", "--workers", "3", "--threads", "2", "--bind", f"unix:/tmp/fedstellar.sock", "--access-logfile", f"{self.log_dir}/server.log", "app:app"], cwd=webserver_path, env=controller_env, stdout=log_file, stderr=log_file, encoding='utf-8')
+                # Remove option --reload for production
+                subprocess.Popen(["gunicorn", "--workers", "4", "--threads", "4", "--bind", f"unix:/tmp/fedstellar.sock", "--access-logfile", f"{self.log_dir}/server.log", "app:app"], cwd=webserver_path, env=controller_env, stdout=log_file, stderr=log_file, encoding='utf-8')
 
         else:
             logging.info(f"Running Fedstellar Webserver (local): http://127.0.0.1:{self.webserver_port}")
@@ -223,21 +224,25 @@ class Controller:
         elif sys.platform == "linux":
             command = '''kill -9 $(lsof -i :''' + str(port) + ''' | grep python | awk '{print $2}') > /dev/null 2>&1'''
         elif sys.platform == "win32":
-            try:
-                command = 'taskkill /F /PID $(FOR /F "tokens=5" %P IN (\'netstat -a -n -o ^| findstr :' + str(port) + '\') DO echo %P)'
-            except Exception as e:
-                logging.error("Failed to kill port{}, raise an exception {}".format(str(port), str(e)))
+            command = 'taskkill /F /PID $(FOR /F "tokens=5" %P IN (\'netstat -a -n -o ^| findstr :' + str(port) + '\') DO echo %P)'
         else:
             raise ValueError("Unknown platform")
 
         os.system(command)
 
-    def start_without_server(self):
-        controller_env = os.environ.copy()
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        # webserver_path = os.path.join(current_dir, "webserver")
-        with open(f'{self.log_dir}/server.log', 'w', encoding='utf-8') as log_file:
-            subprocess.Popen([self.python_path, "start_without_webserver.py"], cwd=current_dir, env=controller_env, stdout=log_file, stderr=log_file, encoding='utf-8')
+    @staticmethod
+    def killdockers():
+        try:
+            # kill all the docker containers which contain the word "fedstellar"
+            command = '''docker kill $(docker ps -q --filter ancestor=fedstellar) > /dev/null 2>&1'''
+            time.sleep(1)
+            os.system(command)
+            # remove all docker networks which contain the word "fedstellar"
+            command = '''docker network rm $(docker network ls | grep fedstellar | awk '{print $1}') > /dev/null 2>&1'''
+            time.sleep(1)
+            os.system(command)
+        except Exception as e:
+            raise Exception("Error while killing docker containers: {}".format(e))
 
     def load_configurations_and_start_nodes(self):
         if not self.scenario_name:
@@ -245,9 +250,6 @@ class Controller:
         # Once the scenario_name is defined, we can update the config_dir
         self.config_dir = os.path.join(self.config_dir, self.scenario_name)
         os.makedirs(self.config_dir, exist_ok=True)
-
-        self.model_dir = os.path.join(self.model_dir, self.scenario_name)
-        os.makedirs(self.model_dir, exist_ok=True)
 
         os.makedirs(os.path.join(self.log_dir, self.scenario_name), exist_ok=True)
         self.start_date_scenario = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -283,7 +285,6 @@ class Controller:
 
             participant_config['tracking_args']['log_dir'] = self.log_dir
             participant_config['tracking_args']['config_dir'] = self.config_dir
-            participant_config['tracking_args']['model_dir'] = self.model_dir
             if participant_config["device_args"]["start"]:
                 if not is_start_node:
                     is_start_node = True
@@ -300,11 +301,11 @@ class Controller:
         self.topologymanager.update_nodes(self.config.participants)
         self.topologymanager.draw_graph(path=f"{self.log_dir}/{self.scenario_name}/topology.png", plot=False)
 
-        # topology_json_path = f"{self.config_dir}/topology.json"
-        # self.topologymanager.update_topology_3d_json(participants=self.config.participants, path=topology_json_path)
-
         if self.simulation:
-            self.start_nodes(idx_start_node)
+            if self.docker:
+                self.start_nodes_docker(idx_start_node)
+            else:
+                self.start_nodes_cmd(idx_start_node)
         else:
             logging.info("Simulation mode is disabled, waiting for nodes to start...")
 
@@ -343,6 +344,109 @@ class Controller:
         topologymanager.add_nodes(nodes_ip_port)
         return topologymanager
 
+    def start_nodes_docker(self, idx_start_node):
+        logging.info("Starting nodes using Docker Compose...")
+        docker_compose_template = """
+        version: "3.9"
+        services:
+        {}
+        """
+        participant_template = """
+                  participant{}:
+                    image: fedstellar
+                    restart: always
+                    volumes:
+                        - {}:/fedstellar
+                    extra_hosts:
+                        - "host.docker.internal:host-gateway"
+                    command:
+                        - /bin/bash
+                        - -c
+                        - |
+                          ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                    depends_on:
+                        - participant{}
+                    networks:
+                        fedstellar-net:
+                            ipv4_address: {}
+                """
+        participant_template_start = """
+                  participant{}:
+                    image: fedstellar
+                    restart: always
+                    volumes:
+                        - {}:/fedstellar
+                    extra_hosts:
+                        - "host.docker.internal:host-gateway"
+                    command:
+                        - /bin/bash
+                        - -c
+                        - |
+                          /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                    networks:
+                        fedstellar-net:
+                            ipv4_address: {}
+                """
+        network_template = """
+        networks:
+            fedstellar-net:
+                driver: bridge
+                ipam:
+                    config:
+                        - subnet: {}
+                          gateway: {}
+        """
+
+        # Generate the Docker Compose file dynamically
+        services = ""
+        self.config.participants.sort(key=lambda x: x['device_args']['idx'])
+        for node in self.config.participants:
+            idx = node['device_args']['idx']
+            path = f"/fedstellar/app/config/{self.scenario_name}/participant_{idx}.json"
+            logging.info("Starting node {} with configuration {}".format(idx, path))
+            logging.info("Node {} is listening on ip {}".format(idx, node['network_args']['ip']))
+            # Add one service for each participant
+            if idx != idx_start_node:
+                services += participant_template.format(idx,
+                                                        os.environ["FEDSTELLAR_ROOT"],
+                                                        self.network_gateway,
+                                                        path,
+                                                        idx_start_node,
+                                                        node['network_args']['ip'])
+            else:
+                services += participant_template_start.format(idx,
+                                                              os.environ["FEDSTELLAR_ROOT"],
+                                                              self.network_gateway,
+                                                              path,
+                                                              node['network_args']['ip'])
+        docker_compose_file = docker_compose_template.format(services)
+        docker_compose_file += network_template.format(self.network_subnet, self.network_gateway)
+        # Write the Docker Compose file in config directory
+        with open(f"{self.config_dir}/docker-compose.yml", "w") as f:
+            f.write(docker_compose_file)
+
+        # Change log and config directory in dockers to /fedstellar/app, and change controller endpoint
+        for node in self.config.participants:
+            node['tracking_args']['log_dir'] = "/fedstellar/app/logs"
+            node['tracking_args']['config_dir'] = f"/fedstellar/app/config/{self.scenario_name}"
+            if sys.platform == "linux":
+                node['scenario_args']['controller'] = "host.docker.internal" + ":" + str(self.webserver_port)
+            elif sys.platform == "darwin":
+                node['scenario_args']['controller'] = "host.docker.internal" + ":" + str(self.webserver_port)
+            else:
+                raise ValueError("Windows is not supported yet for Docker Compose.")
+
+            # Write the config file in config directory
+            with open(f"{self.config_dir}/participant_{node['device_args']['idx']}.json", "w") as f:
+                json.dump(node, f, indent=4)
+        # Start the Docker Compose file, catch error if any
+        try:
+            subprocess.check_call(["docker", "compose", "-f", f"{self.config_dir}/docker-compose.yml", "up", "-d"])
+        except subprocess.CalledProcessError as e:
+            logging.error("Docker Compose failed to start, please check if Docker is running and Docker Compose is installed.")
+            logging.error(e)
+            raise e
+
     def start_node(self, idx):
         command = f'cd {os.path.dirname(os.path.realpath(__file__))}; {self.python_path} -u node_start.py {str(self.config.participants_path[idx])} 2>&1'
         print("Starting node {} with command: {}".format(idx, command))
@@ -360,7 +464,7 @@ class Controller:
         else:
             raise ValueError("Unknown operating system")
 
-    def start_nodes(self, idx_start_node):
+    def start_nodes_cmd(self, idx_start_node):
         # Start the nodes
         # Get directory path of the current file
         for idx in range(0, self.n_nodes):
@@ -375,16 +479,19 @@ class Controller:
         self.start_node(idx_start_node)
 
     @classmethod
-    def remove_config_files(cls):
-        # Remove all json and png files in the folder os.environ["FEDSTELLAR_CONFIG_DIR"]
-        for file in glob.glob(os.path.join(os.environ["FEDSTELLAR_CONFIG_DIR"], "*.json")):
-            os.remove(file)
-        for file in glob.glob(os.path.join(os.environ["FEDSTELLAR_CONFIG_DIR"], "*.png")):
-            os.remove(file)
-
-    @classmethod
     def remove_files_by_scenario(cls, scenario_name):
         import shutil
         shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_CONFIG_DIR"], scenario_name))
-        shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_LOGS_DIR"], scenario_name))
-        shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_MODELS_DIR"], scenario_name))
+        try:
+            shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_LOGS_DIR"], scenario_name))
+        except PermissionError:
+            # Avoid error if the user does not have enough permissions to remove the tf.events files
+            logging.warning("Not enough permissions to remove the files, moving them to tmp folder")
+            os.makedirs(os.path.join(os.environ["FEDSTELLAR_ROOT"], "app", "tmp", scenario_name), exist_ok=True)
+            shutil.move(os.path.join(os.environ["FEDSTELLAR_LOGS_DIR"], scenario_name), os.path.join(os.environ["FEDSTELLAR_ROOT"], "app", "tmp", scenario_name))
+        except FileNotFoundError:
+            logging.warning("Files not found, nothing to remove")
+        except Exception as e:
+            logging.error("Unknown error while removing files")
+            logging.error(e)
+            raise e

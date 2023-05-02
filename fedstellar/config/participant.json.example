@@ -19,7 +19,7 @@
     "role": "aggregator",
     "start": false,
     "accelerator": "auto",
-    "devices": 1,
+    "devices": 2,
     "strategy": "ddp"
   },
   "geo_args": {
@@ -48,15 +48,6 @@
   },
   "aggregator_args": {
     "algorithm": "FedAvg"
-  },
-  "adversarial_args": {
-    "attacks": "No Attack",
-    "targeted": true,
-    "poisoned_sample_persent": 0,
-    "poisoned_ratio": 0,
-    "target_label": 0,
-    "target_changed_label": 0,
-    "noise_type": "salt"
   },
   "tracking_args": {
     "enable_remote_tracking": false,

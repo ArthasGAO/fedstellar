@@ -343,7 +343,9 @@ class FedstellarWBLogger(Logger):
         wandb_config = {"data_args": config["data_args"],
                         "model_args": config["model_args"],
                         "aggregator_args": config["aggregator_args"],
-                        "adversarial_args": config["adversarial_args"]}
+                        "adversarial_args": config["adversarial_args"],
+                        "network_args": str(config["network_args"]["ip"]) + str(config["network_args"]["port"])
+                        }
 
         # set wandb init arguments
         self._wandb_init: Dict[str, Any] = dict(
@@ -417,7 +419,7 @@ class FedstellarWBLogger(Logger):
 
                 # define default x-axis
                 if isinstance(self._experiment, (Run, RunDisabled)) and getattr(
-                    self._experiment, "define_metric", None
+                        self._experiment, "define_metric", None
                 ):
                     self._experiment.define_metric("trainer/global_step")
                     self._experiment.define_metric("*", step_metric="trainer/global_step", step_sync=True)
@@ -451,12 +453,12 @@ class FedstellarWBLogger(Logger):
 
     @rank_zero_only
     def log_table(
-        self,
-        key: str,
-        columns: List[str] = None,
-        data: List[List[Any]] = None,
-        dataframe: Any = None,
-        step: Optional[int] = None,
+            self,
+            key: str,
+            columns: List[str] = None,
+            data: List[List[Any]] = None,
+            dataframe: Any = None,
+            step: Optional[int] = None,
     ) -> None:
         """Log a Table containing any object type (text, image, audio, video, molecule, html, etc).
 
@@ -468,12 +470,12 @@ class FedstellarWBLogger(Logger):
 
     @rank_zero_only
     def log_text(
-        self,
-        key: str,
-        columns: List[str] = None,
-        data: List[List[str]] = None,
-        dataframe: Any = None,
-        step: Optional[int] = None,
+            self,
+            key: str,
+            columns: List[str] = None,
+            data: List[List[str]] = None,
+            dataframe: Any = None,
+            step: Optional[int] = None,
     ) -> None:
         """Log text as a Table.
 
@@ -530,10 +532,10 @@ class FedstellarWBLogger(Logger):
     def after_save_checkpoint(self, checkpoint_callback: Checkpoint) -> None:
         # log checkpoints as artifacts
         if (
-            self._log_model == "all"
-            or self._log_model is True
-            and hasattr(checkpoint_callback, "save_top_k")
-            and checkpoint_callback.save_top_k == -1
+                self._log_model == "all"
+                or self._log_model is True
+                and hasattr(checkpoint_callback, "save_top_k")
+                and checkpoint_callback.save_top_k == -1
         ):
             self._scan_and_log_checkpoints(checkpoint_callback)
         elif self._log_model is True:
@@ -542,10 +544,10 @@ class FedstellarWBLogger(Logger):
     @staticmethod
     @rank_zero_only
     def download_artifact(
-        artifact: str,
-        save_dir: Optional[_PATH] = None,
-        artifact_type: Optional[str] = None,
-        use_artifact: Optional[bool] = True,
+            artifact: str,
+            save_dir: Optional[_PATH] = None,
+            artifact_type: Optional[str] = None,
+            use_artifact: Optional[bool] = True,
     ) -> str:
         """Downloads an artifact from the wandb server.
 

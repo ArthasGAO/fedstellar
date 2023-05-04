@@ -38,9 +38,9 @@ class ChangeableSubset(Subset):
         self.target_changed_label = target_changed_label
         self.noise_type = noise_type
 
-        if self.label_flipping == True:
+        if self.label_flipping:
             self.dataset = labelFlipping(self.dataset, self.indices, self.poisoned_persent, self.targeted, self.target_label, self.target_changed_label)
-        if data_poisoning:
+        if self.data_poisoning:
             self.dataset = datapoison(self.dataset, self.indices, self.poisoned_persent, self.poisoned_ratio, self.targeted, self.target_label, self.noise_type)
     
     def __getitem__(self, idx):

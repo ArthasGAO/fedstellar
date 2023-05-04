@@ -9,6 +9,7 @@ import os
 from datetime import datetime, timedelta
 
 from fedstellar.learning.aggregators.fltrust import FlTrust
+from fedstellar.learning.aggregators.pseudo import PseudoAggregator
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
 
@@ -115,12 +116,12 @@ class Node(BaseNode):
             logging.info("[NODE] Tracking W&B enabled")
             logging.getLogger("wandb").setLevel(logging.ERROR)
             if self.hostdemo:
-                wandblogger = FedstellarWBLogger(project="framework-enrique",
+                wandblogger = FedstellarWBLogger(project="fedstellar",
                                                  group=self.experiment_name,
                                                  name=f"participant_{self.idx}",
                                                  config=self.config.participant)
             else:
-                wandblogger = FedstellarWBLogger(project="framework-enrique",
+                wandblogger = FedstellarWBLogger(project="fedstellar",
                                                  group=self.experiment_name,
                                                  name=f"participant_{self.idx}",
                                                  config=self.config.participant)
@@ -151,6 +152,8 @@ class Node(BaseNode):
             self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
         if self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
             self.aggregator = FlTrust(node_name=self.get_name(), config=self.config, logger=self.logger)
+        # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
+            # self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.logger)
 
         self.aggregator.add_observer(self)
 

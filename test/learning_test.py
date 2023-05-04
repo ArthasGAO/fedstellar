@@ -55,7 +55,7 @@ def test_avg_simple():
     for layer in b:
         assert result[layer] == a[layer]
 
-    n.stop()
+    # n.stop()
 
 
 def test_avg_complex():
@@ -83,4 +83,4 @@ def test_avg_complex():
         assert torch.eq(a, b).all()
 
 
-
+test_avg_simple()

@@ -101,7 +101,7 @@
       <excludeFolder url="file://$MODULE_DIR$/app/models/MNIST_MLP_FlTrust_fully_NoAttack_False_0_0_none_20230426_135632" />
       <excludeFolder url="file://$MODULE_DIR$/fedstellar/wandb" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.8 (fedstellar) (2)" jdkType="Python SDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

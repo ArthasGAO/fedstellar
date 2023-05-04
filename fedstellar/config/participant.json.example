@@ -59,7 +59,7 @@
     "noise_type": "salt"
   },
   "tracking_args": {
-    "enable_remote_tracking": false,
+    "enable_remote_tracking": true,
     "local_tracking": "csv",
     "log_dir": "../app/logs",
     "config_dir": "../app/config",
@@ -88,5 +88,5 @@
   "GOSSIP_MESSAGES_PER_ROUND": 100,
   "GOSSIP_EXIT_ON_X_EQUAL_ROUNDS": 20,
   "GOSSIP_MODELS_FREC": 1,
-  "GOSSIP_MODELS_PER_ROUND": 2
+  "GOSSIP_MODELS_PER_ROUND": 5
 }

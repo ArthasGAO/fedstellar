@@ -7,8 +7,13 @@
 import logging
 import pickle
 import copy
+import time
+
 import torch
 from statistics import mean
+
+from typing import List
+
 from fedstellar.learning.aggregators.aggregator import Aggregator
 
 
@@ -23,6 +28,31 @@ class FlTrust(Aggregator):
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[FLTrust] My config is {}".format(self.config))
+
+    def cosine_similarities_last_layer(self, untrusted_models, trusted_model):
+        similarities = dict.fromkeys(untrusted_models.keys())
+        similarities[self.node_name] = 1
+
+        bootstrap = trusted_model[0]
+
+        for client, message in untrusted_models.items():
+            state_dict = message[0]
+
+            l1 = bootstrap[next(reversed(bootstrap))]
+            l2 = state_dict[next(reversed(state_dict))]
+
+            l1 = l1.data.view(-1)
+            l2 = l2.data.view(-1)
+
+            cosine_similarity = torch.nn.CosineSimilarity(dim=l1.dim() - 1)
+            # does it make sense to take mean from row-wise similarity?
+            cos = cosine_similarity(l1, l2)
+            relu_cos = torch.nn.functional.relu(cos)
+            print(relu_cos)
+
+            similarities[client] = relu_cos.item()
+
+        return similarities
 
     def cosine_similarities(self, untrusted_models, trusted_model):
         similarities = dict.fromkeys(untrusted_models.keys(), [])
@@ -81,6 +111,11 @@ class FlTrust(Aggregator):
             logging.error("[FlTrust] Trying to aggregate models when there is no models")
             return None
 
+        if len(models) >= 2:
+            filename = "models" + self.node_name + ".pickle"
+            with open('/Users/janosch/Desktop/models.pickle', 'wb') as handle:
+                pickle.dump(filename, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
         # The model of the aggregator serves as a trusted reference
         my_model = models.get(self.node_name)  # change
         if my_model is None:
@@ -92,9 +127,20 @@ class FlTrust(Aggregator):
         # Compute cosine similarities for all neighboring models
         similarities = self.cosine_similarities(untrusted_models, my_model)
 
+        """        untrusted_similarities = {k: similarities[k] for k in similarities.keys() - {self.node_name}}
+        avg_u_similarity = mean(untrusted_similarities.values())
+        for client, similarity in similarities.items():
+            if similarity < avg_u_similarity:
+                # similarities[client] = 0
+                pass
+        """
+        avg_similarity = mean(similarities.values())
+
         # Normalise the untrusted models
         normalised_models = self.normalise_layers(untrusted_models, my_model)
         normalised_models[self.node_name] = my_model
+        # normalised_models = untrusted_models
+        # normalised_models[self.node_name] = my_model
 
         # Create a Zero Model
         accum = (list(models.values())[-1][0]).copy()
@@ -107,19 +153,26 @@ class FlTrust(Aggregator):
             for layer in client_model:
                 accum[layer] = accum[layer] + client_model[layer] * similarities[client]
 
-        # Normalize Accum
-        avg_similarity = mean(similarities.values())
+        # Normalize accumulated model
         total_similarity = sum(similarities.values())
         for layer in accum:
             accum[layer] = accum[layer] / total_similarity
 
         logging.info("[FlTrust.aggregate] Aggregated model at host {} with weights: similarities={} "
-                     "and avg. similarity: {}"
+                     "and avg. untrusted similarity: {}"
                      .format(self.node_name, similarities, avg_similarity))
+
         if self.logger is not None:
-            key = "similarities"
-            columns = list(similarities.keys())
-            data = [list(similarities.values())]
-            self.logger.log_text(key=key, columns=columns, data=data, step=0)
+            logging.info("[FlTrust.aggregate] Logging similarities remotely...")
+            key = "similarities " + self.node_name
+            columns: list = list(similarities.keys())
+            data: List[list] = [list(similarities.values())]
+            columns.insert(0, "id")
+            # columns.insert(1, "t")
+            data[0].insert(0, "@" + self.node_name)
+            # data[0].insert(1, time.time())
+            #self.logger.log_text(key=key, columns=columns, data=data, step=self.logger.global_step)
+            logging.info("Similarities step: {}".format(self.logger.global_step))
+            # self.logger.log_metrics(metrics=similarities, step=self.logger.global_step)
 
         return accum

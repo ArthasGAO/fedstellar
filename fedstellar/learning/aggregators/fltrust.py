@@ -8,11 +8,14 @@ import logging
 import pickle
 import copy
 import time
+import wandb
 
 import torch
 from statistics import mean
 
-from typing import List
+from typing import List, Dict
+
+from pytorch_lightning.loggers import wandb
 
 from fedstellar.learning.aggregators.aggregator import Aggregator
 
@@ -28,6 +31,7 @@ class FlTrust(Aggregator):
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[FLTrust] My config is {}".format(self.config))
+        self.iter = 0
 
     def cosine_similarities_last_layer(self, untrusted_models, trusted_model):
         similarities = dict.fromkeys(untrusted_models.keys())
@@ -55,7 +59,7 @@ class FlTrust(Aggregator):
         return similarities
 
     def cosine_similarities(self, untrusted_models, trusted_model):
-        similarities = dict.fromkeys(untrusted_models.keys(), [])
+        similarities = dict.fromkeys(untrusted_models.keys())
         similarities[self.node_name] = [1]
 
         bootstrap = trusted_model[0]
@@ -93,10 +97,19 @@ class FlTrust(Aggregator):
             for layer in state_dict:
                 layer_norm = torch.norm(state_dict[layer].data.view(-1))
                 scaling_factor = trusted_norms[layer] / layer_norm
+                logging.info("Scaling client {} layer {} with factor {}".format(client, layer, scaling_factor))
                 normalised_layer = torch.mul(state_dict[layer], scaling_factor)
                 normalised_models[client][0][layer] = normalised_layer
 
         return normalised_models
+
+    def threshold_similarities(self, similarities: Dict[str, float]) -> Dict[str, float]:
+        new_similarities = similarities.copy()
+        for client, similarity in new_similarities.items():
+            if similarity < 0.5:
+                new_similarities[client] = float(0)
+
+        return new_similarities
 
     def aggregate(self, models):
         """
@@ -111,10 +124,12 @@ class FlTrust(Aggregator):
             logging.error("[FlTrust] Trying to aggregate models when there is no models")
             return None
 
+        """
         if len(models) >= 2:
             filename = "models" + self.node_name + ".pickle"
             with open('/Users/janosch/Desktop/models.pickle', 'wb') as handle:
                 pickle.dump(filename, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        """
 
         # The model of the aggregator serves as a trusted reference
         my_model = models.get(self.node_name)  # change
@@ -126,14 +141,8 @@ class FlTrust(Aggregator):
 
         # Compute cosine similarities for all neighboring models
         similarities = self.cosine_similarities(untrusted_models, my_model)
+        threshold_similarities = self.threshold_similarities(similarities)
 
-        """        untrusted_similarities = {k: similarities[k] for k in similarities.keys() - {self.node_name}}
-        avg_u_similarity = mean(untrusted_similarities.values())
-        for client, similarity in similarities.items():
-            if similarity < avg_u_similarity:
-                # similarities[client] = 0
-                pass
-        """
         avg_similarity = mean(similarities.values())
 
         # Normalise the untrusted models
@@ -151,28 +160,27 @@ class FlTrust(Aggregator):
         for client, message in normalised_models.items():
             client_model = message[0]
             for layer in client_model:
-                accum[layer] = accum[layer] + client_model[layer] * similarities[client]
+                accum[layer] = accum[layer] + client_model[layer] * threshold_similarities[client]
 
         # Normalize accumulated model
-        total_similarity = sum(similarities.values())
+        total_similarity = sum(threshold_similarities.values())
         for layer in accum:
             accum[layer] = accum[layer] / total_similarity
 
         logging.info("[FlTrust.aggregate] Aggregated model at host {} with weights: similarities={} "
-                     "and avg. untrusted similarity: {}"
-                     .format(self.node_name, similarities, avg_similarity))
+                     "and avg. untrusted similarity: {}, step: {}"
+                     .format(self.node_name, threshold_similarities, avg_similarity, self.iter))
+        logging.info("[FlTrust.aggregate] Original similarities={}".format(similarities))
 
-        if self.logger is not None:
+        for client, similarity in similarities.items():
+            logging.info(type(similarity))
+
+        if self.logger is None:
+            logging.error("No Logger found!")
+        else:
             logging.info("[FlTrust.aggregate] Logging similarities remotely...")
-            key = "similarities " + self.node_name
-            columns: list = list(similarities.keys())
-            data: List[list] = [list(similarities.values())]
-            columns.insert(0, "id")
-            # columns.insert(1, "t")
-            data[0].insert(0, "@" + self.node_name)
-            # data[0].insert(1, time.time())
-            #self.logger.log_text(key=key, columns=columns, data=data, step=self.logger.global_step)
-            logging.info("Similarities step: {}".format(self.logger.global_step))
-            # self.logger.log_metrics(metrics=similarities, step=self.logger.global_step)
+            # wandb.log(metrics=similarities, step=self.iter)
+            self.logger.log_metrics(metrics=similarities, step=self.logger.global_step)
+        self.iter += 1
 
         return accum

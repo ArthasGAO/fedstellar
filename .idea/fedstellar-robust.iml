@@ -100,6 +100,8 @@
       <excludeFolder url="file://$MODULE_DIR$/app/models/MNIST_MLP_FlTrust_fully_NoAttack_False_0_0_none_20230426_135139" />
       <excludeFolder url="file://$MODULE_DIR$/app/models/MNIST_MLP_FlTrust_fully_NoAttack_False_0_0_none_20230426_135632" />
       <excludeFolder url="file://$MODULE_DIR$/fedstellar/wandb" />
+      <excludeFolder url="file://$MODULE_DIR$/app/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/app/config" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

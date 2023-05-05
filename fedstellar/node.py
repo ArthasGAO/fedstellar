@@ -145,7 +145,7 @@ class Node(BaseNode):
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
             self.aggregator = FedAvg(node_name=self.get_name(), config=self.config, logger=self.logger)
         if self.config.participant["aggregator_args"]["algorithm"] == "Krum":
-            self.aggregator = Krum(node_name=self.get_name(), config=self.config)
+            self.aggregator = Krum(node_name=self.get_name(), config=self.config, logger=self.logger)
         if self.config.participant["aggregator_args"]["algorithm"] == "Median":
             self.aggregator = Median(node_name=self.get_name(), config=self.config)
         if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
@@ -153,7 +153,7 @@ class Node(BaseNode):
         if self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
             self.aggregator = FlTrust(node_name=self.get_name(), config=self.config, logger=self.logger)
         # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
-            # self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.logger)
+        #    self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.logger)
 
         self.aggregator.add_observer(self)
 
@@ -450,7 +450,7 @@ class Node(BaseNode):
             self.__validate_train_set()
 
         # TODO: Improve in the future
-        # is_train_set = self.get_name() in self.__train_set
+        # is_train_set = self.get_name() in self.__train_setF
         is_train_set = True
         if is_train_set and (self.config.participant["device_args"]["role"] == Role.AGGREGATOR or self.config.participant["device_args"]["role"] == Role.SERVER):
             logging.info("[NODE.__train_step] Role.AGGREGATOR/Role.SERVER process...")

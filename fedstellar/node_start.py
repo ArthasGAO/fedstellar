@@ -65,7 +65,7 @@ def main():
     noise_type=config.participant["adversarial_args"]["noise_type"]
 
     dataset = config.participant["data_args"]["dataset"]
-    is_iid = True
+    is_iid = False
 
     indices_dir = config.participant['tracking_args']["model_dir"]
     label_flipping=False

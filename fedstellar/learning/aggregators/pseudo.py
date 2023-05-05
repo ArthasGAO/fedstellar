@@ -30,7 +30,18 @@ class PseudoAggregator(Aggregator):
         logging.info("[PseudoAggregator] My config is {}".format(self.config))
 
     def aggregate(self, models):
+
+        if len(models) == 0:
+            logging.error("[FlTrust] Trying to aggregate models when there is no models")
+            return None
+
+        # The model of the aggregator serves as a trusted reference
+        my_model = models.get(self.node_name)  # change
+        if my_model is None:
+            logging.error("[FlTrust] Own model as bootstrap is not available")
+            return None
+
         logging.info("[PseudoAggregator] Replace aggregate with own model")
-        pseudo_accum = models.get(self.node_name)[0]
+        pseudo_accum = my_model[0]
 
         return pseudo_accum

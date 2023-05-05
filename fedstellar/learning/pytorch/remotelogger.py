@@ -15,6 +15,7 @@
 Weights and Biases Logger
 -------------------------
 """
+import logging
 import os
 from argparse import Namespace
 from pathlib import Path
@@ -446,6 +447,8 @@ class FedstellarWBLogger(Logger):
         __step = self.global_step + self.local_step
 
         metrics = _add_prefix(metrics, self._prefix, self.LOGGER_JOIN_CHAR)
+        # logging.info("logging metrics: ")
+        # logging.info(metrics)
         if step is not None:
             self.experiment.log(dict(metrics, **{"trainer/global_step": __step}))
         else:

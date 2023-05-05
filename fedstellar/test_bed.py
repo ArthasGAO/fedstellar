@@ -32,14 +32,14 @@ topology_list = ["star", "fully", "ring", "random"]
 attack_list = ["Label Flipping", "Sample Poisoning", "Model Poisoning"]
 
 #poisoned_node_persent_list = [20, 40, 60, 80, 100]
-poisoned_node_persent_list = [80]
-poisoned_sample_persent_list = [60]
+poisoned_node_persent_list = [60]
+poisoned_sample_persent_list = [20]
 noise_type_list = ["salt", "gaussian", "s&p"]
 #poisoned_ratio_list = [1, 10, 20]
 poisoned_ratio_list = [60]
 
 # aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean"]
-aggregation_list = ["FlTrust"]
+aggregation_list = ["FedAvg"]
 
 targeted_list = [True, False]
 
@@ -63,8 +63,8 @@ poisoned_ratio = poisoned_ratio_list[0]
 # scenario_title = f"{dataset}_{model}_{federation}_{aggregation}_{topology}_{attack}_{targeted}_{poisoned_node}_{poisoned_sample}_{noise_type}_{poisoned_ratio}"
 
 basic_config["remote_tracking"] = True
-basic_config["rounds"] = 5
-basic_config["epochs"] = 5
+basic_config["rounds"] = 20
+basic_config["epochs"] = 3
 
 basic_config["targeted"] = targeted
 basic_config["noise_type"] = noise_type
@@ -91,11 +91,11 @@ for aggregation in aggregation_list:
     for node_persent in poisoned_node_persent_list:
         #for poisoned_ratio in poisoned_ratio_list:
 
-        basic_config["attack"] = "Model Poisoning"
+        basic_config["attack"] = "No Attack"
         basic_config["aggregation"] = aggregation
         basic_config["poisoned_node_persent"] = node_persent
         basic_config["poisoned_sample_persent"] = poisoned_sample
-        basic_config["poisoned_ratio"] = 10
+        basic_config["poisoned_ratio"] = 20
 
         basic_config['scenario_name'] = get_scenario_name(basic_config)
         start_port += basic_config["n_nodes"]

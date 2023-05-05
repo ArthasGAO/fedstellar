@@ -143,15 +143,15 @@ class Node(BaseNode):
 
         # Aggregator
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
-            self.aggregator = FedAvg(node_name=self.get_name(), config=self.config, logger=self.logger)
+            self.aggregator = FedAvg(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
         if self.config.participant["aggregator_args"]["algorithm"] == "Krum":
-            self.aggregator = Krum(node_name=self.get_name(), config=self.config, logger=self.logger)
+            self.aggregator = Krum(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
         if self.config.participant["aggregator_args"]["algorithm"] == "Median":
             self.aggregator = Median(node_name=self.get_name(), config=self.config)
         if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
             self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
         if self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
-            self.aggregator = FlTrust(node_name=self.get_name(), config=self.config, logger=self.logger)
+            self.aggregator = FlTrust(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
         # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
         #    self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.logger)
 

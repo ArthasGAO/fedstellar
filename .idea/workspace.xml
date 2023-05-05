@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="Pseudo Aggregation and other stuff.">
-      <change beforePath="$PROJECT_DIR$/.idea/fedstellar-robust.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fedstellar-robust.iml" afterDir="false" />
+    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="Good performance with FlTrust.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/basic_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/basic_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/learning/aggregators/fltrust.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/aggregators/fltrust.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/aggregators/pseudo.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/aggregators/pseudo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/remotelogger.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/remotelogger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/node.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/node_start.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node_start.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/test_bed.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/test_bed.py" afterDir="false" />
@@ -232,7 +229,8 @@
       <workItem from="1682426903167" duration="40354000" />
       <workItem from="1682599108630" duration="19428000" />
       <workItem from="1682962156077" duration="24542000" />
-      <workItem from="1683185666049" duration="21744000" />
+      <workItem from="1683185666049" duration="29602000" />
+      <workItem from="1683295414664" duration="4757000" />
     </task>
     <task id="LOCAL-00001" summary="prepare evaluations.">
       <created>1682422668051</created>
@@ -269,7 +267,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683202654911</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Good performance with FlTrust.">
+      <created>1683275568351</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1683275568351</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,7 +307,8 @@
     <MESSAGE value="Fix FlTrust aggregator and extend remote logging metrics." />
     <MESSAGE value="Enhance wandb remote experiment tracking for better evaluation." />
     <MESSAGE value="Pseudo Aggregation and other stuff." />
-    <option name="LAST_COMMIT_MESSAGE" value="Pseudo Aggregation and other stuff." />
+    <MESSAGE value="Good performance with FlTrust." />
+    <option name="LAST_COMMIT_MESSAGE" value="Good performance with FlTrust." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -312,6 +318,11 @@
           <line>72</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/fedstellar/test_bed.py</url>
+          <line>120</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -320,6 +331,6 @@
     <SUITE FILE_PATH="coverage/fedstellar_robust$.coverage" NAME=" Coverage Results" MODIFIED="1682670850470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$start_without_webserver.coverage" NAME="start_without_webserver Coverage Results" MODIFIED="1683105333427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$aggregator.coverage" NAME="aggregator Coverage Results" MODIFIED="1682670895572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar/learning/aggregators" />
-    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1683272949609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1683299834303" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
   </component>
 </project>

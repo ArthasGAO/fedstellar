@@ -120,6 +120,7 @@ class FlTrust(Aggregator):
              models: Dictionary with the models (node: model,num_samples).
          """
         # Check if there are models to aggregate
+        self.iter += 1
         if len(models) == 0:
             logging.error("[FlTrust] Trying to aggregate models when there is no models")
             return None
@@ -135,6 +136,7 @@ class FlTrust(Aggregator):
         my_model = models.get(self.node_name)  # change
         if my_model is None:
             logging.error("[FlTrust] Own model as bootstrap is not available")
+
             return None
 
         untrusted_models = {k: models[k] for k in models.keys() - {self.node_name}}  # change
@@ -181,6 +183,5 @@ class FlTrust(Aggregator):
             logging.info("[FlTrust.aggregate] Logging similarities remotely...")
             # wandb.log(metrics=similarities, step=self.iter)
             self.logger.log_metrics(metrics=similarities, step=self.logger.global_step)
-        self.iter += 1
 
         return accum

@@ -14,7 +14,6 @@
       <excludeFolder url="file://$MODULE_DIR$/app/models/MNIST_CNN_FedAvg_fully_ModelPoisoning_False_20_20_gaussian_20230425_161110" />
       <excludeFolder url="file://$MODULE_DIR$/app/models/MNIST_CNN_FedAvg_fully_ModelPoisoning_False_20_20_gaussian_20230425_162200" />
       <excludeFolder url="file://$MODULE_DIR$/app/models/MNIST_MLP_FedAvg_fully_ModelPoisoning_False_20_20_gaussian_20230425_162523" />
-      <excludeFolder url="file://$MODULE_DIR$/fedstellar/data" />
       <excludeFolder url="file://$MODULE_DIR$/app/config/MNIST_MLP_FedAvg_fully_ModelPoisoning_False_20_20_gaussian_20230426_095404" />
       <excludeFolder url="file://$MODULE_DIR$/app/config/MNIST_MLP_FedAvg_fully_ModelPoisoning_False_20_20_gaussian_20230426_101645" />
       <excludeFolder url="file://$MODULE_DIR$/app/config/MNIST_MLP_FlTrust_fully_LabelFlipping_False_20_20_gaussian_20230425_214717" />

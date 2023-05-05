@@ -5,6 +5,8 @@ import sys
 from datetime import datetime
 import time
 
+N_EXPERIMENTS = 1
+
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))  # Parent directory where is the fedstellar module
 
 from fedstellar.start_without_webserver import generate_controller_configs, create_particiants_configs
@@ -32,8 +34,8 @@ topology_list = ["star", "fully", "ring", "random"]
 attack_list = ["Label Flipping", "Sample Poisoning", "Model Poisoning"]
 
 #poisoned_node_persent_list = [20, 40, 60, 80, 100]
-poisoned_node_persent_list = [60]
-poisoned_sample_persent_list = [20]
+poisoned_node_persent_list = [60, 80]
+poisoned_sample_persent_list = [60, 80]
 noise_type_list = ["salt", "gaussian", "s&p"]
 #poisoned_ratio_list = [1, 10, 20]
 poisoned_ratio_list = [60]
@@ -63,8 +65,8 @@ poisoned_ratio = poisoned_ratio_list[0]
 # scenario_title = f"{dataset}_{model}_{federation}_{aggregation}_{topology}_{attack}_{targeted}_{poisoned_node}_{poisoned_sample}_{noise_type}_{poisoned_ratio}"
 
 basic_config["remote_tracking"] = True
-basic_config["rounds"] = 20
-basic_config["epochs"] = 3
+basic_config["rounds"] = 10
+basic_config["epochs"] = 5
 
 basic_config["targeted"] = targeted
 basic_config["noise_type"] = noise_type
@@ -86,39 +88,15 @@ with open(basic_config_path, "w") as f:
 time.sleep(2)
 
 
-# Model Poisoning
-for aggregation in aggregation_list:
-    for node_persent in poisoned_node_persent_list:
-        #for poisoned_ratio in poisoned_ratio_list:
+# No Attack
+for i in range(N_EXPERIMENTS):
+    for aggregation in aggregation_list:
 
-        basic_config["attack"] = "No Attack"
-        basic_config["aggregation"] = aggregation
-        basic_config["poisoned_node_persent"] = node_persent
-        basic_config["poisoned_sample_persent"] = poisoned_sample
-        basic_config["poisoned_ratio"] = 20
-
-        basic_config['scenario_name'] = get_scenario_name(basic_config)
-        start_port += basic_config["n_nodes"]
-
-        with open(basic_config_path, "w") as f:
-            json.dump(basic_config, f)
-        time.sleep(2)
-        basic_config = generate_controller_configs()
-        create_particiants_configs(basic_config, example_node_config_path, start_port)
-        time.sleep(180)
-        with open(basic_config_path) as f:
-            basic_config = json.load(f)
-
-"""
-# Label Flipping
-for aggregation in aggregation_list:
-    for node_persent in poisoned_node_persent_list:
-        for poisoned_sample_persent in poisoned_sample_persent_list:
-
-            basic_config["attack"] = "Label Flipping"
+            basic_config["attack"] = "No Attack"
             basic_config["aggregation"] = aggregation
-            basic_config["poisoned_node_persent"] = node_persent
-            basic_config["poisoned_sample_persent"] = poisoned_sample_persent
+            basic_config["poisoned_node_persent"] = 0
+            basic_config["poisoned_sample_persent"] = 0
+            basic_config["poisoned_ratio"] = 0
 
             basic_config['scenario_name'] = get_scenario_name(basic_config)
             start_port += basic_config["n_nodes"]
@@ -131,19 +109,43 @@ for aggregation in aggregation_list:
             time.sleep(180)
             with open(basic_config_path) as f:
                 basic_config = json.load(f)
+
+"""
+# Model Poisoning
+for i in range(N_EXPERIMENTS):
+    for aggregation in aggregation_list:
+        for node_persent in poisoned_node_persent_list:
+            #for poisoned_ratio in poisoned_ratio_list:
+    
+            basic_config["attack"] = "No Attack"
+            basic_config["aggregation"] = aggregation
+            basic_config["poisoned_node_persent"] = node_persent
+            basic_config["poisoned_sample_persent"] = poisoned_sample
+            basic_config["poisoned_ratio"] = 20
+    
+            basic_config['scenario_name'] = get_scenario_name(basic_config)
+            start_port += basic_config["n_nodes"]
+    
+            with open(basic_config_path, "w") as f:
+                json.dump(basic_config, f)
+            time.sleep(2)
+            basic_config = generate_controller_configs()
+            create_particiants_configs(basic_config, example_node_config_path, start_port)
+            time.sleep(180)
+            with open(basic_config_path) as f:
+                basic_config = json.load(f)
 """
 """
-# Sample Poisoning
-for aggregation in aggregation_list:
+# Label Flipping
+for i in range(N_EXPERIMENTS):
+    for aggregation in aggregation_list:
         for node_persent in poisoned_node_persent_list:
             for poisoned_sample_persent in poisoned_sample_persent_list:
-                #for poisoned_ratio in poisoned_ratio_list:
 
-                basic_config["attack"] = "Sample Poisoning"
+                basic_config["attack"] = "Label Flipping"
                 basic_config["aggregation"] = aggregation
                 basic_config["poisoned_node_persent"] = node_persent
                 basic_config["poisoned_sample_persent"] = poisoned_sample_persent
-                basic_config["poisoned_ratio"] = 20
 
                 basic_config['scenario_name'] = get_scenario_name(basic_config)
                 start_port += basic_config["n_nodes"]
@@ -153,9 +155,35 @@ for aggregation in aggregation_list:
                 time.sleep(2)
                 basic_config = generate_controller_configs()
                 create_particiants_configs(basic_config, example_node_config_path, start_port)
-                with open(basic_config_path, "w") as f:
-                    json.dump(basic_config, f)
                 time.sleep(180)
                 with open(basic_config_path) as f:
                     basic_config = json.load(f)
+"""
+"""
+# Sample Poisoning
+for i in range(N_EXPERIMENTS):
+    for aggregation in aggregation_list:
+            for node_persent in poisoned_node_persent_list:
+                for poisoned_sample_persent in poisoned_sample_persent_list:
+                    #for poisoned_ratio in poisoned_ratio_list:
+    
+                    basic_config["attack"] = "Sample Poisoning"
+                    basic_config["aggregation"] = aggregation
+                    basic_config["poisoned_node_persent"] = node_persent
+                    basic_config["poisoned_sample_persent"] = poisoned_sample_persent
+                    basic_config["poisoned_ratio"] = 20
+    
+                    basic_config['scenario_name'] = get_scenario_name(basic_config)
+                    start_port += basic_config["n_nodes"]
+    
+                    with open(basic_config_path, "w") as f:
+                        json.dump(basic_config, f)
+                    time.sleep(2)
+                    basic_config = generate_controller_configs()
+                    create_particiants_configs(basic_config, example_node_config_path, start_port)
+                    with open(basic_config_path, "w") as f:
+                        json.dump(basic_config, f)
+                    time.sleep(180)
+                    with open(basic_config_path) as f:
+                        basic_config = json.load(f)
 """

@@ -120,7 +120,6 @@ class FlTrust(Aggregator):
              models: Dictionary with the models (node: model,num_samples).
          """
         # Check if there are models to aggregate
-        self.iter += 1
         if len(models) == 0:
             logging.error("[FlTrust] Trying to aggregate models when there is no models")
             return None

@@ -5,7 +5,7 @@ import sys
 from datetime import datetime
 import time
 
-N_EXPERIMENTS = 1
+N_EXPERIMENTS = 5
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))  # Parent directory where is the fedstellar module
 
@@ -41,7 +41,7 @@ noise_type_list = ["salt", "gaussian", "s&p"]
 poisoned_ratio_list = [60]
 
 # aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean"]
-aggregation_list = ["FedAvg"]
+aggregation_list = ["Krum"]
 
 targeted_list = [True, False]
 
@@ -88,6 +88,7 @@ with open(basic_config_path, "w") as f:
 time.sleep(2)
 
 
+
 # No Attack
 for i in range(N_EXPERIMENTS):
     for aggregation in aggregation_list:
@@ -117,7 +118,7 @@ for i in range(N_EXPERIMENTS):
         for node_persent in poisoned_node_persent_list:
             #for poisoned_ratio in poisoned_ratio_list:
     
-            basic_config["attack"] = "No Attack"
+            basic_config["attack"] = "Model Poisoning"
             basic_config["aggregation"] = aggregation
             basic_config["poisoned_node_persent"] = node_persent
             basic_config["poisoned_sample_persent"] = poisoned_sample

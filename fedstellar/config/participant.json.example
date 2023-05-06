@@ -56,7 +56,8 @@
     "poisoned_ratio": 0,
     "target_label": 0,
     "target_changed_label": 0,
-    "noise_type": "salt"
+    "noise_type": "salt",
+    "attack_env": "No Attack"
   },
   "tracking_args": {
     "enable_remote_tracking": true,

@@ -11,7 +11,6 @@ import numpy as np
 import math
 import logging
 
-
 logging.basicConfig(level=logging.DEBUG)
 
 basic_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'basic_config.json')
@@ -66,7 +65,7 @@ def create_topo_matrix(basic_config):
         for i in node_range:
             node_adjcent = []
             for j in node_range:
-                if i!=j:
+                if i != j:
                     node_adjcent.append(1)
                 else:
                     node_adjcent.append(0)
@@ -76,19 +75,19 @@ def create_topo_matrix(basic_config):
         for i in node_range:
             node_adjcent = []
             for j in node_range:
-                if j==i+1:
+                if j == i + 1:
                     node_adjcent.append(1)
-                elif j==i-1:
+                elif j == i - 1:
                     node_adjcent.append(1)
-                elif i==0 and j==node_range[-1]:
+                elif i == 0 and j == node_range[-1]:
                     node_adjcent.append(1)
-                elif i==node_range[-1] and j==0:
+                elif i == node_range[-1] and j == 0:
                     node_adjcent.append(1)
                 else:
                     node_adjcent.append(0)
             matrix.append(node_adjcent)
     elif basic_config["topology"] == "random":
-        random_seed = random.randint(0,100)
+        random_seed = random.randint(0, 100)
         matrix = []
         graph = networkx.erdos_renyi_graph(num_nodes, 0.6, seed=random_seed)
         adj_matrix = networkx.adjacency_matrix(graph)
@@ -98,14 +97,15 @@ def create_topo_matrix(basic_config):
         for i in node_range:
             node_adjcent = []
             for j in node_range:
-                if i==0 and j!=0:
+                if i == 0 and j != 0:
                     node_adjcent.append(1)
-                elif i!=0 and j==0:
+                elif i != 0 and j == 0:
                     node_adjcent.append(1)
                 else:
                     node_adjcent.append(0)
             matrix.append(node_adjcent)
     return matrix
+
 
 def create_attack_matrix(basic_config):
     attack_matrix = []
@@ -115,16 +115,16 @@ def create_attack_matrix(basic_config):
     federation = basic_config["federation"]
     nodes_index = []
     poisoned_node_persent = int(basic_config["poisoned_node_persent"])
-    poisoned_sample_persent= int(basic_config["poisoned_sample_persent"])
-    poisoned_ratio= int(basic_config["poisoned_ratio"])
-    if federation=="DFL":
-            nodes_index = node_range
+    poisoned_sample_persent = int(basic_config["poisoned_sample_persent"])
+    poisoned_ratio = int(basic_config["poisoned_ratio"])
+    if federation == "DFL":
+        nodes_index = node_range
     else:
         nodes_index = node_range[1:]
 
     n_nodes = len(nodes_index)
     # Number of attacked nodes, round up
-    num_attacked =  int(math.ceil(poisoned_node_persent/100 * n_nodes))
+    num_attacked = int(math.ceil(poisoned_node_persent / 100 * n_nodes))
     if num_attacked > n_nodes:
         num_attacked = n_nodes
 
@@ -138,8 +138,8 @@ def create_attack_matrix(basic_config):
         attack_ratio = 0
         if node in attacked_nodes:
             node_att = attack
-            attack_sample_persent = poisoned_sample_persent/100
-            attack_ratio = poisoned_ratio/100
+            attack_sample_persent = poisoned_sample_persent / 100
+            attack_ratio = poisoned_ratio / 100
         attack_matrix.append([node, node_att, attack_sample_persent, attack_ratio])
     return attack_matrix
 
@@ -176,7 +176,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         role = ""
         if federation == 'DFL':
             role = "aggregator"
-        elif federation == 'CFL' and node==0:
+        elif federation == 'CFL' and node == 0:
             role = "server"
         else:
             role = "trainer"
@@ -192,6 +192,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["training_args"]["epochs"] = int(basic_config["epochs"])
         participant_config["device_args"]["accelerator"] = basic_config["accelerator"]  # same for all nodes
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
+        participant_config["adversarial_args"]["attack_env"] = basic_config["attack"]
 
         # Logging configuration
         participant_config['tracking_args']['enable_remote_tracking'] = basic_config["remote_tracking"]
@@ -207,23 +208,23 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["adversarial_args"]["poisoned_ratio"] = poisoned_ratio
 
         with open(participant_file, 'w') as f:
-                    json.dump(participant_config, f, sort_keys=False, indent=2)
+            json.dump(participant_config, f, sort_keys=False, indent=2)
 
     args = {
-                "scenario_name": scenario_name,
-                "config": config_dir,
-                "logs": basic_config['logs'],
-                "models": basic_config['models'],
-                "n_nodes": basic_config["n_nodes"],
-                "matrix": basic_config["matrix"],
-                "federation": basic_config["federation"],
-                "topology": basic_config["topology"],
-                "simulation": basic_config["simulation"],
-                "env": None,
-                "webserver": False,
-                "python": basic_config['python'],
-                "attack_matrix": attack_matrix
-            }
+        "scenario_name": scenario_name,
+        "config": config_dir,
+        "logs": basic_config['logs'],
+        "models": basic_config['models'],
+        "n_nodes": basic_config["n_nodes"],
+        "matrix": basic_config["matrix"],
+        "federation": basic_config["federation"],
+        "topology": basic_config["topology"],
+        "simulation": basic_config["simulation"],
+        "env": None,
+        "webserver": False,
+        "python": basic_config['python'],
+        "attack_matrix": attack_matrix
+    }
 
     import argparse
     args = argparse.Namespace(**args)
@@ -231,6 +232,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
     controller.load_configurations_and_start_nodes()
     # Generate/Update the scenario in the database
     # scenario_update_record(scenario_name=controller.scenario_name, start_time=controller.start_date_scenario, end_time="", status="running", title=basic_config["scenario_title"], description=basic_config["scenario_description"])
+
 
 if __name__ == "__main__":
     # Parse args from command line

@@ -48,7 +48,7 @@ targeted_list = [True, False]
 
 with open(basic_config_path) as f:
     basic_config = json.load(f)
-n_nodes = 5
+n_nodes = 3
 start_port = 46500
 
 dataset = dataset_list[2]

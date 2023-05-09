@@ -59,9 +59,9 @@ def create_topo_matrix(basic_config):
     matrix = basic_config['matrix']
     num_nodes = int(basic_config['n_nodes'])
     node_range = range(0, num_nodes)
-    if len(matrix) != 0:
-        return matrix
-    elif basic_config["topology"] == "fully":
+    # if len(matrix) != 0:
+    #    return matrix
+    if basic_config["topology"] == "fully":
         matrix = []
         for i in node_range:
             node_adjcent = []

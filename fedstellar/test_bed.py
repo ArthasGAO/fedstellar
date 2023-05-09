@@ -35,7 +35,7 @@ topology_list = ["star", "fully", "ring", "random"]
 attack_list = ["Label Flipping", "Sample Poisoning", "Model Poisoning"]
 
 #poisoned_node_persent_list = [20, 40, 60, 80, 100]
-poisoned_node_persent_list = [0]
+poisoned_node_persent_list = [20]
 poisoned_sample_persent_list = [50]
 noise_type_list = ["salt", "gaussian", "s&p"]
 #poisoned_ratio_list = [1, 10, 20]
@@ -48,7 +48,7 @@ targeted_list = [True, False]
 
 with open(basic_config_path) as f:
     basic_config = json.load(f)
-n_nodes = 3
+n_nodes = 5
 start_port = 46500
 
 dataset = dataset_list[2]
@@ -68,7 +68,7 @@ poisoned_ratio = poisoned_ratio_list[0]
 
 basic_config["is_iid"] = True
 basic_config["remote_tracking"] = True
-basic_config["rounds"] = 10
+basic_config["rounds"] = 5
 basic_config["epochs"] = 5
 
 basic_config["targeted"] = targeted

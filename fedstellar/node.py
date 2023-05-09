@@ -391,6 +391,7 @@ class Node(BaseNode):
                     if self.learner.check_parameters(decoded_model):
 
                         logging.info("Evaluating received model... \n")
+
                         tmp_learner: LightningLearner = copy.deepcopy(self.learner)
                         tmp_learner.set_parameters(decoded_model)
                         loss, metric = tmp_learner.evaluate_neighbour()
@@ -398,7 +399,7 @@ class Node(BaseNode):
                         if contributors is not None:
                             for neighbour in contributors:
                                 mapping = {f'loss@{neighbour}': loss}
-                                self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
+                                # self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
 
                         my_model = self.learner.get_parameters()
                         similarity = cosine_similarity(my_model, decoded_model)

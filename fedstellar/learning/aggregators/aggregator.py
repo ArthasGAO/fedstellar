@@ -7,6 +7,7 @@
 import logging
 import threading
 
+from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.role import Role
 from fedstellar.utils.observer import Events, Observable
 
@@ -38,7 +39,6 @@ class Aggregator(threading.Thread, Observable):
         self.__aggregation_lock.acquire()
         self.__thread_executed = False
 
-
     def run(self):
         """
         Wait for the aggregation to be done or timeout. Then, aggregate the models and notify it.
@@ -47,7 +47,8 @@ class Aggregator(threading.Thread, Observable):
 
         # Wait for all models to be added or TIMEOUT
         try:
-            logging.info("[Aggregator] __aggregation_lock.acquire() during {} seconds".format(self.config.participant["AGGREGATION_TIMEOUT"]))
+            logging.info("[Aggregator] __aggregation_lock.acquire() during {} seconds".format(
+                self.config.participant["AGGREGATION_TIMEOUT"]))
             self.__aggregation_lock.acquire(timeout=self.config.participant["AGGREGATION_TIMEOUT"])
         except Exception as e:
             logging.error("[Aggregator] Error waiting for aggregation: {}".format(e))
@@ -188,7 +189,8 @@ class Aggregator(threading.Thread, Observable):
         Returns:
             (model, nodes, weight): Model, nodes and number of samples for the partial aggregation.
         """
-        logging.info("[Aggregator] Getting partial aggregation from {}, except {}".format(self.__models.keys(), except_nodes))
+        logging.info(
+            "[Aggregator] Getting partial aggregation from {}, except {}".format(self.__models.keys(), except_nodes))
         dict_aux = {}
         nodes_aggregated = []
         aggregation_weight = 0

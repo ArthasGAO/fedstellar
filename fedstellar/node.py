@@ -2,6 +2,7 @@
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
 #
+import copy
 import json
 import logging
 import math
@@ -151,9 +152,11 @@ class Node(BaseNode):
         if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
             self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
         if self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
-            self.aggregator = FlTrust(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
+            self.aggregator = FlTrust(node_name=self.get_name(), config=self.config,
+                                      logger=copy.copy(self.logger),
+                                      learner=copy.copy(self.learner))
         # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
-        #    self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.logger)
+        #    self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
 
         self.aggregator.add_observer(self)
 

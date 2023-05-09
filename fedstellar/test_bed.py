@@ -5,7 +5,7 @@ import sys
 from datetime import datetime
 import time
 
-N_EXPERIMENTS = 5
+N_EXPERIMENTS = 1
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))  # Parent directory where is the fedstellar module
 
@@ -34,14 +34,14 @@ topology_list = ["star", "fully", "ring", "random"]
 attack_list = ["Label Flipping", "Sample Poisoning", "Model Poisoning"]
 
 #poisoned_node_persent_list = [20, 40, 60, 80, 100]
-poisoned_node_persent_list = [60, 80]
-poisoned_sample_persent_list = [60, 80]
+poisoned_node_persent_list = [40, 60]
+poisoned_sample_persent_list = [50]
 noise_type_list = ["salt", "gaussian", "s&p"]
 #poisoned_ratio_list = [1, 10, 20]
-poisoned_ratio_list = [60]
+poisoned_ratio_list = [0]
 
 # aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean"]
-aggregation_list = ["Krum"]
+aggregation_list = ["FlTrust"]
 
 targeted_list = [True, False]
 
@@ -50,7 +50,7 @@ with open(basic_config_path) as f:
 n_nodes = 5
 start_port = 46500
 
-dataset = dataset_list[0]
+dataset = dataset_list[2]
 model = model_list[0]
 federation = federation_list[0]
 aggregation = aggregation_list[0]
@@ -58,7 +58,7 @@ topology = topology_list[1]
 attack = attack_list[0]
 poisoned_node = poisoned_node_persent_list[0]
 poisoned_sample = poisoned_sample_persent_list[0]
-noise_type = noise_type_list[1]
+noise_type = noise_type_list[0]
 targeted = targeted_list[1]
 poisoned_ratio = poisoned_ratio_list[0]
 
@@ -88,7 +88,7 @@ with open(basic_config_path, "w") as f:
 time.sleep(2)
 
 
-
+"""
 # No Attack
 for i in range(N_EXPERIMENTS):
     for aggregation in aggregation_list:
@@ -110,7 +110,7 @@ for i in range(N_EXPERIMENTS):
             time.sleep(180)
             with open(basic_config_path) as f:
                 basic_config = json.load(f)
-
+"""
 """
 # Model Poisoning
 for i in range(N_EXPERIMENTS):
@@ -122,7 +122,7 @@ for i in range(N_EXPERIMENTS):
             basic_config["aggregation"] = aggregation
             basic_config["poisoned_node_persent"] = node_persent
             basic_config["poisoned_sample_persent"] = poisoned_sample
-            basic_config["poisoned_ratio"] = 20
+            basic_config["poisoned_ratio"] = 1
     
             basic_config['scenario_name'] = get_scenario_name(basic_config)
             start_port += basic_config["n_nodes"]
@@ -160,7 +160,7 @@ for i in range(N_EXPERIMENTS):
                 with open(basic_config_path) as f:
                     basic_config = json.load(f)
 """
-"""
+
 # Sample Poisoning
 for i in range(N_EXPERIMENTS):
     for aggregation in aggregation_list:
@@ -173,7 +173,7 @@ for i in range(N_EXPERIMENTS):
                     basic_config["poisoned_node_persent"] = node_persent
                     basic_config["poisoned_sample_persent"] = poisoned_sample_persent
                     basic_config["poisoned_ratio"] = 20
-    
+
                     basic_config['scenario_name'] = get_scenario_name(basic_config)
                     start_port += basic_config["n_nodes"]
     
@@ -187,4 +187,3 @@ for i in range(N_EXPERIMENTS):
                     time.sleep(180)
                     with open(basic_config_path) as f:
                         basic_config = json.load(f)
-"""

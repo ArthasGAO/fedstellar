@@ -193,6 +193,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["device_args"]["accelerator"] = basic_config["accelerator"]  # same for all nodes
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
         participant_config["adversarial_args"]["attack_env"] = basic_config["attack"]
+        participant_config["adversarial_args"]["poisoned_node_persent"] = int(basic_config["poisoned_node_persent"])
 
         # Logging configuration
         participant_config['tracking_args']['enable_remote_tracking'] = basic_config["remote_tracking"]

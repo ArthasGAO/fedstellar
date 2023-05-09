@@ -127,6 +127,23 @@ class LightningLearner(NodeLearner):
             logging.error("Something went wrong with pytorch lightning. {}".format(e))
             return None
 
+    def evaluate_neighbour(self, neighbour_model):
+        try:
+            if self.epochs > 0:
+                self.create_trainer()
+                results = self.__trainer.test(neighbour_model, self.data, verbose=True)
+                loss = results[0]["Test/Loss"]
+                metric = results[0]["Test/Accuracy"]
+                self.__trainer = None
+                self.log_validation_metrics(loss, metric, self.round)
+                return loss, metric
+            else:
+                return None
+        except Exception as e:
+            logging.error("Something went wrong with pytorch lightning. {}".format(e))
+            return None
+
+
     def log_validation_metrics(self, loss, metric, round=None, name=None):
         self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
         #self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=round)

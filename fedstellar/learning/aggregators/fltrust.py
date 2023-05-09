@@ -18,6 +18,7 @@ from typing import List, Dict
 from pytorch_lightning.loggers import wandb
 
 from fedstellar.learning.aggregators.aggregator import Aggregator
+from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 
 
 class FlTrust(Aggregator):
@@ -26,12 +27,18 @@ class FlTrust(Aggregator):
     Paper: https://arxiv.org/abs/1602.05629
     """
 
-    def __init__(self, node_name="unknown", config=None, logger=None):
+    def __init__(self, node_name="unknown", config=None, logger=None, learner=None):
         super().__init__(node_name, config, logger)
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[FLTrust] My config is {}".format(self.config))
         self.iter = 0
+        self.logger = logger
+        self.learner = learner
+
+        logging.info("Received logger: {}".format(logger))
+        logging.info("Receive learner: {}".format(learner))
+
 
     def cosine_similarities_last_layer(self, untrusted_models, trusted_model):
         similarities = dict.fromkeys(untrusted_models.keys())
@@ -52,7 +59,6 @@ class FlTrust(Aggregator):
             # does it make sense to take mean from row-wise similarity?
             cos = cosine_similarity(l1, l2)
             relu_cos = torch.nn.functional.relu(cos)
-            print(relu_cos)
 
             similarities[client] = relu_cos.item()
 
@@ -77,6 +83,9 @@ class FlTrust(Aggregator):
                 client_similarities.append(cos_mean)
 
             similarities[client] = client_similarities
+
+        logging.info("[FlTrust.aggregate] Analysed layers at {} for cosine: {}"
+                     .format(self.node_name, similarities))
 
         for client in similarities:
             cos = torch.Tensor(similarities[client])
@@ -112,12 +121,17 @@ class FlTrust(Aggregator):
         return new_similarities
 
     def aggregate(self, models):
+
+        logging.info("Received logger: {}".format(self.logger.global_step))
+        logging.info("Current learner step: {}".format(self.learner.logger.global_step))
+
         """
          Krum selects one of the m local models that is similar to other models
          as the global model, the euclidean distance between two local models is used.
 
          Args:
              models: Dictionary with the models (node: model,num_samples).
+             step: current training step (used for logging utility)
          """
         # Check if there are models to aggregate
         if len(models) == 0:
@@ -131,11 +145,18 @@ class FlTrust(Aggregator):
                 pickle.dump(filename, handle, protocol=pickle.HIGHEST_PROTOCOL)
         """
 
+        """        
+        for client, msg in models.items():
+            model = msg[0]
+            loss, metric = self.learner.evaluate_neighbour(model)
+            logging.info("Eval at {}: Loss {}, Metric: {}".format(client, loss, metric))
+        """
+
+
         # The model of the aggregator serves as a trusted reference
         my_model = models.get(self.node_name)  # change
         if my_model is None:
             logging.error("[FlTrust] Own model as bootstrap is not available")
-
             return None
 
         untrusted_models = {k: models[k] for k in models.keys() - {self.node_name}}  # change
@@ -181,6 +202,8 @@ class FlTrust(Aggregator):
         else:
             logging.info("[FlTrust.aggregate] Logging similarities remotely...")
             # wandb.log(metrics=similarities, step=self.iter)
-            self.logger.log_metrics(metrics=similarities, step=self.logger.global_step)
+            self.logger.log_metrics(metrics=similarities, step=self.iter)
+
+        self.iter += 1
 
         return accum

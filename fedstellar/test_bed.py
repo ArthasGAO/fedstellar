@@ -13,9 +13,10 @@ from fedstellar.start_without_webserver import generate_controller_configs, crea
 
 
 def get_scenario_name(basic_config):
-    scenario_name = f'{basic_config["dataset"]}_{basic_config["model"]}_{basic_config["aggregation"]}_' \
+    scenario_name = f'{basic_config["dataset"]}_{int(basic_config["is_iid"])}_{basic_config["model"]}_' \
+                    f'{basic_config["aggregation"]}_' \
                     f'{basic_config["topology"].replace(" ", "")}_' \
-                    f'{basic_config["attack"].replace(" ", "")}_{basic_config["targeted"]}_' \
+                    f'{basic_config["attack"].replace(" ", "")}_{int(basic_config["targeted"])}_' \
                     f'N{basic_config["poisoned_node_persent"]}-S{basic_config["poisoned_sample_persent"]}_' \
                     f'R{basic_config["poisoned_ratio"]}_' \
                     f'{basic_config["noise_type"].replace(" ", "")}_' \
@@ -34,7 +35,7 @@ topology_list = ["star", "fully", "ring", "random"]
 attack_list = ["Label Flipping", "Sample Poisoning", "Model Poisoning"]
 
 #poisoned_node_persent_list = [20, 40, 60, 80, 100]
-poisoned_node_persent_list = [40, 60]
+poisoned_node_persent_list = [0]
 poisoned_sample_persent_list = [50]
 noise_type_list = ["salt", "gaussian", "s&p"]
 #poisoned_ratio_list = [1, 10, 20]
@@ -51,6 +52,7 @@ n_nodes = 5
 start_port = 46500
 
 dataset = dataset_list[2]
+is_iid = True
 model = model_list[0]
 federation = federation_list[0]
 aggregation = aggregation_list[0]
@@ -64,6 +66,7 @@ poisoned_ratio = poisoned_ratio_list[0]
 
 # scenario_title = f"{dataset}_{model}_{federation}_{aggregation}_{topology}_{attack}_{targeted}_{poisoned_node}_{poisoned_sample}_{noise_type}_{poisoned_ratio}"
 
+basic_config["is_iid"] = True
 basic_config["remote_tracking"] = True
 basic_config["rounds"] = 10
 basic_config["epochs"] = 5
@@ -111,7 +114,7 @@ for i in range(N_EXPERIMENTS):
             with open(basic_config_path) as f:
                 basic_config = json.load(f)
 """
-"""
+
 # Model Poisoning
 for i in range(N_EXPERIMENTS):
     for aggregation in aggregation_list:
@@ -122,7 +125,7 @@ for i in range(N_EXPERIMENTS):
             basic_config["aggregation"] = aggregation
             basic_config["poisoned_node_persent"] = node_persent
             basic_config["poisoned_sample_persent"] = poisoned_sample
-            basic_config["poisoned_ratio"] = 1
+            basic_config["poisoned_ratio"] = 20
     
             basic_config['scenario_name'] = get_scenario_name(basic_config)
             start_port += basic_config["n_nodes"]
@@ -135,7 +138,7 @@ for i in range(N_EXPERIMENTS):
             time.sleep(180)
             with open(basic_config_path) as f:
                 basic_config = json.load(f)
-"""
+
 """
 # Label Flipping
 for i in range(N_EXPERIMENTS):
@@ -160,7 +163,7 @@ for i in range(N_EXPERIMENTS):
                 with open(basic_config_path) as f:
                     basic_config = json.load(f)
 """
-
+"""
 # Sample Poisoning
 for i in range(N_EXPERIMENTS):
     for aggregation in aggregation_list:
@@ -187,3 +190,4 @@ for i in range(N_EXPERIMENTS):
                     time.sleep(180)
                     with open(basic_config_path) as f:
                         basic_config = json.load(f)
+"""

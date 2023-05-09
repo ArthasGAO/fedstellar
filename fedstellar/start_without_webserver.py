@@ -24,7 +24,8 @@ def generate_controller_configs(basic_config_path=basic_config_path):
 
     scenario_name = basic_config['scenario_name']
     if len(scenario_name) == 0:
-        scenario_name = f'{basic_config["dataset"]}_{basic_config["model"]}_{basic_config["aggregation"]}_' \
+        scenario_name = f'{basic_config["dataset"]}_{basic_config["is_iid"]}_{basic_config["model"]}_' \
+                        f'{basic_config["aggregation"]}_' \
                         f'{basic_config["topology"].replace(" ", "")}_' \
                         f'{basic_config["attack"].replace(" ", "")}_{basic_config["targeted"]}_' \
                         f'N{basic_config["poisoned_node_persent"]}-S{basic_config["poisoned_sample_persent"]}_' \
@@ -32,8 +33,8 @@ def generate_controller_configs(basic_config_path=basic_config_path):
                         f'{basic_config["noise_type"].replace(" ", "")}_' \
                         f'{datetime.now().strftime("%Y%m%d_%H%M%S")}'
         print(scenario_name)
-    if len(scenario_name) == 0:
-        scenario_name = f'fedstellar_{basic_config["federation"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
+    # if len(scenario_name) == 0:
+    #    scenario_name = f'fedstellar_{basic_config["federation"]}_{datetime.now().strftime("%d_%m_%Y_%H_%M_%S")}'
     basic_config['scenario_name'] = scenario_name
     basic_config["topology"] = basic_config["topology"].lower()
 
@@ -188,6 +189,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["scenario_args"]["n_nodes"] = int(num_nodes)
 
         participant_config["data_args"]["dataset"] = basic_config["dataset"]
+        participant_config["data_args"]["is_iid"] = basic_config["is_iid"]
         participant_config["model_args"]["model"] = basic_config["model"]
         participant_config["training_args"]["epochs"] = int(basic_config["epochs"])
         participant_config["device_args"]["accelerator"] = basic_config["accelerator"]  # same for all nodes

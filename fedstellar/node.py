@@ -9,7 +9,7 @@ import math
 import os
 from datetime import datetime, timedelta
 
-from fedstellar.learning.aggregators.fltrust import FlTrust
+from fedstellar.learning.aggregators.fltrust import FlTrust, cosine_similarity
 from fedstellar.learning.aggregators.pseudo import PseudoAggregator
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
@@ -364,8 +364,10 @@ class Node(BaseNode):
         except threading.ThreadError:
             pass
 
+
+
     ####################################
-    #         Model Aggregation         #
+    #         Model Aggregation        #
     ####################################
 
     def add_model(self, m):
@@ -387,6 +389,26 @@ class Node(BaseNode):
                     ) = self.learner.decode_parameters(m)
                     logging.info("[NODE.add_model] Model received from {} --using--> {} in the other node | Now I add the model using self.aggregator.add_model()".format(contributors, '__gossip_model_diffusion' if contributors is None and weight is None else '__gossip_model_aggregation'))
                     if self.learner.check_parameters(decoded_model):
+
+                        logging.info("Evaluating received model... \n")
+                        tmp_learner: LightningLearner = copy.deepcopy(self.learner)
+                        tmp_learner.set_parameters(decoded_model)
+                        loss, metric = tmp_learner.evaluate_neighbour()
+                        logging.info("Decoded Model: loss: {}, metric: {}\n".format(loss, metric))
+                        if contributors is not None:
+                            for neighbour in contributors:
+                                mapping = {f'loss@{neighbour}': loss}
+                                self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
+
+                        my_model = self.learner.get_parameters()
+                        similarity = cosine_similarity(my_model, decoded_model)
+                        if contributors is not None:
+                            for neighbour in contributors:
+                                logging.info("Similarity for neighbour {} at step {}: {}"
+                                             .format(neighbour, self.logger.local_step, similarity))
+                                mapping = {f'cos@{neighbour}': similarity}
+                                self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
+
                         models_added = self.aggregator.add_model(
                             decoded_model, contributors, weight
                         )

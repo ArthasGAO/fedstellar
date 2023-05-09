@@ -38,7 +38,8 @@
     "delay-distro": 0
   },
   "data_args": {
-    "dataset": "MNIST"
+    "dataset": "MNIST",
+    "is_iid": "True"
   },
   "model_args": {
     "model": "MLP"

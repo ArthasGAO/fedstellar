@@ -50,7 +50,6 @@ class LightningLearner(NodeLearner):
 
         self.logger.log_metrics({"Round": self.round}, step=self.logger.global_step)
 
-
     def set_model(self, model):
         self.model = model
 
@@ -127,15 +126,15 @@ class LightningLearner(NodeLearner):
             logging.error("Something went wrong with pytorch lightning. {}".format(e))
             return None
 
-    def evaluate_neighbour(self, neighbour_model):
+    def evaluate_neighbour(self):
         try:
             if self.epochs > 0:
                 self.create_trainer()
-                results = self.__trainer.test(neighbour_model, self.data, verbose=True)
+                results = self.__trainer.test(self.model, self.data)
                 loss = results[0]["Test/Loss"]
                 metric = results[0]["Test/Accuracy"]
                 self.__trainer = None
-                self.log_validation_metrics(loss, metric, self.round)
+                # self.log_validation_metrics(loss, metric, self.round)
                 return loss, metric
             else:
                 return None
@@ -143,10 +142,9 @@ class LightningLearner(NodeLearner):
             logging.error("Something went wrong with pytorch lightning. {}".format(e))
             return None
 
-
     def log_validation_metrics(self, loss, metric, round=None, name=None):
         self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
-        #self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=round)
+        # self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=round)
         pass
 
     def get_num_samples(self):
@@ -168,12 +166,14 @@ class LightningLearner(NodeLearner):
         pass
 
     def create_trainer(self):
-        logging.info("[Learner] Creating trainer with accelerator: {}".format(self.config.participant["device_args"]["accelerator"]))
+        logging.info("[Learner] Creating trainer with accelerator: {}".format(
+            self.config.participant["device_args"]["accelerator"]))
         self.__trainer = Trainer(
             callbacks=[ModelSummary(max_depth=1), TQDMProgressBar(refresh_rate=200)],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            devices=self.config.participant["device_args"]["devices"] if self.config.participant["device_args"]["accelerator"] != "cpu" else None,
+            devices=self.config.participant["device_args"]["devices"] if self.config.participant["device_args"][
+                                                                             "accelerator"] != "cpu" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=self.logger,
             log_every_n_steps=20,

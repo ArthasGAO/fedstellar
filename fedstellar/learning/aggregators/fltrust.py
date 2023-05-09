@@ -13,12 +13,34 @@ import wandb
 import torch
 from statistics import mean
 
-from typing import List, Dict
+from typing import List, Dict, OrderedDict
 
 from pytorch_lightning.loggers import wandb
 
 from fedstellar.learning.aggregators.aggregator import Aggregator
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
+
+
+def cosine_similarity(trusted_model: OrderedDict, untrusted_model: OrderedDict):
+    if trusted_model is None or untrusted_model is None:
+        logging.info("Cosine similarity cannot be computed due to missing model")
+        return None
+
+    layer_similarities: List = []
+
+    for layer in trusted_model:
+        l1 = trusted_model[layer]
+        l2 = untrusted_model[layer]
+        cos = torch.nn.CosineSimilarity(dim=l1.dim() - 1)
+        cos_mean = torch.mean(cos(l1, l2)).mean()
+        layer_similarities.append(cos_mean)
+
+    cos = torch.Tensor(layer_similarities)
+    avg_cos = torch.mean(cos)
+    relu_cos = torch.nn.functional.relu(avg_cos)
+    result = relu_cos.item()
+
+    return result
 
 
 class FlTrust(Aggregator):
@@ -37,7 +59,7 @@ class FlTrust(Aggregator):
         self.learner = learner
 
         logging.info("Received logger: {}".format(logger))
-        logging.info("Receive learner: {}".format(learner))
+        logging.info("Received learner: {}".format(learner))
 
 
     def cosine_similarities_last_layer(self, untrusted_models, trusted_model):
@@ -63,6 +85,8 @@ class FlTrust(Aggregator):
             similarities[client] = relu_cos.item()
 
         return similarities
+
+
 
     def cosine_similarities(self, untrusted_models, trusted_model):
         similarities = dict.fromkeys(untrusted_models.keys())
@@ -122,8 +146,8 @@ class FlTrust(Aggregator):
 
     def aggregate(self, models):
 
-        logging.info("Received logger: {}".format(self.logger.global_step))
-        logging.info("Current learner step: {}".format(self.learner.logger.global_step))
+        # logging.info("Current logger step: {}".format(self.logger.global_step))
+        # logging.info("Current learner step: {}".format(self.learner.logger.global_step))
 
         """
          Krum selects one of the m local models that is similar to other models
@@ -197,13 +221,14 @@ class FlTrust(Aggregator):
         for client, similarity in similarities.items():
             logging.info(type(similarity))
 
+        """
         if self.logger is None:
             logging.error("No Logger found!")
         else:
             logging.info("[FlTrust.aggregate] Logging similarities remotely...")
             # wandb.log(metrics=similarities, step=self.iter)
             self.logger.log_metrics(metrics=similarities, step=self.iter)
-
+        """
         self.iter += 1
 
         return accum

@@ -1,3 +1,5 @@
+--pre
+--extra-index-url https://download.pytorch.org/whl/cu118
 protobuf==3.20.3
 qtconsole==5.4.2
 aiohttp==3.8.4
@@ -28,3 +30,7 @@ wandb==0.13.9
 rich==13.3.4
 seaborn==0.12.2
 scikit-learn==1.2.2
+scikit-image==0.20.0
+torchtext==0.15.1
+datasets==2.10.1
+pandas==2.0.1

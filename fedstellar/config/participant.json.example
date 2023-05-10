@@ -19,7 +19,7 @@
     "role": "aggregator",
     "start": false,
     "accelerator": "auto",
-    "devices": 2,
+    "devices": 1,
     "strategy": "ddp"
   },
   "geo_args": {
@@ -49,11 +49,22 @@
   "aggregator_args": {
     "algorithm": "FedAvg"
   },
+  "adversarial_args": {
+    "attacks": "No Attack",
+    "targeted": false,
+    "poisoned_sample_persent": 0,
+    "poisoned_ratio": 0,
+    "target_label": 0,
+    "target_changed_label": 0,
+    "noise_type": "salt",
+    "is_iid": true
+  },
   "tracking_args": {
     "enable_remote_tracking": false,
     "local_tracking": "web",
     "log_dir": "/Users/enrique/Documents/PhD/fedstellar/app/logs",
     "config_dir": "/Users/enrique/Documents/PhD/fedstellar/app/config",
+    "model_dir": "/Users/enrique/Documents/PhD/fedstellar/app/model",
     "wandb_key": [
       "your wandb key"
     ],

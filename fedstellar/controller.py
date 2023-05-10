@@ -82,6 +82,7 @@ class Controller:
         self.docker = args.docker if hasattr(args, 'docker') else None
         self.config_dir = args.config
         self.log_dir = args.logs
+        self.model_dir = args.models
         self.env_path = args.env
         self.python_path = args.python
         self.matrix = args.matrix if hasattr(args, 'matrix') else None
@@ -122,6 +123,7 @@ class Controller:
         os.environ["FEDSTELLAR_ROOT"] = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         os.environ["FEDSTELLAR_LOGS_DIR"] = self.log_dir
         os.environ["FEDSTELLAR_CONFIG_DIR"] = self.config_dir
+        os.environ["FEDSTELLAR_MODELS_DIR"] = self.model_dir
         os.environ["FEDSTELLAR_PYTHON_PATH"] = self.python_path
         os.environ["FEDSTELLAR_STATISTICS_PORT"] = str(self.statistics_port)
 
@@ -243,6 +245,13 @@ class Controller:
             os.system(command)
         except Exception as e:
             raise Exception("Error while killing docker containers: {}".format(e))
+    
+    def start_without_server(self):
+        controller_env = os.environ.copy()
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        # webserver_path = os.path.join(current_dir, "webserver")
+        with open(f'{self.log_dir}/server.log', 'w', encoding='utf-8') as log_file:
+            subprocess.Popen([self.python_path, "start_without_webserver.py"], cwd=current_dir, env=controller_env, stdout=log_file, stderr=log_file, encoding='utf-8')
 
     def load_configurations_and_start_nodes(self):
         if not self.scenario_name:
@@ -250,6 +259,9 @@ class Controller:
         # Once the scenario_name is defined, we can update the config_dir
         self.config_dir = os.path.join(self.config_dir, self.scenario_name)
         os.makedirs(self.config_dir, exist_ok=True)
+
+        self.model_dir = os.path.join(self.model_dir, self.scenario_name)
+        os.makedirs(self.model_dir, exist_ok=True)
 
         os.makedirs(os.path.join(self.log_dir, self.scenario_name), exist_ok=True)
         self.start_date_scenario = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -285,6 +297,7 @@ class Controller:
 
             participant_config['tracking_args']['log_dir'] = self.log_dir
             participant_config['tracking_args']['config_dir'] = self.config_dir
+            participant_config['tracking_args']['model_dir'] = self.model_dir
             if participant_config["device_args"]["start"]:
                 if not is_start_node:
                     is_start_node = True
@@ -429,12 +442,15 @@ class Controller:
         for node in self.config.participants:
             node['tracking_args']['log_dir'] = "/fedstellar/app/logs"
             node['tracking_args']['config_dir'] = f"/fedstellar/app/config/{self.scenario_name}"
+            node['tracking_args']['model_dir'] = f"/fedstellar/app/models/{self.scenario_name}"
             if sys.platform == "linux":
                 node['scenario_args']['controller'] = "host.docker.internal" + ":" + str(self.webserver_port)
             elif sys.platform == "darwin":
                 node['scenario_args']['controller'] = "host.docker.internal" + ":" + str(self.webserver_port)
             else:
-                raise ValueError("Windows is not supported yet for Docker Compose.")
+                # start the docker engine before running the framework!
+                node['scenario_args']['controller'] = "host.docker.internal" + ":" + str(self.webserver_port)
+                # raise ValueError("Windows is not supported yet for Docker Compose.")
 
             # Write the config file in config directory
             with open(f"{self.config_dir}/participant_{node['device_args']['idx']}.json", "w") as f:

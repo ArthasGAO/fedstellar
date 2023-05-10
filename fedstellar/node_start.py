@@ -5,16 +5,33 @@ import time
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedml_api module
 
-from fedstellar.learning.pytorch.mnist.mnist import MNISTDataModule
-from fedstellar.learning.pytorch.femnist.femnist import FEMNISTDataModule
-from fedstellar.learning.pytorch.syscall.syscall import SYSCALLDataModule
-
 from fedstellar.config.config import Config
 from fedstellar.learning.pytorch.mnist.models.mlp import MLP
+from fedstellar.learning.pytorch.femnist.models.mlp import MLP as MLP_femnist
 from fedstellar.learning.pytorch.mnist.models.cnn import CNN as CNN_mnist
 from fedstellar.learning.pytorch.femnist.models.cnn import CNN as CNN_femnist
-from fedstellar.learning.pytorch.syscall.models.mlp import MLP as MLP_syscall
 from fedstellar.node import Node
+
+from fedstellar.learning.pytorch.datamodule import DataModule
+
+from fedstellar.learning.pytorch.femnist.femnist import FEMNISTDATASET
+from fedstellar.learning.pytorch.mnist.mnist import MNISTDATASET
+from fedstellar.learning.pytorch.syscall.syscall import SYSCALLDATASET
+from fedstellar.learning.pytorch.kitsun.kitsun import KISTSUNDATASET
+from fedstellar.learning.pytorch.sent140.sent140 import Sent140DATASET
+from fedstellar.learning.pytorch.cifar100.cifar100 import CIFAR100DATASET
+from fedstellar.learning.pytorch.cifar10.cifar10 import CIFAR10DATASET
+from fedstellar.learning.pytorch.fashionmnist.fashionmnist import FASHIONMNISTDATASET
+
+from fedstellar.learning.pytorch.syscall.models.mlp import MLP as MLP_syscall
+from fedstellar.learning.pytorch.kitsun.models.mlp import MLP as MLP_kitsun
+from fedstellar.learning.pytorch.sent140.models.cnn import CNN as CNN_sent140
+from fedstellar.learning.pytorch.sent140.models.rnn import RNN as RNN_sent140
+from fedstellar.learning.pytorch.cifar100.models.cnn import CNN as CNN_cifar100
+from fedstellar.learning.pytorch.cifar10.models.cnn import CNN as CNN_cifar10
+from fedstellar.learning.pytorch.fashionmnist.models.mlp import MLP as MLP_fashionmnist
+from fedstellar.learning.pytorch.fashionmnist.models.cnn import CNN as CNN_fashionmnist
+
 
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
@@ -38,9 +55,48 @@ def main():
     aggregation_algorithm = config.participant["aggregator_args"]["algorithm"]
 
     dataset = config.participant["data_args"]["dataset"]
+    attacks = config.participant["adversarial_args"]["attacks"]
+    poisoned_persent = config.participant["adversarial_args"]["poisoned_sample_persent"]
+    poisoned_ratio = config.participant["adversarial_args"]["poisoned_ratio"]
+    targeted=str(config.participant["adversarial_args"]["targeted"])
+    target_label=config.participant["adversarial_args"]["target_label"]
+    target_changed_label=config.participant["adversarial_args"]["target_changed_label"]
+    noise_type=config.participant["adversarial_args"]["noise_type"]
+    is_iid =config.participant["adversarial_args"]["is_iid"]
+
+    indices_dir = config.participant['tracking_args']["model_dir"]
+    label_flipping=False
+    data_poisoning=False
+    model_poisoning=False
+
+
+    # config of attacks
+    if attacks == "Label Flipping":
+        label_flipping = True
+        poisoned_ratio = 0
+        if targeted == "true" or targeted == "True":
+            targeted = True
+        else:
+            targeted = False
+    elif attacks == "Sample Poisoning":
+        data_poisoning = True
+        if targeted == "true" or targeted == "True":
+            targeted = True
+        else:
+            targeted = False
+    elif attacks == "Model Poisoning":
+        model_poisoning = True
+    else:
+        label_flipping = False
+        data_poisoning = False
+        targeted = False
+        poisoned_persent = 0
+        poisoned_ratio = 0
+
     model = None
-    if dataset == "MNIST":
-        dataset = MNISTDataModule(sub_id=idx, number_sub=n_nodes, iid=True)
+    # config of datasets
+    if dataset == "MNIST":     
+        dataset = MNISTDATASET(iid=is_iid)
         if model_name == "MLP":
             model = MLP()
         elif model_name == "CNN":
@@ -48,15 +104,51 @@ def main():
         else:
             raise ValueError(f"Model {model} not supported")
     elif dataset == "FEMNIST":
-        dataset = FEMNISTDataModule(sub_id=idx, number_sub=n_nodes, root_dir=f"{sys.path[0]}/data")
-        if model_name == "CNN":
+        dataset = FEMNISTDATASET(iid=is_iid)
+        if model_name == "MLP":
+            model = MLP_femnist()
+        elif model_name == "CNN":
             model = CNN_femnist()
         else:
             raise ValueError(f"Model {model} not supported")
+    elif dataset == "FASHIONMNIST":
+        dataset = FASHIONMNISTDATASET(iid=is_iid)
+        if model_name == "MLP":
+            model = MLP_fashionmnist()
+        elif model_name == "CNN":
+            model = CNN_fashionmnist()
+        else:
+            raise ValueError(f"Model {model} not supported")
+    elif dataset == "CIFAR10":
+        dataset = CIFAR10DATASET(iid=is_iid)
+        if model_name == "CNN":
+            model = CNN_cifar10()
+        else:
+            raise ValueError(f"Model {model} not supported")
+    elif dataset == "CIFAR100":
+        dataset = CIFAR100DATASET(iid=is_iid)
+        if model_name == "CNN":
+            model = CNN_cifar100()
+        else:
+            raise ValueError(f"Model {model} not supported")
+    elif dataset == "Sent140":
+        dataset = Sent140DATASET(iid=is_iid)
+        if model_name == "RNN":
+            model = RNN_sent140()
+        elif model_name == "CNN":
+            model = CNN_sent140()
+        else:
+            raise ValueError(f"Model {model} not supported")
     elif dataset == "SYSCALL":
-        dataset = SYSCALLDataModule(sub_id=idx, number_sub=n_nodes, root_dir=f"{sys.path[0]}/data")
+        dataset = SYSCALLDATASET(iid=is_iid)
         if model_name == "MLP":
             model = MLP_syscall()
+        else:
+            raise ValueError(f"Model {model} not supported")
+    elif dataset == "KISTSUN":
+        dataset = KISTSUNDATASET(iid=is_iid)
+        if model_name == "MLP":
+            model = MLP_kitsun()
         else:
             raise ValueError(f"Model {model} not supported")
     else:
@@ -66,6 +158,11 @@ def main():
         pass
     else:
         raise ValueError(f"Aggregation algorithm {aggregation_algorithm} not supported")
+    
+    dataset = DataModule(dataset.trainset, dataset.testset, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir,\
+                        label_flipping=label_flipping, data_poisoning=data_poisoning, poisoned_persent=poisoned_persent, \
+                        poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label, \
+                        target_changed_label=target_changed_label, noise_type=noise_type)
 
     node = Node(
         idx=idx,
@@ -76,7 +173,10 @@ def main():
         host=host,
         port=port,
         config=config,
-        encrypt=False
+        encrypt=False,
+        model_poisoning=model_poisoning,
+        poisoned_ratio=poisoned_ratio,
+        noise_type=noise_type
     )
 
     node.start()

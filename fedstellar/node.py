@@ -7,6 +7,7 @@ import logging
 import math
 import os
 from datetime import datetime, timedelta
+import pickle
 
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
@@ -30,10 +31,14 @@ from fedstellar.base_node import BaseNode
 from fedstellar.communication_protocol import CommunicationProtocol
 from fedstellar.config.config import Config
 from fedstellar.learning.aggregators.fedavg import FedAvg
+from fedstellar.learning.aggregators.krum import Krum
+from fedstellar.learning.aggregators.trimmedmean import TrimmedMean
+from fedstellar.learning.aggregators.median import Median
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.role import Role
 from fedstellar.utils.observer import Events, Observer
+from fedstellar.attacks.poisoning.modelpoison import modelpoison
 
 
 class Node(BaseNode):
@@ -74,6 +79,9 @@ class Node(BaseNode):
             config=Config,
             learner=LightningLearner,
             encrypt=False,
+            model_poisoning=False,
+            poisoned_ratio=0,
+            noise_type='gaussian'
     ):
         # Super init
         BaseNode.__init__(self, experiment_name, hostdemo, host, port, encrypt, config)
@@ -93,6 +101,12 @@ class Node(BaseNode):
         self.__model_initialized = False
         self.__initial_neighbors = []
         self.__start_thread_lock = threading.Lock()
+
+        self.model_dir = self.config.participant['tracking_args']["model_dir"]
+        self.model_name = f"{self.model_dir}/participant_{self.idx}_model.pk"
+        self.model_poisoning = model_poisoning
+        self.poisoned_ratio = poisoned_ratio,
+        self.noise_type = noise_type
 
         # Learner and learner logger
         # log_model="all" to log model
@@ -121,6 +135,12 @@ class Node(BaseNode):
         # Aggregator
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
             self.aggregator = FedAvg(node_name=self.get_name(), config=self.config)
+        if self.config.participant["aggregator_args"]["algorithm"] == "Krum":
+            self.aggregator = Krum(node_name=self.get_name(), config=self.config)
+        if self.config.participant["aggregator_args"]["algorithm"] == "Median":
+            self.aggregator = Median(node_name=self.get_name(), config=self.config)
+        if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
+            self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
 
         self.aggregator.add_observer(self)
 
@@ -586,6 +606,13 @@ class Node(BaseNode):
         self.learner.fit()
         logging.info("[NODE.__train] Finish training...")
 
+        # model poison ###
+        if self.model_poisoning:
+            model_param = self.learner.get_parameters()
+            poisoned_model_param = modelpoison(model_param, poisoned_ratio=self.poisoned_ratio,\
+                noise_type=self.noise_type)
+            self.learner.set_parameters(poisoned_model_param)
+
     def __evaluate(self):
         logging.info("[NODE.__evaluate] Start evaluation...")
         results = self.learner.evaluate()
@@ -645,6 +672,11 @@ class Node(BaseNode):
             # At end, all nodes compute metrics
             self.__evaluate()
             # Finish
+
+            #save the final model to file system
+            with open(self.model_name, 'wb') as f:
+                pickle.dump(self.learner.model, f)
+
             logging.info(
                 "[NODE] FL experiment finished | Round: {} | Total rounds: {} | [!] Both to None".format(
                     self.round, self.totalrounds

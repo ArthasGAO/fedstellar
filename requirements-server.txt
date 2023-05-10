@@ -1,3 +1,5 @@
+--pre
+--extra-index-url https://download.pytorch.org/whl/cu118
 protobuf==3.20.3
 qtconsole==5.4.2
 aiohttp==3.8.4
@@ -28,3 +30,7 @@ wandb==0.13.9
 rich==13.3.4
 gunicorn==20.1.0
 nvidia-ml-py==11.525.84
+scikit-image==0.20.0
+torchtext==0.15.1
+datasets==2.10.1
+pandas==2.0.1

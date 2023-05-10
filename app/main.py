@@ -27,12 +27,14 @@ argparser.add_argument('-c', '--config', dest='config', default=os.path.join(os.
                        help='Config directory path')
 argparser.add_argument('-l', '--logs', dest='logs', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs'),
                           help='Logs directory path')
+argparser.add_argument('-m', '--models', dest='models', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models'),
+                          help='Logs directory path')
 # Path to the file in same directory as this file
 argparser.add_argument('-e', '--env', dest='env', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'), help='.env file path')
 argparser.add_argument('-v', '--version', action='version',
                        version='%(prog)s ' + fedstellar.__version__, help="Show version")
 argparser.add_argument('-tk', '--tracking', action='store_false', dest='tracking', help='Track simulation')
-argparser.add_argument('-p', '--python', dest='python', default="/Users/enrique/miniforge3/envs/phd/bin/python", help='Path to python executable')
+argparser.add_argument('-p', '--python', dest='python', default="D:/git/fed-2/fedstellar-venv/Scripts/python", help='Path to python executable')
 argparser.add_argument('-a', '--about', action='version',
                        version='Created by Enrique Tomás Martínez Beltrán',
                        help="Show author")

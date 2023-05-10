@@ -131,6 +131,9 @@
             <h5>Aggregation algorithm</h5>
             <select class="form-control" id="aggregationSelect" name="aggregation" style="display: inline; width: 50%">
                 <option selected>FedAvg</option>
+                <option>Krum</option>
+                <option>TrimmedMean</option>
+                <option>Median</option>
             </select>
         </div>
     </div>
@@ -219,6 +222,25 @@
         </div>
         <div class="form-group row">
             <h4 class="step-number">Advanced Aggregation <i class="fa fa-calculator"></i></h4>
+        </div>
+        <div class="form-group row">
+            <h4 class="step-number">Attacks Setting <i class="fa fa-bomb"></i></h4>
+            <div style="margin-left: 10px">
+                <p class="text-muted">Select the attack for the scenario.</p>
+                <h5 class="step-title">Attack Type</h5>
+                <select class="form-control" id="poisoning-attack-select" name="poisoning-attack" style="display: inline; width: 20%">
+                    <option selected>No Attack</option>
+                        <option>Label Flipping</option>
+                        <option>Sample Poisoning</option>
+                        <option>Model Poisoning</option>
+                </select>
+                <p class="text-muted">Percent of nodes have been attacked.</p>
+                <input type="number" class="form-control" id="poisoned-node-percent" placeholder="Percent of nodes been poisoned" value="0" style="display: inline; width: 19%">
+                    <small class="form-text text-muted">%</small>
+                <p class="text-muted">Percent of data for each node has been attacked.</p>
+                <input type="number" class="form-control" id="poisoned-sample-percent" placeholder="Percent of sample in each node been poisoned" value="0" style="display: inline; width: 19%">
+                <small class="form-text text-muted">%</small>
+            </div>
         </div>
     </div>
 </form>
@@ -550,7 +572,10 @@
                     "epochs": document.getElementById("epochs").value,
                     "accelerator": document.getElementById("resourceUsage").value,
                     "network_subnet": document.getElementById("network-subnet").value,
-                    "network_gateway": document.getElementById("network-gateway").value
+                    "network_gateway": document.getElementById("network-gateway").value,
+                    "attacks": document.getElementById("poisoning-attack-select").value,
+                    "poisoned_node_persent": document.getElementById("poisoned-node-percent").value,
+                    "poisoned_sample_persent": document.getElementById("poisoned-sample-percent").value,
                 };
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/scenario/deployment/run", true);
@@ -577,6 +602,15 @@
     customTopologyBtn.addEventListener("click", function () {
         predefinedTopologyDiv.style.display = "none";
     });
+
+    // Generate the poisoning attack information (Adversarial Attacks)
+    // poisoningAttackDiv = document.getElementById("poisoning-attack")
+    // noAttackBtn = document.getElementById("no-attack-btn");
+    // noAttackBtn.addEventListener("click", function () {
+    //     poisoningAttackDiv.style.display = "none";
+    //     poisoningAttackBtn.checked = false;
+    // });
+
     // When click on "predefined-topology-btn" check input, display "predefined-topology"
     predefinedTopologyBtn = document.getElementById("predefined-topology-btn");
     predefinedTopologyBtn.addEventListener("click", function () {

@@ -8,7 +8,7 @@ import time
 
 import pytest
 
-from fedstellar.learning.pytorch.mnist.mnist import MNISTDataModule
+from fedstellar.learning.pytorch.mnist.mnist import MNISTDATASET
 from fedstellar.learning.pytorch.mnist.models.cnn import CNN
 from fedstellar.learning.pytorch.mnist.models.mlp import MLP
 from fedstellar.node import Node
@@ -20,12 +20,12 @@ from test.utils import (
 )
 
 set_test_settings()
-
+EXPERIMENT_NAME = "test_experiment"
 
 @pytest.fixture
 def two_nodes():
-    n1 = Node(MLP(), MNISTDataModule())
-    n2 = Node(MLP(), MNISTDataModule())
+    n1 = Node(model=MLP(), data=MNISTDATASET(), idx=0, experiment_name=EXPERIMENT_NAME)
+    n2 = Node(model=MLP(), data=MNISTDATASET(), idx=1, experiment_name=EXPERIMENT_NAME)
     n1.start()
     n2.start()
 
@@ -37,10 +37,10 @@ def two_nodes():
 
 @pytest.fixture
 def four_nodes():
-    n1 = Node(MLP(), MNISTDataModule())
-    n2 = Node(MLP(), MNISTDataModule())
-    n3 = Node(MLP(), MNISTDataModule())
-    n4 = Node(MLP(), MNISTDataModule())
+    n1 = Node(model=MLP(), data=MNISTDATASET(), idx=0, experiment_name=EXPERIMENT_NAME)
+    n2 = Node(model=MLP(), data=MNISTDATASET(), idx=1, experiment_name=EXPERIMENT_NAME)
+    n3 = Node(model=MLP(), data=MNISTDATASET(), idx=2, experiment_name=EXPERIMENT_NAME)
+    n4 = Node(model=MLP(), data=MNISTDATASET(), idx=3, experiment_name=EXPERIMENT_NAME)
     nodes = [n1, n2, n3, n4]
     [n.start() for n in nodes]
 
@@ -61,7 +61,7 @@ def test_convergence(x):
     # Node Creation
     nodes = []
     for i in range(n):
-        node = Node(MLP(), MNISTDataModule())
+        node = Node(model=MLP(), data=MNISTDATASET(), idx=i, experiment_name=EXPERIMENT_NAME)
         node.start()
         nodes.append(node)
 
@@ -137,7 +137,7 @@ def test_node_down_on_learning(n):
     # Node Creation
     nodes = []
     for i in range(n):
-        node = Node(MLP(), MNISTDataModule())
+        node = Node(model=MLP(), data=MNISTDATASET(), idx=i, experiment_name=EXPERIMENT_NAME)
         node.start()
         nodes.append(node)
 
@@ -179,8 +179,8 @@ def test_bad_binary_model(two_nodes):
 
 
 def test_wrong_model():
-    n1 = Node(MLP(), MNISTDataModule())
-    n2 = Node(CNN(), MNISTDataModule())
+    n1 = Node(model=MLP(), data=MNISTDATASET(), idx=0, experiment_name=EXPERIMENT_NAME)
+    n2 = Node(model=MLP(), data=MNISTDATASET(), idx=1, experiment_name=EXPERIMENT_NAME)
 
     n1.start()
     n2.start()
@@ -208,7 +208,7 @@ def test_encrypted_convergence(x):
     # Node Creation
     nodes = []
     for i in range(n):
-        node = Node(MLP(), MNISTDataModule(), simulation=False)
+        node = Node(model=MLP(), data=MNISTDATASET(), idx=i, experiment_name=EXPERIMENT_NAME)
         node.start()
         nodes.append(node)
 

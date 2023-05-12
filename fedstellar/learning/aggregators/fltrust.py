@@ -13,7 +13,7 @@ import wandb
 import torch
 from statistics import mean
 
-from typing import List, Dict, OrderedDict
+from typing import List, Dict, OrderedDict, Optional
 
 from pytorch_lightning.loggers import wandb
 
@@ -21,7 +21,7 @@ from fedstellar.learning.aggregators.aggregator import Aggregator
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 
 
-def cosine_similarity(trusted_model: OrderedDict, untrusted_model: OrderedDict):
+def cosine_similarity(trusted_model: OrderedDict, untrusted_model: OrderedDict) -> Optional[float]:
     if trusted_model is None or untrusted_model is None:
         logging.info("Cosine similarity cannot be computed due to missing model")
         return None
@@ -61,7 +61,6 @@ class FlTrust(Aggregator):
         logging.info("Received logger: {}".format(logger))
         logging.info("Received learner: {}".format(learner))
 
-
     def cosine_similarities_last_layer(self, untrusted_models, trusted_model):
         similarities = dict.fromkeys(untrusted_models.keys())
         similarities[self.node_name] = 1
@@ -85,8 +84,6 @@ class FlTrust(Aggregator):
             similarities[client] = relu_cos.item()
 
         return similarities
-
-
 
     def cosine_similarities(self, untrusted_models, trusted_model):
         similarities = dict.fromkeys(untrusted_models.keys())
@@ -175,7 +172,6 @@ class FlTrust(Aggregator):
             loss, metric = self.learner.evaluate_neighbour(model)
             logging.info("Eval at {}: Loss {}, Metric: {}".format(client, loss, metric))
         """
-
 
         # The model of the aggregator serves as a trusted reference
         my_model = models.get(self.node_name)  # change

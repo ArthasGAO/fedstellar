@@ -188,6 +188,9 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["scenario_args"]["rounds"] = int(basic_config["rounds"])
         participant_config["scenario_args"]["n_nodes"] = int(num_nodes)
 
+        # Logging configuration
+        participant_config['tracking_args']['enable_remote_tracking'] = basic_config["remote_tracking"]
+
         participant_config["data_args"]["dataset"] = basic_config["dataset"]
         participant_config["data_args"]["is_iid"] = basic_config["is_iid"]
         participant_config["model_args"]["model"] = basic_config["model"]
@@ -196,9 +199,8 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
         participant_config["adversarial_args"]["attack_env"] = basic_config["attack"]
         participant_config["adversarial_args"]["poisoned_node_persent"] = int(basic_config["poisoned_node_persent"])
-
-        # Logging configuration
-        participant_config['tracking_args']['enable_remote_tracking'] = basic_config["remote_tracking"]
+        participant_config["adversarial_args"]["targeted"] = int(basic_config["targeted"])
+        participant_config["adversarial_args"]["noise_type"] = basic_config["noise_type"]
 
         # Get attack config for each node
         for atts in attack_matrix:

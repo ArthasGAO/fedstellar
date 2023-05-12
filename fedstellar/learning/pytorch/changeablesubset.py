@@ -11,13 +11,16 @@ from torchvision.datasets import MNIST
 import copy
 from fedstellar.attacks.poisoning.labelflipping import labelFlipping
 from fedstellar.attacks.poisoning.datapoison import datapoison
+
+
 class ChangeableSubset(Subset):
     """
     Could change the elements in Subset Class
     """
-    def __init__(self, 
-                 dataset, 
-                 indices, 
+
+    def __init__(self,
+                 dataset,
+                 indices,
                  label_flipping=False,
                  data_poisoning=False,
                  poisoned_persent=0,
@@ -39,14 +42,16 @@ class ChangeableSubset(Subset):
         self.noise_type = noise_type
 
         if self.label_flipping:
-            self.dataset = labelFlipping(self.dataset, self.indices, self.poisoned_persent, self.targeted, self.target_label, self.target_changed_label)
+            self.dataset = labelFlipping(self.dataset, self.indices, self.poisoned_persent, self.targeted,
+                                         self.target_label, self.target_changed_label)
         if self.data_poisoning:
-            self.dataset = datapoison(self.dataset, self.indices, self.poisoned_persent, self.poisoned_ratio, self.targeted, self.target_label, self.noise_type)
-    
+            self.dataset = datapoison(self.dataset, self.indices, self.poisoned_persent, self.poisoned_ratio,
+                                      self.targeted, self.target_label, self.noise_type)
+
     def __getitem__(self, idx):
         if isinstance(idx, list):
             return self.dataset[[self.indices[i] for i in idx]]
         return self.dataset[self.indices[idx]]
-    
+
     def __len__(self):
         return len(self.indices)

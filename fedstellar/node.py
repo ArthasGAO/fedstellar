@@ -390,16 +390,18 @@ class Node(BaseNode):
                     logging.info("[NODE.add_model] Model received from {} --using--> {} in the other node | Now I add the model using self.aggregator.add_model()".format(contributors, '__gossip_model_diffusion' if contributors is None and weight is None else '__gossip_model_aggregation'))
                     if self.learner.check_parameters(decoded_model):
 
+                        # START CUSTOMIZED
                         logging.info("Evaluating received model... \n")
 
                         tmp_learner: LightningLearner = copy.deepcopy(self.learner)
                         tmp_learner.set_parameters(decoded_model)
-                        loss, metric = tmp_learner.evaluate_neighbour()
-                        logging.info("Decoded Model: loss: {}, metric: {}\n".format(loss, metric))
+                        val_loss, val_acc = tmp_learner.validate_neighbour()
+                        logging.info("Decoded Model: val_loss: {}, val_acc: {}\n".format(val_loss, val_acc))
                         if contributors is not None:
                             for neighbour in contributors:
-                                mapping = {f'loss@{neighbour}': loss}
-                                # self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
+                                mapping = {f'val_loss@{neighbour}': val_loss,
+                                           f'val_acc@{neighbour}': val_acc}
+                                self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
 
                         my_model = self.learner.get_parameters()
                         similarity = cosine_similarity(my_model, decoded_model)
@@ -409,6 +411,7 @@ class Node(BaseNode):
                                              .format(neighbour, self.logger.local_step, similarity))
                                 mapping = {f'cos@{neighbour}': similarity}
                                 self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
+                        # START CUSTOMIZED
 
                         models_added = self.aggregator.add_model(
                             decoded_model, contributors, weight
@@ -670,6 +673,10 @@ class Node(BaseNode):
     def __evaluate(self):
         logging.info("[NODE.__evaluate] Start evaluation...")
         results = self.learner.evaluate()
+
+        # TODO [jba]: fix dataloader issue
+        # self.learner.evaluate_backdoor()
+
         if results is not None:
             logging.warning(
                 "[NODE] Evaluated. Losss: {}, Metric: {}".format(

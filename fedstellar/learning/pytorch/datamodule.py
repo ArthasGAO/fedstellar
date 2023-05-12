@@ -13,9 +13,9 @@ from torch.utils.data import DataLoader, Subset, random_split
 from torchvision import transforms
 from torchvision.datasets import FashionMNIST
 from fedstellar.learning.pytorch.changeablesubset import ChangeableSubset
+
 torch.multiprocessing.set_sharing_strategy("file_system")
 import pickle as pk
-
 
 
 class DataModule(LightningDataModule):
@@ -30,15 +30,14 @@ class DataModule(LightningDataModule):
         val_percent: The percentage of the validation set.
     """
 
-
     def __init__(
             self,
             trainset,
             testset,
             sub_id=0,
             number_sub=1,
-            batch_size=32,            
-            num_workers=8,
+            batch_size=32,
+            num_workers=1,
             val_percent=0.1,
             label_flipping=False,
             data_poisoning=False,
@@ -67,7 +66,6 @@ class DataModule(LightningDataModule):
         self.noise_type = noise_type,
         self.indices_dir = indices_dir
 
-
         if self.sub_id + 1 > self.number_sub:
             raise ("Not exist the subset {}".format(self.sub_id))
 
@@ -75,7 +73,8 @@ class DataModule(LightningDataModule):
         rows_by_sub = floor(len(trainset) / self.number_sub)
         tr_subset = ChangeableSubset(
             trainset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub), \
-            label_flipping=self.label_flipping, data_poisoning=self.data_poisoning, poisoned_persent=self.poisoned_persent, \
+            label_flipping=self.label_flipping, data_poisoning=self.data_poisoning,
+            poisoned_persent=self.poisoned_persent, \
             poisoned_ratio=self.poisoned_ratio, targeted=self.targeted, target_label=self.target_label, \
             target_changed_label=self.target_changed_label, noise_type=self.noise_type
         )
@@ -95,20 +94,20 @@ class DataModule(LightningDataModule):
 
         if len(testset) < self.number_sub:
             raise ("Too much partitions")
-        
-        #Save indices to local files
-        train_indices_filename =  f"{self.indices_dir}/participant_{self.sub_id}_train_indices.pk"
-        valid_indices_filename =  f"{self.indices_dir}/participant_{self.sub_id}_valid_indices.pk"
-        test_indices_filename =  f"{self.indices_dir}/participant_{self.sub_id}_test_indices.pk"
+
+        # Save indices to local files
+        train_indices_filename = f"{self.indices_dir}/participant_{self.sub_id}_train_indices.pk"
+        valid_indices_filename = f"{self.indices_dir}/participant_{self.sub_id}_valid_indices.pk"
+        test_indices_filename = f"{self.indices_dir}/participant_{self.sub_id}_test_indices.pk"
 
         with open(train_indices_filename, 'wb') as f:
-            pk.dump(data_train.indices,f)
+            pk.dump(data_train.indices, f)
             f.close
         with open(valid_indices_filename, 'wb') as f:
-            pk.dump(data_val.indices,f)
+            pk.dump(data_val.indices, f)
             f.close
         with open(test_indices_filename, 'wb') as f:
-            pk.dump(te_subset.indices,f)
+            pk.dump(te_subset.indices, f)
             f.close
 
         # DataLoaders
@@ -147,10 +146,3 @@ class DataModule(LightningDataModule):
     def test_dataloader(self):
         """ """
         return self.test_loader
-
-
-# if __name__ == "__main__":
-#     dm = DataModule()
-#     print(dm.train_dataloader())
-#     print(dm.val_dataloader())
-#     print(dm.test_dataloader())

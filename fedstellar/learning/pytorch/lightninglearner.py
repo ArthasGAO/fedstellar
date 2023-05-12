@@ -126,21 +126,24 @@ class LightningLearner(NodeLearner):
             logging.error("Something went wrong with pytorch lightning. {}".format(e))
             return None
 
-    def evaluate_neighbour(self):
+    def validate_neighbour(self):
         try:
             if self.epochs > 0:
-                self.create_trainer()
-                results = self.__trainer.test(self.model, self.data)
-                loss = results[0]["Test/Loss"]
-                metric = results[0]["Test/Accuracy"]
+                self.create_trainer_no_logging()
+                # results = self.__trainer.validate(self.model, self.data)
+                # loss = results[0]["Test/Loss"]
+                # metric = results[0]["Test/Accuracy"]
+                results = self.__trainer.validate(self.model, self.data, verbose=False)
+                loss = results[0]["Validation/Loss"]
+                metric = results[0]["Validation/Accuracy"]
                 self.__trainer = None
                 # self.log_validation_metrics(loss, metric, self.round)
                 return loss, metric
             else:
-                return None
+                return None, None
         except Exception as e:
             logging.error("Something went wrong with pytorch lightning. {}".format(e))
-            return None
+            return None, None
 
     def log_validation_metrics(self, loss, metric, round=None, name=None):
         self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
@@ -165,6 +168,15 @@ class LightningLearner(NodeLearner):
         self.logger.local_step = 0
         pass
 
+    def evaluate_backdoor(self):
+        self.create_trainer_no_logging()
+        logging.info("dataloader: ".format(type(self.data)))
+        logging.info(self.data.test_dataloader())
+        logging.info(self.model)
+        logging.info(type(self.model))
+        predictions = self.__trainer.predict(self.model, self.data)
+        logging.info("Evaluating backdoors. Predictions: ".format(predictions))
+
     def create_trainer(self):
         logging.info("[Learner] Creating trainer with accelerator: {}".format(
             self.config.participant["device_args"]["accelerator"]))
@@ -180,4 +192,20 @@ class LightningLearner(NodeLearner):
             enable_checkpointing=False,
             enable_model_summary=False,
             enable_progress_bar=True,
+        )
+
+    def create_trainer_no_logging(self):
+        logging.info("[Learner] Creating trainer (logger disabled) with accelerator: {}".format(
+            self.config.participant["device_args"]["accelerator"]))
+        self.__trainer = Trainer(
+            callbacks=[ModelSummary(max_depth=1)],
+            max_epochs=self.epochs,
+            accelerator=self.config.participant["device_args"]["accelerator"],
+            devices=self.config.participant["device_args"]["devices"] if self.config.participant["device_args"][
+                                                                             "accelerator"] != "cpu" else None,
+            # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
+            logger=False,
+            enable_checkpointing=False,
+            enable_model_summary=False,
+            enable_progress_bar=False,
         )

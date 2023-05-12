@@ -52,7 +52,7 @@
   },
   "adversarial_args": {
     "attacks": "No Attack",
-    "targeted": true,
+    "targeted": false,
     "poisoned_sample_persent": 0,
     "poisoned_ratio": 0,
     "poisoned_node_persent": 0,

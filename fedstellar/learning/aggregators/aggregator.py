@@ -6,7 +6,9 @@
 
 import logging
 import threading
+from typing import Dict, OrderedDict, List
 
+from fedstellar.learning.modelmetrics import ModelMetrics
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.role import Role
 from fedstellar.utils.observer import Events, Observable
@@ -105,14 +107,14 @@ class Aggregator(threading.Thread, Observable):
         """
         return self.__waiting_aggregated_model
 
-    def add_model(self, model, nodes, weight):
+    def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
         """
         Add a model. The first model to be added starts the `run` method (timeout).
 
         Args:
             model: Model to add.
             nodes: Nodes that collaborated to get the model.
-            weight: Number of samples used to get the model.
+            metrics: ModelMetrics
         """
         logging.info("[Aggregator.add_model] Entry point")
         logging.info("[Aggregator.add_model] Nodes who contributed to the model: {}".format(nodes))
@@ -149,7 +151,7 @@ class Aggregator(threading.Thread, Observable):
                     # Check if all nodes are not aggregated
                     if all([n not in models_added for n in nodes]):
                         # Aggregate model
-                        self.__models[" ".join(nodes)] = (model, weight)
+                        self.__models[" ".join(nodes)] = (model, metrics)
                         logging.info(
                             "[Aggregator] Model added ({}/{}) from {}".format(
                                 str(len(models_added) + len(nodes)),
@@ -187,27 +189,33 @@ class Aggregator(threading.Thread, Observable):
             except_nodes: Nodes to exclude.
 
         Returns:
-            (model, nodes, weight): Model, nodes and number of samples for the partial aggregation.
+            (model, nodes, weights): Model, nodes and number of samples for the partial aggregation.
         """
         logging.info(
             "[Aggregator] Getting partial aggregation from {}, except {}".format(self.__models.keys(), except_nodes))
         dict_aux = {}
         nodes_aggregated = []
-        aggregation_weight = 0
+        total_samples = 0
         models = self.__models.copy()
-        for n, (m, s) in list(models.items()):
-            splited_nodes = n.split()
-            if all([n not in except_nodes for n in splited_nodes]):
-                dict_aux[n] = (m, s)
-                nodes_aggregated += splited_nodes
-                aggregation_weight += s
+
+        node: str
+        model: OrderedDict
+        metrics: ModelMetrics
+        for node, (model, metrics) in list(models.items()):
+            split_nodes = node.split()
+            if all([node not in except_nodes for node in split_nodes]):
+                dict_aux[node] = (model, metrics)
+                nodes_aggregated += split_nodes
+                total_samples += metrics.samples
 
         # If there are no models to aggregate
         if len(dict_aux) == 0:
             logging.info("[Aggregator.get_partial_aggregation] No models to aggregate")
             return None, None, None
 
-        return (self.aggregate(dict_aux), nodes_aggregated, aggregation_weight)
+        aggregated_model = self.aggregate(dict_aux)
+
+        return aggregated_model, nodes_aggregated, ModelMetrics(samples=total_samples)
 
     def check_and_run_aggregation(self, force=False):
         """

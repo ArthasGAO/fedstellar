@@ -9,6 +9,7 @@ import logging
 import torch
 
 from fedstellar.learning.aggregators.aggregator import Aggregator
+from fedstellar.learning.modelmetrics import ModelMetrics
 
 
 class FedAvg(Aggregator):
@@ -47,7 +48,13 @@ class FedAvg(Aggregator):
         models = list(models.values())
 
         # Total Samples
-        total_samples = sum([y for _, y in models])
+        y: ModelMetrics
+        total_samples = sum([y.samples for _, y in models])
+
+        if total_samples == 0:
+            logging.error("FedAvg: Did not receive sample metrics")
+        else:
+            logging.info("[FedAvg.aggregate]: aggregating with {} samples".format(total_samples))
 
         # Create a Zero Model
         accum = (models[-1][0]).copy()
@@ -56,9 +63,10 @@ class FedAvg(Aggregator):
 
         # Add weighteds models
         logging.info("[FedAvg.aggregate] Aggregating models: num={}".format(len(models)))
-        for m, w in models:
-            for layer in m:
-                accum[layer] = accum[layer] + m[layer] * w
+        metrics: ModelMetrics
+        for model, metrics in models:
+            for layer in model:
+                accum[layer] = accum[layer] + model[layer] * metrics.samples
 
         # Normalize Accum
         for layer in accum:

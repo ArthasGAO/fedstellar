@@ -19,6 +19,7 @@ from fedstellar.learning.learner import NodeLearner
 ###########################
 #    LightningLearner     #
 ###########################
+from fedstellar.learning.modelmetrics import ModelMetrics
 
 
 class LightningLearner(NodeLearner):
@@ -56,20 +57,23 @@ class LightningLearner(NodeLearner):
     def set_data(self, data):
         self.data = data
 
-    def encode_parameters(self, params=None, contributors=None, weight=None):
+    def encode_parameters(self, params=None, contributors=None, metrics=None):
         if params is None:
             params = self.model.state_dict()
+        if metrics is None:
+            metrics = ModelMetrics()
         array = [val.cpu().numpy() for _, val in params.items()]
-        return pickle.dumps((array, contributors, weight))
+        return pickle.dumps((array, contributors, metrics))
 
     def decode_parameters(self, data):
         try:
-            params, contributors, weight = pickle.loads(data)
+            params, contributors, metrics = pickle.loads(data)
+
             params_dict = zip(self.model.state_dict().keys(), params)
             return (
                 OrderedDict({k: torch.tensor(v) for k, v in params_dict}),
                 contributors,
-                weight,
+                metrics,
             )
         except DecodingParamsError:
             raise DecodingParamsError("Error decoding parameters")

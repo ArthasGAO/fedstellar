@@ -42,7 +42,7 @@ noise_type_list = ["salt", "gaussian", "s&p"]
 poisoned_ratio_list = [20]
 
 # aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust"]
-aggregation_list = ["FlTrust"]
+aggregation_list = ["FedAvg"]
 
 targeted_list = [True, False]
 
@@ -83,7 +83,7 @@ basic_config["n_nodes"] = n_nodes
 basic_config["poisoned_node_persent"] = poisoned_node
 basic_config["poisoned_sample_persent"] = poisoned_sample
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[2]
+attack = attack_list[0]
 
 with open(basic_config_path, "w") as f:
     json.dump(basic_config, f)

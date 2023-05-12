@@ -16,7 +16,7 @@ class NodeLearner:
 
     def set_model(self, model):
         """
-        Set the model of the learner. (not wheights)
+        Set the model of the learner. (not weights)
 
         Args:
             model: The model of the learner.
@@ -35,7 +35,7 @@ class NodeLearner:
         """
         pass
 
-    def encode_parameters(self, params=None, contributors=None, weight=None):
+    def encode_parameters(self, params=None, contributors=None, metrics=None):
         """
         Encode the parameters of the model. (binary)
         If params are not provided, self parameters are encoded.
@@ -43,10 +43,10 @@ class NodeLearner:
         Args:
             params: The parameters of the model. (non-binary)
             contributors: The contributors of the model.
-            weight: The weight of the model.
+            metrics: The metrics of the model.
 
         Returns:
-            The encoded parameters of the model (params, contributors, weight).
+            The encoded parameters of the model (params, contributors, metrics).
         """
         pass
 
@@ -58,7 +58,7 @@ class NodeLearner:
             data: The encoded parameters of the model.
 
         Returns:
-            The decoded parameters of the model. (params, contributors, weight)
+            The decoded parameters of the model. (params, contributors, metrics)
 
         Raises:
             DecodingParamsError: If the decoding of the parameters fails.

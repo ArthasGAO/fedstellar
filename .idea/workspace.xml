@@ -4,24 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="fix bug in creation of topo matrix.">
-      <change afterPath="$PROJECT_DIR$/fedstellar/evaluation/wandb_export_2023-05-10_labelflip.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fedstellar/evaluation/wandb_export_2023-05-10_labelflipping.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fedstellar/evaluation/wandb_export_2023-05-10_samplepoison.csv" afterDir="false" />
+    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="extend evaluation pipeline.">
+      <change afterPath="$PROJECT_DIR$/fedstellar/learning/modelmetrics.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/basic_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/basic_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/config/participant.json.example" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/config/participant.json.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/evaluation/analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/evaluation/analysis.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/evaluation/wandb_export_2023-04-27T14_08_50.948+02_00.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/changeablesubset.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/changeablesubset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/fashionmnist/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/fashionmnist/models/mlp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/aggregators/aggregator.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/aggregators/aggregator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/aggregators/fedavg.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/aggregators/fedavg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/learner.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/learner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/node.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/start_without_webserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/start_without_webserver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/test_bed.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/test_bed.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/webserver/config/participant.json.example" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/webserver/config/participant.json.example" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +235,7 @@
       <workItem from="1682962156077" duration="24542000" />
       <workItem from="1683185666049" duration="29602000" />
       <workItem from="1683295414664" duration="9004000" />
-      <workItem from="1683360469765" duration="96014000" />
+      <workItem from="1683360469765" duration="106298000" />
     </task>
     <task id="LOCAL-00001" summary="prepare evaluations.">
       <created>1682422668051</created>
@@ -329,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683635402419</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="extend evaluation pipeline.">
+      <created>1683886818965</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1683886818965</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,14 +367,15 @@
     <MESSAGE value="integrate iid parameter." />
     <MESSAGE value="improve similarity logging and loss evaluation." />
     <MESSAGE value="fix bug in creation of topo matrix." />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bug in creation of topo matrix." />
+    <MESSAGE value="extend evaluation pipeline." />
+    <option name="LAST_COMMIT_MESSAGE" value="extend evaluation pipeline." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py</url>
-          <line>35</line>
+          <line>36</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -400,7 +400,7 @@
     <SUITE FILE_PATH="coverage/fedstellar_robust$gpu_test.coverage" NAME="gpu_test Coverage Results" MODIFIED="1682429500076" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$.coverage" NAME=" Coverage Results" MODIFIED="1682670850470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$start_without_webserver.coverage" NAME="start_without_webserver Coverage Results" MODIFIED="1683105333427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
-    <SUITE FILE_PATH="coverage/fedstellar_robust$aggregator.coverage" NAME="aggregator Coverage Results" MODIFIED="1682670895572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar/learning/aggregators" />
-    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1683818672631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$aggregator.coverage" NAME="aggregator Coverage Results" MODIFIED="1683891182637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar/learning/aggregators" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1683895356348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
   </component>
 </project>

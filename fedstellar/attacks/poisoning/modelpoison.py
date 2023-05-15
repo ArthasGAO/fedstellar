@@ -30,7 +30,7 @@ def modelpoison(model: OrderedDict, poisoned_ratio, noise_type="gaussian"):
             # Replaces random pixels with either 1 or low_val, where low_val is 0 for unsigned images or -1 for signed images.
             poisoned = torch.tensor(random_noise(t, mode=noise_type, amount=poisoned_ratio))
         else:
-            print("ERROR: poison attack type not supported.")
+            print("ERROR: @modelpoisoning: poison attack type not supported.")
             poisoned = t
         if single_point:
             poisoned = poisoned[0]

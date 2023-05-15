@@ -58,7 +58,7 @@
     "poisoned_node_persent": 0,
     "target_label": 0,
     "target_changed_label": 0,
-    "noise_type": "salt",
+    "noise_type": "gaussian",
     "attack_env": "No Attack"
   },
   "tracking_args": {

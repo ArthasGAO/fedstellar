@@ -46,7 +46,7 @@ class DataModule(LightningDataModule):
             targeted=False,
             target_label=0,
             target_changed_label=0,
-            noise_type="salt",
+            noise_type: str = "salt",
             indices_dir=None
     ):
         super().__init__()
@@ -63,7 +63,7 @@ class DataModule(LightningDataModule):
         self.targeted = targeted
         self.target_label = target_label
         self.target_changed_label = target_changed_label
-        self.noise_type = noise_type,
+        self.noise_type = noise_type
         self.indices_dir = indices_dir
 
         if self.sub_id + 1 > self.number_sub:
@@ -72,10 +72,10 @@ class DataModule(LightningDataModule):
         # Training / validation set
         rows_by_sub = floor(len(trainset) / self.number_sub)
         tr_subset = ChangeableSubset(
-            trainset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub), \
+            trainset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub),
             label_flipping=self.label_flipping, data_poisoning=self.data_poisoning,
-            poisoned_persent=self.poisoned_persent, \
-            poisoned_ratio=self.poisoned_ratio, targeted=self.targeted, target_label=self.target_label, \
+            poisoned_persent=self.poisoned_persent,
+            poisoned_ratio=self.poisoned_ratio, targeted=self.targeted, target_label=self.target_label,
             target_changed_label=self.target_changed_label, noise_type=self.noise_type
         )
         data_train, data_val = random_split(
@@ -102,13 +102,13 @@ class DataModule(LightningDataModule):
 
         with open(train_indices_filename, 'wb') as f:
             pk.dump(data_train.indices, f)
-            f.close
+            f.close()
         with open(valid_indices_filename, 'wb') as f:
             pk.dump(data_val.indices, f)
-            f.close
+            f.close()
         with open(test_indices_filename, 'wb') as f:
             pk.dump(te_subset.indices, f)
-            f.close
+            f.close()
 
         # DataLoaders
         self.train_loader = DataLoader(

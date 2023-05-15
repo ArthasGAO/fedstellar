@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="fix aggregators with new generalized metrics.">
+    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="adapt new neighbour model eval.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/attacks/poisoning/datapoison.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/attacks/poisoning/datapoison.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/attacks/poisoning/modelpoison.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/attacks/poisoning/modelpoison.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/basic_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/basic_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/evaluation/analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/evaluation/analysis.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/aggregators/aggregator.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/aggregators/aggregator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/aggregators/fedavg.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/aggregators/fedavg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/aggregators/fltrust.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/aggregators/fltrust.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/modelmetrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/modelmetrics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/node.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/config/participant.json.example" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/config/participant.json.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/fashionmnist/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/fashionmnist/models/mlp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/node_start.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node_start.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/test_bed.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/test_bed.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +71,9 @@
       </RepoCoordinatesHolder>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file:///opt/homebrew/anaconda3/envs/fedstellar2/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -90,7 +93,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -207,17 +210,17 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.test_bed" />
       <item itemvalue="Python.start_without_webserver" />
-      <item itemvalue="Python.gpu_test" />
+      <item itemvalue="Python.test_bed" />
       <item itemvalue="Python.aggregator" />
+      <item itemvalue="Python.gpu_test" />
       <item itemvalue="Python tests.Python tests in learning_test.py" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.aggregator" />
         <item itemvalue="Python tests.Python tests in learning_test.py" />
         <item itemvalue="Python.gpu_test" />
+        <item itemvalue="Python.aggregator" />
       </list>
     </recent_temporary>
   </component>
@@ -238,7 +241,9 @@
       <workItem from="1683185666049" duration="29602000" />
       <workItem from="1683295414664" duration="9004000" />
       <workItem from="1683360469765" duration="115049000" />
-      <workItem from="1683985517200" duration="16563000" />
+      <workItem from="1683985517200" duration="18126000" />
+      <workItem from="1684137332129" duration="395000" />
+      <workItem from="1684137740152" duration="3929000" />
     </task>
     <task id="LOCAL-00001" summary="prepare evaluations.">
       <created>1682422668051</created>
@@ -345,7 +350,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683900800167</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="adapt new neighbour model eval.">
+      <created>1684134135228</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1684134135228</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -387,7 +399,8 @@
     <MESSAGE value="extend evaluation pipeline." />
     <MESSAGE value="generalize model metrics handling for extension." />
     <MESSAGE value="fix aggregators with new generalized metrics." />
-    <option name="LAST_COMMIT_MESSAGE" value="fix aggregators with new generalized metrics." />
+    <MESSAGE value="adapt new neighbour model eval." />
+    <option name="LAST_COMMIT_MESSAGE" value="adapt new neighbour model eval." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -412,6 +425,11 @@
           <line>93</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/fedstellar/node_start.py</url>
+          <line>161</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -420,6 +438,6 @@
     <SUITE FILE_PATH="coverage/fedstellar_robust$.coverage" NAME=" Coverage Results" MODIFIED="1682670850470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$start_without_webserver.coverage" NAME="start_without_webserver Coverage Results" MODIFIED="1683105333427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$aggregator.coverage" NAME="aggregator Coverage Results" MODIFIED="1683891182637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar/learning/aggregators" />
-    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1684133654068" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1684141608727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
   </component>
 </project>

@@ -38,7 +38,7 @@ def datapoison(dataset, indices, poisoned_persent, poisoned_ratio, targeted=Fals
                 # for NLP data, change the word vector to 0 with p=poisoned_ratio
                 poisoned = poison_to_nlp_rawdata(t, poisoned_ratio)
             else:
-                print("ERROR: poison attack type not supported.")
+                print("ERROR: @datapoisoning: poison attack type not supported.")
                 poisoned = t
             train_data[i] = poisoned 
     else:

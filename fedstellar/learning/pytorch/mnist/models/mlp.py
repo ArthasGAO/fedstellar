@@ -1,8 +1,10 @@
+import logging
+
 import pytorch_lightning as pl
 import torch
 from pytorch_lightning.utilities.types import EPOCH_OUTPUT
 from torch.nn import functional as F
-from torchmetrics import Accuracy
+from torchmetrics import Accuracy, ConfusionMatrix
 
 
 ###############################
@@ -80,6 +82,8 @@ class MLP(pl.LightningModule):
         logits = self(x)
         loss = F.cross_entropy(self(x), y)
         out = torch.argmax(logits, dim=1)
+        confmat = ConfusionMatrix(task="multiclass", num_classes=10)
+        logging.info(confmat(out, y))
         metric = self.metric(out, y)
         self.log("Test/Loss", loss, prog_bar=True)
         self.log("Test/Accuracy", metric, prog_bar=True)

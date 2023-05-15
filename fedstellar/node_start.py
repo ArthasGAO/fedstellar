@@ -59,18 +59,18 @@ def main():
     attacks = config.participant["adversarial_args"]["attacks"]
     poisoned_persent = config.participant["adversarial_args"]["poisoned_sample_persent"]
     poisoned_ratio = config.participant["adversarial_args"]["poisoned_ratio"]
-    targeted=str(config.participant["adversarial_args"]["targeted"])
-    target_label=config.participant["adversarial_args"]["target_label"]
-    target_changed_label=config.participant["adversarial_args"]["target_changed_label"]
-    noise_type=config.participant["adversarial_args"]["noise_type"]
+    targeted = str(config.participant["adversarial_args"]["targeted"])
+    target_label = config.participant["adversarial_args"]["target_label"]
+    target_changed_label = config.participant["adversarial_args"]["target_changed_label"]
+    noise_type = config.participant["adversarial_args"]["noise_type"]
 
     dataset = config.participant["data_args"]["dataset"]
     is_iid = config.participant["data_args"]["is_iid"]
 
     indices_dir = config.participant['tracking_args']["model_dir"]
-    label_flipping=False
-    data_poisoning=False
-    model_poisoning=False
+    label_flipping = False
+    data_poisoning = False
+    model_poisoning = False
 
     # config of attacks
     if attacks == "Label Flipping":
@@ -161,10 +161,11 @@ def main():
     else:
         raise ValueError(f"Aggregation algorithm {aggregation_algorithm} not supported")
 
-    dataset = DataModule(dataset.trainset, dataset.testset, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir,\
-                        label_flipping=label_flipping, data_poisoning=data_poisoning, poisoned_persent=poisoned_persent, \
-                        poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label, \
-                        target_changed_label=target_changed_label, noise_type=noise_type)
+    dataset = DataModule(dataset.trainset, dataset.testset, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir,
+                         label_flipping=label_flipping, data_poisoning=data_poisoning,
+                         poisoned_persent=poisoned_persent,
+                         poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label,
+                         target_changed_label=target_changed_label, noise_type=noise_type)
 
     node = Node(
         idx=idx,

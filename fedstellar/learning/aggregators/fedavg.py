@@ -5,6 +5,7 @@
 
 
 import logging
+from typing import Dict
 
 import torch
 
@@ -29,7 +30,7 @@ class FedAvg(Aggregator):
         Ponderated average of the models.
 
         Args:
-            models: Dictionary with the models (node: model,num_samples).
+            models: Dictionary with the models (node: model, metrics).
         """
         # Check if there are models to aggregate
         if len(models) == 0:
@@ -45,11 +46,16 @@ class FedAvg(Aggregator):
                 pickle.dump(models, handle, protocol=pickle.HIGHEST_PROTOCOL)
         """
 
+        for node, msg in models.items():
+            params = msg[0]
+            metrics: ModelMetrics = msg[1]
+            logging.info("FedAvg model metrics: {}".format(metrics))
+
         models = list(models.values())
 
         # Total Samples
         y: ModelMetrics
-        total_samples = sum([y.samples for _, y in models])
+        total_samples = sum([y.num_samples for _, y in models])
 
         if total_samples == 0:
             logging.error("FedAvg: Did not receive sample metrics")
@@ -66,7 +72,7 @@ class FedAvg(Aggregator):
         metrics: ModelMetrics
         for model, metrics in models:
             for layer in model:
-                accum[layer] = accum[layer] + model[layer] * metrics.samples
+                accum[layer] = accum[layer] + model[layer] * metrics.num_samples
 
         # Normalize Accum
         for layer in accum:

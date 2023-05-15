@@ -134,14 +134,10 @@ class LightningLearner(NodeLearner):
         try:
             if self.epochs > 0:
                 self.create_trainer_no_logging()
-                # results = self.__trainer.validate(self.model, self.data)
-                # loss = results[0]["Test/Loss"]
-                # metric = results[0]["Test/Accuracy"]
                 results = self.__trainer.validate(self.model, self.data, verbose=False)
                 loss = results[0]["Validation/Loss"]
                 metric = results[0]["Validation/Accuracy"]
                 self.__trainer = None
-                # self.log_validation_metrics(loss, metric, self.round)
                 return loss, metric
             else:
                 return None, None

@@ -4,9 +4,10 @@ from typing import List, OrderedDict
 
 @dataclass
 class ModelMetrics:
-    samples: int = 0
-    loss: float = 0
-    similarity: float = 0
+    num_samples: int = 0
+    validation_loss: float = 0
+    cosine_similarity: float = 0
+    validation_accuracy: float = 0
 
 """
 @dataclass

@@ -32,7 +32,7 @@ model_list = ["MLP", "CNN", "RNN"]
 federation_list = ["DFL", "CFL"]
 topology_list = ["star", "fully", "ring", "random"]
 # topology_list = ["star"]
-attack_list = ["Label Flipping", "Sample Poisoning", "Model Poisoning"]
+# attack_list = ["Label Flipping", "Sample Poisoning", "Model Poisoning"]
 
 # poisoned_node_persent_list = [20, 40, 60, 80, 100]
 poisoned_node_persent_list = [40]  # 60 80
@@ -40,9 +40,6 @@ poisoned_sample_persent_list = [100]
 noise_type_list = ["salt", "gaussian", "s&p"]
 # poisoned_ratio_list = [1, 10, 20]
 poisoned_ratio_list = [20]
-
-# aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust"]
-aggregation_list = ["FedAvg"]
 
 targeted_list = [True, False]
 
@@ -54,7 +51,6 @@ start_port = 46500
 dataset = dataset_list[2]
 model = model_list[0]
 federation = federation_list[0]
-aggregation = aggregation_list[0]
 topology = topology_list[1]
 poisoned_node = poisoned_node_persent_list[0]
 poisoned_sample = poisoned_sample_persent_list[0]
@@ -77,13 +73,16 @@ basic_config["model"] = model
 
 # basic_config["scenario_title"] = scenario_title
 basic_config["federation"] = federation
-basic_config["aggregation"] = aggregation
+
 basic_config["topology"] = topology
 basic_config["n_nodes"] = n_nodes
 basic_config["poisoned_node_persent"] = poisoned_node
 basic_config["poisoned_sample_persent"] = poisoned_sample
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[0]
+attack = attack_list[2]
+
+# aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust"]
+aggregation_list = ["FlTrust"]
 
 with open(basic_config_path, "w") as f:
     json.dump(basic_config, f)
@@ -147,7 +146,7 @@ if attack == "Sample Poisoning":
             for node_persent in poisoned_node_persent_list:
                 for poisoned_sample_persent in poisoned_sample_persent_list:
 
-                    basic_config["attack"] = "Label Flipping"
+                    basic_config["attack"] = "Sample Poisoning"
                     basic_config["aggregation"] = aggregation
                     basic_config["poisoned_node_persent"] = node_persent
                     basic_config["poisoned_sample_persent"] = poisoned_sample
@@ -173,7 +172,7 @@ if attack == "Label Flipping":
                 for poisoned_sample_persent in poisoned_sample_persent_list:
                     # for poisoned_ratio in poisoned_ratio_list:
 
-                    basic_config["attack"] = "Sample Poisoning"
+                    basic_config["attack"] = "Label Flipping"
                     basic_config["aggregation"] = aggregation
                     basic_config["poisoned_node_persent"] = node_persent
                     basic_config["poisoned_sample_persent"] = poisoned_sample_persent

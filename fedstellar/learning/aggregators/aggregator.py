@@ -1,9 +1,8 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
-# 
-
-
+#
+import copy
 import logging
 import threading
 from typing import Dict, OrderedDict, List
@@ -120,6 +119,7 @@ class Aggregator(threading.Thread, Observable):
         logging.info("[Aggregator.add_model] Nodes who contributed to the model: {}".format(nodes))
         # if self.__waiting_aggregated_model and self.__stored_models is not None:
         #    self.notify(Events.STORE_MODEL_PARAMETERS_EVENT, model)
+        logging.info("Aggregator: nodes {} current metrics: {}".format(nodes, metrics))
         if self.__waiting_aggregated_model:
             logging.info("[Aggregator] Received an aggregated model from {} --> Overwriting local model".format(nodes))
             # Check if a node aggregator is in the list of nodes
@@ -196,7 +196,7 @@ class Aggregator(threading.Thread, Observable):
         dict_aux = {}
         nodes_aggregated = []
         total_samples = 0
-        models = self.__models.copy()
+        models = copy.deepcopy(self.__models)
 
         node: str
         model: OrderedDict
@@ -206,7 +206,7 @@ class Aggregator(threading.Thread, Observable):
             if all([node not in except_nodes for node in split_nodes]):
                 dict_aux[node] = (model, metrics)
                 nodes_aggregated += split_nodes
-                total_samples += metrics.samples
+                total_samples += metrics.num_samples
 
         # If there are no models to aggregate
         if len(dict_aux) == 0:
@@ -215,7 +215,7 @@ class Aggregator(threading.Thread, Observable):
 
         aggregated_model = self.aggregate(dict_aux)
 
-        return aggregated_model, nodes_aggregated, ModelMetrics(samples=total_samples)
+        return aggregated_model, nodes_aggregated, ModelMetrics(num_samples=total_samples)
 
     def check_and_run_aggregation(self, force=False):
         """

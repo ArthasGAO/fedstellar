@@ -8,6 +8,7 @@ import logging
 import math
 import os
 from datetime import datetime, timedelta
+from typing import List, OrderedDict
 
 from fedstellar.learning.aggregators.fltrust import FlTrust, cosine_similarity
 from fedstellar.learning.aggregators.pseudo import PseudoAggregator
@@ -376,6 +377,38 @@ class Node(BaseNode):
     #         Model Aggregation        #
     ####################################
 
+    def compute_model_metrics(self, contributors: List, model_params: OrderedDict, current_metrics: ModelMetrics):
+
+        # START CUSTOMIZED
+        logging.info("Evaluating received model... \n")
+
+        tmp_learner: LightningLearner = copy.deepcopy(self.learner)
+        tmp_learner.set_parameters(model_params)
+        val_loss, val_acc = tmp_learner.validate_neighbour()
+        logging.info("Decoded Model: val_loss: {}, val_acc: {}\n".format(val_loss, val_acc))
+        if contributors is not None:
+            for neighbour in contributors:
+                if neighbour != self.get_name():
+                    mapping = {f'val_loss@{neighbour}': val_loss,
+                               f'val_acc@{neighbour}': val_acc}
+                    self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
+
+        my_model = self.learner.get_parameters()
+        cos_similarity: float = cosine_similarity(my_model, model_params)
+        if contributors is not None:
+            for neighbour in contributors:
+                logging.info("Similarity for neighbour {} at step {}: {}"
+                             .format(neighbour, self.logger.local_step, cos_similarity))
+                if neighbour != self.get_name():
+                    mapping = {f'cos@{neighbour}': cos_similarity}
+                    self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
+
+        current_metrics.cosine_similarity = cos_similarity
+        current_metrics.validation_loss = val_loss
+        current_metrics.validation_accuracy = val_acc
+
+        return current_metrics
+
     def add_model(self, m):
         """
         Add a model. If the model isn't inicializated, the recieved model is used for it. Otherwise, the model is aggregated using the **aggregator**.
@@ -401,28 +434,7 @@ class Node(BaseNode):
                     if self.learner.check_parameters(decoded_model):
 
                         # START CUSTOMIZED
-                        logging.info("Evaluating received model... \n")
-
-                        tmp_learner: LightningLearner = copy.deepcopy(self.learner)
-                        tmp_learner.set_parameters(decoded_model)
-                        val_loss, val_acc = tmp_learner.validate_neighbour()
-                        logging.info("Decoded Model: val_loss: {}, val_acc: {}\n".format(val_loss, val_acc))
-                        if contributors is not None:
-                            for neighbour in contributors:
-                                mapping = {f'val_loss@{neighbour}': val_loss,
-                                           f'val_acc@{neighbour}': val_acc}
-                                self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
-
-                        my_model = self.learner.get_parameters()
-                        cos_similarity: float = cosine_similarity(my_model, decoded_model)
-                        if contributors is not None:
-                            for neighbour in contributors:
-                                logging.info("Similarity for neighbour {} at step {}: {}"
-                                             .format(neighbour, self.logger.local_step, cos_similarity))
-                                mapping = {f'cos@{neighbour}': cos_similarity}
-                                self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
-
-                        metrics.similarity = cos_similarity
+                        new_metrics = self.compute_model_metrics(contributors, decoded_model, metrics)
                         # END CUSTOMIZED
 
                         models_added = self.aggregator.add_model(
@@ -513,10 +525,16 @@ class Node(BaseNode):
             # Aggregate Model
             if self.round is not None:
                 logging.info("[NODE.__train_step] self.aggregator.add_model with MY MODEL")
+
+                my_model = self.learner.get_parameters()
+                my_metrics = self.compute_model_metrics(contributors=[self.get_name()],
+                                                        model_params=my_model,
+                                                        current_metrics=ModelMetrics())
+                my_metrics.num_samples = self.learner.get_num_samples()[0]
                 self.aggregator.add_model(
                     self.learner.get_parameters(),
                     [self.get_name()],
-                    ModelMetrics(samples=self.learner.get_num_samples()[0]),
+                    metrics=my_metrics
                 )
                 logging.info("[NODE.__train_step] self.broadcast with MODELS_AGGREGATED = MY_NAME")
                 self.broadcast(
@@ -547,10 +565,15 @@ class Node(BaseNode):
             if self.round is not None:
                 logging.info("[NODE.__train_step] self.aggregator.add_model with MY MODEL")
                 # Node has to aggregate its own model before sending it to the aggregator
+                my_model = self.learner.get_parameters()
+                my_metrics = self.compute_model_metrics(contributors=[self.get_name()],
+                                                        model_params=my_model,
+                                                        current_metrics=ModelMetrics())
+                my_metrics.num_samples = self.learner.get_num_samples()[0]
                 self.aggregator.add_model(
                     self.learner.get_parameters(),
                     [self.get_name()],
-                    ModelMetrics(samples=self.learner.get_num_samples()[0]),
+                    metrics=my_metrics
                 )
 
                 logging.info("[NODE.__train_step] self.broadcast with MODELS_AGGREGATED = MY_NAME")
@@ -680,7 +703,7 @@ class Node(BaseNode):
         results = self.learner.evaluate()
         if results is not None:
             logging.warning(
-                "[NODE] Evaluated. Losss: {}, Metric: {}".format(
+                "[NODE] Evaluated. Loss: {}, Metric: {}".format(
                     results[0], results[1]
                 )
             )
@@ -695,7 +718,7 @@ class Node(BaseNode):
 
         if results is not None:
             logging.warning(
-                "[NODE] Evaluated. Losss: {}, Metric: {}".format(
+                "[NODE] Evaluated. Loss: {}, Metric: {}".format(
                     results[0], results[1]
                 )
             )

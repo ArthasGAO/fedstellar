@@ -5,6 +5,7 @@
 
 
 import logging
+import math
 import pickle
 import copy
 import time
@@ -18,6 +19,7 @@ from typing import List, Dict, OrderedDict, Optional
 from pytorch_lightning.loggers import wandb
 
 from fedstellar.learning.aggregators.aggregator import Aggregator
+from fedstellar.learning.modelmetrics import ModelMetrics
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 
 
@@ -43,6 +45,21 @@ def cosine_similarity(trusted_model: OrderedDict, untrusted_model: OrderedDict) 
     return result
 
 
+def filter_models(models: Dict, threshold: float) -> Dict:
+    filtered: Dict = {}
+    for node, msg in models.items():
+        params = msg[0]
+        metrics: ModelMetrics = msg[1]
+        if metrics.cosine_similarity > threshold:
+            filtered[node] = msg
+    return filtered
+
+def map_loss(loss) -> float:
+    return math.exp(-loss)
+
+def map_loss2(loss) -> float:
+    return 1/(abs(loss) + 1)
+
 class FlTrust(Aggregator):
     """
     Federated Averaging (FedAvg) [McMahan et al., 2016]
@@ -54,7 +71,6 @@ class FlTrust(Aggregator):
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[FLTrust] My config is {}".format(self.config))
-        self.iter = 0
         self.logger = logger
         self.learner = learner
 
@@ -127,19 +143,11 @@ class FlTrust(Aggregator):
             for layer in state_dict:
                 layer_norm = torch.norm(state_dict[layer].data.view(-1))
                 scaling_factor = trusted_norms[layer] / layer_norm
-                logging.info("Scaling client {} layer {} with factor {}".format(client, layer, scaling_factor))
+                # logging.info("Scaling client {} layer {} with factor {}".format(client, layer, scaling_factor))
                 normalised_layer = torch.mul(state_dict[layer], scaling_factor)
                 normalised_models[client][0][layer] = normalised_layer
 
         return normalised_models
-
-    def threshold_similarities(self, similarities: Dict[str, float]) -> Dict[str, float]:
-        new_similarities = similarities.copy()
-        for client, similarity in new_similarities.items():
-            if similarity < 0.5:
-                new_similarities[client] = float(0)
-
-        return new_similarities
 
     def aggregate(self, models):
 
@@ -179,19 +187,22 @@ class FlTrust(Aggregator):
             logging.error("[FlTrust] Own model as bootstrap is not available")
             return None
 
-        untrusted_models = {k: models[k] for k in models.keys() - {self.node_name}}  # change
+        # untrusted_models = {k: models[k] for k in models.keys() - {self.node_name}}  # change
 
-        # Compute cosine similarities for all neighboring models
-        similarities = self.cosine_similarities(untrusted_models, my_model)
-        threshold_similarities = self.threshold_similarities(similarities)
+        loss: Dict = {}
+        cos: Dict = {}
+        for node, msg in models.items():
+            params = msg[0]
+            metrics: ModelMetrics = msg[1]
+            logging.info("FlTrust metrics: {}".format(metrics))
+            loss[node] = metrics.validation_loss
+            cos[node] = metrics.cosine_similarity
+        logging.info("FlTrust: Loss metrics: {}, cosine metrics: {}".format(loss, cos))
 
-        avg_similarity = mean(similarities.values())
-
-        # Normalise the untrusted models
-        normalised_models = self.normalise_layers(untrusted_models, my_model)
-        normalised_models[self.node_name] = my_model
-        # normalised_models = untrusted_models
-        # normalised_models[self.node_name] = my_model
+        filtered_models = filter_models(models, 0)
+        if len(filtered_models) == 0:
+            logging.warning("FlTrust: No more models to aggregate after filtering!")
+            return None
 
         # Create a Zero Model
         accum = (list(models.values())[-1][0]).copy()
@@ -199,32 +210,20 @@ class FlTrust(Aggregator):
             accum[layer] = torch.zeros_like(accum[layer])
 
         # Aggregate
-        for client, message in normalised_models.items():
+        total_mapped_loss: float = float(0)
+        logging.warning("FlTrust: Total mapped loss: {}".format(total_mapped_loss))
+        for client, message in models.items():
             client_model = message[0]
+            metrics = message[1]
+            mapped_loss = map_loss2(metrics.validation_loss)
+            logging.warning("FlTrust: Agg model {} with loss {}, mapped loss {}"
+                            .format(client, metrics.validation_loss, mapped_loss))
+            total_mapped_loss += mapped_loss
             for layer in client_model:
-                accum[layer] = accum[layer] + client_model[layer] * threshold_similarities[client]
+                accum[layer] = accum[layer] + client_model[layer] * mapped_loss
 
-        # Normalize accumulated model
-        total_similarity = sum(threshold_similarities.values())
+        # Normalize accumulated model wrt loss
         for layer in accum:
-            accum[layer] = accum[layer] / total_similarity
-
-        logging.info("[FlTrust.aggregate] Aggregated model at host {} with weights: similarities={} "
-                     "and avg. untrusted similarity: {}, step: {}"
-                     .format(self.node_name, threshold_similarities, avg_similarity, self.iter))
-        logging.info("[FlTrust.aggregate] Original similarities={}".format(similarities))
-
-        for client, similarity in similarities.items():
-            logging.info(type(similarity))
-
-        """
-        if self.logger is None:
-            logging.error("No Logger found!")
-        else:
-            logging.info("[FlTrust.aggregate] Logging similarities remotely...")
-            # wandb.log(metrics=similarities, step=self.iter)
-            self.logger.log_metrics(metrics=similarities, step=self.iter)
-        """
-        self.iter += 1
+            accum[layer] = accum[layer] / total_mapped_loss
 
         return accum

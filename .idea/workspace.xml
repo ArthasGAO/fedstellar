@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="adapt new neighbour model eval.">
+    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="fix error with noise_type where attack is invalid due to string becoming tuple.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/attacks/poisoning/datapoison.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/attacks/poisoning/datapoison.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/attacks/poisoning/modelpoison.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/attacks/poisoning/modelpoison.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/basic_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/basic_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/config/participant.json.example" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/config/participant.json.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/fashionmnist/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/fashionmnist/models/mlp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/node_start.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node_start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/node.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/test_bed.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/test_bed.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -243,7 +240,7 @@
       <workItem from="1683360469765" duration="115049000" />
       <workItem from="1683985517200" duration="18126000" />
       <workItem from="1684137332129" duration="395000" />
-      <workItem from="1684137740152" duration="3929000" />
+      <workItem from="1684137740152" duration="16047000" />
     </task>
     <task id="LOCAL-00001" summary="prepare evaluations.">
       <created>1682422668051</created>
@@ -357,7 +354,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684134135228</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="fix error with noise_type where attack is invalid due to string becoming tuple.">
+      <created>1684141882748</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1684141882748</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,14 +404,15 @@
     <MESSAGE value="generalize model metrics handling for extension." />
     <MESSAGE value="fix aggregators with new generalized metrics." />
     <MESSAGE value="adapt new neighbour model eval." />
-    <option name="LAST_COMMIT_MESSAGE" value="adapt new neighbour model eval." />
+    <MESSAGE value="fix error with noise_type where attack is invalid due to string becoming tuple." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix error with noise_type where attack is invalid due to string becoming tuple." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py</url>
-          <line>36</line>
+          <line>38</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -427,7 +432,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/fedstellar/node_start.py</url>
-          <line>161</line>
+          <line>163</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
@@ -438,6 +443,6 @@
     <SUITE FILE_PATH="coverage/fedstellar_robust$.coverage" NAME=" Coverage Results" MODIFIED="1682670850470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$start_without_webserver.coverage" NAME="start_without_webserver Coverage Results" MODIFIED="1683105333427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$aggregator.coverage" NAME="aggregator Coverage Results" MODIFIED="1683891182637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar/learning/aggregators" />
-    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1684141608727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1684153055198" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
   </component>
 </project>

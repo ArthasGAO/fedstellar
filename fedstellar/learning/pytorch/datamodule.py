@@ -146,3 +146,7 @@ class DataModule(LightningDataModule):
     def test_dataloader(self):
         """ """
         return self.test_loader
+
+    def predict_dataloader(self):
+        """ """
+        return self.test_loader

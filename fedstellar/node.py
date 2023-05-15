@@ -713,6 +713,9 @@ class Node(BaseNode):
         logging.info("[NODE.__evaluate] Start evaluation...")
         results = self.learner.evaluate()
 
+        # predictions = self.learner.predict()
+        matrix = self.learner.compute_confusion_matrix()
+        logging.info("Confusion matrix: {}".format(matrix))
         # TODO [jba]: fix dataloader issue
         # self.learner.evaluate_backdoor()
 
@@ -773,8 +776,13 @@ class Node(BaseNode):
                 [nc.get_models_aggregated() for nc in self.get_neighbors()]))
             # At end, all nodes compute metrics
             self.__evaluate()
+
+            result = self.learner.predict()
+
+            # Save model to file
             # with open(self.model_name, 'wb') as f:
-            #    pickle.dump(self.learner.model, f)
+            #    pickle.dump(self., f)
+
             # Finish
             logging.info(
                 "[NODE] FL experiment finished | Round: {} | Total rounds: {} | [!] Both to None".format(

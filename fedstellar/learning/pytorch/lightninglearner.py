@@ -7,14 +7,16 @@ import logging
 import pickle
 import time
 from collections import OrderedDict
+import numpy as np
+from itertools import product
 
 import torch
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelSummary, TQDMProgressBar
+from torchmetrics import ConfusionMatrix
 
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
-
 
 ###########################
 #    LightningLearner     #
@@ -130,6 +132,58 @@ class LightningLearner(NodeLearner):
             logging.error("Something went wrong with pytorch lightning. {}".format(e))
             return None
 
+    def predict(self):
+        try:
+            if self.epochs > 0:
+                self.create_trainer()
+                predictions, labels = self.__trainer.predict(self.model, self.data)
+                print(predictions)
+                print(labels)
+                return predictions, labels
+        except Exception as e:
+            logging.error("Something went wrong with pytorch lightning. {}".format(e))
+            return None
+
+    def confusion_matrix(self):
+        (pred, y) = self.predict()
+        # test_targets = self.data.test_dataloader().dataset.targets
+        confmat = ConfusionMatrix(task="multiclass", num_classes=10)  # self.model.out_channels
+        matrix = confmat(pred, y)
+        print(matrix)
+
+    def compute_confusion_matrix(self):
+
+        model = self.model
+        data_loader = self.data.test_dataloader()
+
+        all_targets, all_predictions = [], []
+        with torch.no_grad():
+            for i, (features, targets) in enumerate(data_loader):
+                # features = features.to(device)
+                targets = targets
+                logits = model(features)
+                _, predicted_labels = torch.max(logits, 1)
+                all_targets.extend(targets.to('cpu'))
+                all_predictions.extend(predicted_labels.to('cpu'))
+
+        all_predictions = all_predictions
+        all_predictions = np.array(all_predictions)
+        all_targets = np.array(all_targets)
+
+        class_labels = np.unique(np.concatenate((all_targets, all_predictions)))
+        if class_labels.shape[0] == 1:
+            if class_labels[0] != 0:
+                class_labels = np.array([0, class_labels[0]])
+            else:
+                class_labels = np.array([class_labels[0], 1])
+        n_labels = class_labels.shape[0]
+        lst = []
+        z = list(zip(all_targets, all_predictions))
+        for combi in product(class_labels, repeat=2):
+            lst.append(z.count(combi))
+        mat = np.asarray(lst)[:, None].reshape(n_labels, n_labels)
+        return mat
+
     def validate_neighbour(self):
         try:
             if self.epochs > 0:
@@ -167,15 +221,6 @@ class LightningLearner(NodeLearner):
         self.logger.global_step = self.logger.global_step + self.logger.local_step
         self.logger.local_step = 0
         pass
-
-    def evaluate_backdoor(self):
-        self.create_trainer_no_logging()
-        logging.info("dataloader: ".format(type(self.data)))
-        logging.info(self.data.test_dataloader())
-        logging.info(self.model)
-        logging.info(type(self.model))
-        predictions = self.__trainer.predict(self.model, self.data)
-        logging.info("Evaluating backdoors. Predictions: ".format(predictions))
 
     def create_trainer(self):
         logging.info("[Learner] Creating trainer with accelerator: {}".format(

@@ -39,7 +39,7 @@ poisoned_node_persent_list = [40]  # 60 80
 poisoned_sample_persent_list = [100]
 noise_type_list = ["salt", "gaussian", "s&p"]
 # poisoned_ratio_list = [1, 10, 20]
-poisoned_ratio_list = [20]
+poisoned_ratio_list = [80]
 
 targeted_list = [True, False]
 
@@ -82,7 +82,7 @@ attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flippi
 attack = attack_list[2]
 
 # aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust"]
-aggregation_list = ["FlTrust"]
+aggregation_list = ["FedAvg"]
 
 with open(basic_config_path, "w") as f:
     json.dump(basic_config, f)
@@ -123,7 +123,7 @@ if attack == "Model Poisoning":
                 basic_config["aggregation"] = aggregation
                 basic_config["poisoned_node_persent"] = node_persent
                 basic_config["poisoned_sample_persent"] = poisoned_sample
-                basic_config["poisoned_ratio"] = 50
+                basic_config["poisoned_ratio"] = poisoned_ratio
 
                 basic_config['scenario_name'] = get_scenario_name(basic_config)
                 start_port += basic_config["n_nodes"]
@@ -150,6 +150,7 @@ if attack == "Sample Poisoning":
                     basic_config["aggregation"] = aggregation
                     basic_config["poisoned_node_persent"] = node_persent
                     basic_config["poisoned_sample_persent"] = poisoned_sample
+                    basic_config["poisoned_sample_persent"] = poisoned_ratio
 
                     basic_config['scenario_name'] = get_scenario_name(basic_config)
                     start_port += basic_config["n_nodes"]
@@ -176,7 +177,7 @@ if attack == "Label Flipping":
                     basic_config["aggregation"] = aggregation
                     basic_config["poisoned_node_persent"] = node_persent
                     basic_config["poisoned_sample_persent"] = poisoned_sample_persent
-                    basic_config["poisoned_ratio"] = 90
+                    basic_config["poisoned_ratio"] = poisoned_ratio
 
                     basic_config['scenario_name'] = get_scenario_name(basic_config)
                     start_port += basic_config["n_nodes"]

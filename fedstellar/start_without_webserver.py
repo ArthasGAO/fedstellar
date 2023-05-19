@@ -199,7 +199,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
         participant_config["adversarial_args"]["attack_env"] = basic_config["attack"]
         participant_config["adversarial_args"]["poisoned_node_persent"] = int(basic_config["poisoned_node_persent"])
-        participant_config["adversarial_args"]["targeted"] = int(basic_config["targeted"])
+        participant_config["adversarial_args"]["targeted"] = basic_config["targeted"]
         participant_config["adversarial_args"]["noise_type"] = basic_config["noise_type"]
 
         # Get attack config for each node

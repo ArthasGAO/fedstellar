@@ -4,14 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="fix error with noise_type where attack is invalid due to string becoming tuple.">
+    <list default="true" id="fd7d4a5f-6d4e-4ed7-afcc-aa7f2a9079b6" name="Changes" comment="POCS confusion matrix to measure backdoor accuracy.">
+      <change afterPath="$PROJECT_DIR$/app/single_node/participant_0.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/single_node/participant_0_test_indices.pk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/single_node/participant_0_train_indices.pk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/single_node/participant_0_valid_indices.pk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/attacks/poisoning/labelflipping.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/attacks/poisoning/labelflipping.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/basic_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/basic_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/basic_config_chao2.json" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/basic_config_chao2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/config/participant.json.example" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/config/participant.json.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/evaluation/analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/evaluation/analysis.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/aggregators/fltrust.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/aggregators/sentinel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/aggregators/pseudo.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/aggregators/pseudo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/celeba/models/cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/celeba/models/cnn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/celeba/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/celeba/models/mlp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/node.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/node_start.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node_start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/single_device.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/single_device.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fedstellar/start_without_webserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/start_without_webserver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fedstellar/test_bed.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/test_bed.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/fltrust_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/fltrust_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/learning_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/learning_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +102,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/fedstellar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/single_node" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -94,6 +112,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/single_node" />
       <recent name="$PROJECT_DIR$/fedstellar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -139,6 +158,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/gpu_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="single_device" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="fedstellar-robust" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/fedstellar" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fedstellar/single_device.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -211,10 +252,12 @@
       <item itemvalue="Python.test_bed" />
       <item itemvalue="Python.aggregator" />
       <item itemvalue="Python.gpu_test" />
+      <item itemvalue="Python.single_device" />
       <item itemvalue="Python tests.Python tests in learning_test.py" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.single_device" />
         <item itemvalue="Python tests.Python tests in learning_test.py" />
         <item itemvalue="Python.gpu_test" />
         <item itemvalue="Python.aggregator" />
@@ -240,7 +283,9 @@
       <workItem from="1683360469765" duration="115049000" />
       <workItem from="1683985517200" duration="18126000" />
       <workItem from="1684137332129" duration="395000" />
-      <workItem from="1684137740152" duration="16047000" />
+      <workItem from="1684137740152" duration="33851000" />
+      <workItem from="1684437872201" duration="824000" />
+      <workItem from="1684496504205" duration="5181000" />
     </task>
     <task id="LOCAL-00001" summary="prepare evaluations.">
       <created>1682422668051</created>
@@ -361,7 +406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684141882748</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="POCS confusion matrix to measure backdoor accuracy.">
+      <created>1684155009413</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1684155009413</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -405,44 +457,15 @@
     <MESSAGE value="fix aggregators with new generalized metrics." />
     <MESSAGE value="adapt new neighbour model eval." />
     <MESSAGE value="fix error with noise_type where attack is invalid due to string becoming tuple." />
-    <option name="LAST_COMMIT_MESSAGE" value="fix error with noise_type where attack is invalid due to string becoming tuple." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/fedstellar/learning/pytorch/lightninglearner.py</url>
-          <line>38</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/fedstellar/start_without_webserver.py</url>
-          <line>58</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/fedstellar/start_without_webserver.py</url>
-          <line>112</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/fedstellar/test_bed.py</url>
-          <line>93</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/fedstellar/node_start.py</url>
-          <line>163</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="POCS confusion matrix to measure backdoor accuracy." />
+    <option name="LAST_COMMIT_MESSAGE" value="POCS confusion matrix to measure backdoor accuracy." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/fedstellar_robust$gpu_test.coverage" NAME="gpu_test Coverage Results" MODIFIED="1682429500076" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$.coverage" NAME=" Coverage Results" MODIFIED="1682670850470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$start_without_webserver.coverage" NAME="start_without_webserver Coverage Results" MODIFIED="1683105333427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$single_device.coverage" NAME="single_device Coverage Results" MODIFIED="1684506404994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$aggregator.coverage" NAME="aggregator Coverage Results" MODIFIED="1683891182637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar/learning/aggregators" />
-    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1684153055198" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1684507563103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
   </component>
 </project>

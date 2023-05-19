@@ -31,8 +31,9 @@ class MLP(pl.LightningModule):
 
         super().__init__()
         self.lr_rate = lr_rate
+        self.out_channels = 10
         self.metric = metric(num_classes=10, task="multiclass")
-        self.f1_score = F1Score(num_classes=10, task="multiclass")
+        # self.f1_score = F1Score(num_classes=10, task="multiclass")
 
         self.l1 = torch.nn.Linear(28 * 28, 256)
         self.l2 = torch.nn.Linear(256, 128)
@@ -86,19 +87,16 @@ class MLP(pl.LightningModule):
         logits = self(x)
         loss = F.cross_entropy(self(x), y)
         out = torch.argmax(logits, dim=1)
-        # confmat = Confusio‡nMatrix(task="multiclass", num_classes=10)
-        # confmat = self.confmat(out, y)
-        # logging.info(confmat(out, y))
         metric = self.metric(out, y)
-        f1_score = self.f1_score(out, y)
+        # f1_score = self.f1_score(out, y)
 
         self.log("Test/Loss", loss, prog_bar=True)
         self.log("Test/Accuracy", metric, prog_bar=True)
-        self.log("Test/F1", f1_score, prog_bar=True)
+        # self.log("Test/F1", f1_score, prog_bar=True)
         return loss
 
     def predict_step(self, batch: Any, batch_idx: int, dataloader_idx: int = 0):
         x, y = batch
         logits = self(x)
         out = torch.argmax(logits, dim=1)
-        return (out, y)
+        return out

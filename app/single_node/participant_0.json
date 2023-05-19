@@ -1,35 +1,35 @@
 {
   "scenario_args": {
-    "name": "",
-    "start_time": "",
+    "name": "FASHIONMNIST_0_MLP_FlTrust_fully_NoAttack_0_N0-S0_R0_salt_20230511_165908",
+    "start_time": "11/05/2023 16:59:10",
     "federation": "DFL",
-    "rounds": 3,
+    "rounds": 10,
     "simulation": true,
     "controller": "127.0.0.1:5000",
     "random_seed": 0,
-    "n_nodes": 0,
+    "n_nodes": 5,
     "config_version": "development",
     "debug": true
   },
   "device_args": {
-    "uid": "",
-    "idx": "",
+    "uid": "9500e775a4ee2bef9c2e6b3300efe0a4918f49a6",
+    "idx": 0,
     "username": "pi",
     "password": "pi",
     "role": "aggregator",
-    "start": false,
-    "accelerator": "auto",
+    "start": true,
+    "accelerator": "cpu",
     "devices": 1,
     "strategy": "ddp"
   },
   "geo_args": {
-    "latitude": "46.762520",
-    "longitude": "7.600490"
+    "latitude": 41.45678148333176,
+    "longitude": 2.7429721437636196
   },
   "network_args": {
-    "ip": "",
-    "ipdemo": "",
-    "port": 0,
+    "ip": "127.0.0.1",
+    "ipdemo": "127.0.0.1",
+    "port": 46505,
     "neighbors": "",
     "interface": "eth0",
     "rate": "1Mbps",
@@ -38,39 +38,40 @@
     "delay-distro": 0
   },
   "data_args": {
-    "dataset": "MNIST",
-    "is_iid": "True"
+    "dataset": "FASHIONMNIST",
+    "is_iid": true
   },
   "model_args": {
     "model": "MLP"
   },
   "training_args": {
-    "epochs": 3
+    "epochs": 5
   },
   "aggregator_args": {
-    "algorithm": "FedAvg"
+    "algorithm": "Sentinel"
   },
   "adversarial_args": {
     "attacks": "No Attack",
-    "targeted": false,
+    "targeted": 0,
     "poisoned_sample_persent": 0,
     "poisoned_ratio": 0,
     "poisoned_node_persent": 0,
-    "target_label": 3,
-    "target_changed_label": 7,
-    "noise_type": "gaussian",
+    "target_label": 0,
+    "target_changed_label": 0,
+    "noise_type": "salt",
     "attack_env": "No Attack"
   },
   "tracking_args": {
     "enable_remote_tracking": true,
     "local_tracking": "csv",
     "log_dir": "../app/logs",
-    "config_dir": "../app/config",
+    "config_dir": "../app/config/FASHIONMNIST_0_MLP_FlTrust_fully_NoAttack_0_N0-S0_R0_salt_20230511_165908",
     "wandb_key": [
       "your wandb key"
     ],
     "wandb_entity": "janousy",
-    "wandb_project": "fedstellar"
+    "wandb_project": "fedstellar-debug",
+    "model_dir": "/Users/janosch/Repos/fedstellar-robust/app/single_node"
   },
   "mender_args": {
     "id": "",

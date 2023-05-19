@@ -54,13 +54,18 @@ def filter_models(models: Dict, threshold: float) -> Dict:
             filtered[node] = msg
     return filtered
 
+
+# hoooold the dooor
 def map_loss(loss) -> float:
     return math.exp(-loss)
 
+
+# boy gets flipped by label-flip
 def map_loss2(loss) -> float:
     return 1/(abs(loss) + 1)
 
-class FlTrust(Aggregator):
+
+class Sentinel(Aggregator):
     """
     Federated Averaging (FedAvg) [McMahan et al., 2016]
     Paper: https://arxiv.org/abs/1602.05629
@@ -211,17 +216,17 @@ class FlTrust(Aggregator):
 
         # Aggregate
         total_mapped_loss: float = float(0)
-        logging.warning("FlTrust: Total mapped loss: {}".format(total_mapped_loss))
         for client, message in models.items():
             client_model = message[0]
             metrics = message[1]
-            mapped_loss = map_loss2(metrics.validation_loss)
+            mapped_loss = map_loss(metrics.validation_loss)
             logging.warning("FlTrust: Agg model {} with loss {}, mapped loss {}"
                             .format(client, metrics.validation_loss, mapped_loss))
             total_mapped_loss += mapped_loss
             for layer in client_model:
                 accum[layer] = accum[layer] + client_model[layer] * mapped_loss
 
+        logging.warning("FlTrust: Total mapped loss: {}".format(total_mapped_loss))
         # Normalize accumulated model wrt loss
         for layer in accum:
             accum[layer] = accum[layer] / total_mapped_loss

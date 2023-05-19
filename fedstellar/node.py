@@ -10,7 +10,7 @@ import os
 from datetime import datetime, timedelta
 from typing import List, OrderedDict
 
-from fedstellar.learning.aggregators.fltrust import FlTrust, cosine_similarity
+from fedstellar.learning.aggregators.sentinel import Sentinel, cosine_similarity
 from fedstellar.learning.aggregators.pseudo import PseudoAggregator
 from fedstellar.learning.modelmetrics import ModelMetrics
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
@@ -155,8 +155,8 @@ class Node(BaseNode):
             self.aggregator = Median(node_name=self.get_name(), config=self.config)
         if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
             self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
-        if self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
-            self.aggregator = FlTrust(node_name=self.get_name(), config=self.config,
+        if self.config.participant["aggregator_args"]["algorithm"] == "Sentinel":
+            self.aggregator = Sentinel(node_name=self.get_name(), config=self.config,
                                       logger=copy.copy(self.logger),
                                       learner=copy.copy(self.learner))
         # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
@@ -391,7 +391,7 @@ class Node(BaseNode):
                 if neighbour != self.get_name():
                     mapping = {f'val_loss@{neighbour}': val_loss,
                                f'val_acc@{neighbour}': val_acc}
-                    self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
+                    self.logger.log_metrics(metrics=mapping, step=self.logger.global_step)
 
         my_model = self.learner.get_parameters()
         cos_similarity: float = cosine_similarity(my_model, model_params)
@@ -401,7 +401,7 @@ class Node(BaseNode):
                              .format(neighbour, self.logger.local_step, cos_similarity))
                 if neighbour != self.get_name():
                     mapping = {f'cos@{neighbour}': cos_similarity}
-                    self.logger.log_metrics(metrics=mapping, step=self.logger.local_step)
+                    self.logger.log_metrics(metrics=mapping, step=self.logger.global_step)
 
         current_metrics.cosine_similarity = cos_similarity
         current_metrics.validation_loss = val_loss
@@ -713,12 +713,6 @@ class Node(BaseNode):
         logging.info("[NODE.__evaluate] Start evaluation...")
         results = self.learner.evaluate()
 
-        # predictions = self.learner.predict()
-        matrix = self.learner.compute_confusion_matrix()
-        logging.info("Confusion matrix: {}".format(matrix))
-        # TODO [jba]: fix dataloader issue
-        # self.learner.evaluate_backdoor()
-
         if results is not None:
             logging.warning(
                 "[NODE] Evaluated. Loss: {}, Metric: {}".format(
@@ -777,7 +771,8 @@ class Node(BaseNode):
             # At end, all nodes compute metrics
             self.__evaluate()
 
-            result = self.learner.predict()
+            matrix = self.learner.compute_confusion_matrix()
+            logging.info("Confusion matrix: {}".format(matrix))
 
             # Save model to file
             # with open(self.model_name, 'wb') as f:

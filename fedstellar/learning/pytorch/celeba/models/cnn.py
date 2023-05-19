@@ -31,6 +31,7 @@ class CNN(pl.LightningModule):
         super().__init__()
         self.metric = metric
         self.lr_rate = lr_rate
+        self.out_channels = out_channels
 
         self.conv1 = nn.Conv2d(
             in_channels=in_channels, out_channels=32, kernel_size=(5, 5), padding="same"

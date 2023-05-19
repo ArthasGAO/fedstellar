@@ -6,6 +6,8 @@
 import logging
 import pickle
 import time
+import pandas as pd
+import seaborn as sns
 from collections import OrderedDict
 import numpy as np
 from itertools import product
@@ -109,7 +111,7 @@ class LightningLearner(NodeLearner):
                 self.__trainer.fit(self.model, self.data)
                 self.__trainer = None
         except Exception as e:
-            logging.error("Something went wrong with pytorch lightning. {}".format(e))
+            logging.error("[NodeLearner.fit] Something went wrong with pytorch lightning. {}".format(e))
 
     def interrupt_fit(self):
         if self.__trainer is not None:
@@ -129,30 +131,22 @@ class LightningLearner(NodeLearner):
             else:
                 return None
         except Exception as e:
-            logging.error("Something went wrong with pytorch lightning. {}".format(e))
+            logging.error("[NodeLearner.evalaute] Something went wrong with pytorch lightning. {}".format(e))
             return None
 
+    """
     def predict(self):
         try:
             if self.epochs > 0:
                 self.create_trainer()
-                predictions, labels = self.__trainer.predict(self.model, self.data)
-                print(predictions)
-                print(labels)
-                return predictions, labels
+                predictions = self.__trainer.predict(self.model, self.data)
+                return predictions
         except Exception as e:
-            logging.error("Something went wrong with pytorch lightning. {}".format(e))
+            logging.error("[NodeLearner.predict] Something went wrong with pytorch lightning. {}".format(e))
             return None
-
-    def confusion_matrix(self):
-        (pred, y) = self.predict()
-        # test_targets = self.data.test_dataloader().dataset.targets
-        confmat = ConfusionMatrix(task="multiclass", num_classes=10)  # self.model.out_channels
-        matrix = confmat(pred, y)
-        print(matrix)
+    """
 
     def compute_confusion_matrix(self):
-
         model = self.model
         data_loader = self.data.test_dataloader()
 
@@ -166,9 +160,16 @@ class LightningLearner(NodeLearner):
                 all_targets.extend(targets.to('cpu'))
                 all_predictions.extend(predicted_labels.to('cpu'))
 
+        t_all_predictions = all_predictions
+        t_all_targets = all_targets
         all_predictions = all_predictions
         all_predictions = np.array(all_predictions)
         all_targets = np.array(all_targets)
+
+        # confmat = ConfusionMatrix(task="multiclass", num_classes=model.out_channels)
+        # matrix = confmat(t_all_predictions, t_all_targets)
+        # print("Torch metrics confmat")
+        # print(matrix)
 
         class_labels = np.unique(np.concatenate((all_targets, all_predictions)))
         if class_labels.shape[0] == 1:
@@ -182,6 +183,20 @@ class LightningLearner(NodeLearner):
         for combi in product(class_labels, repeat=2):
             lst.append(z.count(combi))
         mat = np.asarray(lst)[:, None].reshape(n_labels, n_labels)
+
+        # TODO jba: find a way to retrieve all classes, this will not work in non-IID
+        df = pd.DataFrame(mat, index=class_labels, columns=class_labels)
+        heatmap = sns.heatmap(df, fmt=',.0f', annot=True)
+        heatmap.set(xlabel='True Label', ylabel='Predicted Label')
+        fig = heatmap.get_figure()
+        images = [fig]
+
+        # class_columns = data_loader.dataset.classes
+        # print(class_columns)
+        # TODO jba: global or local step?
+        self.logger.log_image(key="ConfMat", images=images, step=self.logger.global_step)
+        self.logger.log_text(key="ConfMat", dataframe=df, step=self.logger.global_step)
+
         return mat
 
     def validate_neighbour(self):
@@ -196,7 +211,7 @@ class LightningLearner(NodeLearner):
             else:
                 return None, None
         except Exception as e:
-            logging.error("Something went wrong with pytorch lightning. {}".format(e))
+            logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}".format(e))
             return None, None
 
     def log_validation_metrics(self, loss, metric, round=None, name=None):

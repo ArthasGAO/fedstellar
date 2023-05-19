@@ -25,7 +25,7 @@
   "dataset": "MNIST",
   "model": "MLP",
   "accelerator": "cpu",
-  "aggregation": "FlTrust",
+  "aggregation": "Sentinel",
   "attack_matrix": [
     [
       0,

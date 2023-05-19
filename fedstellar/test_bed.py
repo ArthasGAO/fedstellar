@@ -5,7 +5,7 @@ import sys
 from datetime import datetime
 import time
 
-N_EXPERIMENTS = 1
+N_EXPERIMENTS = 5
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))  # Parent directory where is the fedstellar module
 
@@ -35,27 +35,27 @@ topology_list = ["star", "fully", "ring", "random"]
 # attack_list = ["Label Flipping", "Sample Poisoning", "Model Poisoning"]
 
 # poisoned_node_persent_list = [20, 40, 60, 80, 100]
-poisoned_node_persent_list = [40]  # 60 80
-poisoned_sample_persent_list = [100]
+poisoned_node_persent_list = [60]  # 60 80
+poisoned_sample_persent_list = [60]
 noise_type_list = ["salt", "gaussian", "s&p"]
 # poisoned_ratio_list = [1, 10, 20]
-poisoned_ratio_list = [80]
+poisoned_ratio_list = [20]
 
 targeted_list = [True, False]
 
 with open(basic_config_path) as f:
     basic_config = json.load(f)
-n_nodes = 1
+n_nodes = 5
 start_port = 46500
 
-dataset = dataset_list[0]
+dataset = dataset_list[2]
 model = model_list[0]
 federation = federation_list[0]
 topology = topology_list[1]
 poisoned_node = poisoned_node_persent_list[0]
 poisoned_sample = poisoned_sample_persent_list[0]
 noise_type = noise_type_list[0]
-targeted = targeted_list[1]
+targeted = targeted_list[0]
 poisoned_ratio = poisoned_ratio_list[0]
 
 # scenario_title = f"{dataset}_{model}_{federation}_{aggregation}_{topology}_{attack}_{targeted}_{poisoned_node}_{poisoned_sample}_{noise_type}_{poisoned_ratio}"
@@ -65,7 +65,7 @@ basic_config["remote_tracking"] = True
 basic_config["rounds"] = 10
 basic_config["epochs"] = 5
 
-basic_config["targeted"] = targeted
+basic_config["targeted"] = True
 basic_config["noise_type"] = noise_type
 basic_config["poisoned_ratio"] = poisoned_ratio
 basic_config["dataset"] = dataset
@@ -79,10 +79,10 @@ basic_config["n_nodes"] = n_nodes
 basic_config["poisoned_node_persent"] = poisoned_node
 basic_config["poisoned_sample_persent"] = poisoned_sample
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[2]
+attack = attack_list[0]
 
-# aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust"]
-aggregation_list = ["FedAvg"]
+# aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "Sentinel"]
+aggregation_list = ["Sentinel"]
 
 with open(basic_config_path, "w") as f:
     json.dump(basic_config, f)

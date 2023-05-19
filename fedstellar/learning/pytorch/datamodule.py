@@ -69,6 +69,8 @@ class DataModule(LightningDataModule):
         if self.sub_id + 1 > self.number_sub:
             raise ("Not exist the subset {}".format(self.sub_id))
 
+        print("datamodule: targeted: " + str(targeted))
+
         # Training / validation set
         rows_by_sub = floor(len(trainset) / self.number_sub)
         tr_subset = ChangeableSubset(

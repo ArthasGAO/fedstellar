@@ -4,7 +4,7 @@ import torch
 import copy
 import numpy as np
 from fedstellar.learning.aggregators.fedavg import FedAvg
-from fedstellar.learning.aggregators.fltrust import FlTrust
+from fedstellar.learning.aggregators.sentinel import Sentinel
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.learning.pytorch.mnist.models.mlp import MLP
 from fedstellar.node import Node

@@ -1,0 +1,24 @@
+:py:mod:`fedstellar.learning.pytorch.sentiment140`
+==================================================
+
+.. py:module:: fedstellar.learning.pytorch.sentiment140
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   models/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   sentiment140/index.rst
+
+

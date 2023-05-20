@@ -1,0 +1,15 @@
+:py:mod:`fedstellar.learning.pytorch.cifar100.models`
+=====================================================
+
+.. py:module:: fedstellar.learning.pytorch.cifar100.models
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   cnn/index.rst
+
+

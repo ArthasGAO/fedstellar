@@ -1,0 +1,24 @@
+:py:mod:`fedstellar.learning.pytorch.emnist`
+============================================
+
+.. py:module:: fedstellar.learning.pytorch.emnist
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   models/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   emnist/index.rst
+
+

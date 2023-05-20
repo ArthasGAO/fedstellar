@@ -10,8 +10,15 @@ Subpackages
    :titlesonly:
    :maxdepth: 3
 
-   femnist/index.rst
+   cifar10/index.rst
+   cifar100/index.rst
+   emnist/index.rst
+   fashionmnist/index.rst
+   kitsun/index.rst
    mnist/index.rst
+   sentiment140/index.rst
+   syscall/index.rst
+   wadi/index.rst
 
 
 Submodules
@@ -20,6 +27,8 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   changeablesubset/index.rst
+   datamodule/index.rst
    lightninglearner/index.rst
    remotelogger/index.rst
    statisticslogger/index.rst

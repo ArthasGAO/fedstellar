@@ -1,0 +1,58 @@
+:py:mod:`fedstellar.learning.pytorch.kitsun.kitsun`
+===================================================
+
+.. py:module:: fedstellar.learning.pytorch.kitsun.kitsun
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.kitsun.kitsun.KISTSUN
+   fedstellar.learning.pytorch.kitsun.kitsun.KISTSUNDATASET
+
+
+
+
+.. py:class:: KISTSUN(train=True)
+
+   Bases: :py:obj:`torchvision.datasets.MNIST`
+
+   `MNIST <http://yann.lecun.com/exdb/mnist/>`_ Dataset.
+
+   :param root: Root directory of dataset where ``MNIST/raw/train-images-idx3-ubyte``
+                and  ``MNIST/raw/t10k-images-idx3-ubyte`` exist.
+   :type root: string
+   :param train: If True, creates dataset from ``train-images-idx3-ubyte``,
+                 otherwise from ``t10k-images-idx3-ubyte``.
+   :type train: bool, optional
+   :param download: If True, downloads the dataset from the internet and
+                    puts it in root directory. If dataset is already downloaded, it is not
+                    downloaded again.
+   :type download: bool, optional
+   :param transform: A function/transform that  takes in an PIL image
+                     and returns a transformed version. E.g, ``transforms.RandomCrop``
+   :type transform: callable, optional
+   :param target_transform: A function/transform that takes in the
+                            target and transforms it.
+   :type target_transform: callable, optional
+
+   .. py:method:: dataset_download()
+
+
+
+.. py:class:: KISTSUNDATASET(iid=True)
+
+   Down the KISTSUN datasets
+
+   Args:
+   iid: iid or non-iid data seperate
+
+   .. py:method:: sort_dataset(dataset)
+
+
+

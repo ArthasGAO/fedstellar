@@ -1,0 +1,17 @@
+:py:mod:`fedstellar.attacks.poisoning`
+======================================
+
+.. py:module:: fedstellar.attacks.poisoning
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   datapoison/index.rst
+   labelflipping/index.rst
+   modelpoison/index.rst
+
+

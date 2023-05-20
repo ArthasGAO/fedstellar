@@ -1,0 +1,24 @@
+:py:mod:`fedstellar.learning.pytorch.syscall`
+=============================================
+
+.. py:module:: fedstellar.learning.pytorch.syscall
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   models/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   syscall/index.rst
+
+

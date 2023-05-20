@@ -1,0 +1,46 @@
+:py:mod:`fedstellar.learning.aggregators.median`
+================================================
+
+.. py:module:: fedstellar.learning.aggregators.median
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.aggregators.median.Median
+
+
+
+
+.. py:class:: Median(node_name='unknown', config=None)
+
+   Bases: :py:obj:`fedstellar.learning.aggregators.aggregator.Aggregator`
+
+   Median [Dong Yin et al., 2021]
+   Paper: https://arxiv.org/pdf/1803.01498.pdf
+
+   .. py:method:: get_median(weights)
+
+      Takes the median as the jth parameter
+      of the global model. Note that when m is an even number,
+      median is the mean of the middle two parameters.
+
+      :param weights: weights list, 2D tensor
+
+
+   .. py:method:: aggregate(models)
+
+      For each jth model parameter, the master device sorts the jth parameters of
+      the m local models and takes the median as the jth parameter
+      of the global model. Note that when m is an even number,
+      median is the mean of the middle two parameters.
+
+      :param models: Dictionary with the models (node: model,num_samples).
+
+
+

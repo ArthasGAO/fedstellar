@@ -1,0 +1,18 @@
+:py:mod:`fedstellar.learning.pytorch.cifar10.models`
+====================================================
+
+.. py:module:: fedstellar.learning.pytorch.cifar10.models
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   cnn/index.rst
+   fastermobilenet/index.rst
+   resnet/index.rst
+   simplemobilenet/index.rst
+
+

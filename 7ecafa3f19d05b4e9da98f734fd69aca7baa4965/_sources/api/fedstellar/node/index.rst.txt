@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: Node(idx, experiment_name, model, data, hostdemo=None, host='127.0.0.1', port=None, config=Config, learner=LightningLearner, encrypt=False)
+.. py:class:: Node(idx, experiment_name, model, data, hostdemo=None, host='127.0.0.1', port=None, config=Config, learner=LightningLearner, encrypt=False, model_poisoning=False, poisoned_ratio=0, noise_type='gaussian')
 
    Bases: :py:obj:`fedstellar.base_node.BaseNode`
 

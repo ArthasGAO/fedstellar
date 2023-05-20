@@ -1,0 +1,121 @@
+:py:mod:`fedstellar.learning.pytorch.emnist.models.mlp`
+=======================================================
+
+.. py:module:: fedstellar.learning.pytorch.emnist.models.mlp
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.emnist.models.mlp.EMNISTModelMLP
+
+
+
+
+.. py:class:: EMNISTModelMLP(in_channels=1, out_channels=10, learning_rate=0.001, metrics=None, confusion_matrix=None, seed=None)
+
+   Bases: :py:obj:`lightning.LightningModule`
+
+   LightningModule for MNIST.
+
+   .. py:method:: process_metrics(phase, y_pred, y, loss=None)
+
+      Calculate and log metrics for the given phase.
+      :param phase: One of 'Train', 'Validation', or 'Test'
+      :type phase: str
+      :param y_pred: Model predictions
+      :type y_pred: torch.Tensor
+      :param y: Ground truth labels
+      :type y: torch.Tensor
+      :param loss: Loss value
+      :type loss: torch.Tensor, optional
+
+
+   .. py:method:: log_metrics_by_epoch(phase, print_cm=False, plot_cm=False)
+
+      Log all metrics at the end of an epoch for the given phase.
+      :param phase: One of 'Train', 'Validation', or 'Test'
+      :type phase: str
+      :param : param phase:
+      :param : param plot_cm:
+
+
+   .. py:method:: forward(x)
+
+
+   .. py:method:: configure_optimizers()
+
+
+   .. py:method:: step(batch, phase)
+
+
+   .. py:method:: training_step(batch, batch_id)
+
+      Training step for the model.
+      :param batch:
+      :param batch_id:
+
+      Returns:
+
+
+   .. py:method:: on_train_epoch_end()
+
+      Called in the training loop at the very end of the epoch.
+
+      To access all batch outputs at the end of the epoch, you can cache step outputs as an attribute of the
+      :class:`~lightning.pytorch.LightningModule` and access them in this hook:
+
+      .. code-block:: python
+
+          class MyLightningModule(L.LightningModule):
+              def __init__(self):
+                  super().__init__()
+                  self.training_step_outputs = []
+
+              def training_step(self):
+                  loss = ...
+                  self.training_step_outputs.append(loss)
+                  return loss
+
+              def on_train_epoch_end(self):
+                  # do something with all training_step outputs, for example:
+                  epoch_mean = torch.stack(self.training_step_outputs).mean()
+                  self.log("training_epoch_mean", epoch_mean)
+                  # free up the memory
+                  self.training_step_outputs.clear()
+
+
+   .. py:method:: validation_step(batch, batch_idx)
+
+      Validation step for the model.
+      :param batch:
+      :param batch_idx:
+
+      Returns:
+
+
+   .. py:method:: on_validation_epoch_end()
+
+      Called in the validation loop at the very end of the epoch.
+
+
+   .. py:method:: test_step(batch, batch_idx)
+
+      Test step for the model.
+      :param batch:
+      :param batch_idx:
+
+      Returns:
+
+
+   .. py:method:: on_test_epoch_end()
+
+      Called in the test loop at the very end of the epoch.
+
+
+

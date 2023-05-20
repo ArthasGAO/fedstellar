@@ -1,0 +1,47 @@
+:py:mod:`fedstellar.learning.pytorch.cifar10.cifar10`
+=====================================================
+
+.. py:module:: fedstellar.learning.pytorch.cifar10.cifar10
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.cifar10.cifar10.CIFAR10Dataset
+
+
+
+
+.. py:class:: CIFAR10Dataset(normalization='cifar10', loading='torchvision', sub_id=0, number_sub=1, num_workers=4, batch_size=32, iid=True, root_dir='./data')
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+   An abstract class representing a :class:`Dataset`.
+
+   All datasets that represent a map from keys to data samples should subclass
+   it. All subclasses should overwrite :meth:`__getitem__`, supporting fetching a
+   data sample for a given key. Subclasses could also optionally overwrite
+   :meth:`__len__`, which is expected to return the size of the dataset by many
+   :class:`~torch.utils.data.Sampler` implementations and the default options
+   of :class:`~torch.utils.data.DataLoader`.
+
+   .. note::
+     :class:`~torch.utils.data.DataLoader` by default constructs a index
+     sampler that yields integral indices.  To make it work with a map-style
+     dataset with non-integral indices/keys, a custom sampler must be provided.
+
+   .. py:method:: sort_dataset(dataset)
+
+
+   .. py:method:: set_normalization(normalization)
+
+
+   .. py:method:: get_dataset(train, transform, download=True)
+
+
+

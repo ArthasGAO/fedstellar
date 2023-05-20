@@ -12,5 +12,8 @@ Submodules
 
    aggregator/index.rst
    fedavg/index.rst
+   krum/index.rst
+   median/index.rst
+   trimmedmean/index.rst
 
 

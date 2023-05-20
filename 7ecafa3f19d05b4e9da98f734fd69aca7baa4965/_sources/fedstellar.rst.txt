@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   fedstellar.attacks
    fedstellar.config
    fedstellar.learning
    fedstellar.utils

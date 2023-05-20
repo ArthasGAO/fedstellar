@@ -35,6 +35,7 @@ Functions
    fedstellar.webserver.database.get_all_scenarios
    fedstellar.webserver.database.scenario_update_record
    fedstellar.webserver.database.scenario_set_all_status_to_finished
+   fedstellar.webserver.database.scenario_set_status_to_finished
    fedstellar.webserver.database.get_running_scenario
    fedstellar.webserver.database.get_scenario_by_name
    fedstellar.webserver.database.remove_scenario_by_name
@@ -142,6 +143,9 @@ Attributes
 
 
 .. py:function:: scenario_set_all_status_to_finished()
+
+
+.. py:function:: scenario_set_status_to_finished(scenario_name)
 
 
 .. py:function:: get_running_scenario()

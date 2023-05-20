@@ -1,0 +1,15 @@
+:py:mod:`fedstellar.attacks`
+============================
+
+.. py:module:: fedstellar.attacks
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   poisoning/index.rst
+
+

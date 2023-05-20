@@ -1,0 +1,47 @@
+:py:mod:`fedstellar.learning.aggregators.trimmedmean`
+=====================================================
+
+.. py:module:: fedstellar.learning.aggregators.trimmedmean
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.aggregators.trimmedmean.TrimmedMean
+
+
+
+
+.. py:class:: TrimmedMean(node_name='unknown', config=None, beta=0)
+
+   Bases: :py:obj:`fedstellar.learning.aggregators.aggregator.Aggregator`
+
+   TrimmedMean [Dong Yin et al., 2021]
+   Paper: https://arxiv.org/pdf/1803.01498.pdf
+
+   .. py:method:: get_trimmedmean(weights)
+
+      For weight list [w1j,w2j,··· ,wmj], removes the largest and
+      smallest β of them, and computes the mean of the remaining
+      m-2β parameters
+
+      :param weights: weights list, 2D tensor
+
+
+   .. py:method:: aggregate(models)
+
+      For each jth model parameter, the master device sorts the jth parameters
+      of the m local models, i.e., w1j,w2j,··· ,wmj, where wij is the
+      jth parameter of the ith local model, removes the largest and
+      smallest β of them, and computes the mean of the remaining
+      m-2β parameters as the jth parameter of the global model.
+
+      :param models: Dictionary with the models (node: model,num_samples).
+
+
+

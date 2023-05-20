@@ -1,0 +1,41 @@
+:py:mod:`fedstellar.learning.pytorch.datamodule`
+================================================
+
+.. py:module:: fedstellar.learning.pytorch.datamodule
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.datamodule.DataModule
+
+
+
+
+.. py:class:: DataModule(train_set, test_set, sub_id=0, number_sub=1, batch_size=32, num_workers=4, val_percent=0.1, label_flipping=False, data_poisoning=False, poisoned_persent=0, poisoned_ratio=0, targeted=False, target_label=0, target_changed_label=0, noise_type='salt', indices_dir=None)
+
+   Bases: :py:obj:`lightning.LightningDataModule`
+
+   LightningDataModule
+
+   :param sub_id: Subset id of partition. (0 <= sub_id < number_sub)
+   :param number_sub: Number of subsets.
+   :param batch_size: The batch size of the data.
+   :param num_workers: The number of workers of the data.
+   :param val_percent: The percentage of the validation set.
+
+   .. py:method:: train_dataloader()
+
+
+   .. py:method:: val_dataloader()
+
+
+   .. py:method:: test_dataloader()
+
+
+

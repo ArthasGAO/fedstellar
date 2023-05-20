@@ -1,0 +1,63 @@
+:py:mod:`fedstellar.learning.pytorch.wadi.wadi`
+===============================================
+
+.. py:module:: fedstellar.learning.pytorch.wadi.wadi
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.wadi.wadi.WADI
+   fedstellar.learning.pytorch.wadi.wadi.WADIDataModule
+
+
+
+
+.. py:class:: WADI(sub_id, number_sub, root_dir, train=True)
+
+   Bases: :py:obj:`torchvision.datasets.MNIST`
+
+   `MNIST <http://yann.lecun.com/exdb/mnist/>`_ Dataset.
+
+   :param root: Root directory of dataset where ``MNIST/raw/train-images-idx3-ubyte``
+                and  ``MNIST/raw/t10k-images-idx3-ubyte`` exist.
+   :type root: string
+   :param train: If True, creates dataset from ``train-images-idx3-ubyte``,
+                 otherwise from ``t10k-images-idx3-ubyte``.
+   :type train: bool, optional
+   :param download: If True, downloads the dataset from the internet and
+                    puts it in root directory. If dataset is already downloaded, it is not
+                    downloaded again.
+   :type download: bool, optional
+   :param transform: A function/transform that  takes in an PIL image
+                     and returns a transformed version. E.g, ``transforms.RandomCrop``
+   :type transform: callable, optional
+   :param target_transform: A function/transform that takes in the
+                            target and transforms it.
+   :type target_transform: callable, optional
+
+   .. py:method:: dataset_download()
+
+
+
+.. py:class:: WADIDataModule(sub_id=0, number_sub=1, batch_size=32, num_workers=4, val_percent=0.1, root_dir=None, iid=True)
+
+   Bases: :py:obj:`lightning.LightningDataModule`
+
+   LightningDataModule of partitioned WADI.
+
+   :param sub_id: Subset id of partition. (0 <= sub_id < number_sub)
+   :param number_sub: Number of subsets.
+   :param batch_size: The batch size of the data.
+   :param num_workers: The number of workers of the data.
+   :param val_percent: The percentage of the validation set.
+
+   .. py:method:: sort_dataset(dataset)
+
+
+

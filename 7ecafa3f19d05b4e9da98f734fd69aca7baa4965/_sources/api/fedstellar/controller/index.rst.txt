@@ -111,10 +111,6 @@ Attributes
    .. py:method:: start_nodes_cmd(idx_start_node)
 
 
-   .. py:method:: remove_config_files()
-      :classmethod:
-
-
    .. py:method:: remove_files_by_scenario(scenario_name)
       :classmethod:
 

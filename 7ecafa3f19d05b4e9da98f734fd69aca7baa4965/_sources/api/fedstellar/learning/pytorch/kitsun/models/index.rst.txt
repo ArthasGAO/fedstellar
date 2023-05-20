@@ -1,0 +1,15 @@
+:py:mod:`fedstellar.learning.pytorch.kitsun.models`
+===================================================
+
+.. py:module:: fedstellar.learning.pytorch.kitsun.models
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   mlp/index.rst
+
+

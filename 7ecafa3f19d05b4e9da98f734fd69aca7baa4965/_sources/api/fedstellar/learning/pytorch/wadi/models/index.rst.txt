@@ -1,0 +1,15 @@
+:py:mod:`fedstellar.learning.pytorch.wadi.models`
+=================================================
+
+.. py:module:: fedstellar.learning.pytorch.wadi.models
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   mlp/index.rst
+
+

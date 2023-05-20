@@ -1,0 +1,24 @@
+:py:mod:`fedstellar.attacks.poisoning.modelpoison`
+==================================================
+
+.. py:module:: fedstellar.attacks.poisoning.modelpoison
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.attacks.poisoning.modelpoison.modelpoison
+
+
+
+.. py:function:: modelpoison(model, poisoned_ratio, noise_type='gaussian')
+
+   Function to add random noise of various types to the model parameter.
+
+

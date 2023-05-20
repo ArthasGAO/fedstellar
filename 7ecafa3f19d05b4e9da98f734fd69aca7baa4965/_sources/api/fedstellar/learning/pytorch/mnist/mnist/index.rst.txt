@@ -12,22 +12,14 @@ Classes
 
 .. autoapisummary::
 
-   fedstellar.learning.pytorch.mnist.mnist.MNISTDataModule
+   fedstellar.learning.pytorch.mnist.mnist.MNISTDataset
 
 
 
 
-Attributes
-~~~~~~~~~~
+.. py:class:: MNISTDataset(sub_id=0, number_sub=1, batch_size=32, num_workers=4, val_percent=0.1, iid=True)
 
-.. autoapisummary::
-
-   fedstellar.learning.pytorch.mnist.mnist.dm
-
-
-.. py:class:: MNISTDataModule(sub_id=0, number_sub=1, batch_size=32, num_workers=4, val_percent=0.1, iid=True)
-
-   Bases: :py:obj:`lightning.LightningDataModule`
+   Bases: :py:obj:`torch.utils.data.Dataset`
 
    LightningDataModule of partitioned MNIST.
 
@@ -47,18 +39,7 @@ Attributes
 
       
 
-   .. py:method:: train_dataloader()
+   .. py:method:: sort_dataset(dataset)
 
 
-   .. py:method:: val_dataloader()
-
-
-   .. py:method:: test_dataloader()
-
-
-
-.. py:data:: dm
-   
-
-   
 

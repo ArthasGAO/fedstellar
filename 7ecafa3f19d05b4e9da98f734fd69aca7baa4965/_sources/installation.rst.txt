@@ -93,13 +93,25 @@ by listing the version of the Fedstellar with the following command line::
     python app/main.py --version
 
 
-Building the fedstellar docker image
+Building the fedstellar docker image (CPU version)
 ====================================
 You can build the docker image using the following command line in the root directory::
 
     docker build -t fedstellar .
 
-You can check the image using::
+Building the fedstellar docker image (GPU version)
+====================================
+You can build the docker image using the following command line in the root directory::
+
+    docker build -t fedstellar-gpu -f Dockerfile-gpu .
+
+Also, you have to follow the instructions in the following link to install nvidia-container-toolkit::
+
+https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html
+
+Checking the docker images
+==========================
+You can check the docker images using the following command line::
 
         docker images
 

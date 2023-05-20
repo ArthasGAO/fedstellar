@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../../../search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.05.20 -->
         <title>fedstellar.learning.pytorch.mnist.models.cnn - Fedstellar 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../../../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="../../../../../../../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -158,30 +158,79 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../../installation.html">Installation</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../../../../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="../../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../../../../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of fedstellar</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../attacks/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.attacks</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of fedstellar.attacks</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../../attacks/poisoning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.attacks.poisoning</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of fedstellar.attacks.poisoning</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../attacks/poisoning/datapoison/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.attacks.poisoning.datapoison</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../attacks/poisoning/labelflipping/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.attacks.poisoning.labelflipping</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../attacks/poisoning/modelpoison/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.attacks.poisoning.modelpoison</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of fedstellar.config</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../config/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../config/mender/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config.mender</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 current has-children"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../aggregators/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="../../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of fedstellar.learning</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../aggregators/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of fedstellar.learning.aggregators</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../../aggregators/aggregator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.aggregator</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../aggregators/fedavg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.fedavg</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../aggregators/krum/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.krum</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../aggregators/median/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.median</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../aggregators/trimmedmean/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.trimmedmean</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l4 current has-children"><a class="reference internal" href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l5 has-children"><a class="reference internal" href="../../../femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l6 has-children"><a class="reference internal" href="../../../femnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l7"><a class="reference internal" href="../../../femnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.models.cnn</span></code></a></li>
+<li class="toctree-l4 current has-children"><a class="reference internal" href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../cifar10/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar10</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.cifar10</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="../../../cifar10/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar10.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.cifar10.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../../cifar10/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar10.models.cnn</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../../cifar10/models/fastermobilenet/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar10.models.fastermobilenet</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../../cifar10/models/resnet/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar10.models.resnet</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../../cifar10/models/simplemobilenet/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar10.models.simplemobilenet</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l6"><a class="reference internal" href="../../../femnist/femnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.femnist.femnist</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../cifar10/cifar10/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar10.cifar10</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5 current has-children"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l6 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../cifar100/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar100</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.cifar100</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="../../../cifar100/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar100.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.cifar100.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../../cifar100/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar100.models.cnn</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="../../../cifar100/cifar100/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.cifar100.cifar100</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../emnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.emnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.emnist</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="../../../emnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.emnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.emnist.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../../emnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.emnist.models.cnn</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../../emnist/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.emnist.models.mlp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="../../../emnist/emnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.emnist.emnist</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../fashionmnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.fashionmnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.fashionmnist</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="../../../fashionmnist/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.fashionmnist.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.fashionmnist.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../../fashionmnist/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.fashionmnist.models.cnn</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../../fashionmnist/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.fashionmnist.models.mlp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="../../../fashionmnist/fashionmnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.fashionmnist.fashionmnist</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../kitsun/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.kitsun</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.kitsun</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="../../../kitsun/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.kitsun.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.kitsun.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../../kitsun/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.kitsun.models.mlp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="../../../kitsun/kitsun/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.kitsun.kitsun</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 current has-children"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.mnist</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l6 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.mnist.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l7 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.cnn</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="../mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.models.mlp</span></code></a></li>
 </ul>
@@ -189,6 +238,35 @@
 <li class="toctree-l6"><a class="reference internal" href="../../mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.mnist.mnist</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../sentiment140/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.sentiment140</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.sentiment140</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="../../../sentiment140/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.sentiment140.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.sentiment140.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../../sentiment140/models/cnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.sentiment140.models.cnn</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../../sentiment140/models/rnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.sentiment140.models.rnn</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="../../../sentiment140/sentiment140/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.sentiment140.sentiment140</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../syscall/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.syscall</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.syscall</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="../../../syscall/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.syscall.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.syscall.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../../syscall/models/autoencoder/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.syscall.models.autoencoder</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../../syscall/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.syscall.models.mlp</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../../syscall/models/svm/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.syscall.models.svm</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="../../../syscall/syscall/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.syscall.syscall</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../wadi/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.wadi</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.wadi</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="../../../wadi/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.wadi.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of fedstellar.learning.pytorch.wadi.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../../wadi/models/mlp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.wadi.models.mlp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="../../../wadi/wadi/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.wadi.wadi</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../../changeablesubset/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.changeablesubset</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../datamodule/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.datamodule</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../remotelogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.remotelogger</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../statisticslogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
@@ -198,13 +276,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../learner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.learner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of fedstellar.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../utils/env/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.env</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../utils/observer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.observer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../utils/topologymanager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.topologymanager</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../webserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../webserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of fedstellar.webserver</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../webserver/app/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.app</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../webserver/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../webserver/database/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.database</span></code></a></li>
@@ -269,8 +347,8 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../../../../../fedstellar.learning.pytorch.mnist.models.cnn.html#fedstellar.learning.pytorch.mnist.models.cnn.CNN" title="fedstellar.learning.pytorch.mnist.models.cnn.CNN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CNN</span></code></a></p></td>
-<td><p>Convolutional Neural Network (CNN) to solve MNIST with PyTorch Lightning.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../../../../../../fedstellar.learning.pytorch.mnist.models.cnn.html#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN" title="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MNISTModelCNN</span></code></a></p></td>
+<td><p>LightningModule for MNIST.</p></td>
 </tr>
 </tbody>
 </table>
@@ -293,34 +371,113 @@
 <dd></dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.CNN">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.mnist.models.cnn.</span></span><span class="sig-name descname"><span class="pre">CNN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Accuracy(num_classes=10,</span> <span class="pre">task='multiclass')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fedstellar.learning.pytorch.mnist.models.cnn.</span></span><span class="sig-name descname"><span class="pre">MNISTModelCNN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confusion_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">lightning.LightningModule</span></code></p>
-<p>Convolutional Neural Network (CNN) to solve MNIST with PyTorch Lightning.</p>
+<p>LightningModule for MNIST.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.CNN.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.forward" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.process_metrics">
+<span class="sig-name descname"><span class="pre">process_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.process_metrics" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate and log metrics for the given phase.
+:param phase: One of ‘Train’, ‘Validation’, or ‘Test’
+:type phase: str
+:param y_pred: Model predictions
+:type y_pred: torch.Tensor
+:param y: Ground truth labels
+:type y: torch.Tensor
+:param loss: Loss value
+:type loss: torch.Tensor, optional</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.log_metrics_by_epoch">
+<span class="sig-name descname"><span class="pre">log_metrics_by_epoch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_cm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_cm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.log_metrics_by_epoch" title="Permalink to this definition">#</a></dt>
+<dd><p>Log all metrics at the end of an epoch for the given phase.
+:param phase: One of ‘Train’, ‘Validation’, or ‘Test’
+:type phase: str
+:param : param phase:
+:param : param plot_cm:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.forward" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.CNN.configure_optimizers">
-<span class="sig-name descname"><span class="pre">configure_optimizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.configure_optimizers" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.configure_optimizers">
+<span class="sig-name descname"><span class="pre">configure_optimizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.configure_optimizers" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.CNN.training_step">
-<span class="sig-name descname"><span class="pre">training_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.training_step" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.step" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.CNN.validation_step">
-<span class="sig-name descname"><span class="pre">validation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.validation_step" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.training_step">
+<span class="sig-name descname"><span class="pre">training_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.training_step" title="Permalink to this definition">#</a></dt>
+<dd><p>Training step for the model.
+:param batch:
+:param batch_id:</p>
+<p>Returns:</p>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.CNN.test_step">
-<span class="sig-name descname"><span class="pre">test_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.test_step" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_train_epoch_end">
+<span class="sig-name descname"><span class="pre">on_train_epoch_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_train_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd><p>Called in the training loop at the very end of the epoch.</p>
+<p>To access all batch outputs at the end of the epoch, you can cache step outputs as an attribute of the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">LightningModule</span></code> and access them in this hook:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyLightningModule</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">training_step_outputs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="o">...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">training_step_outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loss</span>
+
+    <span class="k">def</span> <span class="nf">on_train_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># do something with all training_step outputs, for example:</span>
+        <span class="n">epoch_mean</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_step_outputs</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;training_epoch_mean&quot;</span><span class="p">,</span> <span class="n">epoch_mean</span><span class="p">)</span>
+        <span class="c1"># free up the memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">training_step_outputs</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.validation_step">
+<span class="sig-name descname"><span class="pre">validation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.validation_step" title="Permalink to this definition">#</a></dt>
+<dd><p>Validation step for the model.
+:param batch:
+:param batch_idx:</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_validation_epoch_end">
+<span class="sig-name descname"><span class="pre">on_validation_epoch_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_validation_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd><p>Called in the validation loop at the very end of the epoch.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.test_step">
+<span class="sig-name descname"><span class="pre">test_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.test_step" title="Permalink to this definition">#</a></dt>
+<dd><p>Test step for the model.
+:param batch:
+:param batch_idx:</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_test_epoch_end">
+<span class="sig-name descname"><span class="pre">on_test_epoch_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_test_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd><p>Called in the test loop at the very end of the epoch.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -370,21 +527,33 @@
 <li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#attributes">Attributes</a><ul>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.IMAGE_SIZE"><code class="docutils literal notranslate"><span class="pre">IMAGE_SIZE</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN"><code class="docutils literal notranslate"><span class="pre">CNN</span></code></a><ul>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.forward"><code class="docutils literal notranslate"><span class="pre">CNN.forward()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">CNN.configure_optimizers()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.training_step"><code class="docutils literal notranslate"><span class="pre">CNN.training_step()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.validation_step"><code class="docutils literal notranslate"><span class="pre">CNN.validation_step()</span></code></a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.test_step"><code class="docutils literal notranslate"><span class="pre">CNN.test_step()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN</span></code></a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.process_metrics"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.process_metrics()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.log_metrics_by_epoch"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.log_metrics_by_epoch()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.forward"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.forward()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.configure_optimizers()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.step"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.step()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.training_step"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.training_step()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_train_epoch_end"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.on_train_epoch_end()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.validation_step"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.validation_step()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_validation_epoch_end"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.on_validation_epoch_end()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.test_step"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.test_step()</span></code></a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_test_epoch_end"><code class="docutils literal notranslate"><span class="pre">MNISTModelCNN.on_test_epoch_end()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.IMAGE_SIZE">IMAGE_SIZE</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN">CNN</a><ul>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.forward">forward</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.configure_optimizers">configure_optimizers</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.training_step">training_step</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.validation_step">validation_step</a></li>
-<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.CNN.test_step">test_step</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN">MNISTModelCNN</a><ul>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.process_metrics">process_metrics</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.log_metrics_by_epoch">log_metrics_by_epoch</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.forward">forward</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.configure_optimizers">configure_optimizers</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.step">step</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.training_step">training_step</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_train_epoch_end">on_train_epoch_end</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.validation_step">validation_step</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_validation_epoch_end">on_validation_epoch_end</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.test_step">test_step</a></li>
+<li><a class="reference internal" href="#fedstellar.learning.pytorch.mnist.models.cnn.MNISTModelCNN.on_test_epoch_end">on_test_epoch_end</a></li>
 </ul>
 </li>
 </ul>

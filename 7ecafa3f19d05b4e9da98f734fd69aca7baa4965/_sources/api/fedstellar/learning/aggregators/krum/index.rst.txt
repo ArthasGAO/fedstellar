@@ -1,0 +1,35 @@
+:py:mod:`fedstellar.learning.aggregators.krum`
+==============================================
+
+.. py:module:: fedstellar.learning.aggregators.krum
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.aggregators.krum.Krum
+
+
+
+
+.. py:class:: Krum(node_name='unknown', config=None)
+
+   Bases: :py:obj:`fedstellar.learning.aggregators.aggregator.Aggregator`
+
+   Krum [Peva Blanchard et al., 2017]
+   Paper: https://papers.nips.cc/paper/2017/hash/f4b9ec30ad9f68f89b29639786cb62ef-Abstract.html
+
+   .. py:method:: aggregate(models)
+
+      Krum selects one of the m local models that is similar to other models
+      as the global model, the euclidean distance between two local models is used.
+
+      :param models: Dictionary with the models (node: model,num_samples).
+
+
+

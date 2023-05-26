@@ -1,4 +1,4 @@
-# 
+#
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Chao Feng.
 #
@@ -13,9 +13,9 @@ from torch.utils.data import DataLoader, Subset, random_split
 from torchvision import transforms
 from torchvision.datasets import FashionMNIST
 from fedstellar.learning.pytorch.changeablesubset import ChangeableSubset
+
 torch.multiprocessing.set_sharing_strategy("file_system")
 import pickle as pk
-
 
 
 class DataModule(LightningDataModule):
@@ -30,15 +30,14 @@ class DataModule(LightningDataModule):
         val_percent: The percentage of the validation set.
     """
 
-
     def __init__(
             self,
-            trainset,
-            testset,
+            train_set,
+            test_set,
             sub_id=0,
             number_sub=1,
-            batch_size=32,            
-            num_workers=1,
+            batch_size=32,
+            num_workers=4,
             val_percent=0.1,
             label_flipping=False,
             data_poisoning=False,
@@ -53,6 +52,8 @@ class DataModule(LightningDataModule):
     ):
         super().__init__()
 
+        self.train_set = train_set
+        self.test_set = test_set
         self.sub_id = sub_id
         self.number_sub = number_sub
         self.batch_size = batch_size
@@ -60,7 +61,7 @@ class DataModule(LightningDataModule):
         self.val_percent = val_percent
         self.label_flipping = label_flipping
         self.data_poisoning = data_poisoning
-        self.poisoned_persent = poisoned_persent
+        self.poisoned_percent = poisoned_persent
         self.poisoned_ratio = poisoned_ratio
         self.targeted = targeted
         self.target_label = target_label
@@ -68,16 +69,13 @@ class DataModule(LightningDataModule):
         self.noise_type = noise_type,
         self.indices_dir = indices_dir
 
-
         if self.sub_id + 1 > self.number_sub:
             raise ("Not exist the subset {}".format(self.sub_id))
 
         # Training / validation set
-        rows_by_sub = floor(len(trainset) / self.number_sub)
+        rows_by_sub = floor(len(train_set) / self.number_sub)
         tr_subset = ChangeableSubset(
-            trainset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub), \
-            label_flipping=self.label_flipping, data_poisoning=self.data_poisoning, poisoned_persent=self.poisoned_persent, \
-            poisoned_ratio=self.poisoned_ratio, targeted=self.targeted, target_label=self.target_label, \
+            train_set, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub), label_flipping=self.label_flipping, data_poisoning=self.data_poisoning, poisoned_persent=self.poisoned_percent, poisoned_ratio=self.poisoned_ratio, targeted=self.targeted, target_label=self.target_label,
             target_changed_label=self.target_changed_label, noise_type=self.noise_type
         )
         data_train, data_val = random_split(
@@ -89,28 +87,28 @@ class DataModule(LightningDataModule):
         )
 
         # Test set
-        rows_by_sub = floor(len(testset) / self.number_sub)
+        rows_by_sub = floor(len(test_set) / self.number_sub)
         te_subset = ChangeableSubset(
-            testset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub)
+            test_set, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub)
         )
 
-        if len(testset) < self.number_sub:
-            raise ("Too much partitions")
-        
-        #Save indices to local files
-        train_indices_filename =  f"{self.indices_dir}/participant_{self.sub_id}_train_indices.pk"
-        valid_indices_filename =  f"{self.indices_dir}/participant_{self.sub_id}_valid_indices.pk"
-        test_indices_filename =  f"{self.indices_dir}/participant_{self.sub_id}_test_indices.pk"
+        if len(test_set) < self.number_sub:
+            raise "Too much partitions"
+
+        # Save indices to local files
+        train_indices_filename = f"{self.indices_dir}/participant_{self.sub_id}_train_indices.pk"
+        valid_indices_filename = f"{self.indices_dir}/participant_{self.sub_id}_valid_indices.pk"
+        test_indices_filename = f"{self.indices_dir}/participant_{self.sub_id}_test_indices.pk"
 
         with open(train_indices_filename, 'wb') as f:
-            pk.dump(data_train.indices,f)
-            f.close
+            pk.dump(data_train.indices, f)
+            f.close()
         with open(valid_indices_filename, 'wb') as f:
-            pk.dump(data_val.indices,f)
-            f.close
+            pk.dump(data_val.indices, f)
+            f.close()
         with open(test_indices_filename, 'wb') as f:
-            pk.dump(te_subset.indices,f)
-            f.close
+            pk.dump(te_subset.indices, f)
+            f.close()
 
         # DataLoaders
         self.train_loader = DataLoader(
@@ -118,18 +116,24 @@ class DataModule(LightningDataModule):
             batch_size=self.batch_size,
             shuffle=True,
             num_workers=self.num_workers,
+            drop_last=True,
+            pin_memory=False,
         )
         self.val_loader = DataLoader(
             data_val,
             batch_size=self.batch_size,
             shuffle=False,
             num_workers=self.num_workers,
+            drop_last=True,
+            pin_memory=False,
         )
         self.test_loader = DataLoader(
             te_subset,
             batch_size=self.batch_size,
             shuffle=False,
             num_workers=self.num_workers,
+            drop_last=True,
+            pin_memory=False,
         )
         print(
             "Train: {} Val:{} Test:{}".format(
@@ -148,10 +152,3 @@ class DataModule(LightningDataModule):
     def test_dataloader(self):
         """ """
         return self.test_loader
-
-
-# if __name__ == "__main__":
-#     dm = DataModule()
-#     print(dm.train_dataloader())
-#     print(dm.val_dataloader())
-#     print(dm.test_dataloader())

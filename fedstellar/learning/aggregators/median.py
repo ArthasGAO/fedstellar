@@ -1,4 +1,3 @@
-
 import logging
 
 import torch
@@ -18,10 +17,9 @@ class Median(Aggregator):
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[Median] My config is {}".format(self.config))
 
-
     def get_median(self, weights):
         """
-        Takes the median as the jth parameter 
+        Takes the median as the jth parameter
         of the global model. Note that when m is an even number,
         median is the mean of the middle two parameters.
 
@@ -35,11 +33,11 @@ class Median(Aggregator):
             logging.error(
                 "[Median] Trying to aggregate models when there is no models"
             )
-            return None   
+            return None
 
-        # get the median
+            # get the median
         median = 0
-        if weight_len%2 == 1:
+        if weight_len % 2 == 1:
             # odd number, return the median
             median, _ = torch.median(weights, 0)
         else:
@@ -47,9 +45,9 @@ class Median(Aggregator):
             # sort the tensor
             arr_weights = np.asarray(weights)
             nobs = arr_weights.shape[0]
-            start = int(nobs/2) - 1
-            end = int(nobs/2) + 1
-            atmp = np.partition(arr_weights, (start, end-1), 0)
+            start = int(nobs / 2) - 1
+            end = int(nobs / 2) + 1
+            atmp = np.partition(arr_weights, (start, end - 1), 0)
             sl = [slice(None)] * atmp.ndim
             sl[0] = slice(start, end)
             arr_median = np.mean(atmp[tuple(sl)], axis=0)
@@ -74,7 +72,7 @@ class Median(Aggregator):
             return None
 
         models = list(models.values())
-        models_params = [m for m,_ in models]
+        models_params = [m for m, _ in models]
 
         # Total Samples
         total_samples = sum([y for _, y in models])
@@ -96,21 +94,21 @@ class Median(Aggregator):
 
             # get the number of elements of layer tensor
             number_layer_weights = torch.numel(weight_layer)
-            #if its 0-d tensor
-            if l_shape==[]:
+            # if its 0-d tensor
+            if l_shape == []:
                 weights = torch.tensor([models_params[j][layer] for j in range(0, total_models)])
                 weights = weights.double()
                 w = self.get_median(weights)
                 accum[layer] = w
-            
+
             else:
                 # flatten the tensor
                 weight_layer_flatten = weight_layer.view(number_layer_weights)
 
                 # flatten the tensor of each model
-                models_layer_weight_flatten = torch.stack([models_params[j][layer].view(number_layer_weights) for j in range(0, total_models)],0)
+                models_layer_weight_flatten = torch.stack([models_params[j][layer].view(number_layer_weights) for j in range(0, total_models)], 0)
 
                 # get the weight list [w1j,w2j,··· ,wmj], where wij is the jth parameter of the ith local model
                 median = self.get_median(models_layer_weight_flatten)
-                accum[layer] = median.view(l_shape)                          
+                accum[layer] = median.view(l_shape)
         return accum

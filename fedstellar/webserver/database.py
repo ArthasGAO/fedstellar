@@ -295,6 +295,7 @@ def remove_nodes_by_scenario_name(scenario_name):
     _conn.commit()
     _conn.close()
 
+
 """
     Scenario Management
 """
@@ -339,6 +340,17 @@ def scenario_set_all_status_to_finished():
     _c = _conn.cursor()
 
     command = "UPDATE scenarios SET status = 'finished', end_time = '" + str(datetime.datetime.now()) + "';"
+    _c.execute(command)
+
+    _conn.commit()
+    _conn.close()
+
+
+def scenario_set_status_to_finished(scenario_name):
+    _conn = sqlite3.connect(scenario_db_file_location)
+    _c = _conn.cursor()
+
+    command = "UPDATE scenarios SET status = 'finished', end_time = '" + str(datetime.datetime.now()) + "' WHERE name = '" + scenario_name + "';"
     _c.execute(command)
 
     _conn.commit()

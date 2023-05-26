@@ -53,11 +53,9 @@
         <div class="form-group row" id="deployment-group">
             <h4 class="step-number">Deployment <i class="fa fa-cloud-upload"></i></h4>
             <div style="margin-left: 10px">
-                <h4>Deployment Location</h4>
-                <p class="text-muted">Select the location for the scenario.</p>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="locationRadioOptions" id="simulation-radio" value="simulation" checked>
-                    <label class="form-check-label" for="simulation-radio">Simulation</label>
+                    <label class="form-check-label" for="simulation-radio">Virtual participants</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="locationRadioOptions" id="real-radio" value="real" disabled>
@@ -65,7 +63,7 @@
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="locationRadioOptions" id="datacenter-radio" value="datacenter" disabled>
-                    <label class="form-check-label" for="datacenter-radio">Datacenter (computer server)</label>
+                    <label class="form-check-label" for="datacenter-radio">External datacenter</label>
                 </div>
             </div>
         </div>
@@ -111,7 +109,7 @@
             <h4 class="step-number">Dataset <i class="fa fa-database"></i></h4>
             <select class="form-control" id="datasetSelect" name="dataset" style="display: inline; width: 50%">
                 <option selected>MNIST</option>
-                <option>FEMNIST</option>
+                <option>CIFAR10</option>
                 <option>SYSCALL</option>
             </select>
             <small id="datasetHelp" class="form-text text-muted">
@@ -127,7 +125,7 @@
             </select>
         </div>
         <div class="form-group row">
-            <h4 class="step-number">Aggregation <i class="fa fa-cogs"></i></h4>
+            <h4 class="step-number">Aggregation <i class="fa fa-calculator"></i></h4>
             <h5>Aggregation algorithm</h5>
             <select class="form-control" id="aggregationSelect" name="aggregation" style="display: inline; width: 50%">
                 <option selected>FedAvg</option>
@@ -189,8 +187,6 @@
         <div class="form-group row">
             <h4 class="step-number">Advanced Deployment <i class="fa fa-cloud-upload"></i></h4>
             <div style="margin-left: 10px">
-                <h4>Deployment Options</h4>
-                <p class="text-muted">Select the deployment options for the scenario.</p>
                 <h5 class="step-title">Accelerator definition</h5>
                 <select class="form-control" id="resourceUsage" name="resources" style="display: inline; width: 20%">
                     <option value="cpu" selected>CPU usage</option>
@@ -221,24 +217,23 @@
             <input type="number" class="form-control" id="epochs" placeholder="Number of Epochs" value="3" style="display: inline; width: 20%">
         </div>
         <div class="form-group row">
-            <h4 class="step-number">Advanced Aggregation <i class="fa fa-calculator"></i></h4>
-        </div>
-        <div class="form-group row">
-            <h4 class="step-number">Attacks Setting <i class="fa fa-bomb"></i></h4>
+            <h4 class="step-number">Robustness <i class="fa fa-shield"></i></h4>
             <div style="margin-left: 10px">
-                <p class="text-muted">Select the attack for the scenario.</p>
                 <h5 class="step-title">Attack Type</h5>
                 <select class="form-control" id="poisoning-attack-select" name="poisoning-attack" style="display: inline; width: 20%">
                     <option selected>No Attack</option>
-                        <option>Label Flipping</option>
-                        <option>Sample Poisoning</option>
-                        <option>Model Poisoning</option>
+                    <option>Label Flipping</option>
+                    <option>Sample Poisoning</option>
+                    <option>Model Poisoning</option>
                 </select>
-                <p class="text-muted">Percent of nodes have been attacked.</p>
-                <input type="number" class="form-control" id="poisoned-node-percent" placeholder="Percent of nodes been poisoned" value="0" style="display: inline; width: 19%">
-                    <small class="form-text text-muted">%</small>
-                <p class="text-muted">Percent of data for each node has been attacked.</p>
-                <input type="number" class="form-control" id="poisoned-sample-percent" placeholder="Percent of sample in each node been poisoned" value="0" style="display: inline; width: 19%">
+                <h5>Percent of nodes been attacked</h5>
+                <input type="number" class="form-control" id="poisoned-node-percent" placeholder="Percent of nodes been poisoned" min="0" value="0" style="display: inline; width: 20%">
+                <small class="form-text text-muted">%</small>
+                <h5>Percent of sample in each node been attacked</h5>
+                <input type="number" class="form-control" id="poisoned-sample-percent" placeholder="Percent of sample in each node been poisoned" min="0" value="0" style="display: inline; width: 20%">
+                <small class="form-text text-muted">%</small>
+                <h5>Percent of poisoned noise</h5>
+                <input type="number" class="form-control" id="poisoned-noise-percent" placeholder="Percent of noise in sample been added" min="0" value="0" style="display: inline; width: 20%">
                 <small class="form-text text-muted">%</small>
             </div>
         </div>
@@ -409,7 +404,6 @@
 
     contentDatasetHelp = '<ul>\n' +
         '                    <li>MNIST: The MNIST dataset</li>\n' +
-        '                    <li>FEMNIST: The FEMNIST dataset</li>\n' +
         '                    <li>SYSCALL: The SYSCALL dataset</li>\n' +
         '                </ul>'
     $('#topologyCustomIcon').popover({
@@ -574,8 +568,9 @@
                     "network_subnet": document.getElementById("network-subnet").value,
                     "network_gateway": document.getElementById("network-gateway").value,
                     "attacks": document.getElementById("poisoning-attack-select").value,
-                    "poisoned_node_persent": document.getElementById("poisoned-node-percent").value,
-                    "poisoned_sample_persent": document.getElementById("poisoned-sample-percent").value,
+                    "poisoned_node_percent": document.getElementById("poisoned-node-percent").value,
+                    "poisoned_sample_percent": document.getElementById("poisoned-sample-percent").value,
+                    "poisoned_noise_percent": document.getElementById("poisoned-noise-percent").value,
                 };
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/scenario/deployment/run", true);
@@ -602,15 +597,6 @@
     customTopologyBtn.addEventListener("click", function () {
         predefinedTopologyDiv.style.display = "none";
     });
-
-    // Generate the poisoning attack information (Adversarial Attacks)
-    // poisoningAttackDiv = document.getElementById("poisoning-attack")
-    // noAttackBtn = document.getElementById("no-attack-btn");
-    // noAttackBtn.addEventListener("click", function () {
-    //     poisoningAttackDiv.style.display = "none";
-    //     poisoningAttackBtn.checked = false;
-    // });
-
     // When click on "predefined-topology-btn" check input, display "predefined-topology"
     predefinedTopologyBtn = document.getElementById("predefined-topology-btn");
     predefinedTopologyBtn.addEventListener("click", function () {
@@ -919,6 +905,14 @@
 </script>
 
 <script>
+    // Detect if input network-subnet is changed, if it is changed, update the graph
+    document.getElementById("network-subnet").addEventListener("change", function () {
+        // Update the graph
+        updateGraph();
+    });
+</script>
+
+<script>
     // Create the graph object
 
     function updateGraph() {
@@ -957,15 +951,15 @@
         });
 
         // All nodes have to have the IP from the input docker-options-network-address. Each node have the IP plus 1, starting from the IP in the input plus 1
-            var nodes = gData.nodes;
-            var ip = document.getElementById("network-subnet").value;
-            var ip_split = ip.split("/");
-            ip_split = ip_split[0].split(".");
-            var ip_last = parseInt(ip_split[3]);
-            for (var i = 0; i < nodes.length; i++) {
-                nodes[i].ip = ip_split[0] + "." + ip_split[1] + "." + ip_split[2] + "." + (ip_last + i + 1);
-            }
-            gData.nodes = nodes;
+        var nodes = gData.nodes;
+        var ip = document.getElementById("network-subnet").value;
+        var ip_split = ip.split("/");
+        ip_split = ip_split[0].split(".");
+        var ip_last = parseInt(ip_split[3]);
+        for (var i = 0; i < nodes.length; i++) {
+            nodes[i].ip = ip_split[0] + "." + ip_split[1] + "." + ip_split[2] + "." + (ip_last + i + 1);
+        }
+        gData.nodes = nodes;
 
         console.log(gData);
     }

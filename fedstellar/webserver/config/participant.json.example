@@ -19,7 +19,7 @@
     "role": "aggregator",
     "start": false,
     "accelerator": "cpu",
-    "devices": 1,
+    "devices": 2,
     "strategy": "ddp"
   },
   "geo_args": {
@@ -52,12 +52,11 @@
   "adversarial_args": {
     "attacks": "No Attack",
     "targeted": false,
-    "poisoned_sample_persent": 0,
+    "poisoned_sample_percent": 0,
     "poisoned_ratio": 0,
     "target_label": 0,
-    "target_changed_label": 0,
     "noise_type": "salt",
-    "is_iid": true
+    "target_changed_label": 0    
   },
   "tracking_args": {
     "enable_remote_tracking": false,

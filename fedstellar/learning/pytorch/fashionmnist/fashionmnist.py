@@ -1,54 +1,54 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2023 Chao Feng.
+# Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 #
-import os
-import sys
-from math import floor
 
 # To Avoid Crashes with a lot of nodes
-import torch.multiprocessing
-from torchvision import transforms
+from torch.utils.data import Dataset
+from torchvision import transforms as T
 from torchvision.datasets import FashionMNIST
-from fedstellar.learning.pytorch.changeablesubset import ChangeableSubset
-torch.multiprocessing.set_sharing_strategy("file_system")
-import pickle as pk
-
-#######################################
-#  FederatedDataModule for FashionMNIST  #
-#######################################
 
 
-class FASHIONMNISTDATASET():
-    """
-    Down the FashionMNIST datasets from torchversion.
-
-    Args:
-    iid: iid or non-iid data seperate
-    """
-    def __init__(self, iid=True):
-        self.trainset = None
-        self.testset = None
+class FashionMNISTDataset(Dataset):
+    def __init__(self, loading="torchvision", iid=True, root_dir="./data"):
+        super().__init__()
+        self.train_set = None
+        self.test_set = None
         self.iid = iid
+        self.root_dir = root_dir
+        self.loading = loading
 
-        # Singletons of FashionMNIST train and test datasets
-        if not os.path.exists(f"{sys.path[0]}/data"):
-            os.makedirs(f"{sys.path[0]}/data", exist_ok=True)
-        
-        self.trainset = FashionMNIST(
-                f"{sys.path[0]}/data", train=True, download=True, transform=transforms.ToTensor()
-                )
-        self.testset = FashionMNIST(
-                f"{sys.path[0]}/data", train=False, download=True, transform=transforms.ToTensor()
-                )
+        self.train_set = self.get_dataset(
+            train=True,
+            transform=T.ToTensor()
+        )
+
+        self.test_set = self.get_dataset(
+            train=False,
+            transform=T.ToTensor()
+        )
 
         if not self.iid:
             # if non-iid, sort the dataset
-            self.trainset = self.sort_dataset(self.trainset)
-            self.testset = self.sort_dataset(self.testset)
+            self.train_set = self.sort_dataset(self.train_set)
+            self.test_set = self.sort_dataset(self.test_set)
 
     def sort_dataset(self, dataset):
         sorted_indexes = dataset.targets.sort()[1]
         dataset.targets = (dataset.targets[sorted_indexes])
         dataset.data = dataset.data[sorted_indexes]
+        return dataset
+
+    def get_dataset(self, train, transform, download=True):
+        if self.loading == "torchvision":
+            dataset = FashionMNIST(
+                root=self.root_dir,
+                train=train,
+                transform=transform,
+                download=download,
+            )
+        elif self.loading == "custom":
+            raise NotImplementedError
+        else:
+            raise NotImplementedError
         return dataset

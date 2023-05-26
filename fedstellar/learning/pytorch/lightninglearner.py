@@ -1,6 +1,6 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
+# Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 # 
 
 import logging
@@ -116,12 +116,14 @@ class LightningLearner(NodeLearner):
         try:
             if self.epochs > 0:
                 self.create_trainer()
-                results = self.__trainer.test(self.model, self.data, verbose=True)
-                loss = results[0]["Test/Loss"]
-                metric = results[0]["Test/Accuracy"]
+                self.__trainer.test(self.model, self.data, verbose=True)
                 self.__trainer = None
-                self.log_validation_metrics(loss, metric, self.round)
-                return loss, metric
+                # results = self.__trainer.test(self.model, self.data, verbose=True)
+                # loss = results[0]["Test/Loss"]
+                # metric = results[0]["Test/Accuracy"]
+                # self.__trainer = None
+                # self.log_validation_metrics(loss, metric, self.round)
+                # return loss, metric
             else:
                 return None
         except Exception as e:
@@ -169,11 +171,12 @@ class LightningLearner(NodeLearner):
             callbacks=[RichModelSummary(max_depth=1), progress_bar],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            devices="auto",
+            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",  # TODO: only one GPU for now
+            # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=self.logger,
             log_every_n_steps=20,
             enable_checkpointing=False,
             enable_model_summary=False,
-            enable_progress_bar=True,
+            enable_progress_bar=True
         )

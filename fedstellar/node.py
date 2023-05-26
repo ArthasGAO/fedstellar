@@ -1,13 +1,13 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
+# Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 #
 import json
 import logging
 import math
 import os
-from datetime import datetime, timedelta
 import pickle
+from datetime import datetime, timedelta
 
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
@@ -32,12 +32,13 @@ from fedstellar.communication_protocol import CommunicationProtocol
 from fedstellar.config.config import Config
 from fedstellar.learning.aggregators.fedavg import FedAvg
 from fedstellar.learning.aggregators.krum import Krum
-from fedstellar.learning.aggregators.trimmedmean import TrimmedMean
 from fedstellar.learning.aggregators.median import Median
+from fedstellar.learning.aggregators.trimmedmean import TrimmedMean
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.role import Role
 from fedstellar.utils.observer import Events, Observer
+
 from fedstellar.attacks.poisoning.modelpoison import modelpoison
 
 
@@ -81,7 +82,7 @@ class Node(BaseNode):
             encrypt=False,
             model_poisoning=False,
             poisoned_ratio=0,
-            noise_type='gaussian'
+            noise_type='gaussian',
     ):
         # Super init
         BaseNode.__init__(self, experiment_name, hostdemo, host, port, encrypt, config)
@@ -102,10 +103,11 @@ class Node(BaseNode):
         self.__initial_neighbors = []
         self.__start_thread_lock = threading.Lock()
 
+        # Attack environment
         self.model_dir = self.config.participant['tracking_args']["model_dir"]
         self.model_name = f"{self.model_dir}/participant_{self.idx}_model.pk"
         self.model_poisoning = model_poisoning
-        self.poisoned_ratio = poisoned_ratio,
+        self.poisoned_ratio = poisoned_ratio
         self.noise_type = noise_type
 
         # Learner and learner logger
@@ -135,12 +137,12 @@ class Node(BaseNode):
         # Aggregator
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
             self.aggregator = FedAvg(node_name=self.get_name(), config=self.config)
-        if self.config.participant["aggregator_args"]["algorithm"] == "Krum":
+        elif self.config.participant["aggregator_args"]["algorithm"] == "Krum":
             self.aggregator = Krum(node_name=self.get_name(), config=self.config)
-        if self.config.participant["aggregator_args"]["algorithm"] == "Median":
+        elif self.config.participant["aggregator_args"]["algorithm"] == "Median":
             self.aggregator = Median(node_name=self.get_name(), config=self.config)
-        if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
-            self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
+        elif self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
+            self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config)
 
         self.aggregator.add_observer(self)
 
@@ -603,37 +605,41 @@ class Node(BaseNode):
 
     def __train(self):
         logging.info("[NODE.__train] Start training...")
+        print("[NODE.__train] Start training...")
         self.learner.fit()
         logging.info("[NODE.__train] Finish training...")
-
+        print("[NODE.__train] Finish training...")
         # model poison ###
         if self.model_poisoning:
             model_param = self.learner.get_parameters()
-            poisoned_model_param = modelpoison(model_param, poisoned_ratio=self.poisoned_ratio,\
-                noise_type=self.noise_type)
+            poisoned_model_param = modelpoison(model_param, poisoned_ratio=self.poisoned_ratio,
+                                               noise_type=self.noise_type)
             self.learner.set_parameters(poisoned_model_param)
 
     def __evaluate(self):
         logging.info("[NODE.__evaluate] Start evaluation...")
-        results = self.learner.evaluate()
-        if results is not None:
-            logging.info(
-                "[NODE] Evaluated. Loss: {}, Metric: {}".format(
-                    results[0], results[1]
-                )
-            )
-            logging.info("[NODE.__evaluate] Finish evaluation...")
-
-            if self.shared_metrics:
-                logging.info(
-                    "[NODE] Broadcasting metrics.".format(
-                        len(self.get_neighbors())
-                    )
-                )
-                encoded_msgs = CommunicationProtocol.build_metrics_msg(
-                    self.get_name(), self.round, results[0], results[1]
-                )
-                self.broadcast(encoded_msgs)
+        print("[NODE.__evaluate] Start evaluation...")
+        self.learner.evaluate()
+        logging.info("[NODE.__evaluate] Finish evaluation...")
+        print("[NODE.__evaluate] Finish evaluation...")
+        # if results is not None:
+        #     logging.info(
+        #         "[NODE] Evaluated. Loss: {}, Metric: {}".format(
+        #             results[0], results[1]
+        #         )
+        #     )
+        #     logging.info("[NODE.__evaluate] Finish evaluation...")
+        #
+        #     if self.shared_metrics:
+        #         logging.info(
+        #             "[NODE] Broadcasting metrics.".format(
+        #                 len(self.get_neighbors())
+        #             )
+        #         )
+        #         encoded_msgs = CommunicationProtocol.build_metrics_msg(
+        #             self.get_name(), self.round, results[0], results[1]
+        #         )
+        #         self.broadcast(encoded_msgs)
 
     ######################
     #    Round finish    #
@@ -672,11 +678,9 @@ class Node(BaseNode):
             # At end, all nodes compute metrics
             self.__evaluate()
             # Finish
-
-            #save the final model to file system
+            # save the final model to file system
             with open(self.model_name, 'wb') as f:
                 pickle.dump(self.learner.model, f)
-
             logging.info(
                 "[NODE] FL experiment finished | Round: {} | Total rounds: {} | [!] Both to None".format(
                     self.round, self.totalrounds
@@ -888,8 +892,9 @@ class Node(BaseNode):
             self.add_model(obj)
 
         elif event == Events.METRICS_RECEIVED_EVENT:
-            name, round, loss, metric = obj
-            self.learner.log_validation_metrics(loss, metric, round=round, name=name)
+            # name, round, loss, metric = obj
+            # self.learner.log_validation_metrics(loss, metric, round=round, name=name)
+            pass
 
         elif event == Events.TRAIN_SET_VOTE_RECEIVED_EVENT:
             node, votes = obj

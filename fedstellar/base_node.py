@@ -1,6 +1,6 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
+# Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 #
 import json
 import logging
@@ -62,14 +62,14 @@ class BaseNode(threading.Thread, Observer):
             self.__node_socket.bind((host, 0))  # gets a random free port
             self.port = self.__node_socket.getsockname()[1]
         else:
-            logging.info("[BASENODE] Trying to bind to {}:{}".format(host, port))
+            print("[BASENODE] Trying to bind to {}:{}".format(host, port))
             self.__node_socket.bind((host, port))
         self.__node_socket.listen(50)  # no more than 50 connections at queue
 
         # Setting up network resources
         if not self.simulation and config.participant["network_args"]:
-            logging.info("[BASENODE] Network parameters\n{}".format(config.participant["network_args"]))
-            logging.info("[BASENODE] Running tcconfig to set network parameters")
+            print("[BASENODE] Network parameters\n{}".format(config.participant["network_args"]))
+            print("[BASENODE] Running tcconfig to set network parameters")
             os.system(f"tcset --device {config.participant['network_args']['interface']} --rate {config.participant['network_args']['rate']} --delay {config.participant['network_args']['delay']} --delay-distro {config.participant['network_args']['delay-distro']} --loss {config.participant['network_args']['loss']}")
 
         # Neighbors

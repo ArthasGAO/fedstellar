@@ -1,6 +1,6 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
+# Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 #
 import os
 import sys
@@ -75,10 +75,6 @@ class WADIDataModule(LightningDataModule):
         val_percent: The percentage of the validation set.
     """
 
-    # Singleton
-    wadi_train = None
-    wadi_val = None
-
     def __init__(
             self,
             sub_id=0,
@@ -87,77 +83,30 @@ class WADIDataModule(LightningDataModule):
             num_workers=4,
             val_percent=0.1,
             root_dir=None,
+            iid=True,
     ):
         super().__init__()
+        self.train_set = None
+        self.test_set = None
         self.sub_id = sub_id
         self.number_sub = number_sub
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.val_percent = val_percent
         self.root_dir = root_dir
+        self.iid = iid
 
+        self.train_set = WADI(sub_id=self.sub_id, number_sub=self.number_sub, root_dir=root_dir, train=True)
+        self.test_set = WADI(sub_id=self.sub_id, number_sub=self.number_sub, root_dir=root_dir, train=False)
 
-        self.train = WADI(sub_id=self.sub_id, number_sub=self.number_sub, root_dir=root_dir, train=True)
-        self.test = WADI(sub_id=self.sub_id, number_sub=self.number_sub, root_dir=root_dir, train=False)
+        if not self.iid:
+            # if non-iid, sort the dataset
+            self.train_set = self.sort_dataset(self.train_set)
+            self.test_set = self.sort_dataset(self.test_set)
 
+    def sort_dataset(self, dataset):
+        sorted_indexes = dataset.targets.sort()[1]
+        dataset.targets = (dataset.targets[sorted_indexes])
+        dataset.data = dataset.data[sorted_indexes]
+        return dataset
 
-        if len(self.test) < self.number_sub:
-            raise ("Too much partitions")
-
-        # Training / validation set
-        trainset = self.train
-        rows_by_sub = floor(len(trainset) / self.number_sub)
-        tr_subset = Subset(
-            trainset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub)
-        )
-        wadi_train, wadi_val = random_split(
-            tr_subset,
-            [
-                round(len(tr_subset) * (1 - self.val_percent)),
-                round(len(tr_subset) * self.val_percent),
-            ],
-        )
-
-        # Test set
-        testset = self.test
-        rows_by_sub = floor(len(testset) / self.number_sub)
-        te_subset = Subset(
-            testset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub)
-        )
-
-        # DataLoaders
-        self.train_loader = DataLoader(
-            wadi_train,
-            batch_size=self.batch_size,
-            shuffle=True,
-            num_workers=self.num_workers,
-        )
-        self.val_loader = DataLoader(
-            wadi_val,
-            batch_size=self.batch_size,
-            shuffle=False,
-            num_workers=self.num_workers,
-        )
-        self.test_loader = DataLoader(
-            te_subset,
-            batch_size=self.batch_size,
-            shuffle=False,
-            num_workers=self.num_workers,
-        )
-        print(
-            "Train: {} Val:{} Test:{}".format(
-                len(wadi_train), len(wadi_val), len(te_subset)
-            )
-        )
-
-    def train_dataloader(self):
-        """ """
-        return self.train_loader
-
-    def val_dataloader(self):
-        """ """
-        return self.val_loader
-
-    def test_dataloader(self):
-        """ """
-        return self.test_loader

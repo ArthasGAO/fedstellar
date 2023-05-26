@@ -7,6 +7,7 @@ import re
 import signal
 import subprocess
 import sys
+import textwrap
 import time
 from datetime import datetime
 
@@ -239,19 +240,27 @@ class Controller:
             command = '''docker kill $(docker ps -q --filter ancestor=fedstellar) > /dev/null 2>&1'''
             time.sleep(1)
             os.system(command)
+            command = '''docker rm $(docker ps -a -q --filter ancestor=fedstellar) > /dev/null 2>&1'''
+            time.sleep(1)
+            os.system(command)
+
+            # the same but for fedstellar-gpu
+            command = '''docker kill $(docker ps -q --filter ancestor=fedstellar-gpu) > /dev/null 2>&1'''
+            time.sleep(1)
+            os.system(command)
+            command = '''docker rm $(docker ps -a -q --filter ancestor=fedstellar-gpu) > /dev/null 2>&1'''
+            time.sleep(1)
+            os.system(command)
+
             # remove all docker networks which contain the word "fedstellar"
             command = '''docker network rm $(docker network ls | grep fedstellar | awk '{print $1}') > /dev/null 2>&1'''
             time.sleep(1)
             os.system(command)
+
+
+
         except Exception as e:
             raise Exception("Error while killing docker containers: {}".format(e))
-    
-    def start_without_server(self):
-        controller_env = os.environ.copy()
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        # webserver_path = os.path.join(current_dir, "webserver")
-        with open(f'{self.log_dir}/server.log', 'w', encoding='utf-8') as log_file:
-            subprocess.Popen([self.python_path, "start_without_webserver.py"], cwd=current_dir, env=controller_env, stdout=log_file, stderr=log_file, encoding='utf-8')
 
     def load_configurations_and_start_nodes(self):
         if not self.scenario_name:
@@ -260,10 +269,9 @@ class Controller:
         self.config_dir = os.path.join(self.config_dir, self.scenario_name)
         os.makedirs(self.config_dir, exist_ok=True)
 
+        os.makedirs(os.path.join(self.log_dir, self.scenario_name), exist_ok=True)
         self.model_dir = os.path.join(self.model_dir, self.scenario_name)
         os.makedirs(self.model_dir, exist_ok=True)
-
-        os.makedirs(os.path.join(self.log_dir, self.scenario_name), exist_ok=True)
         self.start_date_scenario = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         logging.info("Generating the scenario {} at {}".format(self.scenario_name, self.start_date_scenario))
 
@@ -359,56 +367,122 @@ class Controller:
 
     def start_nodes_docker(self, idx_start_node):
         logging.info("Starting nodes using Docker Compose...")
-        docker_compose_template = """
-        version: "3.9"
-        services:
-        {}
-        """
-        participant_template = """
-                  participant{}:
-                    image: fedstellar
-                    restart: always
-                    volumes:
-                        - {}:/fedstellar
-                    extra_hosts:
-                        - "host.docker.internal:host-gateway"
-                    command:
-                        - /bin/bash
-                        - -c
-                        - |
-                          ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
-                    depends_on:
-                        - participant{}
-                    networks:
-                        fedstellar-net:
-                            ipv4_address: {}
-                """
-        participant_template_start = """
-                  participant{}:
-                    image: fedstellar
-                    restart: always
-                    volumes:
-                        - {}:/fedstellar
-                    extra_hosts:
-                        - "host.docker.internal:host-gateway"
-                    command:
-                        - /bin/bash
-                        - -c
-                        - |
-                          /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
-                    networks:
-                        fedstellar-net:
-                            ipv4_address: {}
-                """
-        network_template = """
-        networks:
-            fedstellar-net:
-                driver: bridge
-                ipam:
-                    config:
-                        - subnet: {}
-                          gateway: {}
-        """
+        docker_compose_template = textwrap.dedent("""
+            services:
+            {}
+        """)
+
+        participant_template = textwrap.dedent("""
+            participant{}:
+                image: fedstellar
+                restart: always
+                volumes:
+                    - {}:/fedstellar
+                extra_hosts:
+                    - "host.docker.internal:host-gateway"
+                ipc: host
+                privileged: true
+                command:
+                    - /bin/bash
+                    - -c
+                    - |
+                        ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                depends_on:
+                    - participant{}
+                networks:
+                    fedstellar-net:
+                        ipv4_address: {}
+        """)
+        participant_template = textwrap.indent(participant_template, ' ' * 4)
+
+        participant_template_start = textwrap.dedent("""
+            participant{}:
+                image: fedstellar
+                restart: always
+                volumes:
+                    - {}:/fedstellar
+                extra_hosts:
+                    - "host.docker.internal:host-gateway"
+                ipc: host
+                privileged: true
+                command:
+                    - /bin/bash
+                    - -c
+                    - |
+                        /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                networks:
+                    fedstellar-net:
+                        ipv4_address: {}
+        """)
+        participant_template_start = textwrap.indent(participant_template_start, ' ' * 4)
+
+        participant_gpu_template = textwrap.dedent("""
+            participant{}:
+                image: fedstellar-gpu
+                restart: always
+                volumes:
+                    - {}:/fedstellar
+                extra_hosts:
+                    - "host.docker.internal:host-gateway"
+                ipc: host
+                privileged: true
+                command:
+                    - /bin/bash
+                    - -c
+                    - |
+                        ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                depends_on:
+                    - participant{}
+                deploy:
+                    resources:
+                        reservations:
+                            devices:
+                                - driver: nvidia
+                                  count: all
+                                  capabilities: [gpu]
+                networks:
+                    fedstellar-net:
+                        ipv4_address: {}
+        """)
+        participant_gpu_template = textwrap.indent(participant_gpu_template, ' ' * 4)
+
+        participant_gpu_template_start = textwrap.dedent("""
+            participant{}:
+                image: fedstellar-gpu
+                restart: always
+                volumes:
+                    - {}:/fedstellar
+                extra_hosts:
+                    - "host.docker.internal:host-gateway"
+                ipc: host
+                privileged: true
+                command:
+                    - /bin/bash
+                    - -c
+                    - |
+                        /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                deploy:
+                    resources:
+                        reservations:
+                            devices:
+                                - driver: nvidia
+                                  count: all
+                                  capabilities: [gpu]
+                networks:
+                    fedstellar-net:
+                        ipv4_address: {}
+        """)
+        participant_gpu_template_start = textwrap.indent(participant_gpu_template_start, ' ' * 4)
+
+        network_template = textwrap.dedent("""
+            networks:
+                fedstellar-net:
+                    driver: bridge
+                    ipam:
+                        config:
+                            - subnet: {}
+                              gateway: {}
+        """)
 
         # Generate the Docker Compose file dynamically
         services = ""
@@ -420,18 +494,37 @@ class Controller:
             logging.info("Node {} is listening on ip {}".format(idx, node['network_args']['ip']))
             # Add one service for each participant
             if idx != idx_start_node:
-                services += participant_template.format(idx,
-                                                        os.environ["FEDSTELLAR_ROOT"],
-                                                        self.network_gateway,
-                                                        path,
-                                                        idx_start_node,
-                                                        node['network_args']['ip'])
-            else:
-                services += participant_template_start.format(idx,
-                                                              os.environ["FEDSTELLAR_ROOT"],
-                                                              self.network_gateway,
-                                                              path,
-                                                              node['network_args']['ip'])
+                if node['device_args']['accelerator'] == "gpu":
+                    logging.info("Node {} is using GPU".format(idx))
+                    services += participant_gpu_template.format(idx,
+                                                                os.environ["FEDSTELLAR_ROOT"],
+                                                                self.network_gateway,
+                                                                path,
+                                                                idx_start_node,
+                                                                node['network_args']['ip'])
+                else:
+                    logging.info("Node {} is using CPU".format(idx))
+                    services += participant_template.format(idx,
+                                                            os.environ["FEDSTELLAR_ROOT"],
+                                                            self.network_gateway,
+                                                            path,
+                                                            idx_start_node,
+                                                            node['network_args']['ip'])
+            else:  # Start the node with a delay of 60 seconds
+                if node['device_args']['accelerator'] == "gpu":
+                    logging.info("Node {} is using GPU".format(idx))
+                    services += participant_gpu_template_start.format(idx,
+                                                                      os.environ["FEDSTELLAR_ROOT"],
+                                                                      self.network_gateway,
+                                                                      path,
+                                                                      node['network_args']['ip'])
+                else:
+                    logging.info("Node {} is using CPU".format(idx))
+                    services += participant_template_start.format(idx,
+                                                                  os.environ["FEDSTELLAR_ROOT"],
+                                                                  self.network_gateway,
+                                                                  path,
+                                                                  node['network_args']['ip'])
         docker_compose_file = docker_compose_template.format(services)
         docker_compose_file += network_template.format(self.network_subnet, self.network_gateway)
         # Write the Docker Compose file in config directory
@@ -448,9 +541,7 @@ class Controller:
             elif sys.platform == "darwin":
                 node['scenario_args']['controller'] = "host.docker.internal" + ":" + str(self.webserver_port)
             else:
-                # start the docker engine before running the framework!
                 node['scenario_args']['controller'] = "host.docker.internal" + ":" + str(self.webserver_port)
-                # raise ValueError("Windows is not supported yet for Docker Compose.")
 
             # Write the config file in config directory
             with open(f"{self.config_dir}/participant_{node['device_args']['idx']}.json", "w") as f:
@@ -498,6 +589,7 @@ class Controller:
     def remove_files_by_scenario(cls, scenario_name):
         import shutil
         shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_CONFIG_DIR"], scenario_name))
+        shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_MODELS_DIR"], scenario_name))
         try:
             shutil.rmtree(os.path.join(os.environ["FEDSTELLAR_LOGS_DIR"], scenario_name))
         except PermissionError:

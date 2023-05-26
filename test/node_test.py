@@ -1,6 +1,6 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
+# Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 # 
 
 
@@ -8,7 +8,7 @@ import time
 
 import pytest
 
-from fedstellar.learning.pytorch.mnist.mnist import MNISTDataModule
+from fedstellar.learning.pytorch.mnist.mnist import MNISTDataset
 from fedstellar.learning.pytorch.mnist.models.cnn import CNN
 from fedstellar.learning.pytorch.mnist.models.mlp import MLP
 from fedstellar.node import Node
@@ -24,8 +24,8 @@ set_test_settings()
 
 @pytest.fixture
 def two_nodes():
-    n1 = Node(MLP(), MNISTDataModule())
-    n2 = Node(MLP(), MNISTDataModule())
+    n1 = Node(MLP(), MNISTDataset())
+    n2 = Node(MLP(), MNISTDataset())
     n1.start()
     n2.start()
 
@@ -37,10 +37,10 @@ def two_nodes():
 
 @pytest.fixture
 def four_nodes():
-    n1 = Node(MLP(), MNISTDataModule())
-    n2 = Node(MLP(), MNISTDataModule())
-    n3 = Node(MLP(), MNISTDataModule())
-    n4 = Node(MLP(), MNISTDataModule())
+    n1 = Node(MLP(), MNISTDataset())
+    n2 = Node(MLP(), MNISTDataset())
+    n3 = Node(MLP(), MNISTDataset())
+    n4 = Node(MLP(), MNISTDataset())
     nodes = [n1, n2, n3, n4]
     [n.start() for n in nodes]
 
@@ -61,7 +61,7 @@ def test_convergence(x):
     # Node Creation
     nodes = []
     for i in range(n):
-        node = Node(MLP(), MNISTDataModule())
+        node = Node(MLP(), MNISTDataset())
         node.start()
         nodes.append(node)
 
@@ -137,7 +137,7 @@ def test_node_down_on_learning(n):
     # Node Creation
     nodes = []
     for i in range(n):
-        node = Node(MLP(), MNISTDataModule())
+        node = Node(MLP(), MNISTDataset())
         node.start()
         nodes.append(node)
 
@@ -179,8 +179,8 @@ def test_bad_binary_model(two_nodes):
 
 
 def test_wrong_model():
-    n1 = Node(MLP(), MNISTDataModule())
-    n2 = Node(CNN(), MNISTDataModule())
+    n1 = Node(MLP(), MNISTDataset())
+    n2 = Node(CNN(), MNISTDataset())
 
     n1.start()
     n2.start()
@@ -208,7 +208,7 @@ def test_encrypted_convergence(x):
     # Node Creation
     nodes = []
     for i in range(n):
-        node = Node(MLP(), MNISTDataModule(), simulation=False)
+        node = Node(MLP(), MNISTDataset(), simulation=False)
         node.start()
         nodes.append(node)
 

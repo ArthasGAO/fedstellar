@@ -311,6 +311,8 @@ class LightningLearner(NodeLearner):
             logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}".format(e))
             return None, None
 
+    """
+    # This messes with the training, dont use
     def validate_neighbour_no_pl(self, neighbour_model) -> (float, float):
         # the standard PL validation approach seems to break in multithreaded, thus workaround
         avg_loss = 0
@@ -327,6 +329,7 @@ class LightningLearner(NodeLearner):
         logging.info("Learner.validate_neighbour: computed loss: {}".format(avg_loss))
         val_acc = 0
         return avg_loss, val_acc
+    """
 
     def validate_neighbour_clean(self, neighbour_model) -> (float, float):
         try:

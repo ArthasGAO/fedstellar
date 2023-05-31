@@ -114,12 +114,12 @@ class Sentinel(Aggregator):
     """
 
     def __init__(self, node_name="unknown", config=None, logger=None, learner=None):
-        super().__init__(node_name, config, logger)
+        super().__init__(node_name, config, logger, learner)
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[Sentinel] My config is {}".format(self.config))
         self.logger = logger
-        self.learner: LightningLearner = learner
+        self.learner = learner
 
     def aggregate(self, models):
 

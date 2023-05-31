@@ -109,6 +109,7 @@ class Node(BaseNode):
 
         self.model_dir = self.config.participant['tracking_args']["model_dir"]
         self.model_name = f"{self.model_dir}/participant_{self.idx}_model.pk"
+        self.model_struct = model
         self.model_poisoning = model_poisoning
         self.poisoned_ratio = poisoned_ratio,
         self.noise_type = noise_type
@@ -129,7 +130,7 @@ class Node(BaseNode):
                                                  group=self.experiment_name,
                                                  name=f"participant_{self.idx}",
                                                  config=self.config.participant)
-            wandblogger.watch(model, log="all")
+            # wandblogger.watch(model, log="all")
             self.learner = learner(model, data, config=self.config, logger=wandblogger)
             self.logger = wandblogger
             logging.info("[NODE] Assigned WandBlogger: " + str(self.logger))
@@ -382,6 +383,14 @@ class Node(BaseNode):
         # START CUSTOMIZED
         logging.info("Evaluating received model... \n")
 
+        """
+        tmp_model = self.model_struct
+        tmp_model.load_state_dict(model_params)
+        # eval_learner = copy.deepcopy(self.learner)
+        # self.eval_learner.init()
+        val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
+        """
+
         tmp_learner: LightningLearner = copy.deepcopy(self.learner)
         tmp_learner.set_parameters(model_params)
         val_loss, val_acc = tmp_learner.validate_neighbour()
@@ -393,8 +402,8 @@ class Node(BaseNode):
                                f'val_acc@{neighbour}': val_acc}
                     self.logger.log_metrics(metrics=mapping, step=self.logger.global_step)
 
-        my_model = self.learner.get_parameters()
-        cos_similarity: float = cosine_similarity(my_model, model_params)
+        local_params = self.learner.get_parameters()
+        cos_similarity: float = cosine_similarity(local_params, model_params)
         if contributors is not None:
             for neighbour in contributors:
                 logging.info("Similarity for neighbour {} at step {}: {}"

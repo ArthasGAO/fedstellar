@@ -22,13 +22,14 @@ class Aggregator(threading.Thread, Observable):
         node_name: (str): String with the name of the node.
     """
 
-    def __init__(self, node_name="unknown", config=None, logger=None):
+    def __init__(self, node_name="unknown", config=None, logger=None, learner=None):
         self.node_name = node_name
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         threading.Thread.__init__(self, name="aggregator-" + node_name)
         self.daemon = True
         self.logger = logger
+        self.learner = learner
         Observable.__init__(self)
         self.__train_set = []
         self.__waiting_aggregated_model = False
@@ -196,12 +197,11 @@ class Aggregator(threading.Thread, Observable):
         dict_aux = {}
         nodes_aggregated = []
         total_samples = 0
-        models = copy.deepcopy(self.__models)
 
         node: str
         model: OrderedDict
         metrics: ModelMetrics
-        for node, (model, metrics) in list(models.items()):
+        for node, (model, metrics) in list(self.__models.items()):
             split_nodes = node.split()
             if all([node not in except_nodes for node in split_nodes]):
                 dict_aux[node] = (model, metrics)
@@ -226,6 +226,7 @@ class Aggregator(threading.Thread, Observable):
 
         Args:
             force: If true, aggregation will be started even if not all models have been added.
+            TODO sync: (force)) could be useful for synchronous aggregation
         """
         models_added = [nodes.split() for nodes in list(self.__models.keys())]
         models_added = [

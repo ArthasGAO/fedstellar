@@ -38,7 +38,7 @@ class PseudoAggregator(Aggregator):
         # The model of the aggregator serves as a trusted reference
         my_model = models.get(self.node_name)  # change
         if my_model is None:
-            logging.error("[Sentinel] Own model as bootstrap is not available")
+            logging.error("[Pseudo] Own model as bootstrap is not available")
             return None
 
         logging.info("[PseudoAggregator] Replace aggregate with own model")

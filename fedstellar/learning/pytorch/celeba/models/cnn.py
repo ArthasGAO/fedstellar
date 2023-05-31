@@ -80,7 +80,7 @@ class CNN(pl.LightningModule):
         out = torch.argmax(logits, dim=1)
         metric = self.metric(out, y)
         self.log("Validation/Loss", loss, prog_bar=True)
-        self.log("Accuracy/Loss", metric, prog_bar=True)
+        self.log("Validation/Accuracy", metric, prog_bar=True)
         return loss
 
     def test_step(self, batch, batch_idx):

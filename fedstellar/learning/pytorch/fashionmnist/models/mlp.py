@@ -83,6 +83,3 @@ class MLP(pl.LightningModule):
         self.log("Test/Loss", loss, prog_bar=True)
         self.log("Test/Accuracy", metric, prog_bar=True)
         return loss
-
-    def predict_step(self, batch, batch_idx, dataloader_idx=0):
-        return self(batch)

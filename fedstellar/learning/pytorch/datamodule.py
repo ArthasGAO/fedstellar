@@ -94,6 +94,14 @@ class DataModule(LightningDataModule):
             testset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub)
         )
 
+        # Every node should have a dataset with artificial backdoor to evaluate
+        data_backdoor = ChangeableSubset(
+            testset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub),
+            label_flipping=False, data_poisoning=True,
+            poisoned_persent=100,
+            poisoned_ratio=100, targeted=True, target_label=3,
+            target_changed_label=7, noise_type=None, backdoor_validation=True)
+
         if len(testset) < self.number_sub:
             raise ("Too much partitions")
 
@@ -131,6 +139,11 @@ class DataModule(LightningDataModule):
             shuffle=False,
             # num_workers=self.num_workers,
         )
+        self.backdoor_loader = DataLoader(
+            data_backdoor,
+            batch_size=self.batch_size,
+            shuffle=False,
+        )
         print(
             "Train: {} Val:{} Test:{}".format(
                 len(data_train), len(data_val), len(te_subset)
@@ -152,3 +165,7 @@ class DataModule(LightningDataModule):
     def predict_dataloader(self):
         """ """
         return self.test_loader
+
+    def backdoor_dataloader(self):
+        """ """
+        return self.backdoor_loader

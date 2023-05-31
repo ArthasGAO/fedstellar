@@ -132,7 +132,7 @@ class Node(BaseNode):
             wandblogger.watch(model, log="all")
             self.learner = learner(model, data, config=self.config, logger=wandblogger)
             self.logger = wandblogger
-            logging.info("[NODE] Assinged WandBlogger: " + str(self.logger))
+            logging.info("[NODE] Assigned WandBlogger: " + str(self.logger))
         else:
             if self.config.participant['tracking_args']['local_tracking'] == 'csv':
                 logging.info("[NODE] Tracking CSV enabled")
@@ -438,7 +438,7 @@ class Node(BaseNode):
                         # END CUSTOMIZED
 
                         models_added = self.aggregator.add_model(
-                            decoded_model, contributors, metrics
+                            decoded_model, contributors, new_metrics
                         )
                         if models_added is not None:
                             logging.info(
@@ -771,8 +771,9 @@ class Node(BaseNode):
             # At end, all nodes compute metrics
             self.__evaluate()
 
-            matrix = self.learner.compute_confusion_matrix()
-            logging.info("Confusion matrix: {}".format(matrix))
+            self.learner.compute_confusion_matrix(node_name=self.get_name(), backdoor=True)
+            self.learner.compute_confusion_matrix(node_name=self.get_name(), backdoor=False)
+            # logging.info("Confusion matrix: {}".format(matrix))
 
             # Save model to file
             # with open(self.model_name, 'wb') as f:

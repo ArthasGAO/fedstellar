@@ -94,9 +94,3 @@ class MLP(pl.LightningModule):
         self.log("Test/Accuracy", metric, prog_bar=True)
         # self.log("Test/F1", f1_score, prog_bar=True)
         return loss
-
-    def predict_step(self, batch: Any, batch_idx: int, dataloader_idx: int = 0):
-        x, y = batch
-        logits = self(x)
-        out = torch.argmax(logits, dim=1)
-        return out

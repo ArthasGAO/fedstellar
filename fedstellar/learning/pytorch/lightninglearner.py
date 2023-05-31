@@ -6,6 +6,8 @@
 import logging
 import pickle
 import time
+import traceback
+
 import pandas as pd
 import seaborn as sns
 from collections import OrderedDict
@@ -16,9 +18,12 @@ import torch
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelSummary, TQDMProgressBar
 from torchmetrics import ConfusionMatrix
+import matplotlib.pyplot as plt
 
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
+from torch.nn import functional as F
+from torchmetrics import Accuracy
 
 ###########################
 #    LightningLearner     #
@@ -146,9 +151,20 @@ class LightningLearner(NodeLearner):
             return None
     """
 
-    def compute_confusion_matrix(self):
+    """
+        Source: https://github.com/rasbt/stat453-deep-learning-ss21/blob/main/L14/helper_evaluation.py
+    """
+    def compute_confusion_matrix(self, node_name: str, backdoor: bool = False):
         model = self.model
-        data_loader = self.data.test_dataloader()
+
+        backdoor_dataloader = self.data.backdoor_dataloader()
+        test_dataloader = self.data.test_dataloader()
+        if backdoor:
+            log_key = "Backdoor Confmat"
+            data_loader = backdoor_dataloader
+        else:
+            log_key = "Testdata Confmat"
+            data_loader = test_dataloader
 
         all_targets, all_predictions = [], []
         with torch.no_grad():
@@ -160,8 +176,6 @@ class LightningLearner(NodeLearner):
                 all_targets.extend(targets.to('cpu'))
                 all_predictions.extend(predicted_labels.to('cpu'))
 
-        t_all_predictions = all_predictions
-        t_all_targets = all_targets
         all_predictions = all_predictions
         all_predictions = np.array(all_predictions)
         all_targets = np.array(all_targets)
@@ -184,35 +198,47 @@ class LightningLearner(NodeLearner):
             lst.append(z.count(combi))
         mat = np.asarray(lst)[:, None].reshape(n_labels, n_labels)
 
-        # TODO jba: find a way to retrieve all classes, this will not work in non-IID
-        df = pd.DataFrame(mat, index=class_labels, columns=class_labels)
-        heatmap = sns.heatmap(df, fmt=',.0f', annot=True)
-        heatmap.set(xlabel='True Label', ylabel='Predicted Label')
+        # Evaluate backdoor accuracy
+        if backdoor:
+            target_label = data_loader.dataset.target_label
+            num_predicted_target = mat.sum(axis=0)[target_label]
+            num_samples = len(data_loader.dataset)
+            attacker_success = num_predicted_target / num_samples
+            self.logger.log_metrics({"Test/ASR-backdoor": attacker_success}, step=self.logger.local_step)
+        else:
+            # Evaluate targeted data poisoning accuracy
+            target_label = backdoor_dataloader.dataset.target_label
+            target_changed_label = backdoor_dataloader.dataset.target_changed_label
+            num_target_changed_predicted = mat[target_label][target_changed_label]
+            num_target_samples = mat.sum(axis=1)[target_label]
+            attacker_success = num_target_changed_predicted / num_target_samples
+            self.logger.log_metrics({"Test/ASR-targeted": attacker_success}, step=self.logger.local_step)
+
+        class_names = data_loader.dataset.dataset.classes
+        class_names_short = list(data_loader.dataset.dataset.class_to_idx.values())
+
+        df = pd.DataFrame(mat, index=class_names, columns=class_names_short)
+        # plt.figure(figsize=(12, 8))
+        heatmap = sns.heatmap(df, fmt=',.0f', annot=True, cmap='Blues', cbar=False)
+        heatmap.set(xlabel='predicted label', ylabel='true label', title=log_key + " " + node_name)
         fig = heatmap.get_figure()
+        fig.tight_layout()
+        fig.show()
         images = [fig]
 
         # class_columns = data_loader.dataset.classes
         # print(class_columns)
         # TODO jba: global or local step?
-        self.logger.log_image(key="ConfMat", images=images, step=self.logger.global_step)
-        self.logger.log_text(key="ConfMat", dataframe=df, step=self.logger.global_step)
+        logging.info("Logging confmat as image")
+        self.logger.log_image(key=log_key + " -image", images=images, step=self.logger.local_step)
+        time.sleep(5)
+        logging.info("Logging confmat as table")
+        self.logger.log_text(key=log_key + " -table", dataframe=df, step=self.logger.local_step)
+
+        # clear figure such that plots do not become overlapping in wandb
+        fig.clf()
 
         return mat
-
-    def validate_neighbour(self):
-        try:
-            if self.epochs > 0:
-                self.create_trainer_no_logging()
-                results = self.__trainer.validate(self.model, self.data, verbose=False)
-                loss = results[0]["Validation/Loss"]
-                metric = results[0]["Validation/Accuracy"]
-                self.__trainer = None
-                return loss, metric
-            else:
-                return None, None
-        except Exception as e:
-            logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}".format(e))
-            return None, None
 
     def log_validation_metrics(self, loss, metric, round=None, name=None):
         self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
@@ -269,3 +295,58 @@ class LightningLearner(NodeLearner):
             enable_model_summary=False,
             enable_progress_bar=False,
         )
+
+    def validate_neighbour(self):
+        try:
+            if self.epochs > 0:
+                self.create_trainer_no_logging()
+                results = self.__trainer.validate(self.model, self.data, verbose=False)
+                loss = results[0]["Validation/Loss"]
+                metric = results[0]["Validation/Accuracy"]
+                self.__trainer = None
+                return loss, metric
+            else:
+                return None, None
+        except Exception as e:
+            logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}".format(e))
+            return None, None
+
+    def validate_neighbour_no_pl(self, neighbour_model) -> (float, float):
+        # the standard PL validation approach seems to break in multithreaded, thus workaround
+        avg_loss = 0
+        running_loss = 0
+        val_dataloader = self.data.val_dataloader()
+        with torch.no_grad():
+            torch.autograd.set_detect_anomaly(True)
+            for i, (inputs, labels) in enumerate(val_dataloader):
+                outputs = neighbour_model(inputs)
+                # _, predicted_labels = torch.max(outputs, 1)
+                loss = F.cross_entropy(outputs, labels)
+                running_loss = running_loss + loss.item()
+        avg_loss = running_loss / (i + 1)
+        logging.info("Learner.validate_neighbour: computed loss: {}".format(avg_loss))
+        val_acc = 0
+        return avg_loss, val_acc
+
+    def validate_neighbour_clean(self, neighbour_model) -> (float, float):
+        try:
+            # performing a deepcopy on the model creates errors with weak dependencies
+            tmp_trainer = Trainer(callbacks=[ModelSummary(max_depth=1), TQDMProgressBar(refresh_rate=200)],
+                                  max_epochs=self.epochs,
+                                  accelerator=self.config.participant["device_args"]["accelerator"],
+                                  devices=self.config.participant["device_args"]["devices"] if
+                                  self.config.participant["device_args"][
+                                      "accelerator"] != "cpu" else None,
+                                  logger=self.logger,
+                                  log_every_n_steps=20,
+                                  enable_checkpointing=False,
+                                  enable_model_summary=False,
+                                  enable_progress_bar=True)
+            results = tmp_trainer.validate(neighbour_model, self.data, verbose=True)
+            loss = results[0]["Validation/Loss"]
+            metric = results[0]["Validation/Accuracy"]
+            return loss, metric
+        except Exception as e:
+            logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}, {}"
+                          .format(e, traceback.format_exc()))
+            raise e

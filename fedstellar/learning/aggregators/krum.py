@@ -89,7 +89,7 @@ class Krum(Aggregator):
         for layer in m:
             accum[layer] = accum[layer] + m[layer]
 
-        logging.info("[Krum.aggregate] Aggregated model: accum={}".format(accum))
+        # logging.info("[Krum.aggregate] Aggregated model: accum={}".format(accum))
 
         return accum
 

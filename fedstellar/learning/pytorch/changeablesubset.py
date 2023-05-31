@@ -28,7 +28,8 @@ class ChangeableSubset(Subset):
                  targeted=False,
                  target_label=0,
                  target_changed_label=0,
-                 noise_type="salt"):
+                 noise_type="salt",
+                 backdoor_validation=False):
         new_dataset = copy.copy(dataset)
         self.dataset = new_dataset
         self.indices = indices
@@ -40,13 +41,14 @@ class ChangeableSubset(Subset):
         self.target_label = target_label
         self.target_changed_label = target_changed_label
         self.noise_type = noise_type
+        self.backdoor_validation = backdoor_validation
 
         if self.label_flipping:
             self.dataset = labelFlipping(self.dataset, self.indices, self.poisoned_persent, self.targeted,
                                          self.target_label, self.target_changed_label)
         if self.data_poisoning:
             self.dataset = datapoison(self.dataset, self.indices, self.poisoned_persent, self.poisoned_ratio,
-                                      self.targeted, self.target_label, self.noise_type)
+                                      self.targeted, self.target_label, self.noise_type, self.backdoor_validation)
 
     def __getitem__(self, idx):
         if isinstance(idx, list):

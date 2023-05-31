@@ -204,7 +204,7 @@ class Sentinel(Aggregator):
             cos[node] = metrics.cosine_similarity
         logging.info("FlTrust: Loss metrics: {}, cosine metrics: {}".format(loss, cos))
 
-        filtered_models = filter_models(models, 0)
+        filtered_models = filter_models(models, 0.5)
         if len(filtered_models) == 0:
             logging.warning("FlTrust: No more models to aggregate after filtering!")
             return None

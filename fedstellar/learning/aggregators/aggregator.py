@@ -215,6 +215,9 @@ class Aggregator(threading.Thread, Observable):
 
         aggregated_model = self.aggregate(dict_aux)
 
+        # Only use to compare models in terms of metrics, isolates logging on PseudoAggregation
+        # nodes_aggregated = [self.node_name]
+
         return aggregated_model, nodes_aggregated, ModelMetrics(num_samples=total_samples)
 
     def check_and_run_aggregation(self, force=False):

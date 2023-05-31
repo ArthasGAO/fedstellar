@@ -5,7 +5,7 @@ import sys
 from datetime import datetime
 import time
 
-N_EXPERIMENTS = 5
+N_EXPERIMENTS = 1
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))  # Parent directory where is the fedstellar module
 
@@ -39,7 +39,7 @@ poisoned_node_persent_list = [60]  # 60 80
 poisoned_sample_persent_list = [60]
 noise_type_list = ["salt", "gaussian", "s&p"]
 # poisoned_ratio_list = [1, 10, 20]
-poisoned_ratio_list = [20]
+poisoned_ratio_list = [80]
 
 targeted_list = [True, False]
 
@@ -65,7 +65,7 @@ basic_config["remote_tracking"] = True
 basic_config["rounds"] = 10
 basic_config["epochs"] = 5
 
-basic_config["targeted"] = True
+basic_config["targeted"] = False
 basic_config["noise_type"] = noise_type
 basic_config["poisoned_ratio"] = poisoned_ratio
 basic_config["dataset"] = dataset
@@ -79,7 +79,7 @@ basic_config["n_nodes"] = n_nodes
 basic_config["poisoned_node_persent"] = poisoned_node
 basic_config["poisoned_sample_persent"] = poisoned_sample
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[0]
+attack = attack_list[1]
 
 # aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "Sentinel"]
 aggregation_list = ["Sentinel"]

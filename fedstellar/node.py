@@ -160,7 +160,7 @@ class Node(BaseNode):
                                       logger=copy.copy(self.logger),
                                       learner=copy.copy(self.learner))
         # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
-        #    self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
+        #   self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
 
         self.aggregator.add_observer(self)
 

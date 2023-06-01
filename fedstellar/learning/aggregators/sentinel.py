@@ -113,13 +113,14 @@ class Sentinel(Aggregator):
         Custom aggregation method based on cosine similarity, loss distance and normalisation.
     """
 
-    def __init__(self, node_name="unknown", config=None, logger=None, learner=None):
+    def __init__(self, node_name="unknown", config=None, logger=None, learner=None, model_struct=None):
         super().__init__(node_name, config, logger, learner)
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[Sentinel] My config is {}".format(self.config))
         self.logger = logger
         self.learner = learner
+        self.model_struct = model_struct
 
     def aggregate(self, models):
 
@@ -199,8 +200,8 @@ class Sentinel(Aggregator):
         for layer in accum:
             accum[layer] = accum[layer] / total_mapped_loss
 
-        malicious = [malicous_by_cosine.union(malicous_by_loss)]
-        logging.info("Sentinel: Tagged as malicious: {}".format(malicious))
+        malicious = malicous_by_cosine.union(malicous_by_loss)
+        logging.info("Sentinel: Tagged as malicious: {}".format(list(malicious)))
 
         return accum
 

@@ -198,13 +198,14 @@ class LightningLearner(NodeLearner):
             lst.append(z.count(combi))
         mat = np.asarray(lst)[:, None].reshape(n_labels, n_labels)
 
-        # Evaluate backdoor accuracy
         if backdoor:
+            # Evaluate backdoor accuracy
             target_label = data_loader.dataset.target_label
             num_predicted_target = mat.sum(axis=0)[target_label]
             num_samples = len(data_loader.dataset)
             attacker_success = num_predicted_target / num_samples
             self.logger.log_metrics({"Test/ASR-backdoor": attacker_success}, step=self.logger.local_step)
+            logging.info("Computed ASR Backdoor: {}".format(attacker_success))
         else:
             # Evaluate targeted data poisoning accuracy
             target_label = backdoor_dataloader.dataset.target_label
@@ -213,6 +214,7 @@ class LightningLearner(NodeLearner):
             num_target_samples = mat.sum(axis=1)[target_label]
             attacker_success = num_target_changed_predicted / num_target_samples
             self.logger.log_metrics({"Test/ASR-targeted": attacker_success}, step=self.logger.local_step)
+            logging.info("Computed ASR Test: {}".format(attacker_success))
 
         class_names = data_loader.dataset.dataset.classes
         class_names_short = list(data_loader.dataset.dataset.class_to_idx.values())
@@ -311,10 +313,8 @@ class LightningLearner(NodeLearner):
             logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}".format(e))
             return None, None
 
-    """
-    # This messes with the training, dont use
     def validate_neighbour_no_pl(self, neighbour_model) -> (float, float):
-        # the standard PL validation approach seems to break in multithreaded, thus workaround
+        # the standard PL (pytorch lightning) validation approach seems to break in multithreaded, thus workaround
         avg_loss = 0
         running_loss = 0
         val_dataloader = self.data.val_dataloader()
@@ -329,9 +329,8 @@ class LightningLearner(NodeLearner):
         logging.info("Learner.validate_neighbour: computed loss: {}".format(avg_loss))
         val_acc = 0
         return avg_loss, val_acc
-    """
 
-    def validate_neighbour_clean(self, neighbour_model) -> (float, float):
+    def validate_neighbour_pl(self, neighbour_model) -> (float, float):
         try:
             # performing a deepcopy on the model creates errors with weak dependencies
             tmp_trainer = Trainer(callbacks=[ModelSummary(max_depth=1), TQDMProgressBar(refresh_rate=200)],

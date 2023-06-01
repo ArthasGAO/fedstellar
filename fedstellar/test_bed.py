@@ -45,7 +45,7 @@ targeted_list = [True, False]
 
 with open(basic_config_path) as f:
     basic_config = json.load(f)
-n_nodes = 8
+n_nodes = 10
 start_port = 46500
 
 dataset = dataset_list[2]
@@ -177,7 +177,7 @@ if attack == "Label Flipping":
                     basic_config["aggregation"] = aggregation
                     basic_config["poisoned_node_persent"] = node_persent
                     basic_config["poisoned_sample_persent"] = poisoned_sample_persent
-                    basic_config["poisoned_ratio"] = poisoned_ratio
+                    basic_config["poisoned_ratio"] = 0
 
                     basic_config['scenario_name'] = get_scenario_name(basic_config)
                     start_port += basic_config["n_nodes"]

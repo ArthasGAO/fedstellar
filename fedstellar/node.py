@@ -158,8 +158,9 @@ class Node(BaseNode):
             self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
         if self.config.participant["aggregator_args"]["algorithm"] == "Sentinel":
             self.aggregator = Sentinel(node_name=self.get_name(), config=self.config,
-                                      logger=copy.copy(self.logger),
-                                      learner=copy.copy(self.learner))
+                                       logger=copy.copy(self.logger),
+                                       learner=copy.copy(self.learner),
+                                       model_struct=self.model_struct)
         # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
         #   self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
 
@@ -365,7 +366,7 @@ class Node(BaseNode):
         # Leraner
         self.learner.interrupt_fit()
         # Aggregator
-        self.aggregator.check_and_run_aggregation(force=True)
+        self.aggregator.check_and_run_aggregation(force=False)
         self.aggregator.set_nodes_to_aggregate([])
         self.aggregator.clear()
         # Try to free wait locks
@@ -391,10 +392,22 @@ class Node(BaseNode):
         val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
         """
 
+        tmp_model = copy.deepcopy(self.learner.model)
+        tmp_model.load_state_dict(model_params)
+        tmp_loss, tmp_metric = self.learner.validate_neighbour_no_pl(tmp_model)
+        logging.warning("temp metrics: {},{} ".format(tmp_loss, tmp_metric))
+        val_loss = tmp_loss
+        val_acc = tmp_metric
+        # -> with validate_neighbour_clean:
+        # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
+
+        """
         tmp_learner: LightningLearner = copy.deepcopy(self.learner)
         tmp_learner.set_parameters(model_params)
         val_loss, val_acc = tmp_learner.validate_neighbour()
         logging.info("Decoded Model: val_loss: {}, val_acc: {}\n".format(val_loss, val_acc))
+        """
+
         if contributors is not None:
             for neighbour in contributors:
                 if neighbour != self.get_name():

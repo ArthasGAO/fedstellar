@@ -48,7 +48,7 @@
     "epochs": 5
   },
   "aggregator_args": {
-    "algorithm": "Sentinel"
+    "algorithm": "FedAvg"
   },
   "adversarial_args": {
     "attacks": "No Attack",

@@ -326,7 +326,7 @@ class LightningLearner(NodeLearner):
                 loss = F.cross_entropy(outputs, labels)
                 running_loss = running_loss + loss.item()
         avg_loss = running_loss / (i + 1)
-        logging.info("Learner.validate_neighbour: computed loss: {}".format(avg_loss))
+        # logging.info("Learner.validate_neighbour: computed loss: {}".format(avg_loss))
         val_acc = 0
         return avg_loss, val_acc
 

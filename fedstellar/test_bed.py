@@ -82,7 +82,7 @@ attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flippi
 attack = attack_list[1]
 
 # aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "Sentinel"]
-aggregation_list = ["Sentinel"]
+aggregation_list = ["FedAvg"]
 
 with open(basic_config_path, "w") as f:
     json.dump(basic_config, f)

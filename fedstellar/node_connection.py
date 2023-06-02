@@ -135,7 +135,8 @@ class NodeConnection(threading.Thread, Observable):
         """
         NodeConnection loop. Receive and process messages.
         """
-        self.__socket.settimeout(self.config.participant["NODE_TIMEOUT"])
+        # TODO sync: remove connection timeout
+        # self.__socket.settimeout(self.config.participant["NODE_TIMEOUT"])
         amount_pending_params = 0
         param_buffer = b""
         while not self.__terminate_flag.is_set():

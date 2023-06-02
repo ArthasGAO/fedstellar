@@ -5,13 +5,11 @@
 import copy
 import json
 import logging
-import math
 import os
 from datetime import datetime, timedelta
 from typing import List, OrderedDict
 
 from fedstellar.learning.aggregators.sentinel import Sentinel, cosine_similarity
-from fedstellar.learning.aggregators.pseudo import PseudoAggregator
 from fedstellar.learning.modelmetrics import ModelMetrics
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
@@ -28,8 +26,7 @@ logging.getLogger("fsspec").setLevel(logging.WARNING)
 import random
 import threading
 import time
-import pickle
-from pytorch_lightning.loggers import WandbLogger, CSVLogger
+from pytorch_lightning.loggers import CSVLogger
 
 from fedstellar.base_node import BaseNode
 from fedstellar.communication_protocol import CommunicationProtocol
@@ -43,6 +40,25 @@ from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.role import Role
 from fedstellar.utils.observer import Events, Observer
 from fedstellar.attacks.poisoning.modelpoison import modelpoison
+
+import code, traceback, signal
+
+
+def debug(sig, frame):
+    """Interrupt running process, and provide a python prompt for
+    interactive debugging."""
+    d={'_frame':frame}         # Allow access to frame object.
+    d.update(frame.f_globals)  # Unless shadowed by global
+    d.update(frame.f_locals)
+
+    i = code.InteractiveConsole(d)
+    message  = "Signal received : entering python shell.\nTraceback:\n"
+    message += ''.join(traceback.format_stack(frame))
+    i.interact(message)
+
+
+def listen():
+    signal.signal(signal.SIGUSR1, debug)  # Register handler
 
 
 class Node(BaseNode):
@@ -149,7 +165,8 @@ class Node(BaseNode):
 
         # Aggregator
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
-            self.aggregator = FedAvg(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
+            self.aggregator = FedAvg(node_name=self.get_name(), config=self.config, logger=copy.copy(self.logger),
+                                     learner=copy.copy(self.learner))
         if self.config.participant["aggregator_args"]["algorithm"] == "Krum":
             self.aggregator = Krum(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
         if self.config.participant["aggregator_args"]["algorithm"] == "Median":
@@ -366,7 +383,9 @@ class Node(BaseNode):
         # Leraner
         self.learner.interrupt_fit()
         # Aggregator
+        # TODO sync: force false
         self.aggregator.check_and_run_aggregation(force=False)
+        # self.aggregator.check_and_run_aggregation(force=True)
         self.aggregator.set_nodes_to_aggregate([])
         self.aggregator.clear()
         # Try to free wait locks
@@ -382,8 +401,6 @@ class Node(BaseNode):
     def compute_model_metrics(self, contributors: List, model_params: OrderedDict, current_metrics: ModelMetrics):
 
         # START CUSTOMIZED
-        logging.info("Evaluating received model... \n")
-
         """
         tmp_model = self.model_struct
         tmp_model.load_state_dict(model_params)
@@ -394,11 +411,8 @@ class Node(BaseNode):
 
         tmp_model = copy.deepcopy(self.learner.model)
         tmp_model.load_state_dict(model_params)
-        tmp_loss, tmp_metric = self.learner.validate_neighbour_no_pl(tmp_model)
-        logging.warning("temp metrics: {},{} ".format(tmp_loss, tmp_metric))
-        val_loss = tmp_loss
-        val_acc = tmp_metric
-        # -> with validate_neighbour_clean:
+        val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
+        # -> with validate_neighbour_pl:
         # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
 
         """
@@ -419,8 +433,6 @@ class Node(BaseNode):
         cos_similarity: float = cosine_similarity(local_params, model_params)
         if contributors is not None:
             for neighbour in contributors:
-                logging.info("Similarity for neighbour {} at step {}: {}"
-                             .format(neighbour, self.logger.local_step, cos_similarity))
                 if neighbour != self.get_name():
                     mapping = {f'cos@{neighbour}': cos_similarity}
                     self.logger.log_metrics(metrics=mapping, step=self.logger.global_step)
@@ -428,6 +440,9 @@ class Node(BaseNode):
         current_metrics.cosine_similarity = cos_similarity
         current_metrics.validation_loss = val_loss
         current_metrics.validation_accuracy = val_acc
+
+        logging.info("[Node.compute_model_metrics] Evaluating received model from {} with cos: {}, val_loss: {}, val_acc: {}"
+                     .format(contributors, cos_similarity, val_loss, val_acc))
 
         return current_metrics
 
@@ -606,6 +621,9 @@ class Node(BaseNode):
                 self.__gossip_model_aggregation()
 
                 self.aggregator.set_waiting_aggregated_model()
+
+                # TODO sync: wait for neighbours to complete aggregation
+
                 time.sleep(5)
 
         elif self.config.participant["device_args"]["role"] == Role.PROXY:
@@ -673,7 +691,7 @@ class Node(BaseNode):
     def __connect_and_set_aggregator(self):
         # Set Models To Aggregate
         self.aggregator.set_nodes_to_aggregate(self.__train_set)
-        logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to: {}".format(self.__train_set))
+        logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to train_set: {}".format(self.__train_set))
         for node in self.__train_set:
             if node != self.get_name():
                 h, p = node.split(":")
@@ -694,9 +712,12 @@ class Node(BaseNode):
         begin = time.time()
         while True:
             count = count + (time.time() - begin)
+            # TODO sync: wait for all nodes to connect
+            """
             if count > self.config.participant["TRAIN_SET_CONNECT_TIMEOUT"]:
                 logging.info("[NODE] Timeout for train set connections.")
                 break
+            """
             if (len(self.__train_set) == len(
                     [
                         nc
@@ -759,10 +780,28 @@ class Node(BaseNode):
     ######################
 
     def __on_round_finished(self):
+
+        # TODO sync: wait for all nodes to arrive here before starting next training round
+        # what happens: aggregator notifies local node with AGGREGATION_FINISHED_EVENT
+        # receiving this event, the local node broadcasts build_models_ready_msg
+        proceed_round = False
+        logging.info("")
+
+        while not proceed_round:
+            time.sleep(1)
+            nc_ready = [nc for nc in self.get_neighbors() if nc.get_model_ready_status() == self.round]
+            logging.info("[Node.__on_round_finished] Waiting for neighbours to proceed to the next round: "
+                         "num_nc_ready {} at round: {}".format(len(nc_ready), self.round))
+            if len(self.__train_set) == len(nc_ready) + 1:
+                logging.info("All neighbours ready for the next round")
+                proceed_round = True
+
         # Remove trainset connections
         for nc in self.get_neighbors():
             if nc not in self.__initial_neighbors:
                 self.rm_neighbor(nc)
+
+
         # Set Next Round
         self.aggregator.clear()
         logging.info("[NODE] Finalizing round: {}".format(self.round))
@@ -836,7 +875,10 @@ class Node(BaseNode):
         candidate_condition = lambda nc: nc.get_name() in self.__train_set and len(nc.get_models_aggregated()) < len(
             self.__train_set)
         status_function = lambda nc: (nc.get_name(), len(nc.get_models_aggregated()))
-        model_function = lambda nc: self.aggregator.get_partial_aggregation(nc.get_models_aggregated())
+        # TODO Sync: remove partial aggregation
+        model_function = lambda nc: self.aggregator.get_pseudo_aggregation()
+        # model_function = lambda nc: self.aggregator.get_partial_aggregation([])
+        # model_function = lambda nc: self.aggregator.get_partial_aggregation(nc.get_models_aggregated())
 
         # Gossip
         self.__gossip_model(candidate_condition, status_function, model_function)
@@ -875,7 +917,7 @@ class Node(BaseNode):
             # Get time to calculate frequency
             begin = time.time()
 
-            # If the trainning has been interrupted, stop waiting
+            # If the training has been interrupted, stop waiting
             if self.round is None:
                 logging.info(
                     "[NODE] Stopping model gossip process.")
@@ -925,9 +967,10 @@ class Node(BaseNode):
                     return
 
             # Select a random subset of neighbors
-            samples = min(self.config.participant["GOSSIP_MODELS_PER_ROUND"], len(nei))
-            nei = random.sample(nei, samples)
-            logging.info("[NODE.__gossip_model] Selected a random subset of neighbors (to exclude): {}".format(nei))
+            # TODO sync: disable sampling
+            # samples = min(self.config.participant["GOSSIP_MODELS_PER_ROUND"], len(nei))
+            # nei = random.sample(nei, samples)
+            # logging.info("[NODE.__gossip_model] Selected a random subset of neighbors (to exclude): {}".format(nei))
 
             # Generate and Send Model Partial Aggregations (model, node_contributors)
             for nc in nei:

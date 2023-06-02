@@ -22,7 +22,7 @@ class Aggregator(threading.Thread, Observable):
         node_name: (str): String with the name of the node.
     """
 
-    def __init__(self, node_name="unknown", config=None, logger=None, learner=None):
+    def __init__(self, node_name="unknown", config=None, logger=None, learner=None, agg_round=0):
         self.node_name = node_name
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
@@ -40,6 +40,7 @@ class Aggregator(threading.Thread, Observable):
         self.__aggregation_lock = threading.Lock()
         self.__aggregation_lock.acquire()
         self.__thread_executed = False
+        self.__agg_round = agg_round
 
     def run(self):
         """
@@ -49,9 +50,13 @@ class Aggregator(threading.Thread, Observable):
 
         # Wait for all models to be added or TIMEOUT
         try:
+            # TODO sync remove timeout
+            """
             logging.info("[Aggregator] __aggregation_lock.acquire() during {} seconds".format(
                 self.config.participant["AGGREGATION_TIMEOUT"]))
             self.__aggregation_lock.acquire(timeout=self.config.participant["AGGREGATION_TIMEOUT"])
+            """
+            self.__aggregation_lock.acquire()
         except Exception as e:
             logging.error("[Aggregator] Error waiting for aggregation: {}".format(e))
 
@@ -77,6 +82,10 @@ class Aggregator(threading.Thread, Observable):
             logging.info("[Aggregator] Aggregating models.")
 
         # Notify node
+        logging.info("[Aggregator.run] num_aggregated: {}, round {}".format(len(self.__models), self.__agg_round))
+        self.__agg_round += 1
+        # self.logger.log_metrics({"num_aggregated": len(self.__models)}, step=self.logger.local_step)
+
         self.notify(Events.AGGREGATION_FINISHED_EVENT, self.aggregate(self.__models))
 
     def aggregate(self, models):
@@ -116,11 +125,11 @@ class Aggregator(threading.Thread, Observable):
             nodes: Nodes that collaborated to get the model.
             metrics: ModelMetrics
         """
-        logging.info("[Aggregator.add_model] Entry point")
+        logging.info("[Aggregator.add_model] Entry point (round: {})".format(self.__agg_round))
         logging.info("[Aggregator.add_model] Nodes who contributed to the model: {}".format(nodes))
         # if self.__waiting_aggregated_model and self.__stored_models is not None:
         #    self.notify(Events.STORE_MODEL_PARAMETERS_EVENT, model)
-        logging.info("Aggregator: nodes {} current metrics: {}".format(nodes, metrics))
+        # logging.info("Aggregator: nodes {} current metrics: {}".format(nodes, metrics))
         if self.__waiting_aggregated_model:
             logging.info("[Aggregator] Received an aggregated model from {} --> Overwriting local model".format(nodes))
             # Check if a node aggregator is in the list of nodes
@@ -164,7 +173,7 @@ class Aggregator(threading.Thread, Observable):
                         logging.info("[Aggregator] Models for aggregation: {}".format(self.__models.keys()))
                         # Check if all models have been added
                         # If all is ok, release the aggregation lock
-                        self.check_and_run_aggregation()
+                        self.check_and_run_aggregation(force=False)
                         # Build response
                         response = models_added + nodes
                         # Unloock
@@ -178,9 +187,50 @@ class Aggregator(threading.Thread, Observable):
                         )
                 else:
                     self.__lock.release()
+                    logging.debug("[Aggregator] Need not needed,  releasing lock")
             else:
-                logging.debug("[Aggregator] __waiting_aggregated_model = False,  model received by difusion")
+                logging.debug("[Aggregator] __waiting_aggregated_model = False,  model received by diffusion")
         return None
+
+    def get_pseudo_aggregation(self):
+        logging.info("[Aggregator.get_pseudo_aggregation]. Partial aggregation: only local model")
+        for node, (model, metrics) in list(self.__models.items()):
+            if node == self.node_name:
+                return model, [node], ModelMetrics(num_samples=metrics.num_samples)
+        return None
+
+    def get_full_aggregation(self):
+        logging.info(
+            "[Aggregator] Getting full aggregation from {}, except {}".format(self.__models.keys()))
+        dict_aux = {}
+        nodes_aggregated = []
+        total_samples = 0
+
+        node: str
+        model: OrderedDict
+        metrics: ModelMetrics
+        for node, (model, metrics) in list(self.__models.items()):
+            split_nodes = node.split()
+            dict_aux[node] = (model, metrics)
+            nodes_aggregated += split_nodes
+            total_samples += metrics.num_samples
+
+        # If there are no models to aggregate
+        if len(dict_aux) == 0:
+            logging.info("[Aggregator.get_full_aggregation] No models to aggregate")
+            return None, None, None
+
+        aggregated_model = self.aggregate(dict_aux)
+        logging.info("[Aggregator.get_full_aggregation] num_aggregated: {}, round {}".format(len(self.__models),
+                                                                                                self.__agg_round))
+        self.__agg_round += 1
+        self.logger.log_metrics({"num_aggregated": len(self.__models)}, step=self.logger.global_step)
+
+        # Only use to compare models in terms of metrics, isolates logging on PseudoAggregation
+        # nodes_aggregated = [self.node_name]
+
+        return aggregated_model, nodes_aggregated, ModelMetrics(num_samples=total_samples)
+
 
     def get_partial_aggregation(self, except_nodes):
         """
@@ -192,6 +242,21 @@ class Aggregator(threading.Thread, Observable):
         Returns:
             (model, nodes, weights): Model, nodes and number of samples for the partial aggregation.
         """
+
+        """
+        logging.info("[Aggregator] Waiting partial aggregation")
+        do_aggregate = False
+        while not do_aggregate:
+            models_added = [nodes.split() for nodes in list(self.__models.keys())]
+            models_added = [
+                element for sublist in models_added for element in sublist
+            ]
+            logging.info("[Aggregator] Spinning partial aggregation")
+            do_aggregate = len(models_added) >= len(self.__train_set)
+        """
+
+        # self.check_and_run_aggregation(force=False)
+
         logging.info(
             "[Aggregator] Getting partial aggregation from {}, except {}".format(self.__models.keys(), except_nodes))
         dict_aux = {}
@@ -214,6 +279,9 @@ class Aggregator(threading.Thread, Observable):
             return None, None, None
 
         aggregated_model = self.aggregate(dict_aux)
+        logging.info("[Aggregator.get_partial_aggregation] num_aggregated: {}, round {}".format(len(self.__models), self.__agg_round))
+        self.__agg_round += 1
+        self.logger.log_metrics({"num_aggregated": len(self.__models)}, step=self.logger.global_step)
 
         # Only use to compare models in terms of metrics, isolates logging on PseudoAggregation
         # nodes_aggregated = [self.node_name]
@@ -226,20 +294,22 @@ class Aggregator(threading.Thread, Observable):
 
         Args:
             force: If true, aggregation will be started even if not all models have been added.
-            TODO sync: (force)) could be useful for synchronous aggregation
         """
         models_added = [nodes.split() for nodes in list(self.__models.keys())]
         models_added = [
             element for sublist in models_added for element in sublist
         ]  # Flatten list
         # Try Unloock
+        logging.info("[Aggregator.check_and_run_aggregation] conditions: models_added: {}, __train_set: {}"
+                     .format(models_added, self.__train_set))
         try:
             if (
                     force or len(models_added) >= len(self.__train_set)
             ) and self.__train_set != []:
                 logging.info("[Aggregator] __aggregation_lock.release() --> __models = {}".format(self.__models.keys()))
                 self.__aggregation_lock.release()
-        except threading.ThreadError:
+        except threading.ThreadError as e:
+            logging.error("[Aggregator.check_and_run_aggregation] Error releasing aggregation lock")
             pass
 
     def clear(self):
@@ -247,6 +317,11 @@ class Aggregator(threading.Thread, Observable):
         Clear all for a new aggregation.
         """
         observers = self.get_observers()
-        self.__init__(node_name=self.node_name, config=self.config)
+        prev_round = self.__agg_round
+        self.__init__(node_name=self.node_name,
+                      config=self.config,
+                      logger=self.logger,
+                      learner=self.learner,
+                      agg_round=prev_round)
         for o in observers:
             self.add_observer(o)

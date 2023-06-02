@@ -4,8 +4,14 @@ import os
 import sys
 from datetime import datetime
 import time
+import platform
+
+# kill running processes (Ubuntu):
+# pkill -9 -f node_start.py
 
 N_EXPERIMENTS = 1
+
+EXPERIMENT_WAIT_SEC = 300
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))  # Parent directory where is the fedstellar module
 
@@ -45,7 +51,7 @@ targeted_list = [True, False]
 
 with open(basic_config_path) as f:
     basic_config = json.load(f)
-n_nodes = 10
+n_nodes = 5
 start_port = 46500
 
 dataset = dataset_list[2]
@@ -59,6 +65,17 @@ targeted = targeted_list[0]
 poisoned_ratio = poisoned_ratio_list[0]
 
 # scenario_title = f"{dataset}_{model}_{federation}_{aggregation}_{topology}_{attack}_{targeted}_{poisoned_node}_{poisoned_sample}_{noise_type}_{poisoned_ratio}"
+
+python_windows = 'C:\\Users\\janos.LAPTOP-42CLK60G\\Repos\\fedstellar-robust\\.venv\\Scripts\\python'
+python_macos = "/opt/homebrew/anaconda3/envs/fedstellar2/bin/python"
+python_ubuntu = "/home/baltensperger/miniconda3/envs/fedstellar/bin/python"
+
+if platform.system() == 'Linux':
+    python = python_ubuntu
+else:
+    python = python_macos
+
+basic_config["python"] = python
 
 basic_config["is_iid"] = True
 basic_config["remote_tracking"] = True
@@ -107,10 +124,9 @@ if attack == "No Attack":
             time.sleep(2)
             basic_config = generate_controller_configs()
             create_particiants_configs(basic_config, example_node_config_path, start_port)
-            time.sleep(300)
+            time.sleep(EXPERIMENT_WAIT_SEC)
             with open(basic_config_path) as f:
                 basic_config = json.load(f)
-
 
 if attack == "Model Poisoning":
     # Model Poisoning
@@ -134,7 +150,7 @@ if attack == "Model Poisoning":
 
                 basic_config = generate_controller_configs()
                 create_particiants_configs(basic_config, example_node_config_path, start_port)
-                time.sleep(300)
+                time.sleep(EXPERIMENT_WAIT_SEC)
                 with open(basic_config_path) as f:
                     basic_config = json.load(f)
 
@@ -161,7 +177,7 @@ if attack == "Sample Poisoning":
 
                     basic_config = generate_controller_configs()
                     create_particiants_configs(basic_config, example_node_config_path, start_port)
-                    time.sleep(300)
+                    time.sleep(EXPERIMENT_WAIT_SEC)
                     with open(basic_config_path) as f:
                         basic_config = json.load(f)
 
@@ -189,6 +205,6 @@ if attack == "Label Flipping":
                     create_particiants_configs(basic_config, example_node_config_path, start_port)
                     with open(basic_config_path, "w") as f:
                         json.dump(basic_config, f)
-                    time.sleep(300)
+                    time.sleep(EXPERIMENT_WAIT_SEC)
                     with open(basic_config_path) as f:
                         basic_config = json.load(f)

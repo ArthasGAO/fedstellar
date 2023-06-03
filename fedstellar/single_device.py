@@ -31,7 +31,7 @@ def main():
     label_flipping = True
     data_poisoning = False
     model_poisoning = False
-    poisoned_persent = 60
+    poisoned_percent = 60
     poisoned_ratio = 10
     targeted = True
     target_label = 3
@@ -43,7 +43,7 @@ def main():
 
     dataset = DataModule(dataset.trainset, dataset.testset, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir,
                          label_flipping=label_flipping, data_poisoning=data_poisoning,
-                         poisoned_persent=poisoned_persent,
+                         poisoned_percent=poisoned_percent,
                          poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label,
                          target_changed_label=target_changed_label, noise_type=noise_type)
 

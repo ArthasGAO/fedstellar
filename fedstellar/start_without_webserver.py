@@ -29,7 +29,7 @@ def generate_controller_configs(basic_config_path=basic_config_path):
                         f'{basic_config["aggregation"]}_' \
                         f'{basic_config["topology"].replace(" ", "")}_' \
                         f'{basic_config["attack"].replace(" ", "")}_{basic_config["targeted"]}_' \
-                        f'N{basic_config["poisoned_node_persent"]}-S{basic_config["poisoned_sample_persent"]}_' \
+                        f'N{basic_config["poisoned_node_percent"]}-S{basic_config["poisoned_sample_percent"]}_' \
                         f'R{basic_config["poisoned_ratio"]}_' \
                         f'{basic_config["noise_type"].replace(" ", "")}_' \
                         f'{datetime.now().strftime("%Y%m%d_%H%M%S")}'
@@ -114,8 +114,8 @@ def create_attack_matrix(basic_config):
     node_range = range(0, num_nodes)
     federation = basic_config["federation"]
     nodes_index = []
-    poisoned_node_persent = int(basic_config["poisoned_node_persent"])
-    poisoned_sample_persent = int(basic_config["poisoned_sample_persent"])
+    poisoned_node_percent = int(basic_config["poisoned_node_percent"])
+    poisoned_sample_percent = int(basic_config["poisoned_sample_percent"])
     poisoned_ratio = int(basic_config["poisoned_ratio"])
     if federation == "DFL":
         nodes_index = node_range
@@ -124,7 +124,7 @@ def create_attack_matrix(basic_config):
 
     n_nodes = len(nodes_index)
     # Number of attacked nodes, round up
-    num_attacked =  int(round(poisoned_node_persent/100 * n_nodes))
+    num_attacked =  int(round(poisoned_node_percent/100 * n_nodes))
     if num_attacked > n_nodes:
         num_attacked = n_nodes
 
@@ -134,13 +134,13 @@ def create_attack_matrix(basic_config):
     # Assign the role of each node
     for node in node_range:
         node_att = 'No Attack'
-        attack_sample_persent = 0
+        attack_sample_percent = 0
         attack_ratio = 0
         if node in attacked_nodes:
             node_att = attack
-            attack_sample_persent = poisoned_sample_persent / 100
+            attack_sample_percent = poisoned_sample_percent / 100
             attack_ratio = poisoned_ratio / 100
-        attack_matrix.append([node, node_att, attack_sample_persent, attack_ratio])
+        attack_matrix.append([node, node_att, attack_sample_percent, attack_ratio])
     return attack_matrix
 
 
@@ -169,9 +169,13 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
             participant_config = json.load(f)
         
         # Update IP, port, and role
-        current_client =  int(network_gateway_list[-1]) +  node + 1
 
-        participant_config['network_args']['ip'] = f'{network_gateway_list[0]}.{network_gateway_list[1]}.{network_gateway_list[2]}.{current_client}'
+        current_client = int(network_gateway_list[-1]) + node + 1
+
+        if basic_config["docker"]:
+            participant_config['network_args']['ip'] = f'{network_gateway_list[0]}.{network_gateway_list[1]}.{network_gateway_list[2]}.{current_client} '
+        else:
+            participant_config['network_args']['ip'] = '127.0.0.1'
         participant_config['network_args']['ipdemo'] = participant_config['network_args']['ip']  # legacy code
         participant_config['network_args']['port'] = start_port + node
         # participant_config['device_args']['idx'] = i
@@ -201,7 +205,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["device_args"]["accelerator"] = basic_config["accelerator"]  # same for all nodes
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
         participant_config["adversarial_args"]["attack_env"] = basic_config["attack"]
-        participant_config["adversarial_args"]["poisoned_node_persent"] = int(basic_config["poisoned_node_persent"])
+        participant_config["adversarial_args"]["poisoned_node_percent"] = int(basic_config["poisoned_node_percent"])
         participant_config["adversarial_args"]["targeted"] = basic_config["targeted"]
         participant_config["adversarial_args"]["noise_type"] = basic_config["noise_type"]
 
@@ -209,11 +213,11 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         for atts in attack_matrix:
             if node == atts[0]:
                 attack = atts[1]
-                poisoned_sample_persent = atts[2]
+                poisoned_sample_percent = atts[2]
                 poisoned_ratio = atts[3]
         participant_config["adversarial_args"]["attacks"] = attack
         participant_config["adversarial_args"]["targeted"] = basic_config["targeted"]
-        participant_config["adversarial_args"]["poisoned_sample_persent"] = poisoned_sample_persent
+        participant_config["adversarial_args"]["poisoned_sample_percent"] = poisoned_sample_percent
         participant_config["adversarial_args"]["poisoned_ratio"] = poisoned_ratio
         participant_config["adversarial_args"]["target_label"]=basic_config["target_label"]
         participant_config["adversarial_args"]["target_changed_label"]=basic_config["target_changed_label"]
@@ -234,9 +238,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
                 "simulation": basic_config["simulation"],
                 "env": basic_config["env"],
                 "webserver": basic_config["webserver"],
-                "python": basic_config['python'],
                 "attack_matrix": attack_matrix,
-                "federation": "DFL",
                 "docker": basic_config["docker"],
                 "webport": basic_config["webport"],
                 "statsport": basic_config["statsport"],
@@ -255,4 +257,4 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
 if __name__ == "__main__":
     # Parse args from command line
     basic_config = generate_controller_configs()
-    create_particiants_configs(basic_config, start_port=45000)
+    create_particiants_configs(basic_config, start_port=25000)

@@ -4,13 +4,13 @@ import random
 import torch
 
 
-def labelFlipping(dataset, indices, poisoned_persent=0, targeted=False, target_label=3, target_changed_label=7):
+def labelFlipping(dataset, indices, poisoned_percent=0, targeted=False, target_label=3, target_changed_label=7):
     """
-    select flipping_persent of labels, and change them to random values.
+    select flipping_percent of labels, and change them to random values.
     Args:
         dataset: the dataset of training data, torch.util.data.dataset like.
         indices: Indices of subsets, list like.
-        flipping_persent: The ratio of labels want to change, float like.
+        flipping_percent: The ratio of labels want to change, float like.
     """
     new_dataset = copy.deepcopy(dataset)
     targets = new_dataset.targets.detach().clone()
@@ -21,7 +21,7 @@ def labelFlipping(dataset, indices, poisoned_persent=0, targeted=False, target_l
     class_list = set(targets.tolist())
     if targeted == False:
         print("[labelFlipping]: Untargeted label-flipping!")
-        num_flipped = int(poisoned_persent * num_indices)
+        num_flipped = int(poisoned_percent * num_indices)
         if num_indices == 0:
             return new_dataset
         if num_flipped > num_indices:
@@ -37,7 +37,6 @@ def labelFlipping(dataset, indices, poisoned_persent=0, targeted=False, target_l
     else:
         num_changed = 0
         for i in indices:
-            if int(targets[i]) == int(target_label):
             if int(targets[i]) == int(target_label):
                 num_changed += 1
                 targets[i] = torch.tensor(target_changed_label)

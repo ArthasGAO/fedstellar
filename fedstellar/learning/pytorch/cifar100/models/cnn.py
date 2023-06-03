@@ -14,7 +14,7 @@ from torchmetrics.classification import MulticlassAccuracy, MulticlassRecall, Mu
 from torchmetrics import MetricCollection
 
 
-class CNN(pl.LightningModule):
+class Cifar100ModelCNN(pl.LightningModule):
     """
     LightningModule for CIFAR10.
     """

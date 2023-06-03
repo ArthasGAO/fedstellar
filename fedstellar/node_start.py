@@ -3,44 +3,29 @@ import os
 import sys
 import time
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedml_api module
-
+from fedstellar.node import Node
+from fedstellar.learning.pytorch.datamodule import DataModule
 from fedstellar.learning.pytorch.mnist.mnist import MNISTDataset
 from fedstellar.learning.pytorch.syscall.syscall import SYSCALLDataset
 from fedstellar.learning.pytorch.cifar10.cifar10 import CIFAR10Dataset
-
+from fedstellar.learning.pytorch.fashionmnist.fashionmnist import FashionMNISTDataset
 from fedstellar.config.config import Config
 from fedstellar.learning.pytorch.mnist.models.mlp import MNISTModelMLP
 from fedstellar.learning.pytorch.mnist.models.cnn import MNISTModelCNN
+from fedstellar.learning.pytorch.fashionmnist.models.mlp import FashionMNISTModelMLP
+from fedstellar.learning.pytorch.fashionmnist.models.cnn import FashionMNISTModelCNN
+from fedstellar.learning.pytorch.sentiment140.models.cnn import SentimentModelCNN
+from fedstellar.learning.pytorch.sentiment140.models.rnn import SentimentModelRNN
+from fedstellar.learning.pytorch.cifar100.models.cnn import Cifar100ModelCNN
+from fedstellar.learning.pytorch.cifar10.models.cnn import Cifar10ModelCNN
 from fedstellar.learning.pytorch.syscall.models.mlp import SyscallModelMLP
 from fedstellar.learning.pytorch.syscall.models.autoencoder import SyscallModelAutoencoder
 from fedstellar.learning.pytorch.cifar10.models.resnet import CIFAR10ModelResNet
 from fedstellar.learning.pytorch.cifar10.models.fastermobilenet import FasterMobileNet
 from fedstellar.learning.pytorch.cifar10.models.simplemobilenet import SimpleMobileNetV1
 from fedstellar.learning.pytorch.syscall.models.svm import SyscallModelSGDOneClassSVM
-from fedstellar.node import Node
 
-from fedstellar.learning.pytorch.datamodule import DataModule
-
-from fedstellar.learning.pytorch.femnist.femnist import FEMNISTDATASET
-from fedstellar.learning.pytorch.mnist.mnist import MNISTDATASET
-from fedstellar.learning.pytorch.syscall.syscall import SYSCALLDATASET
-from fedstellar.learning.pytorch.kitsun.kitsun import KISTSUNDATASET
-from fedstellar.learning.pytorch.sent140.sent140 import Sent140DATASET
-from fedstellar.learning.pytorch.cifar100.cifar100 import CIFAR100DATASET
-from fedstellar.learning.pytorch.cifar10.cifar10 import CIFAR10DATASET
-from fedstellar.learning.pytorch.fashionmnist.fashionmnist import FASHIONMNISTDATASET
-
-from fedstellar.learning.pytorch.syscall.models.mlp import MLP as MLP_syscall
-from fedstellar.learning.pytorch.kitsun.models.mlp import MLP as MLP_kitsun
-from fedstellar.learning.pytorch.sent140.models.cnn import CNN as CNN_sent140
-from fedstellar.learning.pytorch.sent140.models.rnn import RNN as RNN_sent140
-from fedstellar.learning.pytorch.cifar100.models.cnn import CNN as CNN_cifar100
-from fedstellar.learning.pytorch.cifar10.models.cnn import CNN as CNN_cifar10
-from fedstellar.learning.pytorch.fashionmnist.models.mlp import MLP as MLP_fashionmnist
-from fedstellar.learning.pytorch.fashionmnist.models.cnn import CNN as CNN_fashionmnist
-
-
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedml_api module
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
 
@@ -61,20 +46,16 @@ def main():
     epochs = config.participant["training_args"]["epochs"]
 
     aggregation_algorithm = config.participant["aggregator_args"]["algorithm"]
+    is_iid = config.participant["data_args"]["is_iid"]
 
     # Config of attacks
-    aggregation_algorithm = config.participant["aggregator_args"]["algorithm"]
     attacks = config.participant["adversarial_args"]["attacks"]
-    poisoned_persent = config.participant["adversarial_args"]["poisoned_sample_percent"]
+    poisoned_percent = config.participant["adversarial_args"]["poisoned_sample_percent"]
     poisoned_ratio = config.participant["adversarial_args"]["poisoned_ratio"]
     targeted = str(config.participant["adversarial_args"]["targeted"])
     target_label = config.participant["adversarial_args"]["target_label"]
     target_changed_label = config.participant["adversarial_args"]["target_changed_label"]
     noise_type = config.participant["adversarial_args"]["noise_type"]
-    is_iid = True
-
-    dataset = config.participant["data_args"]["dataset"]
-    is_iid = config.participant["data_args"]["is_iid"]
 
     indices_dir = config.participant['tracking_args']["model_dir"]
     label_flipping = False
@@ -101,55 +82,28 @@ def main():
         label_flipping = False
         data_poisoning = False
         targeted = False
-        poisoned_persent = 0
+        poisoned_percent = 0
         poisoned_ratio = 0
 
     # config of datasets
     dataset = config.participant["data_args"]["dataset"]
+    print(dataset)
     if dataset == "MNIST":
-        dataset = MNISTDATASET(iid=is_iid)
-        if model == "MLP":
-            model = MLP_mnist()
-        elif model == "CNN":
-            model = CNN_mnist()
+        dataset = MNISTDataset(iid=is_iid)
+        if model_name == "MLP":
+            model = MNISTModelMLP()
+        elif model_name == "CNN":
+            model = MNISTModelCNN()
         else:
-            raise ValueError(f"Model {model} not supported")
-    elif dataset == "FEMNIST":
-        dataset = FEMNISTDATASET(iid=is_iid)
-        if model == "MLP":
-            model = MLP_femnist()
-        elif model == "CNN":
-            model = CNN_femnist()
-        else:
-            raise ValueError(f"Model {model} not supported")
+            raise ValueError(f"Model {model_name} not supported")
     elif dataset == "FASHIONMNIST":
-        dataset = FASHIONMNISTDATASET(iid=is_iid)
-        if model == "MLP":
-            model = MLP_fashionmnist()
-        elif model == "CNN":
-            model = CNN_fashionmnist()
+        dataset = FashionMNISTDataset(iid=is_iid)
+        if model_name == "MLP":
+            model = FashionMNISTModelMLP()
+        elif model_name == "CNN":
+            model = FashionMNISTModelCNN()
         else:
-            raise ValueError(f"Model {model} not supported")
-    elif dataset == "CIFAR10":
-        dataset = CIFAR10DATASET(iid=is_iid)
-        if model == "CNN":
-            model = CNN_cifar10()
-        else:
-            raise ValueError(f"Model {model} not supported")
-    elif dataset == "CIFAR100":
-        dataset = CIFAR100DATASET(iid=is_iid)
-        if model == "CNN":
-            model = CNN_cifar100()
-        else:
-            raise ValueError(f"Model {model} not supported")
-    elif dataset == "Sent140":
-        dataset = Sent140DATASET(iid=is_iid)
-        if model == "RNN":
-            model = RNN_sent140()
-        elif model == "CNN":
-            model = CNN_sent140()
-        else:
-            raise ValueError(f"Model {model} not supported")
+            raise ValueError(f"Model {model_name} not supported")
     elif dataset == "SYSCALL":
         dataset = SYSCALLDataset(sub_id=idx, number_sub=n_nodes, root_dir=f"{sys.path[0]}/data", iid=is_iid)
         if model_name == "MLP":
@@ -159,7 +113,7 @@ def main():
         elif model_name == "Autoencoder":
             model = SyscallModelAutoencoder()
         else:
-            raise ValueError(f"Model {model} not supported")
+            raise ValueError(f"Model {model_name} not supported")
     elif dataset == "CIFAR10":
         dataset = CIFAR10Dataset(sub_id=idx, number_sub=n_nodes, root_dir=f"{sys.path[0]}/data", iid=is_iid)
         if model_name == "ResNet9":
@@ -171,11 +125,11 @@ def main():
         elif model_name == "simplemobilenet":
             model = SimpleMobileNetV1()
         else:
-            raise ValueError(f"Model {model} not supported")
+            raise ValueError(f"Model {model_name} not supported")
     else:
         raise ValueError(f"Dataset {dataset} not supported")
 
-    dataset = DataModule(dataset.train_set, dataset.test_set, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir, label_flipping=label_flipping, data_poisoning=data_poisoning, poisoned_persent=poisoned_persent, poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label,
+    dataset = DataModule(dataset.train_set, dataset.test_set, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir, label_flipping=label_flipping, data_poisoning=data_poisoning, poisoned_percent=poisoned_percent, poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label,
                          target_changed_label=target_changed_label, noise_type=noise_type)
 
     if aggregation_algorithm in ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust", "Sentinel"]:

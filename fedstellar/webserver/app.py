@@ -640,16 +640,16 @@ def attack_node_assign(nodes, federation, attack, poisoned_node_percent, poisone
     # Assign the role of each node
     for node in nodes:
         node_att = 'No Attack'
-        attack_sample_persent = 0
+        attack_sample_percent = 0
         poisoned_ratio = 0
         if node in attacked_nodes:
             node_att = attack
-            attack_sample_persent = poisoned_sample_percent / 100
+            attack_sample_percent = poisoned_sample_percent / 100
             poisoned_ratio = poisoned_noise_percent / 100
         nodes[node]['attacks'] = node_att
-        nodes[node]['poisoned_sample_percent'] = attack_sample_persent
+        nodes[node]['poisoned_sample_percent'] = attack_sample_percent
         nodes[node]['poisoned_ratio'] = poisoned_ratio
-        attack_matrix.append([node, node_att, attack_sample_persent, poisoned_ratio])
+        attack_matrix.append([node, node_att, attack_sample_percent, poisoned_ratio])
     return nodes, attack_matrix
 
 

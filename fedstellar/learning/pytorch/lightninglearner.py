@@ -12,7 +12,6 @@ import seaborn as sns
 from collections import OrderedDict
 import numpy as np
 from itertools import product
-
 import torch
 from lightning import Trainer
 from lightning.pytorch.callbacks import ModelSummary
@@ -22,7 +21,7 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelSummary, TQDMProgressBar
 from torchmetrics import ConfusionMatrix
 import matplotlib.pyplot as plt
-
+import copy
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
 from torch.nn import functional as F
@@ -143,7 +142,7 @@ class LightningLearner(NodeLearner):
             else:
                 return None
         except Exception as e:
-            logging.error("[NodeLearner.evalaute] Something went wrong with pytorch lightning. {}".format(e))
+            logging.error("[NodeLearner.evaluate] Something went wrong with pytorch lightning. {}".format(e))
             return None
 
     """

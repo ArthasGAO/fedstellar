@@ -754,6 +754,7 @@ class Node(BaseNode):
             poisoned_model_param = modelpoison(model_param, poisoned_ratio=self.poisoned_ratio,
                                                noise_type=self.noise_type)
             self.learner.set_parameters(poisoned_model_param)
+        """
         results = self.learner.evaluate()
         if results is not None:
             logging.warning(
@@ -762,6 +763,7 @@ class Node(BaseNode):
                 )
             )
             logging.info("[NODE.__train] Finish the local evaluation...")
+        """
 
     def __evaluate(self):
         logging.info("[NODE.__evaluate] Start evaluation...")

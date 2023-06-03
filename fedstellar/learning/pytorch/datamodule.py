@@ -30,7 +30,6 @@ class DataModule(LightningDataModule):
         val_percent: The percentage of the validation set.
     """
 
-
     def __init__(
             self,
             train_set,
@@ -42,7 +41,7 @@ class DataModule(LightningDataModule):
             val_percent=0.1,
             label_flipping=False,
             data_poisoning=False,
-            poisoned_persent=0,
+            poisoned_percent=0,
             poisoned_ratio=0,
             targeted=False,
             target_label=0,
@@ -62,7 +61,7 @@ class DataModule(LightningDataModule):
         self.val_percent = val_percent
         self.label_flipping = label_flipping
         self.data_poisoning = data_poisoning
-        self.poisoned_percent = poisoned_persent
+        self.poisoned_percent = poisoned_percent
         self.poisoned_ratio = poisoned_ratio
         self.targeted = targeted
         self.target_label = target_label
@@ -70,16 +69,18 @@ class DataModule(LightningDataModule):
         self.noise_type = noise_type
         self.indices_dir = indices_dir
 
-
         if self.sub_id + 1 > self.number_sub:
             raise ("Not exist the subset {}".format(self.sub_id))
 
-        print("datamodule: targeted is" + str(targeted))
+        print("datamodule: targeted is " + str(targeted))
 
         # Training / validation set
         rows_by_sub = floor(len(train_set) / self.number_sub)
         tr_subset = ChangeableSubset(
-            train_set, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub), label_flipping=self.label_flipping, data_poisoning=self.data_poisoning, poisoned_persent=self.poisoned_percent, poisoned_ratio=self.poisoned_ratio, targeted=self.targeted, target_label=self.target_label,
+            train_set, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub),
+            label_flipping=self.label_flipping, data_poisoning=self.data_poisoning,
+            poisoned_percent=self.poisoned_percent, poisoned_ratio=self.poisoned_ratio,
+            targeted=self.targeted, target_label=self.target_label,
             target_changed_label=self.target_changed_label, noise_type=self.noise_type
         )
         data_train, data_val = random_split(
@@ -105,14 +106,14 @@ class DataModule(LightningDataModule):
         test_indices_filename = f"{self.indices_dir}/participant_{self.sub_id}_test_indices.pk"
         # Every node should have a dataset with artificial backdoor to evaluate
         data_backdoor = ChangeableSubset(
-            testset, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub),
+            test_set, range(self.sub_id * rows_by_sub, (self.sub_id + 1) * rows_by_sub),
             label_flipping=False, data_poisoning=True,
-            poisoned_persent=100,
+            poisoned_percent=100,
             poisoned_ratio=100, targeted=True, target_label=3,
             target_changed_label=7, noise_type=None, backdoor_validation=True)
 
-        if len(testset) < self.number_sub:
-            raise ("Too much partitions")
+        if len(test_set) < self.number_sub:
+            raise "Too many partitions"
 
         # Save indices to local files
         train_indices_filename = f"{self.indices_dir}/participant_{self.sub_id}_train_indices.pk"

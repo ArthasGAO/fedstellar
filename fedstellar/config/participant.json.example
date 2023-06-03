@@ -52,10 +52,10 @@
   },
   "adversarial_args": {
     "attacks": "No Attack",
-    "targeted": true,
-    "poisoned_sample_persent": 0,
+    "targeted": false,
+    "poisoned_sample_percent": 0,
     "poisoned_ratio": 0,
-    "poisoned_node_persent": 0,
+    "poisoned_node_percent": 0,
     "target_label": 3,
     "target_changed_label": 7,
     "noise_type": "gaussian",
@@ -92,5 +92,5 @@
   "GOSSIP_EXIT_ON_X_EQUAL_ROUNDS": 20,
   "GOSSIP_MODELS_FREC": 1,
   "GOSSIP_MODELS_PER_ROUND": 5,
-   "ROUND_PROCEED_TIMEOUT": 20
+  "ROUND_PROCEED_TIMEOUT": 20
 }

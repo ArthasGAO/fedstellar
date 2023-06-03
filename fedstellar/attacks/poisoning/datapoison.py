@@ -4,10 +4,9 @@ import random
 import numpy as np
 import torch
 from skimage.util import random_noise
-import numpy as np
 
 
-def datapoison(dataset, indices, poisoned_persent, poisoned_ratio, targeted=False, target_label=3, noise_type="salt"):
+def datapoison(dataset, indices, poisoned_percent, poisoned_ratio, targeted=False, target_label=3, noise_type="salt", backdoor_validation=False):
     """
     Function to add random noise of various types to the dataset.
     """
@@ -15,11 +14,9 @@ def datapoison(dataset, indices, poisoned_persent, poisoned_ratio, targeted=Fals
     train_data = new_dataset.data
     targets = new_dataset.targets
     num_indices = len(indices)
-    if type(noise_type) != type("salt"):
-        noise_type = noise_type[0]
 
-    if targeted == False:
-        num_poisoned = int(poisoned_persent * num_indices)
+    if not targeted:
+        num_poisoned = int(poisoned_percent * num_indices)
         if num_indices == 0:
             return new_dataset
         if num_poisoned > num_indices:

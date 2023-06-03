@@ -48,7 +48,7 @@
     "epochs": 5
   },
   "aggregator_args": {
-    "algorithm": "FedAvg"
+    "algorithm": "Krum"
   },
   "adversarial_args": {
     "attacks": "No Attack",
@@ -92,5 +92,6 @@
   "GOSSIP_MESSAGES_PER_ROUND": 100,
   "GOSSIP_EXIT_ON_X_EQUAL_ROUNDS": 20,
   "GOSSIP_MODELS_FREC": 1,
-  "GOSSIP_MODELS_PER_ROUND": 5
+  "GOSSIP_MODELS_PER_ROUND": 5,
+  "ROUND_PROCEED_TIMEOUT": 20
 }

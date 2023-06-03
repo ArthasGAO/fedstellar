@@ -9,25 +9,22 @@ import os
 from datetime import datetime, timedelta
 from typing import List, OrderedDict
 
-from fedstellar.learning.aggregators.sentinel import Sentinel, cosine_similarity
+from fedstellar.learning.aggregators.helper import cosine_similarity
+from fedstellar.learning.aggregators.sentinel import Sentinel
 from fedstellar.learning.modelmetrics import ModelMetrics
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
 
-os.environ['WANDB_SILENT'] = 'true'
-
 # Import the requests module
 import requests
-
-logging.getLogger("requests").setLevel(logging.WARNING)
-logging.getLogger("urllib3").setLevel(logging.WARNING)
-logging.getLogger("fsspec").setLevel(logging.WARNING)
-
 import random
 import threading
 import time
-from pytorch_lightning.loggers import CSVLogger
+import code
+import traceback
+import signal
 
+from pytorch_lightning.loggers import CSVLogger
 from fedstellar.base_node import BaseNode
 from fedstellar.communication_protocol import CommunicationProtocol
 from fedstellar.config.config import Config
@@ -41,18 +38,22 @@ from fedstellar.role import Role
 from fedstellar.utils.observer import Events, Observer
 from fedstellar.attacks.poisoning.modelpoison import modelpoison
 
-import code, traceback, signal
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger("fsspec").setLevel(logging.WARNING)
+
+os.environ['WANDB_SILENT'] = 'true'
 
 
 def debug(sig, frame):
     """Interrupt running process, and provide a python prompt for
     interactive debugging."""
-    d={'_frame':frame}         # Allow access to frame object.
+    d = {'_frame': frame}  # Allow access to frame object.
     d.update(frame.f_globals)  # Unless shadowed by global
     d.update(frame.f_locals)
 
     i = code.InteractiveConsole(d)
-    message  = "Signal received : entering python shell.\nTraceback:\n"
+    message = "Signal received : entering python shell.\nTraceback:\n"
     message += ''.join(traceback.format_stack(frame))
     i.interact(message)
 
@@ -103,6 +104,8 @@ class Node(BaseNode):
             poisoned_ratio=0,
             noise_type='gaussian',
     ):
+        listen()
+
         # Super init
         BaseNode.__init__(self, experiment_name, hostdemo, host, port, encrypt, config)
         Observer.__init__(self)
@@ -165,19 +168,36 @@ class Node(BaseNode):
 
         # Aggregator
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
-            self.aggregator = FedAvg(node_name=self.get_name(), config=self.config, logger=copy.copy(self.logger),
-                                     learner=copy.copy(self.learner))
+            self.aggregator = FedAvg(node_name=self.get_name(),
+                                     config=self.config,
+                                     logger=self.logger,
+                                     learner=self.learner)
         if self.config.participant["aggregator_args"]["algorithm"] == "Krum":
-            self.aggregator = Krum(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
+            self.aggregator = Krum(node_name=self.get_name(),
+                                   config=self.config,
+                                   logger=self.logger,
+                                   learner=self.learner)
         if self.config.participant["aggregator_args"]["algorithm"] == "Median":
-            self.aggregator = Median(node_name=self.get_name(), config=self.config)
+            self.aggregator = Median(node_name=self.get_name(),
+                                     config=self.config,
+                                     logger=self.logger,
+                                     learner=self.learner)
         if self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
-            self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config, beta=1)
+            self.aggregator = TrimmedMean(node_name=self.get_name(),
+                                          config=self.config,
+                                          logger=self.logger,
+                                          learner=self.learner,
+                                          beta=1)
+        if self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
+            self.aggregator = Sentinel(node_name=self.get_name(),
+                                       config=self.config,
+                                       logger=self.logger,
+                                       learner=self.learner)
         if self.config.participant["aggregator_args"]["algorithm"] == "Sentinel":
-            self.aggregator = Sentinel(node_name=self.get_name(), config=self.config,
-                                       logger=copy.copy(self.logger),
-                                       learner=copy.copy(self.learner),
-                                       model_struct=self.model_struct)
+            self.aggregator = Sentinel(node_name=self.get_name(),
+                                       config=self.config,
+                                       logger=self.logger,
+                                       learner=self.learner)
         # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
         #   self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
 
@@ -409,7 +429,7 @@ class Node(BaseNode):
         val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
         """
 
-        tmp_model = copy.deepcopy(self.learner.model)
+        tmp_model = copy.deepcopy(self.learner.latest_model)
         tmp_model.load_state_dict(model_params)
         val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
         # -> with validate_neighbour_pl:
@@ -425,8 +445,7 @@ class Node(BaseNode):
         if contributors is not None:
             for neighbour in contributors:
                 if neighbour != self.get_name():
-                    mapping = {f'val_loss@{neighbour}': val_loss,
-                               f'val_acc@{neighbour}': val_acc}
+                    mapping = {f'val_loss@{neighbour}': val_loss}
                     self.logger.log_metrics(metrics=mapping, step=self.logger.global_step)
 
         local_params = self.learner.get_parameters()
@@ -441,8 +460,9 @@ class Node(BaseNode):
         current_metrics.validation_loss = val_loss
         current_metrics.validation_accuracy = val_acc
 
-        logging.info("[Node.compute_model_metrics] Evaluating received model from {} with cos: {}, val_loss: {}, val_acc: {}"
-                     .format(contributors, cos_similarity, val_loss, val_acc))
+        logging.info(
+            "[Node.compute_model_metrics] Evaluating received model from {} with cos: {}, val_loss: {}, val_acc: {}"
+                .format(contributors, cos_similarity, val_loss, val_acc))
 
         return current_metrics
 
@@ -621,9 +641,6 @@ class Node(BaseNode):
                 self.__gossip_model_aggregation()
 
                 self.aggregator.set_waiting_aggregated_model()
-
-                # TODO sync: wait for neighbours to complete aggregation
-
                 time.sleep(5)
 
         elif self.config.participant["device_args"]["role"] == Role.PROXY:
@@ -778,29 +795,31 @@ class Node(BaseNode):
     ######################
     #    Round finish    #
     ######################
-
     def __on_round_finished(self):
 
         # TODO sync: wait for all nodes to arrive here before starting next training round
         # what happens: aggregator notifies local node with AGGREGATION_FINISHED_EVENT
         # receiving this event, the local node broadcasts build_models_ready_msg
+        # note: cannot recover from any failing node.
         proceed_round = False
-        logging.info("")
-
+        count = 0
         while not proceed_round:
             time.sleep(1)
             nc_ready = [nc for nc in self.get_neighbors() if nc.get_model_ready_status() == self.round]
             logging.info("[Node.__on_round_finished] Waiting for neighbours to proceed to the next round: "
-                         "num_nc_ready {} at round: {}".format(len(nc_ready), self.round))
+                         "num_nc_ready: {}, at round: {}".format(len(nc_ready), self.round))
             if len(self.__train_set) == len(nc_ready) + 1:
                 logging.info("All neighbours ready for the next round")
                 proceed_round = True
+            count = count + 1
+            if count > self.config.participant["ROUND_PROCEED_TIMEOUT"]:
+                logging.info("[NODE] ROUND_PROCEED_TIMEOUT reached. Nodes possibly out of sync. Stopping node!")
+                self.stop()
 
         # Remove trainset connections
         for nc in self.get_neighbors():
             if nc not in self.__initial_neighbors:
                 self.rm_neighbor(nc)
-
 
         # Set Next Round
         self.aggregator.clear()
@@ -877,7 +896,6 @@ class Node(BaseNode):
         status_function = lambda nc: (nc.get_name(), len(nc.get_models_aggregated()))
         # TODO Sync: remove partial aggregation
         model_function = lambda nc: self.aggregator.get_pseudo_aggregation()
-        # model_function = lambda nc: self.aggregator.get_partial_aggregation([])
         # model_function = lambda nc: self.aggregator.get_partial_aggregation(nc.get_models_aggregated())
 
         # Gossip
@@ -913,6 +931,7 @@ class Node(BaseNode):
         last_x_status = []
         j = 0
 
+        # TODO sync: maybe sending the model only once is sufficent?
         while True:
             # Get time to calculate frequency
             begin = time.time()
@@ -996,10 +1015,16 @@ class Node(BaseNode):
                 else:
                     logging.info("[NODE.__gossip_model] Model returned by model_function is None")
             # Wait to guarantee the frequency of gossipping
+
+            # TODO sync: maybe this is the problem for the high msg frequency
+            # introducing a simple break here would be interesting
+            return
+            """
             time_diff = time.time() - begin
             time_sleep = 1 / self.config.participant["GOSSIP_MODELS_FREC"] - time_diff
             if time_sleep > 0:
                 time.sleep(time_sleep)
+            """
 
     ###########################
     #     Observer Events     #
@@ -1051,7 +1076,7 @@ class Node(BaseNode):
                 )
                 # TODO: Testing 20-12-2022 (remove stop and add broadcast)
                 # self.stop()
-                # self.broadcast(CommunicationProtocol.build_models_ready_msg(self.round))
+                self.broadcast(CommunicationProtocol.build_models_ready_msg(self.round))
             try:
                 self.__finish_aggregation_lock.release()
                 logging.info("[NODE.__finish_aggregation_lock] __finish_aggregation_lock.release()")

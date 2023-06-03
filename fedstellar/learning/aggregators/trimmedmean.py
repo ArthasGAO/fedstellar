@@ -17,7 +17,9 @@ class TrimmedMean(Aggregator):
     Paper: https://arxiv.org/pdf/1803.01498.pdf
     """
 
-    def __init__(self, node_name="unknown", config=None, beta=0):
+    def __init__(self, node_name="unknown", config=None, logger=None, learner=None, agg_round=0, beta=0):
+        super().__init__(node_name, config, logger, learner, agg_round)
+
         super().__init__(node_name, config)
         self.beta = beta
         self.config = config

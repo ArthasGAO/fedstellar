@@ -1,8 +1,8 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
-# 
-
+#
+import copy
 import logging
 import pickle
 import time
@@ -45,6 +45,7 @@ class LightningLearner(NodeLearner):
     def __init__(self, model, data, config=None, logger=None):
         self.model = model
         # self.model = torch.compile(model)  # PyTorch 2.0
+        self.latest_model = copy.deepcopy(self.model)
         self.data = data
         self.config = config
         self.logger = logger
@@ -62,6 +63,7 @@ class LightningLearner(NodeLearner):
 
     def set_model(self, model):
         self.model = model
+        self.latest_model = copy.deepcopy(self.model)
 
     def set_data(self, data):
         self.data = data
@@ -100,6 +102,7 @@ class LightningLearner(NodeLearner):
     def set_parameters(self, params):
         try:
             self.model.load_state_dict(params)
+            self.latest_model = copy.deepcopy(self.model)
         except ModelNotMatchingError:
             raise ModelNotMatchingError("Not matching models")
 

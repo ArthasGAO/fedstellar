@@ -48,7 +48,7 @@
     "epochs": 5
   },
   "aggregator_args": {
-    "algorithm": "Krum"
+    "algorithm": "Sentinel"
   },
   "adversarial_args": {
     "attacks": "No Attack",

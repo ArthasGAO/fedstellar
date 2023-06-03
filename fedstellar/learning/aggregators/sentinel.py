@@ -26,28 +26,6 @@ MIN_MAPPED_LOSS = float(0.01)
 COSINE_FILTER_THRESHOLD = float(0.5)
 
 
-def cosine_similarity(trusted_model: OrderedDict, untrusted_model: OrderedDict) -> Optional[float]:
-    if trusted_model is None or untrusted_model is None:
-        logging.info("Cosine similarity cannot be computed due to missing model")
-        return None
-
-    layer_similarities: List = []
-
-    for layer in trusted_model:
-        l1 = trusted_model[layer]
-        l2 = untrusted_model[layer]
-        cos = torch.nn.CosineSimilarity(dim=l1.dim() - 1)
-        cos_mean = torch.mean(cos(l1, l2)).mean()
-        layer_similarities.append(cos_mean)
-
-    cos = torch.Tensor(layer_similarities)
-    avg_cos = torch.mean(cos)
-    relu_cos = torch.nn.functional.relu(avg_cos)
-    result = relu_cos.item()
-
-    return result
-
-
 def filter_models(models: Dict, threshold: float) -> Dict:
     filtered: Dict = {}
     for node, msg in models.items():
@@ -113,14 +91,13 @@ class Sentinel(Aggregator):
         Custom aggregation method based on cosine similarity, loss distance and normalisation.
     """
 
-    def __init__(self, node_name="unknown", config=None, logger=None, learner=None, model_struct=None):
-        super().__init__(node_name, config, logger, learner)
+    def __init__(self, node_name="unknown", config=None, logger=None, learner=None, agg_round=0):
+        super().__init__(node_name, config, logger, learner, agg_round)
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[Sentinel] My config is {}".format(self.config))
         self.logger = logger
-        self.learner = learner
-        self.model_struct = model_struct
+        self.learner: LightningLearner = learner
 
     def aggregate(self, models):
 
@@ -147,19 +124,20 @@ class Sentinel(Aggregator):
             return None
         my_loss = my_model[1].validation_loss
 
+        # TODO sync: maybe move eval down to aggregator?
+        """
+        for node, (params, metrics) in models.items():
+            tmp_model = copy.deepcopy(self.learner.latest_model)
+            tmp_model.load_state_dict(params)
+            val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
+            logging.info("metrics: {}, {}".format(val_acc, val_loss))
+        """
+
         """
         if len(models) >= 2:
             filename = "models" + self.node_name + ".pickle"
             with open('/Users/janosch/Desktop/models.pickle', 'wb') as handle:
                 pickle.dump(filename, handle, protocol=pickle.HIGHEST_PROTOCOL)
-        """
-
-        """
-        for client, msg in models.items():
-            params = msg[0]
-            # learner sometimes none, why?
-            loss, metric = self.learner.validate_neighbour(params)
-            logging.info("Eval at {}: Loss {}, Metric: {}".format(client, loss, metric))
         """
 
         loss: Dict = {}

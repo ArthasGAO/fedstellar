@@ -21,6 +21,7 @@ class FedAvg(Aggregator):
 
     def __init__(self, node_name="unknown", config=None, logger=None, learner=None, agg_round=0):
         super().__init__(node_name, config, logger, learner, agg_round)
+
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[FedAvg] My config is {}".format(self.config))

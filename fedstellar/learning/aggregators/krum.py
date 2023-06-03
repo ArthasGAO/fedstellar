@@ -17,8 +17,9 @@ class Krum(Aggregator):
     Paper: https://papers.nips.cc/paper/2017/hash/f4b9ec30ad9f68f89b29639786cb62ef-Abstract.html
     """
 
-    def __init__(self, node_name="unknown", config=None, logger=None):
-        super().__init__(node_name, config, logger)
+    def __init__(self, node_name="unknown", config=None, logger=None, learner=None, agg_round=0):
+        super().__init__(node_name, config, logger, learner, agg_round)
+
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[Krum] My config is {}".format(self.config))
@@ -39,9 +40,6 @@ class Krum(Aggregator):
             return None
 
         models = list(models.values())
-
-        # Total Samples
-        total_samples = sum([y for _, y in models])
 
         # Create a Zero Model
         accum = (models[-1][0]).copy()
@@ -64,18 +62,16 @@ class Krum(Aggregator):
             for j in range(0, total_models):
                 m2, _ = models[j]
                 distance = 0
-                if i == j:
-                    if i == j:
-                        distance = 0
-                    else:
-                        for layer in m1:
-                            l1 = m1[layer]
-                            # l1 = l1.view(len(l1), 1)
+                if i==j:
+                    distance = 0
+                else:
+                    for layer in m1:
+                        l1 = m1[layer]
+                        # l1 = l1.view(len(l1), 1)
 
-                            l2 = m2[layer]
-                            # l2 = l2.view(len(l2), 1)
-                            distance += numpy.linalg.norm(l1 - l2)
-                            distance += numpy.linalg.norm(l1 - l2)
+                        l2 = m2[layer]
+                        # l2 = l2.view(len(l2), 1)
+                        distance += numpy.linalg.norm(l1-l2)
                 distance_list[i] += distance
 
             logging.info("[Krum.aggregate] Distances: distance_list={}".format(distance_list))

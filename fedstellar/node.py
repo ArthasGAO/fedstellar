@@ -809,7 +809,7 @@ class Node(BaseNode):
             logging.info("[Node.__on_round_finished] Waiting for neighbours to proceed to the next round: "
                          "num_nc_ready: {}, at round: {}".format(len(nc_ready), self.round))
             if len(self.__train_set) == len(nc_ready) + 1:
-                logging.info("All neighbours ready for the next round")
+                logging.info("[Node.__on_round_finished] All neighbours ready for the next round")
                 proceed_round = True
             count = count + 1
             if count > self.config.participant["ROUND_PROCEED_TIMEOUT"]:

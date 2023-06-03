@@ -17,10 +17,6 @@ from lightning import Trainer
 from lightning.pytorch.callbacks import ModelSummary
 from lightning.pytorch.callbacks import RichProgressBar, RichModelSummary
 from lightning.pytorch.callbacks.progress.rich_progress import RichProgressBarTheme
-from pytorch_lightning import Trainer
-from pytorch_lightning.callbacks import ModelSummary, TQDMProgressBar
-from torchmetrics import ConfusionMatrix
-import matplotlib.pyplot as plt
 import copy
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
@@ -350,17 +346,34 @@ class LightningLearner(NodeLearner):
     def validate_neighbour_pl(self, neighbour_model) -> (float, float):
         try:
             # performing a deepcopy on the model creates errors with weak dependencies
-            tmp_trainer = Trainer(callbacks=[ModelSummary(max_depth=1), TQDMProgressBar(refresh_rate=200)],
-                                  max_epochs=self.epochs,
-                                  accelerator=self.config.participant["device_args"]["accelerator"],
-                                  devices=self.config.participant["device_args"]["devices"] if
-                                  self.config.participant["device_args"][
-                                      "accelerator"] != "cpu" else None,
-                                  logger=self.logger,
-                                  log_every_n_steps=20,
-                                  enable_checkpointing=False,
-                                  enable_model_summary=False,
-                                  enable_progress_bar=True)
+            logging.info("[Learner] Creating trainer with accelerator: {}".format(
+                self.config.participant["device_args"]["accelerator"]))
+            progress_bar = RichProgressBar(
+                theme=RichProgressBarTheme(
+                    description="green_yellow",
+                    progress_bar="green1",
+                    progress_bar_finished="green1",
+                    progress_bar_pulse="#6206E0",
+                    batch_progress="green_yellow",
+                    time="grey82",
+                    processing_speed="grey82",
+                    metrics="grey82",
+                ),
+                leave=True,
+            )
+            tmp_trainer = Trainer(
+                callbacks=[RichModelSummary(max_depth=1), progress_bar],
+                max_epochs=self.epochs,
+                accelerator=self.config.participant["device_args"]["accelerator"],
+                devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",
+                # TODO: only one GPU for now
+                # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
+                # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
+                logger=self.logger,
+                log_every_n_steps=20,
+                enable_checkpointing=False,
+                enable_model_summary=False,
+                enable_progress_bar=True)
             results = tmp_trainer.validate(neighbour_model, self.data, verbose=True)
             loss = results[0]["Validation/Loss"]
             metric = results[0]["Validation/Accuracy"]

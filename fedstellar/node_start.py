@@ -5,14 +5,19 @@ import time
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedml_api module
 
-# from fedstellar.learning.pytorch.femnist.femnist import FEMNISTDataModule
+from fedstellar.learning.pytorch.mnist.mnist import MNISTDataset
+from fedstellar.learning.pytorch.syscall.syscall import SYSCALLDataset
+from fedstellar.learning.pytorch.cifar10.cifar10 import CIFAR10Dataset
 
 from fedstellar.config.config import Config
-# from fedstellar.learning.pytorch.mnist.mnist import MNISTDataModule
-from fedstellar.learning.pytorch.mnist.models.mlp import MLP as MLP_mnist
-from fedstellar.learning.pytorch.femnist.models.mlp import MLP as MLP_femnist
-from fedstellar.learning.pytorch.mnist.models.cnn import CNN as CNN_mnist
-from fedstellar.learning.pytorch.femnist.models.cnn import CNN as CNN_femnist
+from fedstellar.learning.pytorch.mnist.models.mlp import MNISTModelMLP
+from fedstellar.learning.pytorch.mnist.models.cnn import MNISTModelCNN
+from fedstellar.learning.pytorch.syscall.models.mlp import SyscallModelMLP
+from fedstellar.learning.pytorch.syscall.models.autoencoder import SyscallModelAutoencoder
+from fedstellar.learning.pytorch.cifar10.models.resnet import CIFAR10ModelResNet
+from fedstellar.learning.pytorch.cifar10.models.fastermobilenet import FasterMobileNet
+from fedstellar.learning.pytorch.cifar10.models.simplemobilenet import SimpleMobileNetV1
+from fedstellar.learning.pytorch.syscall.models.svm import SyscallModelSGDOneClassSVM
 from fedstellar.node import Node
 
 from fedstellar.learning.pytorch.datamodule import DataModule
@@ -45,7 +50,7 @@ def main():
 
     n_nodes = config.participant["scenario_args"]["n_nodes"]
     experiment_name = config.participant["scenario_args"]["name"]
-    model = config.participant["model_args"]["model"]
+    model_name = config.participant["model_args"]["model"]
     idx = config.participant["device_args"]["idx"]
     hostdemo = config.participant["network_args"]["ipdemo"]
     host = config.participant["network_args"]["ip"]
@@ -56,13 +61,17 @@ def main():
     epochs = config.participant["training_args"]["epochs"]
 
     aggregation_algorithm = config.participant["aggregator_args"]["algorithm"]
+
+    # Config of attacks
+    aggregation_algorithm = config.participant["aggregator_args"]["algorithm"]
     attacks = config.participant["adversarial_args"]["attacks"]
-    poisoned_persent = config.participant["adversarial_args"]["poisoned_sample_persent"]
+    poisoned_persent = config.participant["adversarial_args"]["poisoned_sample_percent"]
     poisoned_ratio = config.participant["adversarial_args"]["poisoned_ratio"]
     targeted = str(config.participant["adversarial_args"]["targeted"])
     target_label = config.participant["adversarial_args"]["target_label"]
     target_changed_label = config.participant["adversarial_args"]["target_changed_label"]
     noise_type = config.participant["adversarial_args"]["noise_type"]
+    is_iid = True
 
     dataset = config.participant["data_args"]["dataset"]
     is_iid = config.participant["data_args"]["is_iid"]
@@ -95,8 +104,8 @@ def main():
         poisoned_persent = 0
         poisoned_ratio = 0
 
-
     # config of datasets
+    dataset = config.participant["data_args"]["dataset"]
     if dataset == "MNIST":
         dataset = MNISTDATASET(iid=is_iid)
         if model == "MLP":
@@ -142,30 +151,37 @@ def main():
         else:
             raise ValueError(f"Model {model} not supported")
     elif dataset == "SYSCALL":
-        dataset = SYSCALLDATASET(iid=is_iid)
-        if model == "MLP":
-            model = MLP_syscall()
+        dataset = SYSCALLDataset(sub_id=idx, number_sub=n_nodes, root_dir=f"{sys.path[0]}/data", iid=is_iid)
+        if model_name == "MLP":
+            model = SyscallModelMLP()
+        elif model_name == "SVM":
+            model = SyscallModelSGDOneClassSVM()
+        elif model_name == "Autoencoder":
+            model = SyscallModelAutoencoder()
         else:
             raise ValueError(f"Model {model} not supported")
-    elif dataset == "KISTSUN":
-        dataset = KISTSUNDATASET(iid=is_iid)
-        if model == "MLP":
-            model = MLP_kitsun()
+    elif dataset == "CIFAR10":
+        dataset = CIFAR10Dataset(sub_id=idx, number_sub=n_nodes, root_dir=f"{sys.path[0]}/data", iid=is_iid)
+        if model_name == "ResNet9":
+            model = CIFAR10ModelResNet(classifier="resnet9")
+        elif model_name == "ResNet18":
+            model = CIFAR10ModelResNet(classifier="resnet18")
+        elif model_name == "fastermobilenet":
+            model = FasterMobileNet()
+        elif model_name == "simplemobilenet":
+            model = SimpleMobileNetV1()
         else:
             raise ValueError(f"Model {model} not supported")
     else:
         raise ValueError(f"Dataset {dataset} not supported")
 
+    dataset = DataModule(dataset.train_set, dataset.test_set, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir, label_flipping=label_flipping, data_poisoning=data_poisoning, poisoned_persent=poisoned_persent, poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label,
+                         target_changed_label=target_changed_label, noise_type=noise_type)
+
     if aggregation_algorithm in ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust", "Sentinel"]:
         pass
     else:
         raise ValueError(f"Aggregation algorithm {aggregation_algorithm} not supported")
-
-    dataset = DataModule(dataset.trainset, dataset.testset, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir,
-                         label_flipping=label_flipping, data_poisoning=data_poisoning,
-                         poisoned_persent=poisoned_persent,
-                         poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label,
-                         target_changed_label=target_changed_label, noise_type=noise_type)
 
     node = Node(
         idx=idx,
@@ -183,13 +199,14 @@ def main():
     )
 
     node.start()
-    time.sleep(1)
+    print("Node started, grace time for network start-up (30s)")
+    time.sleep(30)  # Wait for the participant to start and register in the network
 
-    # Node Connection
+    # Node Connection to the neighbors
     for i in neighbors:
         print(f"Connecting to {i}")
         node.connect_to(i.split(':')[0], int(i.split(':')[1]), full=False)
-        time.sleep(1)
+        time.sleep(5)
 
     logging.info(f"Neighbors: {node.get_neighbors()}")
     logging.info(f"Network nodes: {node.get_network_nodes()}")

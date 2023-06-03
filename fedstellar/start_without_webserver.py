@@ -11,11 +11,12 @@ import numpy as np
 import math
 import logging
 
+
 logging.basicConfig(level=logging.DEBUG)
 
 basic_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'basic_config.json')
 example_node_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config/participant.json.example')
-
+os.environ["FEDSTELLAR_ROOT"] = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def generate_controller_configs(basic_config_path=basic_config_path):
     basic_config = ''
@@ -45,10 +46,9 @@ def generate_controller_configs(basic_config_path=basic_config_path):
     basic_config['attack_matrix'] = attack_matrix
 
     config_dir = os.path.join(basic_config['config'], scenario_name)
-    print(config_dir)
     os.makedirs(config_dir, exist_ok=True)
     with open(f'{config_dir}/controller.json', 'w') as f:
-        json.dump(basic_config, f)
+        json.dump(basic_config, f, indent=1)
 
     os.makedirs(os.path.join(basic_config['logs'], scenario_name), exist_ok=True)
     os.makedirs(os.path.join(basic_config['models'], scenario_name), exist_ok=True)
@@ -107,7 +107,6 @@ def create_topo_matrix(basic_config):
             matrix.append(node_adjcent)
     return matrix
 
-
 def create_attack_matrix(basic_config):
     attack_matrix = []
     attack = basic_config["attack"]
@@ -125,7 +124,7 @@ def create_attack_matrix(basic_config):
 
     n_nodes = len(nodes_index)
     # Number of attacked nodes, round up
-    num_attacked = int(math.ceil(poisoned_node_persent / 100 * n_nodes))
+    num_attacked =  int(round(poisoned_node_persent/100 * n_nodes))
     if num_attacked > n_nodes:
         num_attacked = n_nodes
 
@@ -156,6 +155,8 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
     config_dir = basic_config['config']
     federation = basic_config['federation']
     attack_matrix = basic_config['attack_matrix']
+    network_gateway = basic_config['network_gateway']
+    network_gateway_list = network_gateway.split('.')
 
     for node in node_range:
         participant_file = os.path.join(config_dir, scenario_name, f'participant_{node}.json')
@@ -166,10 +167,12 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         # Update IP, port, and role
         with open(participant_file) as f:
             participant_config = json.load(f)
-
+        
         # Update IP, port, and role
-        participant_config['network_args']['ip'] = "127.0.0.1"
-        participant_config['network_args']['ipdemo'] = "127.0.0.1"  # legacy code
+        current_client =  int(network_gateway_list[-1]) +  node + 1
+
+        participant_config['network_args']['ip'] = f'{network_gateway_list[0]}.{network_gateway_list[1]}.{network_gateway_list[2]}.{current_client}'
+        participant_config['network_args']['ipdemo'] = participant_config['network_args']['ip']  # legacy code
         participant_config['network_args']['port'] = start_port + node
         # participant_config['device_args']['idx'] = i
         if node == 0:
@@ -209,27 +212,38 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
                 poisoned_sample_persent = atts[2]
                 poisoned_ratio = atts[3]
         participant_config["adversarial_args"]["attacks"] = attack
+        participant_config["adversarial_args"]["targeted"] = basic_config["targeted"]
         participant_config["adversarial_args"]["poisoned_sample_persent"] = poisoned_sample_persent
         participant_config["adversarial_args"]["poisoned_ratio"] = poisoned_ratio
+        participant_config["adversarial_args"]["target_label"]=basic_config["target_label"]
+        participant_config["adversarial_args"]["target_changed_label"]=basic_config["target_changed_label"]
+        participant_config["adversarial_args"]["is_iid"]=basic_config["is_iid"]
 
         with open(participant_file, 'w') as f:
-            json.dump(participant_config, f, sort_keys=False, indent=2)
+                    json.dump(participant_config, f, sort_keys=False, indent=4)
 
     args = {
-        "scenario_name": scenario_name,
-        "config": config_dir,
-        "logs": basic_config['logs'],
-        "models": basic_config['models'],
-        "n_nodes": basic_config["n_nodes"],
-        "matrix": basic_config["matrix"],
-        "federation": basic_config["federation"],
-        "topology": basic_config["topology"],
-        "simulation": basic_config["simulation"],
-        "env": None,
-        "webserver": False,
-        "python": basic_config['python'],
-        "attack_matrix": attack_matrix
-    }
+                "scenario_name": scenario_name,
+                "config": config_dir,
+                "logs": basic_config['logs'],
+                "models": basic_config['models'],
+                "n_nodes": basic_config["n_nodes"],
+                "matrix": basic_config["matrix"],
+                "federation": basic_config["federation"],
+                "topology": basic_config["topology"],
+                "simulation": basic_config["simulation"],
+                "env": basic_config["env"],
+                "webserver": basic_config["webserver"],
+                "python": basic_config['python'],
+                "attack_matrix": attack_matrix,
+                "federation": "DFL",
+                "docker": basic_config["docker"],
+                "webport": basic_config["webport"],
+                "statsport": basic_config["statsport"],
+                "python": basic_config["python"],
+                "network_subnet": basic_config["network_subnet"],
+                "network_gateway": basic_config["network_gateway"],
+            }
 
     import argparse
     args = argparse.Namespace(**args)
@@ -238,8 +252,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
     # Generate/Update the scenario in the database
     # scenario_update_record(scenario_name=controller.scenario_name, start_time=controller.start_date_scenario, end_time="", status="running", title=basic_config["scenario_title"], description=basic_config["scenario_description"])
 
-
 if __name__ == "__main__":
     # Parse args from command line
     basic_config = generate_controller_configs()
-    create_particiants_configs(basic_config, start_port=25000)
+    create_particiants_configs(basic_config, start_port=45000)

@@ -44,38 +44,31 @@
 <form id="form-configurations">
     <div class="col-md-4">
         <div class="form-group row">
-            <h4 class="step-number">Scenario information</h4>
+            <h4 class="step-number">Scenario Information <i class="fa fa-file-text"></i></h4>
             <h5 class="step-title">Scenario title</h5>
             <input type="text" class="form-control" id="scenario-title" style="width: 75%" placeholder="Example scenario">
             <h5 class="step-title">Scenario description</h5>
             <input type="text" class="form-control" id="scenario-description" style="width: 75%" placeholder="Write a description for the scenario">
         </div>
         <div class="form-group row" id="deployment-group">
-            <h4 class="step-number">Deployment</h4>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="simulation-radio" value="simulation" checked>
-                <label class="form-check-label" for="simulation-radio">Simulation</label>
+            <h4 class="step-number">Deployment <i class="fa fa-cloud-upload"></i></h4>
+            <div style="margin-left: 10px">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="locationRadioOptions" id="simulation-radio" value="simulation" checked>
+                    <label class="form-check-label" for="simulation-radio">Virtual participants</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="locationRadioOptions" id="real-radio" value="real" disabled>
+                    <label class="form-check-label" for="real-radio">Real devices</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="locationRadioOptions" id="datacenter-radio" value="datacenter" disabled>
+                    <label class="form-check-label" for="datacenter-radio">External datacenter</label>
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="real-radio" value="real">
-                <label class="form-check-label" for="real-radio">Real devices</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="datacenter-radio" value="datacenter">
-                <label class="form-check-label" for="datacenter-radio">Datacenter (computer server)</label>
-            </div>
-        </div>
-        <div id="deployment-options" style="margin-left: 10px">
-            <h4>Deployment options</h4>
-            <p class="text-muted">Select the deployment options for the scenario.</p>
-            <h5 class="step-title">Accelerator definition</h5>
-            <select class="form-control" id="resourceUsage" name="resources" style="display: inline; width: 75%">
-                <option value="cpu" selected>CPU usage</option>
-                <option value="gpu">GPU usage</option>
-            </select>
         </div>
         <div class="form-group row">
-            <h4 class="step-number">Federation architecture</h4>
+            <h4 class="step-number">Federation architecture <i class="fa fa-connectdevelop"></i></h4>
             <select class="form-control" id="federationArchitecture" name="federation" style="display: inline; width: 50%">
                 <option selected>DFL</option>
                 <option>SDFL</option>
@@ -86,7 +79,7 @@
             </small>
         </div>
         <div id="networkTopologyForm" class="form-group row">
-            <h4 class="step-number">Network topology</h4>
+            <h4 class="step-number">Network Topology <i class="fa fa-sitemap"></i></h4>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="inlineNetworkTopology" id="custom-topology-btn" checked>
                 <label class="form-check-label" for="custom-topology-btn">Custom topology</label>
@@ -96,7 +89,7 @@
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="inlineNetworkTopology" id="predefined-topology-btn">
-                <label class="form-check-label" for="real-radio">Predefined topology</label>
+                <label class="form-check-label" for="predefined-topology-btn">Predefined topology</label>
                 <small id="topologyPredefinedHelp" class="form-text text-muted">
                     <i id="topologyPredefinedIcon" class="fa fa-info-circle"></i>
                 </small>
@@ -108,19 +101,38 @@
                     <option>Star</option>
                     <option>Random</option>
                 </select>
-                <input type="number" class="form-control" id="predefined-topology-nodes" placeholder="Number of nodes" value="3" style="display: inline; width: 40%">
+                <input type="number" class="form-control" id="predefined-topology-nodes" placeholder="Number of nodes" min="0" value="3" style="display: inline; width: 40%">
                 <i id="networkTopologyRandom" class="fa fa-refresh"></i>
             </div>
         </div>
         <div class="form-group row">
-            <h4 class="step-number">Dataset</h4>
+            <h4 class="step-number">Dataset <i class="fa fa-database"></i></h4>
             <select class="form-control" id="datasetSelect" name="dataset" style="display: inline; width: 50%">
                 <option selected>MNIST</option>
-                <option>FEMNIST</option>
+                <option>CIFAR10</option>
+                <option>SYSCALL</option>
             </select>
             <small id="datasetHelp" class="form-text text-muted">
                 <i id="datasetHelpIcon" class="fa fa-info-circle"></i>
             </small>
+        </div>
+        <div class="form-group row">
+            <h4 class="step-number">Training <i class="fa fa-cogs"></i></h4>
+            <h5>Model</h5>
+            <select class="form-control" id="modelSelect" name="model" style="display: inline; width: 50%">
+                <option selected>MLP</option>
+                <option>CNN</option>
+            </select>
+        </div>
+        <div class="form-group row">
+            <h4 class="step-number">Aggregation <i class="fa fa-calculator"></i></h4>
+            <h5>Aggregation algorithm</h5>
+            <select class="form-control" id="aggregationSelect" name="aggregation" style="display: inline; width: 50%">
+                <option selected>FedAvg</option>
+                <option>Krum</option>
+                <option>TrimmedMean</option>
+                <option>Median</option>
+            </select>
         </div>
     </div>
     <div id="topology-container" class="col-md-8 text-center" style="border: 2px solid black">
@@ -152,6 +164,7 @@
                 </div>
             </div>
         </div>
+        <div id="gui"></div>
         <div id="3d-graph-container" style="width: 100%">
             <div id="3d-graph" style="width: 100%"></div>
             <div id="node-dropdown" class="dropdown-menu" style="display: none"></div>
@@ -160,71 +173,68 @@
     <div id="extra-container" class="col-md-4"></div>
     <div id="submit-container" class="col-md-8">
         <button id="user-btn" type="button" class="btn" style="margin-top: 10px;background-color: rgba(29,113,182,0.49)" disabled>User mode</button>
-        <button id="expert-btn" type="button" class="btn" style="margin-top: 10px;background-color: rgba(172,182,29,0.49)">Expert mode</button>
+        <button id="expert-btn" type="button" class="btn" style="margin-top: 10px;background-color: rgba(172,182,29,0.49)">Advanced mode</button>
         <button id="run-btn" type="button" class="btn" style="margin-top: 10px;background-color: rgba(182,29,29,0.49);float: right">Run Fedstellar</button>
     </div>
     <div id="expert-container" class="col-md-12" style="display: none">
         <div class="form-group row">
-            <h4 class="step-number">Participants</h4>
+            <h4 class="step-number">Participants <i class="fa fa-users"></i></h4>
             <h5>Number of rounds</h5>
-            <input type="number" class="form-control" id="rounds" placeholder="Number of rounds" value="3" style="display: inline; width: 20%">
+            <input type="number" class="form-control" id="rounds" placeholder="Number of rounds" value="10" style="display: inline; width: 20%">
             <h5>Individual participants</h5>
             <div id="participant-items"></div>
         </div>
         <div class="form-group row">
-            <h4 class="step-number">Communications</h4>
-            <h5>Under development...</h5>
-            <div id="communication-items"></div>
+            <h4 class="step-number">Advanced Deployment <i class="fa fa-cloud-upload"></i></h4>
+            <div style="margin-left: 10px">
+                <h5 class="step-title">Accelerator definition</h5>
+                <select class="form-control" id="resourceUsage" name="resources" style="display: inline; width: 20%">
+                    <option value="cpu" selected>CPU usage</option>
+                    <option value="gpu">GPU usage</option>
+                </select>
+            </div>
         </div>
         <div class="form-group row">
-            <h4 class="step-number">Training</h4>
-            <h5>Model</h5>
-            <select class="form-control" id="modelSelect" name="model" style="display: inline; width: 20%">
-                <option selected>MLP</option>
-                <option>CNN</option>
-            </select>
+            <h4 class="step-number">Advanced Topology <i class="fa fa-sitemap"></i></h4>
+            <div>
+                <h5 class="step-title">Distance between participants</h5>
+                <input type="range" class="form-range" id="distanceInput" min="0" max="1000" value="50" style="width: 20%; display: inline">
+                <input type="number" class="form-control" id="distanceValue" min="0" max="1000" value="50" style="display:inline; width: 10%">
+            </div>
+        </div>
+        <div class="form-group row">
+            <h4 class="step-number">Advanced Communications <i class="fa fa-wifi"></i></h4>
+            <div id="docker-options">
+                <h5 class="step-title">Network address</h5>
+                <input type="text" class="form-control" id="network-subnet" style="width: 20%" value="192.168.50.1/24">
+                <h5 class="step-title">Network gateway</h5>
+                <input type="text" class="form-control" id="network-gateway" style="width: 20%" value="192.168.50.1">
+            </div>
+        </div>
+        <div class="form-group row">
+            <h4 class="step-number">Advanced Training <i class="fa fa-cogs"></i></h4>
             <h5>Number of Epochs</h5>
             <input type="number" class="form-control" id="epochs" placeholder="Number of Epochs" value="3" style="display: inline; width: 20%">
         </div>
         <div class="form-group row">
-            <h4 class="step-number">Aggregation</h4>
-            <h5>Aggregation algorithm</h5>
-            <select class="form-control" id="aggregationSelect" name="aggregation" style="display: inline; width: 20%">
-                <option selected>FedAvg</option>
-                <option>Krum</option>
-                <option>TrimmedMean</option>
-                <option>Median</option>
-            </select>
-        </div>
-        <div id="adversarialAttacksForm" class="form-group row">
-            <h4 class="step-number">Adversarial Attacks</h4>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="noattack" id="no-attack-btn" checked>
-                <label class="form-check-label" for="no-attack-btn">No Attack</label>
-                <!-- <small id="topologyCustomHelp" class="form-text text-muted">
-                    <i id="topologyCustomIcon" class="fa fa-info-circle"></i>
-                </small> -->
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="poisoningattack" id="poisoning-attack-btn">
-                <label class="form-check-label" for="real-radio">Poisoning Attack</label>
-                <!-- <small id="topologyPredefinedHelp" class="form-text text-muted">
-                    <i id="topologyPredefinedIcon" class="fa fa-info-circle"></i>
-                </small> -->
-            </div>
-            
-            <div id="poisoning-attack" style="display: none">
+            <h4 class="step-number">Robustness <i class="fa fa-shield"></i></h4>
+            <div style="margin-left: 10px">
+                <h5 class="step-title">Attack Type</h5>
                 <select class="form-control" id="poisoning-attack-select" name="poisoning-attack" style="display: inline; width: 20%">
-                    <option selected>Label Flipping</option>
+                    <option selected>No Attack</option>
+                    <option>Label Flipping</option>
                     <option>Sample Poisoning</option>
                     <option>Model Poisoning</option>
                 </select>
-                <input type="number" class="form-control" id="poisoned-node-percent" placeholder="Percent of nodes been poisoned" value="20" style="display: inline; width: 8%">
+                <h5>Percent of nodes been attacked</h5>
+                <input type="number" class="form-control" id="poisoned-node-percent" placeholder="Percent of nodes been poisoned" min="0" value="0" style="display: inline; width: 20%">
                 <small class="form-text text-muted">%</small>
-                <!-- <i id="poisonedNodePercent" class="fa fa-refresh"></i> -->
-                <input type="number" class="form-control" id="poisoned-sample-percent" placeholder="Percent of sample in each node been poisoned" value="80" style="display: inline; width: 8%">
+                <h5>Percent of sample in each node been attacked</h5>
+                <input type="number" class="form-control" id="poisoned-sample-percent" placeholder="Percent of sample in each node been poisoned" min="0" value="0" style="display: inline; width: 20%">
                 <small class="form-text text-muted">%</small>
-                <!-- <i id="poisonedSamplePercent" class="fa fa-refresh"></i> -->
+                <h5>Percent of poisoned noise</h5>
+                <input type="number" class="form-control" id="poisoned-noise-percent" placeholder="Percent of noise in sample been added" min="0" value="0" style="display: inline; width: 20%">
+                <small class="form-text text-muted">%</small>
             </div>
         </div>
     </div>
@@ -260,6 +270,11 @@
         color: #fff;
         text-align: center;
         margin-right: 10px;
+    }
+
+    #expert-container .step-number::before {
+        background-color: #3333338a;
+        color: #fff;
     }
 
     .participant-started {
@@ -367,8 +382,6 @@
             transform: rotate(360deg);
         }
     }
-
-
 </style>
 
 <script>
@@ -391,7 +404,7 @@
 
     contentDatasetHelp = '<ul>\n' +
         '                    <li>MNIST: The MNIST dataset</li>\n' +
-        '                    <li>FEMNIST: The FEMNIST dataset</li>\n' +
+        '                    <li>SYSCALL: The SYSCALL dataset</li>\n' +
         '                </ul>'
     $('#topologyCustomIcon').popover({
         title: 'Network topology',
@@ -432,40 +445,46 @@
 </script>
 
 <script>
-    var gui = null;
+    // var gui = null;
+    //
+    // function openControls() {
+    //     //Define GUI in a specific div
+    //     var guiDiv = document.getElementById('gui');
+    //
+    //     // Create GUI
+    //     gui = new dat.GUI({autoPlace: false});
+    //     guiDiv.appendChild(gui.domElement)
+    //
+    //     // gui = new dat.GUI();
+    //
+    //     const Settings = function () {
+    //         this.solidDistance = 20;
+    //         this.Distance = 20;
+    //     };
+    //     const settings = new Settings();
+    //
+    //     // Open controls
+    //     const linkForce = Graph
+    //         .d3Force('link')
+    //         .distance(link => link.color ? settings.solidDistance : settings.Distance);
+    //
+    //     var linksgui = gui.addFolder('Node Links');
+    //     linksgui.add(settings, 'Distance', 0, 1000).onChange(updateLinkDistance);
+    //     linksgui.open();
+    //
+    //     // Change background color of the GUI
+    //     document.getElementsByClassName("dg ac")[0].style.zIndex = 10;
+    //
+    //     function updateLinkDistance() {
+    //         linkForce.distance(link => link.color ? settings.solidDistance : settings.Distance);
+    //         Graph.numDimensions(3); // Re-heat simulation
+    //     }
+    // }
 
-    function openControls() {
-        //Define GUI
-        gui = new dat.GUI();
-        const Settings = function () {
-            this.solidDistance = 20;
-            this.weakDistance = 20;
-        };
-        const settings = new Settings();
-
-        // Open controls
-        const linkForce = Graph
-            .d3Force('link')
-            .distance(link => link.color ? settings.solidDistance : settings.weakDistance);
-
-        var linksgui = gui.addFolder('Node Links');
-        linksgui.add(settings, 'solidDistance', 0, 1000).onChange(updateLinkDistance);
-        linksgui.add(settings, 'weakDistance', 0, 1000).onChange(updateLinkDistance);
-        linksgui.open();
-
-        // Change background color of the GUI
-        document.getElementsByClassName("dg ac")[0].style.zIndex = 10;
-
-        function updateLinkDistance() {
-            linkForce.distance(link => link.color ? settings.solidDistance : settings.weakDistance);
-            Graph.numDimensions(3); // Re-heat simulation
-        }
-    }
-
-    function closeControls() {
-        // Remove gui from the DOM
-        gui.destroy();
-    }
+    // function closeControls() {
+    //     // Remove gui from the DOM
+    //     gui.destroy();
+    // }
 
     var userBtn = document.getElementById('user-btn');
     var expertBtn = document.getElementById("expert-btn");
@@ -479,7 +498,7 @@
         document.getElementById("expert-container").style.opacity = "1";
         document.getElementById("expert-container").style.transition = "all 0.5s ease-in-out";
 
-        openControls();
+        // openControls();
     });
 
     userBtn.addEventListener("click", function () {
@@ -492,7 +511,7 @@
         document.getElementById("expert-container").style.opacity = "0";
         document.getElementById("expert-container").style.transition = "all 0.5s ease-in-out";
 
-        closeControls();
+        // closeControls();
     });
 
 </script>
@@ -539,16 +558,19 @@
                     "matrix": getMatrix(Graph.graphData().nodes, Graph.graphData().links),
                     "federation": document.getElementById("federationArchitecture").value,
                     "simulation": true,
+                    "docker": true,
                     "topology": document.getElementById("predefined-topology-btn").checked ? document.getElementById("predefined-topology-select").value : "Custom",
                     "rounds": document.getElementById("rounds").value,
                     "dataset": document.getElementById("datasetSelect").value,
                     "model": document.getElementById("modelSelect").value,
                     "epochs": document.getElementById("epochs").value,
                     "accelerator": document.getElementById("resourceUsage").value,
-                    "aggregation": document.getElementById("aggregationSelect").value,
-                    "attacks": document.getElementById("poisoning-attack-btn").checked ? document.getElementById("poisoning-attack-select").value : "No Attack",
-                    "poisoned_node_persent": document.getElementById("poisoning-attack-btn").checked ? document.getElementById("poisoned-node-percent").value : 0,
-                    "poisoned_sample_persent": document.getElementById("poisoning-attack-btn").checked ? document.getElementById("poisoned-sample-percent").value : 0,
+                    "network_subnet": document.getElementById("network-subnet").value,
+                    "network_gateway": document.getElementById("network-gateway").value,
+                    "attacks": document.getElementById("poisoning-attack-select").value,
+                    "poisoned_node_percent": document.getElementById("poisoned-node-percent").value,
+                    "poisoned_sample_percent": document.getElementById("poisoned-sample-percent").value,
+                    "poisoned_noise_percent": document.getElementById("poisoned-noise-percent").value,
                 };
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/scenario/deployment/run", true);
@@ -559,37 +581,11 @@
                 document.getElementById("spinner").style.display = "block";
                 setTimeout(function () {
                     window.location.href = "/scenario/";
-                }, 20000);
+                }, 10000);
 
             });
         }
     });
-
-</script>
-
-<script>
-    // Generate the poisoning attack information (Adversarial Attacks)
-
-    poisoningAttackDiv = document.getElementById("poisoning-attack")
-    poisoningAttackBtn = document.getElementById("poisoning-attack-btn");
-    noAttackBtn = document.getElementById("no-attack-btn");
-    noAttackBtn.addEventListener("click", function () {
-        poisoningAttackDiv.style.display = "none";
-        poisoningAttackBtn.checked = false;
-    });
-    // When click on "poisoning-attack-btn" check input, display "poisoning-attack"
-    
-    poisoningAttackBtn.addEventListener("click", function () {
-        poisoningAttackDiv.style.display = "block";
-        noAttackBtn.checked = false;
-    });
-
-    // document.getElementById("poisonedSamplePercent").addEventListener("click", function () {
-    //     var n_nodes_poisoned = document.getElementById("poisoned-node-percent").value;
-    //     n_nodes_poisoned = parseInt(n_nodes_predefined);
-    //     var n_sample_poisoned = document.getElementById("poisoned-sample-percent").value;
-    //     n_sample_poisoned = parseInt(n_sample_poisoned);
-    // });
 
 </script>
 
@@ -620,7 +616,7 @@
             nodes: [...Array(n_nodes_predefined).keys()].map(i => ({
                 id: i,
                 ip: "127.0.0.1",
-                port: "4500" + i.toString(),
+                port: (45000 + i).toString(),
                 role: i === 0 ? "aggregator" : "trainer",
                 start: (i === 0),
                 neighbors: [],
@@ -909,6 +905,14 @@
 </script>
 
 <script>
+    // Detect if input network-subnet is changed, if it is changed, update the graph
+    document.getElementById("network-subnet").addEventListener("change", function () {
+        // Update the graph
+        updateGraph();
+    });
+</script>
+
+<script>
     // Create the graph object
 
     function updateGraph() {
@@ -920,22 +924,6 @@
 
     function gDataUpdate() {
         console.log("gDataUpdate");
-        console.log(gData);
-        // cross-link node objects
-        // gData.links.forEach(link => {
-        //     const a = gData.nodes[link.source];
-        //     const b = gData.nodes[link.target];
-        //     console.log(a, b);
-        //     !a.neighbors && (a.neighbors = []);
-        //     !b.neighbors && (b.neighbors = []);
-        //     a.neighbors.push(b);
-        //     b.neighbors.push(a);
-        //
-        //     !a.links && (a.links = []);
-        //     !b.links && (b.links = []);
-        //     a.links.push(link);
-        //     b.links.push(link);
-        // });
         // Remove duplicated links
         for (var i = 0; i < gData.links.length; i++) {
             for (var j = i + 1; j < gData.links.length; j++) {
@@ -946,17 +934,34 @@
             }
         }
         // Update neighbors of each node in gData
+        console.log("Update neighbors of each node in gData");
         gData.links.forEach(function (link) {
+            console.log(link);
             for (var i = 0; i < gData.nodes.length; i++) {
-                if (gData.nodes[i].id === link.source.id) {
-                    gData.nodes[i].neighbors.push(link.target.id);
+                if (gData.nodes[i].id === link.source) {
+                    console.log("Update neighbor of node " + gData.nodes[i].id + " with node " + link.target);
+                    gData.nodes[i].neighbors.push(link.target);
                 }
-                if (gData.nodes[i].id === link.target.id) {
-                    gData.nodes[i].neighbors.push(link.source.id);
+                if (gData.nodes[i].id === link.target) {
+                    console.log("Update neighbor of node " + gData.nodes[i].id + " with node " + link.source);
+                    gData.nodes[i].neighbors.push(link.source);
                 }
             }
 
         });
+
+        // All nodes have to have the IP from the input docker-options-network-address. Each node have the IP plus 1, starting from the IP in the input plus 1
+        var nodes = gData.nodes;
+        var ip = document.getElementById("network-subnet").value;
+        var ip_split = ip.split("/");
+        ip_split = ip_split[0].split(".");
+        var ip_last = parseInt(ip_split[3]);
+        for (var i = 0; i < nodes.length; i++) {
+            nodes[i].ip = ip_split[0] + "." + ip_split[1] + "." + ip_split[2] + "." + (ip_last + i + 1);
+        }
+        gData.nodes = nodes;
+
+        console.log(gData);
     }
 
     const width = document.getElementById('3d-graph').offsetWidth;
@@ -970,7 +975,7 @@
         nodes: [...Array(N).keys()].map(i => ({
             id: i,
             ip: "127.0.0.1",
-            port: "4500" + i.toString(),
+            port: (45000 + i).toString(),
             role: "aggregator",
             start: (i === 0),
             neighbors: [],
@@ -1046,9 +1051,9 @@
                 // Activate custom topology
                 document.getElementById("custom-topology-btn").checked = true;
                 document.getElementById("predefined-topology").style.display = "none";
-                const newNode = {id: gData.nodes.length, ip: "127.0.0.1", port: "4500" + gData.nodes.length.toString(), role: 'trainer', start: false};
+                const newNode = {id: gData.nodes.length, ip: "127.0.0.1", port: (45000 + gData.nodes.length).toString(), role: 'trainer', start: false};
                 newNode.neighbors = [node];
-                node.neighbors.push(newNode);
+                node.neighbors.push(newNode.id);
                 // Update the graph
                 gData.nodes.push(newNode);
                 gData.links.push({source: newNode, target: node});
@@ -1077,7 +1082,7 @@
                         // Remove neighbors from node
                         n.neighbors = n.neighbors.filter(l => l.id !== node.id);
                         n.id = idx; // Reset node ids to array index
-                        n.port = "4500" + n.id.toString();
+                        n.port = (45000 + n.id).toString();
                     });
                     // Graph.graphData({nodes, links});
                     gData.nodes = nodes;
@@ -1125,15 +1130,14 @@
                 selectedNodes.delete(node);
             }
             if (selectedNodes.size === 2) {
+                console.log("Two nodes selected");
                 // Activate custom topology
                 document.getElementById("custom-topology-btn").checked = true;
                 document.getElementById("predefined-topology").style.display = "none";
                 const [a, b] = selectedNodes;
                 const link = {source: a, target: b};
-                a.neighbors.push(b);
-                b.neighbors.push(a);
-                a.links.push(link);
-                b.links.push(link);
+                a.neighbors.push(b.id);
+                b.neighbors.push(a.id);
                 gData.links.push(link);
                 selectedNodes.clear();
             }
@@ -1178,7 +1182,7 @@
                         : (node.role === "aggregator" ? '#D55E00' : undefined))))
         .linkColor(link => link.color ? 'red' : 'black')
         .linkOpacity(0.6)
-        .linkWidth(1)
+        .linkWidth(0.5)
         .graphData(gData);
 
     getNumberOfNodesAndUpdate();
@@ -1211,14 +1215,6 @@
 
 <script>
     // Adjacency matrix for the graph
-
-    // When the user clicks on gen-matrix, generate an adjacency matrix using the current graph
-    // document.getElementById("gen-matrix").addEventListener("click", function () {
-    //    // Get the adjacency matrix
-    //    const matrix = getAdjacencyMatrix_html(Graph.graphData().nodes, Graph.graphData().links);
-    //    // Display the matrix
-    //    document.getElementById("matrix").innerHTML = matrix;
-    //});
 
     function getMatrix(nodes, links) {
         // Create an empty matrix
@@ -1266,6 +1262,44 @@
         });
         return matrixString;
     }
+</script>
+
+<script>
+    // Change the distance between nodes in the network topology
+    // Change the value of the distance input when the value of the number input is changed
+    const Settings = function () {
+        this.solidDistance = 50;
+        this.Distance = 50;
+    };
+    const settings = new Settings();
+
+    // Open controls
+    const linkForce = Graph
+        .d3Force('link')
+        .distance(link => link.color ? settings.solidDistance : settings.Distance);
+
+    function updateLinkDistance() {
+        console.log('updateLinkDistance');
+        linkForce.distance(link => link.color ? settings.solidDistance : settings.Distance);
+        Graph.numDimensions(3); // Re-heat simulation
+    }
+
+    const distanceInput = document.getElementById('distanceInput');
+    const distanceValue = document.getElementById('distanceValue');
+
+    distanceInput.addEventListener('input', function () {
+        console.log('distanceInput');
+        distanceValue.value = distanceInput.value;
+        settings.Distance = distanceInput.value;
+        updateLinkDistance();
+    });
+
+    distanceValue.addEventListener('input', function () {
+        console.log('distanceValue');
+        distanceInput.value = distanceValue.value;
+        settings.Distance = distanceValue.value;
+        updateLinkDistance();
+    });
 </script>
 
 {% endblock %}

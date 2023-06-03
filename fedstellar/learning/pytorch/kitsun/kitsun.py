@@ -1,29 +1,15 @@
-# 
+#
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Chao Feng.
 #
 import os
 import sys
-from math import floor
 
 # To Avoid Crashes with a lot of nodes
 import torch.multiprocessing
-from torch import tensor
-from pytorch_lightning import LightningDataModule
-from torch.utils.data import DataLoader, Subset, random_split
-from datasets import load_dataset
+
 torch.multiprocessing.set_sharing_strategy("file_system")
-import pickle as pk
 from torchvision.datasets import MNIST, utils
-from sklearn.model_selection import train_test_split
-from torchtext import vocab
-import pandas as pd
-from torch.nn.functional import pad
-from nltk.corpus import stopwords
-from string import punctuation
-import random
-import numpy as np
-import ast
 import shutil
 import zipfile
 
@@ -85,12 +71,11 @@ class KISTSUN(MNIST):
         train_raw = f'{self.root}/kitsun/raw/kitsun_train.pt'
         test_raw = f'{self.root}/kitsun/raw/kitsun_test.pt'
 
-
         # save to files
         train_file = f'{self.root}/kitsun/processed/kitsun_train.pt'
         test_file = f'{self.root}/kitsun/processed/kitsun_test.pt'
 
-        # save to processed dir            
+        # save to processed dir
         if not os.path.exists(train_file):
             shutil.copy(train_raw, train_file)
         if not os.path.exists(test_file):
@@ -104,20 +89,21 @@ class KISTSUNDATASET():
     Args:
     iid: iid or non-iid data seperate
     """
+
     def __init__(self, iid=True):
-        self.trainset = None
-        self.testset = None
+        self.train_set = None
+        self.test_set = None
         self.iid = iid
 
         data_path = f"{sys.path[0]}/data/kitsun/"
 
-        self.trainset = KISTSUN(train=True)
-        self.testset = KISTSUN(train=False)
+        self.train_set = KISTSUN(train=True)
+        self.test_set = KISTSUN(train=False)
 
         if not self.iid:
             # if non-iid, sort the dataset
-            self.trainset = self.sort_dataset(self.trainset)
-            self.testset = self.sort_dataset(self.testset)
+            self.train_set = self.sort_dataset(self.train_set)
+            self.test_set = self.sort_dataset(self.test_set)
 
     def sort_dataset(self, dataset):
         sorted_indexes = dataset.targets.sort()[1]

@@ -6,8 +6,6 @@ import os
 import shutil
 import signal
 import sys
-import random
-import math
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # Add the path two directories up to the system path
@@ -20,7 +18,7 @@ from fedstellar.controller import Controller
 from flask import Flask, session, url_for, redirect, render_template, request, abort, flash, send_file, make_response, jsonify, Response
 from werkzeug.utils import secure_filename
 from fedstellar.webserver.database import list_users, verify, delete_user_from_db, add_user, scenario_update_record, scenario_set_all_status_to_finished, get_running_scenario, get_user_info, get_scenario_by_name, list_nodes_by_scenario_name, get_all_scenarios, remove_nodes_by_scenario_name, \
-    remove_scenario_by_name
+    remove_scenario_by_name, scenario_set_status_to_finished
 from fedstellar.webserver.database import read_note_from_db, write_note_into_db, delete_note_from_db, match_user_id_with_note_id
 from fedstellar.webserver.database import image_upload_record, list_images_for_user, match_user_id_with_image_uid, delete_image_from_db, get_image_file_name, update_node_record, list_nodes
 
@@ -429,6 +427,7 @@ def fedstellar_logs():
     else:
         return abort(401)
 
+
 @app.route("/logs/erase", methods=["GET"])
 def fedstellar_logs_erase():
     if "user" in session.keys():
@@ -441,6 +440,7 @@ def fedstellar_logs_erase():
         else:
             abort(404)
 
+
 @app.route("/scenario/<scenario_name>/node/<id>/infolog", methods=["GET"])
 def fedstellar_monitoring_log(scenario_name, id):
     if "user" in session.keys():
@@ -451,6 +451,7 @@ def fedstellar_monitoring_log(scenario_name, id):
             abort(404)
     else:
         make_response("You are not authorized to access this page.", 401)
+
 
 @app.route("/scenario/<scenario_name>/node/<id>/infolog/<number>", methods=["GET"])
 def fedstellar_monitoring_log_x(scenario_name, id, number):
@@ -512,22 +513,28 @@ def fedstellar_monitoring_image(scenario_name):
         make_response("You are not authorized to access this page.", 401)
 
 
-def stop_scenario(scenario_name=None):
+def stop_scenario(scenario_name):
     from fedstellar.controller import Controller
-    nodes = list_nodes()
-    for node in nodes:
-        # Kill the node
-        Controller.killport(node[3])
+    Controller.killdockers()
+    # nodes = list_nodes()
+    # for node in nodes:
+    #     # Kill the node
+    #     Controller.killport(node[3])
 
+    scenario_set_status_to_finished(scenario_name)
+
+
+def stop_all_scenarios():
+    from fedstellar.controller import Controller
+    Controller.killdockers()
     scenario_set_all_status_to_finished()
-    Controller.remove_config_files()
 
 
 @app.route("/scenario/<scenario_name>/stop", methods=["GET"])
 def fedstellar_stop_scenario(scenario_name):
     # Stop the scenario
     if "user" in session.keys():
-        stop_scenario()
+        stop_scenario(scenario_name)
         return redirect(url_for('fedstellar_scenario'))
     else:
         return abort(401)
@@ -565,7 +572,14 @@ def fedstellar_scenario_statistics():
         # Remove any number at the end of the URL
         url = re.sub(r'\d+$', '', url)
         url = url.replace(":", "")
-        return render_template("statistics.html", endpoint_statistics=url, port_statistics=app.config['statistics_port'])
+        if url == "federatedlearning.inf.um.es":
+            if request.is_secure:
+                url = "https://federatedlearning.inf.um.es/statistics/"
+            else:
+                url = "http://federatedlearning.inf.um.es/statistics/"
+        else:
+            url = f"http://{url}:{app.config['statistics_port']}"
+        return render_template("statistics.html", endpoint_statistics=url)
     else:
         return abort(401)
 
@@ -595,29 +609,30 @@ def fedstellar_scenario_deployment():
         return abort(401)
 
 
-def attack_node_assign(nodes, federation, attack, poisoned_node_persent, poisoned_sample_persent):
+def attack_node_assign(nodes, federation, attack, poisoned_node_percent, poisoned_sample_percent, poisoned_noise_percent):
     """Identify which nodes will be attacked"""
+    import random
+    import math
+
     attack_matrix = []
     n_nodes = len(nodes)
     if n_nodes == 0:
         return attack_matrix
-    
+
     nodes_index = []
     # Get the nodes index
-    if federation=="DFL":
-            nodes_index = list(nodes.keys())
+    if federation == "DFL":
+        nodes_index = list(nodes.keys())
     else:
         for node in nodes:
             if nodes[node]["role"] != "server":
                 nodes_index.append(node)
 
-
     n_nodes = len(nodes_index)
     # Number of attacked nodes, round up
-    num_attacked =  int(math.ceil(poisoned_node_persent/100 * n_nodes))
+    num_attacked = int(math.ceil(poisoned_node_percent / 100 * n_nodes))
     if num_attacked > n_nodes:
         num_attacked = n_nodes
-    
 
     # Get the index of attacked nodes
     attacked_nodes = random.sample(nodes_index, num_attacked)
@@ -626,13 +641,16 @@ def attack_node_assign(nodes, federation, attack, poisoned_node_persent, poisone
     for node in nodes:
         node_att = 'No Attack'
         attack_sample_persent = 0
+        poisoned_ratio = 0
         if node in attacked_nodes:
             node_att = attack
-            attack_sample_persent = poisoned_sample_persent/100
+            attack_sample_persent = poisoned_sample_percent / 100
+            poisoned_ratio = poisoned_noise_percent / 100
         nodes[node]['attacks'] = node_att
-        nodes[node]['poisoned_sample_persent'] = attack_sample_persent
-        attack_matrix.append([node, node_att, attack_sample_persent])
-    return nodes, attack_matrix          
+        nodes[node]['poisoned_sample_percent'] = attack_sample_persent
+        nodes[node]['poisoned_ratio'] = poisoned_ratio
+        attack_matrix.append([node, node_att, attack_sample_persent, poisoned_ratio])
+    return nodes, attack_matrix
 
 
 @app.route("/scenario/deployment/run", methods=["POST"])
@@ -641,7 +659,7 @@ def fedstellar_scenario_deployment_run():
         # Receive a JSON data with the scenario configuration
         if request.is_json:
             # Stop the running scenario
-            stop_scenario()
+            stop_all_scenarios()
 
             data = request.get_json()
             nodes = data['nodes']
@@ -649,11 +667,15 @@ def fedstellar_scenario_deployment_run():
 
             # Get attack info
             attack = data["attacks"]
-            poisoned_node_persent  = int(data["poisoned_node_persent"])
-            poisoned_sample_persent = int(data["poisoned_sample_persent"])
+            poisoned_node_percent = int(data["poisoned_node_percent"])
+            poisoned_sample_percent = int(data["poisoned_sample_percent"])
+            poisoned_noise_percent = int(data["poisoned_noise_percent"])
             federation = data["federation"]
             # Get attack matrix
-            nodes, attack_matrix = attack_node_assign(nodes, federation, attack, poisoned_node_persent, poisoned_sample_persent)
+            print("Generating attack matrix...")
+            nodes, attack_matrix = attack_node_assign(nodes, federation, attack, poisoned_node_percent, poisoned_sample_percent, poisoned_noise_percent)
+            print(nodes)
+            print(attack_matrix)
 
             args = {
                 "scenario_name": scenario_name,
@@ -665,10 +687,14 @@ def fedstellar_scenario_deployment_run():
                 "federation": data["federation"],
                 "topology": data["topology"],
                 "simulation": data["simulation"],
+                "docker": data["docker"],
                 "env": None,
                 "webserver": True,
+                "webport": request.host.split(":")[1] if ":" in request.host else 80,  # Get the port of the webserver, if not specified, use 80
                 "python": app.config['python_path'],
-                "attack_matrix": attack_matrix
+                "network_subnet": data["network_subnet"],
+                "network_gateway": data["network_gateway"],
+                "attack_matrix": attack_matrix,
             }
             # Save args in a file
             scenario_path = os.path.join(app.config['config_dir'], scenario_name)
@@ -692,7 +718,7 @@ def fedstellar_scenario_deployment_run():
                 participant_config['network_args']['ip'] = node_config["ip"]
                 participant_config['network_args']['ipdemo'] = node_config["ipdemo"]  # legacy code
                 participant_config['network_args']['port'] = int(node_config["port"])
-                # participant_config['device_args']['idx'] = i
+                participant_config['device_args']['idx'] = node_config["id"]
                 participant_config["device_args"]["start"] = node_config["start"]
                 participant_config["device_args"]["role"] = node_config["role"]
                 # The following parameters have to be same for all nodes (for now)
@@ -701,22 +727,27 @@ def fedstellar_scenario_deployment_run():
                 participant_config["model_args"]["model"] = data["model"]
                 participant_config["training_args"]["epochs"] = int(data["epochs"])
                 participant_config["device_args"]["accelerator"] = data["accelerator"]  # same for all nodes
-                participant_config["aggregator_args"]["algorithm"] = data["aggregation"]
+
                 # Get attack config for each node
                 participant_config["adversarial_args"]["attacks"] = node_config["attacks"]
-                participant_config["adversarial_args"]["poisoned_sample_persent"] = node_config["poisoned_sample_persent"]
+                participant_config["adversarial_args"]["poisoned_sample_percent"] = node_config["poisoned_sample_percent"]
+                participant_config["adversarial_args"]["poisoned_ratio"] = node_config["poisoned_ratio"]
 
                 with open(participant_file, 'w') as f:
                     json.dump(participant_config, f, sort_keys=False, indent=2)
 
             # Create a argparse object
             import argparse
+            import subprocess
             args = argparse.Namespace(**args)
             controller = Controller(args)  # Generate an instance of controller in this new process
-            controller.load_configurations_and_start_nodes()
+            try:
+                controller.load_configurations_and_start_nodes()
+            except subprocess.CalledProcessError as e:
+                print("Error docker-compose up:", e)
+                return redirect(url_for("fedstellar_scenario_deployment"))
             # Generate/Update the scenario in the database
-            scenario_update_record(scenario_name=controller.scenario_name, start_time=controller.start_date_scenario, end_time="", status="running", title=data["scenario_title"], description=data["scenario_description"])
-
+            scenario_update_record(scenario_name=controller.scenario_name, start_time=controller.start_date_scenario, end_time="", status="running", title=data["scenario_title"], description=data["scenario_description"], network_subnet=data["network_subnet"])
             return redirect(url_for("fedstellar_scenario"))
         else:
             return abort(401)
@@ -728,7 +759,7 @@ def fedstellar_scenario_deployment_run():
 def fedstellar_scenario_deployment_reload(scenario_name):
     if "user" in session.keys():
         # Stop the running scenario
-        stop_scenario()
+        stop_all_scenarios()
         # Load the scenario configuration
         scenario = get_scenario_by_name(scenario_name)
         controller_config = os.path.join(app.config['config_dir'], scenario_name, 'controller.json')

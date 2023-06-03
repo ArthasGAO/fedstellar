@@ -25,16 +25,13 @@
 {% if not scenario_running %}
 
 <h4>There are no deployed scenarios</h4>
-<a href="{{ url_for('fedstellar_scenario_deployment') }}" class="btn btn-primary">Deploy scenario</a>
+<a href="{{ url_for('fedstellar_scenario_deployment') }}" class="btn btn-primary">Deploy a scenario</a>
 <a href="{{ url_for('fedstellar_scenario_statistics') }}" class="btn btn-info">Scenario statistics</a>
-<!--<label id="eraseLogs" class="form-text text-muted" style="float: right; cursor: pointer">
-    <i id="eraseLogsIcon" class="fa fa-times-circle" data-original-title="" title=""></i>
-</label>
-<a href="{{ url_for('fedstellar_logs') }}" target="_blank" class="btn btn-info" style="float: right"><b>Fedstellar Core</b> Logs</a>-->
-
 
 {% elif scenario_running %}
 <h4>There is a scenario running.</h4>
+<a id="new-scenario-btn" href="{{ url_for('fedstellar_scenario_deployment') }}" class="btn btn-primary">Deploy new scenario</a>
+<a href="{{ url_for('fedstellar_scenario_statistics') }}" class="btn btn-info">Scenario statistics</a>
 
 <h3>Scenario</h3>
 <h5>Scenario name: <b id="scenario_name">{{ scenario_running[0] }}</b></h5>
@@ -45,12 +42,6 @@
 <a href="{{ url_for('fedstellar_scenario_private', scenario_name=scenario_running[0]) }}" class="btn btn-primary">Private page</a>
 
 <a href="{{ url_for('fedstellar_stop_scenario', scenario_name=scenario_running[0]) }}" class="btn btn-danger">Stop scenario</a>
-<a id="new-scenario-btn" href="{{ url_for('fedstellar_scenario_deployment') }}" class="btn btn-primary">Deploy new scenario</a>
-<a href="{{ url_for('fedstellar_scenario_statistics') }}" class="btn btn-info">Scenario statistics</a>
-<!--<label id="eraseLogs" class="form-text text-muted" style="float: right; cursor: pointer">
-    <i id="eraseLogsIcon" class="fa fa-times-circle" data-original-title="" title=""></i>
-</label>
-<a href="{{ url_for('fedstellar_logs') }}" target="_blank" class="btn btn-info" style="float: right"><b>Fedstellar Core</b> Logs</a>-->
 <hr>
 
 {% endif %}
@@ -67,18 +58,19 @@
             <th>End time</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Network Subnet</th>
             <th>Status</th>
             <th>Action</th>
-
         </tr>
         </thead>
-        {% for name, start_time, end_time, title, description, status in scenarios %}
+        {% for name, start_time, end_time, title, description, status, network_subnet in scenarios %}
         <tr id="scenario-vars">
             <td id="name">{{ name }}</td>
             <td id="start_time">{{ start_time }}</td>
             <td id="end_time">{{ end_time }}</td>
-            <td id="title">{{ title }}</td>
-            <td id="description">{{ description }}</td>
+            <td id="title" class="truncate-text" data-toggle="tooltip" data-placement="bottom" data-container="body" title="{{ title }}">{{ title }}</td>
+            <td id="description" class="truncate-text" data-toggle="tooltip" data-placement="bottom" data-container="body" title="{{ description }}">{{ description }}</td>
+            <td id="network_subnet">{{ network_subnet }}</td>
             {% if status == "running" %}
             <td id="status"><span class="label label-success">Running</span></td>
             {% else %}
@@ -103,6 +95,9 @@
 {% endif %}
 
 <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
     // When clicking on reload-btn (there are many in the document), show a modal to confirm the action
     $(document).on('click', '#reload-btn', function () {
         var scenario_name = $(this).data('scenario-name');

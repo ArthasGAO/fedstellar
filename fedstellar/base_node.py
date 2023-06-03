@@ -1,6 +1,6 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
+# Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 #
 import json
 import logging
@@ -17,6 +17,7 @@ from fedstellar.gossiper import Gossiper
 from fedstellar.heartbeater import Heartbeater
 from fedstellar.node_connection import NodeConnection
 from fedstellar.utils.observer import Events, Observer
+
 
 class BaseNode(threading.Thread, Observer):
     """
@@ -61,13 +62,14 @@ class BaseNode(threading.Thread, Observer):
             self.__node_socket.bind((host, 0))  # gets a random free port
             self.port = self.__node_socket.getsockname()[1]
         else:
+            print("[BASENODE] Trying to bind to {}:{}".format(host, port))
             self.__node_socket.bind((host, port))
         self.__node_socket.listen(50)  # no more than 50 connections at queue
 
         # Setting up network resources
         if not self.simulation and config.participant["network_args"]:
-            logging.info("[BASENODE] Network parameters\n{}".format(config.participant["network_args"]))
-            logging.info("[BASENODE] Running tcconfig to set network parameters")
+            print("[BASENODE] Network parameters\n{}".format(config.participant["network_args"]))
+            print("[BASENODE] Running tcconfig to set network parameters")
             os.system(f"tcset --device {config.participant['network_args']['interface']} --rate {config.participant['network_args']['rate']} --delay {config.participant['network_args']['delay']} --delay-distro {config.participant['network_args']['delay-distro']} --loss {config.participant['network_args']['loss']}")
 
         # Neighbors
@@ -80,7 +82,7 @@ class BaseNode(threading.Thread, Observer):
             os.makedirs(self.log_dir)
         self.log_filename = f"{self.log_dir}/participant_{config.participant['device_args']['idx']}" if self.hostdemo else f"{self.log_dir}/participant_{config.participant['device_args']['idx']}"
         os.makedirs(os.path.dirname(self.log_filename), exist_ok=True)
-        console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler, file_handler_only_warning = self.setup_logging(self.log_filename)
+        console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler = self.setup_logging(self.log_filename)
 
         level = logging.DEBUG if config.participant["scenario_args"]["debug"] else logging.WARNING
         logging.basicConfig(level=level,
@@ -88,8 +90,7 @@ class BaseNode(threading.Thread, Observer):
                                 console_handler,
                                 file_handler,
                                 file_handler_only_debug,
-                                exp_errors_file_handler,
-                                file_handler_only_warning
+                                exp_errors_file_handler
                             ])
 
         # Heartbeater and Gossiper
@@ -139,16 +140,10 @@ class BaseNode(threading.Thread, Observer):
         file_handler_only_debug.setFormatter(Formatter(debug_file_format))
 
         exp_errors_file_handler = FileHandler('{}_error.log'.format(log_dir), mode='w')
-        exp_errors_file_handler.setLevel(logging.ERROR)
+        exp_errors_file_handler.setLevel(logging.WARNING)
         exp_errors_file_handler.setFormatter(Formatter(debug_file_format))
 
-        file_handler_only_warning = FileHandler('{}_performance.log'.format(log_dir), mode='w')
-        file_handler_only_warning.setLevel(logging.WARNING)
-        # Add filter to file_handler_only_debug for only add warning messages
-        file_handler_only_warning.addFilter(lambda record: record.levelno == logging.WARNING)
-        file_handler_only_warning.setFormatter(Formatter(debug_file_format))
-
-        return console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler, file_handler_only_warning
+        return console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler
 
     #######################
     #   Node Management   #
@@ -223,7 +218,6 @@ class BaseNode(threading.Thread, Observer):
         for n in nei_copy_list:
             n.stop()
         self.__node_socket.close()
-        
 
     def __process_new_connection(self, node_socket, h, p, full, force):
         try:
@@ -362,12 +356,11 @@ class BaseNode(threading.Thread, Observer):
                 )
                 self.__nei_lock.release()
                 return None
-
         except Exception as e:
             logging.info(
                 "{} Can't connect to the node {}:{}".format(self.get_name(), h, p)
             )
-            logging.exception(e)
+            # logging.exception(e)
             try:
                 self.__nei_lock.release()
             except Exception as e:

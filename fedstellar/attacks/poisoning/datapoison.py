@@ -1,14 +1,13 @@
 import copy
 import random
+
+import numpy as np
 import torch
-import torchvision.transforms as transforms
 from skimage.util import random_noise
 import numpy as np
-from torch import Tensor
 
 
-def datapoison(dataset, indices, poisoned_persent,
-               poisoned_ratio, targeted=False, target_label=3, noise_type="salt", backdoor_validation=False):
+def datapoison(dataset, indices, poisoned_persent, poisoned_ratio, targeted=False, target_label=3, noise_type="salt"):
     """
     Function to add random noise of various types to the dataset.
     """
@@ -16,6 +15,8 @@ def datapoison(dataset, indices, poisoned_persent,
     train_data = new_dataset.data
     targets = new_dataset.targets
     num_indices = len(indices)
+    if type(noise_type) != type("salt"):
+        noise_type = noise_type[0]
 
     if targeted == False:
         num_poisoned = int(poisoned_persent * num_indices)
@@ -63,7 +64,7 @@ def datapoison(dataset, indices, poisoned_persent,
     return new_dataset
 
 
-def add_x_to_image(img: Tensor):
+def add_x_to_image(img):
     """
     Add a 10*10 pixels X at the top-left of a image
     """

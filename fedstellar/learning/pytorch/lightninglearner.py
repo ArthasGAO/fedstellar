@@ -1,13 +1,12 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
-#
-import copy
+# Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
+# 
+
 import logging
 import pickle
 import time
 import traceback
-
 import pandas as pd
 import seaborn as sns
 from collections import OrderedDict
@@ -15,6 +14,10 @@ import numpy as np
 from itertools import product
 
 import torch
+from lightning import Trainer
+from lightning.pytorch.callbacks import ModelSummary
+from lightning.pytorch.callbacks import RichProgressBar, RichModelSummary
+from lightning.pytorch.callbacks.progress.rich_progress import RichProgressBarTheme
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelSummary, TQDMProgressBar
 from torchmetrics import ConfusionMatrix
@@ -51,8 +54,7 @@ class LightningLearner(NodeLearner):
         self.logger = logger
         self.__trainer = None
         self.epochs = 1
-        # To avoid GPU/TPU printings
-        logging.getLogger("pytorch_lightning").setLevel(logging.WARNING)
+        logging.getLogger("lightning.pytorch").setLevel(logging.WARNING)
 
         # FL information
         self.round = 0
@@ -130,12 +132,14 @@ class LightningLearner(NodeLearner):
         try:
             if self.epochs > 0:
                 self.create_trainer()
-                results = self.__trainer.test(self.model, self.data, verbose=True)
-                loss = results[0]["Test/Loss"]
-                metric = results[0]["Test/Accuracy"]
+                self.__trainer.test(self.model, self.data, verbose=True)
                 self.__trainer = None
-                self.log_validation_metrics(loss, metric, self.round)
-                return loss, metric
+                # results = self.__trainer.test(self.model, self.data, verbose=True)
+                # loss = results[0]["Test/Loss"]
+                # metric = results[0]["Test/Accuracy"]
+                # self.__trainer = None
+                # self.log_validation_metrics(loss, metric, self.round)
+                # return loss, metric
             else:
                 return None
         except Exception as e:
@@ -247,7 +251,6 @@ class LightningLearner(NodeLearner):
 
     def log_validation_metrics(self, loss, metric, round=None, name=None):
         self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
-        # self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=round)
         pass
 
     def get_num_samples(self):
@@ -269,20 +272,32 @@ class LightningLearner(NodeLearner):
         pass
 
     def create_trainer(self):
-        logging.info("[Learner] Creating trainer with accelerator: {}".format(
-            self.config.participant["device_args"]["accelerator"]))
+        logging.info("[Learner] Creating trainer with accelerator: {}".format(self.config.participant["device_args"]["accelerator"]))
+        progress_bar = RichProgressBar(
+            theme=RichProgressBarTheme(
+                description="green_yellow",
+                progress_bar="green1",
+                progress_bar_finished="green1",
+                progress_bar_pulse="#6206E0",
+                batch_progress="green_yellow",
+                time="grey82",
+                processing_speed="grey82",
+                metrics="grey82",
+            ),
+            leave=True,
+        )
         self.__trainer = Trainer(
-            callbacks=[ModelSummary(max_depth=1), TQDMProgressBar(refresh_rate=200)],
+            callbacks=[RichModelSummary(max_depth=1), progress_bar],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            devices=self.config.participant["device_args"]["devices"] if self.config.participant["device_args"][
-                                                                             "accelerator"] != "cpu" else None,
+            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",  # TODO: only one GPU for now
+            # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=self.logger,
             log_every_n_steps=20,
             enable_checkpointing=False,
             enable_model_summary=False,
-            enable_progress_bar=True,
+            enable_progress_bar=True
         )
 
     def create_trainer_no_logging(self):

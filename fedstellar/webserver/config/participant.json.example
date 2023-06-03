@@ -51,15 +51,19 @@
   },
   "adversarial_args": {
     "attacks": "No Attack",
-    "poisoned_sample_persent": 0,
-    "poisoned_ratio": 0
+    "targeted": false,
+    "poisoned_sample_percent": 0,
+    "poisoned_ratio": 0,
+    "target_label": 0,
+    "noise_type": "salt",
+    "target_changed_label": 0    
   },
   "tracking_args": {
     "enable_remote_tracking": false,
     "local_tracking": "web",
     "log_dir": "/Users/enrique/Documents/PhD/fedstellar/app/logs",
     "config_dir": "/Users/enrique/Documents/PhD/fedstellar/app/config",
-    "model_dir": "/Users/enrique/Documents/PhD/fedstellar/app/models",
+    "model_dir": "/Users/enrique/Documents/PhD/fedstellar/app/model",
     "wandb_key": [
       "your wandb key"
     ],

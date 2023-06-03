@@ -1,9 +1,3 @@
-# 
-# This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Chao Feng.
-# 
-
-
 import logging
 
 import torch
@@ -26,7 +20,6 @@ class TrimmedMean(Aggregator):
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[TrimmedMean] My config is {}".format(self.config))
 
-
     def get_trimmedmean(self, weights):
         """
         For weight list [w1j,w2j,··· ,wmj], removes the largest and
@@ -44,21 +37,21 @@ class TrimmedMean(Aggregator):
                 "[TrimmedMean] Trying to aggregate models when there is no models"
             )
             return None
-        
-        if weight_len <= 2*self.beta:
+
+        if weight_len <= 2 * self.beta:
             # logging.error(
             #     "[TrimmedMean] Number of model should larger than 2 * beta"
             # )
             remaining_wrights = weights
             res = torch.mean(remaining_wrights, 0)
 
-        else:           
-            # remove the largest and smallest β items       
+        else:
+            # remove the largest and smallest β items
             arr_weights = np.asarray(weights)
             nobs = arr_weights.shape[0]
             start = self.beta
             end = nobs - self.beta
-            atmp = np.partition(arr_weights, (start, end-1), 0)
+            atmp = np.partition(arr_weights, (start, end - 1), 0)
             sl = [slice(None)] * atmp.ndim
             sl[0] = slice(start, end)
             print(atmp[tuple(sl)])
@@ -66,11 +59,8 @@ class TrimmedMean(Aggregator):
             res = torch.tensor(arr_median)
 
         # get the mean of the remaining weights
-        
 
         return res
-
-
 
     def aggregate(self, models):
         """
@@ -91,7 +81,7 @@ class TrimmedMean(Aggregator):
             return None
 
         models = list(models.values())
-        models_params = [m for m,_ in models]
+        models_params = [m for m, _ in models]
 
         # Total Samples
         total_models = len(models)
@@ -112,22 +102,22 @@ class TrimmedMean(Aggregator):
 
             # get the number of elements of layer tensor
             number_layer_weights = torch.numel(weight_layer)
-            #if its 0-d tensor
-            if l_shape==[]:
+            # if its 0-d tensor
+            if l_shape == []:
                 weights = torch.tensor([models_params[j][layer] for j in range(0, total_models)])
                 weights = weights.double()
                 w = self.get_trimmedmean(weights)
                 accum[layer] = w
-            
+
             else:
                 # flatten the tensor
                 weight_layer_flatten = weight_layer.view(number_layer_weights)
 
                 # flatten the tensor of each model
-                models_layer_weight_flatten = torch.stack([models_params[j][layer].view(number_layer_weights) for j in range(0, total_models)],0)
+                models_layer_weight_flatten = torch.stack([models_params[j][layer].view(number_layer_weights) for j in range(0, total_models)], 0)
 
                 # get the weight list [w1j,w2j,··· ,wmj], where wij is the jth parameter of the ith local model
                 trimmedmean = self.get_trimmedmean(models_layer_weight_flatten)
-                accum[layer] = trimmedmean.view(l_shape)                          
-                          
+                accum[layer] = trimmedmean.view(l_shape)
+
         return accum

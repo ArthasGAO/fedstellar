@@ -9,6 +9,9 @@ Submodules
 
    fedstellar.learning.aggregators.aggregator
    fedstellar.learning.aggregators.fedavg
+   fedstellar.learning.aggregators.krum
+   fedstellar.learning.aggregators.median
+   fedstellar.learning.aggregators.trimmedmean
 
 Module contents
 ---------------

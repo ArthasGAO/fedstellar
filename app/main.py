@@ -21,18 +21,20 @@ argparser.add_argument('-wp', '--webport', dest='webport', default=5000,
 argparser.add_argument('-sp', '--statsport', dest='statsport', default=5100,
                        help='Statistics port (default: 5100)')
 argparser.add_argument('-s', '--simulation', action='store_false', dest='simulation', help='Run simulation')
+argparser.add_argument('-d', '--docker', dest='docker', action='store_true', default=False,
+                       help='Run framework in docker (default: False)')
 argparser.add_argument('-c', '--config', dest='config', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config'),
                        help='Config directory path')
 argparser.add_argument('-l', '--logs', dest='logs', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs'),
                           help='Logs directory path')
 argparser.add_argument('-m', '--models', dest='models', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models'),
-                          help='Logs directory path')
+                          help='Models directory path')
 # Path to the file in same directory as this file
 argparser.add_argument('-e', '--env', dest='env', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'), help='.env file path')
 argparser.add_argument('-v', '--version', action='version',
                        version='%(prog)s ' + fedstellar.__version__, help="Show version")
 argparser.add_argument('-tk', '--tracking', action='store_false', dest='tracking', help='Track simulation')
-argparser.add_argument('-p', '--python', dest='python', default="D:\\git\\JANOSCH\\robust_env\\Scripts\\python", help='Path to python executable')
+argparser.add_argument('-p', '--python', dest='python', default="/Users/enrique/miniforge3/envs/phd/bin/python", help='Path to python executable')
 argparser.add_argument('-a', '--about', action='version',
                        version='Created by Enrique Tomás Martínez Beltrán',
                        help="Show author")

@@ -1,7 +1,7 @@
 {% extends "layout-min.html" %}
 
 {% block container_extend %}
-<iframe src="http://{{ endpoint_statistics }}:{{ port_statistics }}" width="100%" height="100%" style="border: none; overflow: hidden"></iframe>
+<iframe src="{{ endpoint_statistics }}" width="100%" height="100%" style="border: none; overflow: hidden"></iframe>
 <style>
     .navbar {
         margin-bottom: 0;

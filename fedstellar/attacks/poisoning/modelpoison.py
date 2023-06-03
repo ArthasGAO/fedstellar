@@ -1,24 +1,24 @@
-import copy
-import random
-import torch
-import torchvision.transforms as transforms
-from skimage.util import random_noise
-from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from collections import OrderedDict
+
+import torch
+from skimage.util import random_noise
+
 
 def modelpoison(model: OrderedDict, poisoned_ratio, noise_type="gaussian"):
     """
     Function to add random noise of various types to the model parameter.
     """
     poisoned_model = OrderedDict()
+    if type(noise_type) != type("salt"):
+        noise_type = noise_type[0]
 
     for layer in model:
         bt = model[layer]
         t = bt.detach().clone()
         single_point = False
-        if len(t.shape)==0:
+        if len(t.shape) == 0:
             t = t.view(-1)
-            single_point=True
+            single_point = True
         # print(t)
         if noise_type == "salt":
             # Replaces random pixels with 1.
@@ -34,7 +34,6 @@ def modelpoison(model: OrderedDict, poisoned_ratio, noise_type="gaussian"):
             poisoned = t
         if single_point:
             poisoned = poisoned[0]
-        poisoned_model[layer] = poisoned                
-    
-    return poisoned_model
+        poisoned_model[layer] = poisoned
 
+    return poisoned_model

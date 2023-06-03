@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+docs/build/
 develop-eggs/
 dist/
 downloads/
@@ -128,7 +128,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Custom
+# Own
+*.txt
+.idea/
+_build/
 *.DS_Store
+app/
 fedstellar/data/
 /fedstellar/wandb/

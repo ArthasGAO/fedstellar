@@ -1,7 +1,6 @@
-import pytorch_lightning as pl
+import lightning as pl
 import torch
 from torch import nn
-from pytorch_lightning.utilities.types import EPOCH_OUTPUT
 from torch.nn import functional as F
 from torchmetrics import Accuracy
 import math
@@ -62,7 +61,7 @@ class CNN(pl.LightningModule):
         self.log("Train/Loss", loss, prog_bar=True)
         return loss
 
-    def training_epoch_end(self, outputs: EPOCH_OUTPUT) -> None:
+    def training_epoch_end(self, outputs) -> None:
         """ """
         loss = torch.stack([x["loss"] for x in outputs]).mean()
         self.log("TrainEnd/Loss", loss, prog_bar=True)

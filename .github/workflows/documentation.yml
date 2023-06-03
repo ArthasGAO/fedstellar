@@ -1,0 +1,47 @@
+name: Update documentation.yml
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - docs/**
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'manual'
+        type: choice
+        options:
+        - manual
+        - info
+        - warning
+        - debug
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.8' 
+    - name: Install dependences
+      run: |
+          pip install furo
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+    - name: Build and Commit
+      uses: sphinx-notes/pages@v2
+      with:
+        target_path: 7ecafa3f19d05b4e9da98f734fd69aca7baa4965
+    - name: Add files
+      run: |
+          echo "fedstellar.enriquetomasmb.com" > CNAME
+          git add CNAME
+          git commit --amend --no-edit
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages

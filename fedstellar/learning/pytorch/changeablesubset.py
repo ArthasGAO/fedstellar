@@ -1,16 +1,10 @@
-import os
-import sys
-from math import floor
-
 # To Avoid Crashes with a lot of nodes
-import torch.multiprocessing
-from pytorch_lightning import LightningDataModule
-from torch.utils.data import DataLoader, Subset, random_split
-from torchvision import transforms
-from torchvision.datasets import MNIST
 import copy
-from fedstellar.attacks.poisoning.labelflipping import labelFlipping
+
+from torch.utils.data import Subset
+
 from fedstellar.attacks.poisoning.datapoison import datapoison
+from fedstellar.attacks.poisoning.labelflipping import labelFlipping
 
 
 class ChangeableSubset(Subset):
@@ -30,6 +24,7 @@ class ChangeableSubset(Subset):
                  target_changed_label=0,
                  noise_type="salt",
                  backdoor_validation=False):
+        super().__init__(dataset, indices)
         new_dataset = copy.copy(dataset)
         self.dataset = new_dataset
         self.indices = indices
@@ -44,11 +39,9 @@ class ChangeableSubset(Subset):
         self.backdoor_validation = backdoor_validation
 
         if self.label_flipping:
-            self.dataset = labelFlipping(self.dataset, self.indices, self.poisoned_persent, self.targeted,
-                                         self.target_label, self.target_changed_label)
+            self.dataset = labelFlipping(self.dataset, self.indices, self.poisoned_persent, self.targeted, self.target_label, self.target_changed_label)
         if self.data_poisoning:
-            self.dataset = datapoison(self.dataset, self.indices, self.poisoned_persent, self.poisoned_ratio,
-                                      self.targeted, self.target_label, self.noise_type, self.backdoor_validation)
+            self.dataset = datapoison(self.dataset, self.indices, self.poisoned_persent, self.poisoned_ratio, self.targeted, self.target_label, self.noise_type)
 
     def __getitem__(self, idx):
         if isinstance(idx, list):

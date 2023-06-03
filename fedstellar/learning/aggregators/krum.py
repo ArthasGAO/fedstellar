@@ -1,9 +1,3 @@
-# 
-# This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Chao Feng.
-# 
-
-
 import logging
 
 import torch
@@ -62,7 +56,7 @@ class Krum(Aggregator):
             for j in range(0, total_models):
                 m2, _ = models[j]
                 distance = 0
-                if i==j:
+                if i == j:
                     distance = 0
                 else:
                     for layer in m1:
@@ -71,7 +65,7 @@ class Krum(Aggregator):
 
                         l2 = m2[layer]
                         # l2 = l2.view(len(l2), 1)
-                        distance += numpy.linalg.norm(l1-l2)
+                        distance += numpy.linalg.norm(l1 - l2)
                 distance_list[i] += distance
 
             logging.info("[Krum.aggregate] Distances: distance_list={}".format(distance_list))
@@ -88,4 +82,3 @@ class Krum(Aggregator):
         # logging.info("[Krum.aggregate] Aggregated model: accum={}".format(accum))
 
         return accum
-

@@ -87,7 +87,7 @@ def main():
 
     # config of datasets
     dataset = config.participant["data_args"]["dataset"]
-    print(dataset)
+    model_name = None
     if dataset == "MNIST":
         dataset = MNISTDataset(iid=is_iid)
         if model_name == "MLP":

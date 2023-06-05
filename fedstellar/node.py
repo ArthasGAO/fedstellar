@@ -10,6 +10,8 @@ import pickle
 from datetime import datetime, timedelta
 from typing import List, OrderedDict
 
+from pynvml import NVMLError
+
 from fedstellar.learning.aggregators.helper import cosine_similarity
 from fedstellar.learning.aggregators.sentinel import Sentinel
 from fedstellar.learning.modelmetrics import ModelMetrics
@@ -405,7 +407,8 @@ class Node(BaseNode):
         # Try to free wait locks
         try:
             self.__wait_votes_ready_lock.release()
-        except threading.ThreadError:
+        except threading.ThreadError as e:
+            logging.error("{}".format(e), stack_info=True)
             pass
 
     ####################################
@@ -702,6 +705,8 @@ class Node(BaseNode):
     def __connect_and_set_aggregator(self):
         # Set Models To Aggregate
         self.aggregator.set_nodes_to_aggregate(self.__train_set)
+        # TODO merge uncertainty
+        """
         logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to train_set: {}".format(self.__train_set))
         for node in self.__train_set:
             if node != self.get_name():
@@ -724,11 +729,9 @@ class Node(BaseNode):
         while True:
             count = count + (time.time() - begin)
             # TODO sync: wait for all nodes to connect
-            """
             if count > self.config.participant["TRAIN_SET_CONNECT_TIMEOUT"]:
                 logging.info("[NODE] Timeout for train set connections.")
                 break
-            """
             if (len(self.__train_set) == len(
                     [
                         nc
@@ -739,7 +742,7 @@ class Node(BaseNode):
             ):
                 break
             time.sleep(0.1)
-
+        """
     ############################
     #    Train and Evaluate    #
     ############################
@@ -767,10 +770,8 @@ class Node(BaseNode):
 
     def __evaluate(self):
         logging.info("[NODE.__evaluate] Start evaluation...")
-        print("[NODE.__evaluate] Start evaluation...")
         self.learner.evaluate()
         logging.info("[NODE.__evaluate] Finish evaluation...")
-        print("[NODE.__evaluate] Finish evaluation...")
         # if results is not None:
         #     logging.info(
         #         "[NODE] Evaluated. Loss: {}, Metric: {}".format(
@@ -800,20 +801,27 @@ class Node(BaseNode):
         # what happens: aggregator notifies local node with AGGREGATION_FINISHED_EVENT
         # receiving this event, the local node broadcasts build_models_ready_msg
         # note: cannot recover from any failing node.
+
+        # make sure to broadcast once more just to be safe
+        self.broadcast(CommunicationProtocol.build_models_ready_msg(self.round))
+
         proceed_round = False
         count = 0
         while not proceed_round:
             time.sleep(1)
             nc_ready = [nc for nc in self.get_neighbors() if nc.get_model_ready_status() == self.round]
             logging.info("[Node.__on_round_finished] Waiting for neighbours to proceed to the next round: "
-                         "num_nc_ready: {}, at round: {}".format(len(nc_ready), self.round))
+                         "num_nc_ready: {}/{}, at round: {}".format(len(nc_ready), len(self.__train_set), self.round))
             if len(self.__train_set) == len(nc_ready) + 1:
                 logging.info("[Node.__on_round_finished] All neighbours ready for the next round")
                 proceed_round = True
-            count = count + 1
-            if count > self.config.participant["ROUND_PROCEED_TIMEOUT"]:
-                logging.info("[NODE] ROUND_PROCEED_TIMEOUT reached. Nodes possibly out of sync. Stopping node!")
-                self.stop()
+            else:
+                count = count + 1
+                if count > self.config.participant["ROUND_PROCEED_TIMEOUT"]:
+                    # with increasing node number, e.g. 10, the sync requires quite some time
+                    logging.info("[NODE] ROUND_PROCEED_TIMEOUT reached. Nodes possibly out of sync. Stopping node!")
+                    self.stop()
+                    return
 
         # Remove trainset connections
         for nc in self.get_neighbors():
@@ -928,7 +936,7 @@ class Node(BaseNode):
         last_x_status = []
         j = 0
 
-        # TODO sync: maybe sending the model only once is sufficent?
+        # TODO sync: maybe sending the model only once is sufficient?
         while True:
             # Get time to calculate frequency
             begin = time.time()
@@ -1070,7 +1078,8 @@ class Node(BaseNode):
             try:
                 self.__finish_aggregation_lock.release()
                 logging.info("[NODE.__finish_aggregation_lock] __finish_aggregation_lock.release()")
-            except threading.ThreadError:
+            except threading.ThreadError as e:
+                logging.error("{}".format(e), stack_info=True)
                 pass
 
         elif event == Events.START_LEARNING_EVENT:
@@ -1096,14 +1105,15 @@ class Node(BaseNode):
             # Communicate to the training process that a vote has been received
             try:
                 self.__wait_votes_ready_lock.release()
-            except threading.ThreadError:
+            except threading.ThreadError as e:
+                logging.error("{}".format(e), stack_info=True)
                 pass
 
         elif event == Events.REPORT_STATUS_TO_CONTROLLER_EVENT:
             self.__report_status_to_controller()
             # self.__report_logs_to_controller()
             # TODO merge uncertainty
-            self.__report_resources()
+            # self.__report_resources()
 
         elif event == Events.STORE_MODEL_PARAMETERS_EVENT:
             if obj is not None:
@@ -1119,7 +1129,8 @@ class Node(BaseNode):
             try:
                 self.__finish_aggregation_lock.release()
                 logging.info("[NODE.__finish_aggregation_lock] __finish_aggregation_lock.release()")
-            except threading.ThreadError:
+            except threading.ThreadError as e:
+                logging.error("{}".format(e), stack_info=True)
                 pass
 
         # Execute BaseNode update
@@ -1140,7 +1151,7 @@ class Node(BaseNode):
         try:
             response = requests.post(url, data=json.dumps(self.config.participant), headers={'Content-Type': 'application/json'})
         except requests.exceptions.ConnectionError:
-            # logging.error(f'Error connecting to the controller at {url}')
+            logging.error(f'Error connecting to the controller at {url}')
             return
 
         # If endpoint is not available, log the error
@@ -1190,6 +1201,7 @@ class Node(BaseNode):
             if sys.platform == "linux":
                 cpu_temp = psutil.sensors_temperatures()['coretemp'][0].current
         except Exception as e:
+            logging.error("{}".format(e), stack_info=True)
             pass
             # logging.error(f'Error getting CPU temperature: {e}')
         # Gather RAM usage information
@@ -1230,6 +1242,9 @@ class Node(BaseNode):
                 self.learner.logger.log_metrics({f"Resources/GPU{i}_percent": gpu_percent, f"Resources/GPU{i}_temp": gpu_temp, f"Resources/GPU{i}_mem_percent": gpu_mem_percent}, step=step)
         except ModuleNotFoundError:
             logging.info(f'pynvml not found, skipping GPU usage')
+            pass
+        except NVMLError:
+            logging.info(f'pynvml not found, skipping GPU usage.')
             pass
 
     def __store_model_parameters(self, obj):

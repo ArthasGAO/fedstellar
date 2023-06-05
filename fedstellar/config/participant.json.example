@@ -34,7 +34,7 @@
     "interface": "eth0",
     "rate": "1Mbps",
     "loss": "0.1%",
-    "delay": "100ms",
+    "delay": "0ms",
     "delay-distro": 0
   },
   "data_args": {
@@ -92,5 +92,5 @@
   "GOSSIP_EXIT_ON_X_EQUAL_ROUNDS": 20,
   "GOSSIP_MODELS_FREC": 1,
   "GOSSIP_MODELS_PER_ROUND": 5,
-  "ROUND_PROCEED_TIMEOUT": 20
+  "ROUND_PROCEED_TIMEOUT": 240
 }

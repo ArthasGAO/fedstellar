@@ -176,6 +176,7 @@ class BaseNode(threading.Thread, Observer):
             # Send a self message to the loop to avoid the wait of the next recv
             self.__send(self.host, self.port, b"")
         except Exception as e:
+            logging.error("{}".format(e), stack_info=True)
             pass
 
     ########################
@@ -437,6 +438,7 @@ class BaseNode(threading.Thread, Observer):
             self.__neighbors.remove(n)
             n.stop()
         except Exception as e:
+            logging.error("{}".format(e), stack_info=True)
             pass
         self.__nei_lock.release()
 

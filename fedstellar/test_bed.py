@@ -51,10 +51,10 @@ targeted_list = [True, False]
 
 with open(basic_config_path) as f:
     basic_config = json.load(f)
-n_nodes = 3
+n_nodes = 2
 start_port = 46500
 
-dataset = dataset_list[0]
+dataset = dataset_list[2]
 model = model_list[0]
 federation = federation_list[0]
 topology = topology_list[1]
@@ -79,8 +79,8 @@ basic_config["python"] = python
 
 basic_config["is_iid"] = True
 basic_config["remote_tracking"] = True
-basic_config["rounds"] = 10
-basic_config["epochs"] = 5
+basic_config["rounds"] = 1
+basic_config["epochs"] = 1
 
 basic_config["targeted"] = False
 basic_config["noise_type"] = noise_type
@@ -96,7 +96,7 @@ basic_config["n_nodes"] = n_nodes
 basic_config["poisoned_node_percent"] = poisoned_node
 basic_config["poisoned_sample_percent"] = poisoned_sample
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[2]
+attack = attack_list[1]
 
 # aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "Sentinel"]
 aggregation_list = ["Sentinel"]

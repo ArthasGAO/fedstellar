@@ -124,7 +124,7 @@ def create_attack_matrix(basic_config):
 
     n_nodes = len(nodes_index)
     # Number of attacked nodes, round up
-    num_attacked =  int(round(poisoned_node_percent/100 * n_nodes))
+    num_attacked = int(round(poisoned_node_percent/100 * n_nodes))
     if num_attacked > n_nodes:
         num_attacked = n_nodes
 
@@ -172,10 +172,8 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
 
         current_client = int(network_gateway_list[-1]) + node + 1
 
-        if basic_config["docker"]:
-            participant_config['network_args']['ip'] = f'{network_gateway_list[0]}.{network_gateway_list[1]}.{network_gateway_list[2]}.{current_client} '
-        else:
-            participant_config['network_args']['ip'] = '127.0.0.1'
+        participant_config['network_args']['ip'] = f'{network_gateway_list[0]}.{network_gateway_list[1]}.{network_gateway_list[2]}.{current_client} '
+        # participant_config['network_args']['ip'] = '127.0.0.1'
         participant_config['network_args']['ipdemo'] = participant_config['network_args']['ip']  # legacy code
         participant_config['network_args']['port'] = start_port + node
         # participant_config['device_args']['idx'] = i
@@ -257,4 +255,4 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
 if __name__ == "__main__":
     # Parse args from command line
     basic_config = generate_controller_configs()
-    create_particiants_configs(basic_config, start_port=25000)
+    create_particiants_configs(basic_config, start_port=45000)

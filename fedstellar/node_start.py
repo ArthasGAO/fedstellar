@@ -3,6 +3,8 @@ import os
 import sys
 import time
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedml_api module
+
 from fedstellar.node import Node
 from fedstellar.learning.pytorch.datamodule import DataModule
 from fedstellar.learning.pytorch.mnist.mnist import MNISTDataset
@@ -25,7 +27,6 @@ from fedstellar.learning.pytorch.cifar10.models.fastermobilenet import FasterMob
 from fedstellar.learning.pytorch.cifar10.models.simplemobilenet import SimpleMobileNetV1
 from fedstellar.learning.pytorch.syscall.models.svm import SyscallModelSGDOneClassSVM
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedml_api module
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
 
@@ -87,9 +88,9 @@ def main():
 
     # config of datasets
     dataset = config.participant["data_args"]["dataset"]
-    model_name = None
+    model = None
     if dataset == "MNIST":
-        dataset = MNISTDataset(iid=is_iid)
+        dataset = MNISTDataset(sub_id=idx, number_sub=n_nodes, iid=is_iid)
         if model_name == "MLP":
             model = MNISTModelMLP()
         elif model_name == "CNN":
@@ -97,7 +98,7 @@ def main():
         else:
             raise ValueError(f"Model {model_name} not supported")
     elif dataset == "FASHIONMNIST":
-        dataset = FashionMNISTDataset(iid=is_iid)
+        dataset = FashionMNISTDataset(sub_id=idx, number_sub=n_nodes, iid=is_iid)
         if model_name == "MLP":
             model = FashionMNISTModelMLP()
         elif model_name == "CNN":

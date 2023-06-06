@@ -1,1 +1,99 @@
-{"scenario_name": "FASHIONMNIST_1_MLP_Sentinel_fully_ModelPoisoning_0_N60-S60_R80_salt_20230605_133842", "remote_tracking": true, "scenario_title": "DFL_FedAvg_fully_Model Poisoning_2020", "scenario_description": "", "config": "../app/config", "logs": "../app/logs", "models": "../app/models", "n_nodes": 2, "matrix": [[0, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 0, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 0, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 0]], "federation": "DFL", "topology": "fully", "simulation": true, "env": null, "webserver": false, "is_iid": true, "python": "/opt/homebrew/anaconda3/envs/fedstellar2/bin/python", "attack": "Model Poisoning", "targeted": false, "target_label": 3, "target_changed_label": 7, "noise_type": "salt", "poisoned_node_percent": 60, "poisoned_sample_percent": 60, "poisoned_ratio": 80, "rounds": 1, "epochs": 1, "dataset": "FASHIONMNIST", "model": "MLP", "accelerator": "cpu", "aggregation": "Sentinel", "network_subnet": "127.0.0.1/24", "network_gateway": "127.0.0.1", "webport": "5000", "statsport": "5100", "docker": false, "attack_matrix": [[0, "Label Flipping", 1.0, 0.8], [1, "No Attack", 0, 0], [2, "No Attack", 0, 0], [3, "Label Flipping", 1.0, 0.8], [4, "No Attack", 0, 0], [5, "No Attack", 0, 0], [6, "Label Flipping", 1.0, 0.8], [7, "Label Flipping", 1.0, 0.8], [8, "Label Flipping", 1.0, 0.8], [9, "Label Flipping", 1.0, 0.8]]}
+{
+  "scenario_name": "FASHIONMNIST_1_MLP_Sentinel_fully_ModelPoisoning_0_N60-S60_R80_salt_20230605_133842",
+  "remote_tracking": false,
+  "scenario_title": "DFL_FedAvg_fully_Model Poisoning_2020",
+  "scenario_description": "",
+  "config": "/Users/janosch/Repos/fedstellar-robust/app/config",
+  "logs": "/Users/janosch/Repos/fedstellar-robust/app/logs",
+  "models": "/Users/janosch/Repos/fedstellar-robust/app/models",
+  "n_nodes": 5,
+  "matrix": [],
+  "federation": "DFL",
+  "topology": "fully",
+  "simulation": true,
+  "env": null,
+  "webserver": false,
+  "is_iid": true,
+  "python": "/opt/homebrew/anaconda3/envs/fedstellar2/bin/python",
+  "attack": "No Attack",
+  "targeted": false,
+  "target_label": 3,
+  "target_changed_label": 7,
+  "noise_type": "salt",
+  "poisoned_node_percent": 60,
+  "poisoned_sample_percent": 60,
+  "poisoned_ratio": 80,
+  "rounds": 1,
+  "epochs": 1,
+  "dataset": "MNIST",
+  "model": "MLP",
+  "accelerator": "cpu",
+  "aggregation": "FedAvg",
+  "network_subnet": "127.0.0.1/24",
+  "network_gateway": "127.0.0.1",
+  "webport": "5000",
+  "statsport": "5100",
+  "docker": true,
+  "attack_matrix": [
+    [
+      0,
+      "Label Flipping",
+      1.0,
+      0.8
+    ],
+    [
+      1,
+      "No Attack",
+      0,
+      0
+    ],
+    [
+      2,
+      "No Attack",
+      0,
+      0
+    ],
+    [
+      3,
+      "Label Flipping",
+      1.0,
+      0.8
+    ],
+    [
+      4,
+      "No Attack",
+      0,
+      0
+    ],
+    [
+      5,
+      "No Attack",
+      0,
+      0
+    ],
+    [
+      6,
+      "Label Flipping",
+      1.0,
+      0.8
+    ],
+    [
+      7,
+      "Label Flipping",
+      1.0,
+      0.8
+    ],
+    [
+      8,
+      "Label Flipping",
+      1.0,
+      0.8
+    ],
+    [
+      9,
+      "Label Flipping",
+      1.0,
+      0.8
+    ]
+  ]
+}

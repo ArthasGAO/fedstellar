@@ -4,13 +4,26 @@ from datetime import datetime
 
 from pytorch_lightning.demos.mnist_datamodule import MNISTDataModule
 
-from fedstellar.config.config import Config
+from fedstellar.node import Node
 from fedstellar.learning.pytorch.datamodule import DataModule
-from fedstellar.learning.pytorch.mnist.mnist import MNISTDATASET
-from fedstellar.learning.pytorch.mnist.models.mlp import MLP
-from fedstellar.learning.pytorch.mnist.models.mlp import MLP as MLP_mnist
 from fedstellar.learning.pytorch.mnist.mnist import MNISTDataset
+from fedstellar.learning.pytorch.syscall.syscall import SYSCALLDataset
+from fedstellar.learning.pytorch.cifar10.cifar10 import CIFAR10Dataset
+from fedstellar.learning.pytorch.fashionmnist.fashionmnist import FashionMNISTDataset
+from fedstellar.config.config import Config
 from fedstellar.learning.pytorch.mnist.models.mlp import MNISTModelMLP
+from fedstellar.learning.pytorch.mnist.models.cnn import MNISTModelCNN
+from fedstellar.learning.pytorch.fashionmnist.models.mlp import FashionMNISTModelMLP
+from fedstellar.learning.pytorch.fashionmnist.models.cnn import FashionMNISTModelCNN
+from fedstellar.learning.pytorch.sentiment140.models.cnn import SentimentModelCNN
+from fedstellar.learning.pytorch.sentiment140.models.rnn import SentimentModelRNN
+from fedstellar.learning.pytorch.cifar100.models.cnn import Cifar100ModelCNN
+from fedstellar.learning.pytorch.cifar10.models.cnn import Cifar10ModelCNN
+from fedstellar.learning.pytorch.syscall.models.mlp import SyscallModelMLP
+from fedstellar.learning.pytorch.syscall.models.autoencoder import SyscallModelAutoencoder
+from fedstellar.learning.pytorch.cifar10.models.resnet import CIFAR10ModelResNet
+from fedstellar.learning.pytorch.cifar10.models.fastermobilenet import FasterMobileNet
+from fedstellar.learning.pytorch.cifar10.models.simplemobilenet import SimpleMobileNetV1
 from fedstellar.node import Node
 
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
@@ -38,8 +51,8 @@ def main():
     target_changed_label = 7
     noise_type = "salt"
 
-    dataset = MNISTDATASET(iid=is_iid)
-    model = MLP_mnist()
+    dataset = CIFAR10Dataset(iid=is_iid)
+    model = Cifar10ModelCNN()
 
     dataset = DataModule(dataset.trainset, dataset.testset, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir,
                          label_flipping=label_flipping, data_poisoning=data_poisoning,

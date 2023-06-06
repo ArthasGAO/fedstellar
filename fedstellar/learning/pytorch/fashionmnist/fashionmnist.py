@@ -10,7 +10,11 @@ from torchvision.datasets import FashionMNIST
 
 
 class FashionMNISTDataset(Dataset):
-    def __init__(self, loading="torchvision", iid=True, root_dir="./data"):
+    def __init__(
+            self,
+            loading="torchvision",
+            iid=True,
+            root_dir="./data"):
         super().__init__()
         self.train_set = None
         self.test_set = None

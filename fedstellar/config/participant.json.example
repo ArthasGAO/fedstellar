@@ -64,8 +64,8 @@
   "tracking_args": {
     "enable_remote_tracking": true,
     "local_tracking": "csv",
-    "log_dir": "../app/logs",
-    "config_dir": "../app/config",
+    "log_dir": "/Users/janosch/Repos/fedstellar-robust/app/logs",
+    "config_dir": "/Users/janosch/Repos/fedstellar-robust/app/config",
     "wandb_key": [
       "your wandb key"
     ],

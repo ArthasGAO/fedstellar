@@ -10,8 +10,6 @@ import pickle
 from datetime import datetime, timedelta
 from typing import List, OrderedDict
 
-from pynvml import NVMLError
-
 from fedstellar.learning.aggregators.helper import cosine_similarity
 from fedstellar.learning.aggregators.sentinel import Sentinel
 from fedstellar.learning.modelmetrics import ModelMetrics
@@ -874,7 +872,8 @@ class Node(BaseNode):
             self.totalrounds = None
             self.__model_initialized = False
             # logging.info("[NODE] FL experiment finished | __stop_learning()")
-            # self.__stop_learning()  # TODO: 20-12-22 | This is a temporal fix to avoid the node to continue training after the FL experiment is finished
+            self.__stop_learning()  # TODO: 20-12-22 | This is a temporal fix to avoid the node to continue training after the FL experiment is finished
+            self.stop()
 
     def __transfer_aggregator_role(self, schema):
         if schema == "random":

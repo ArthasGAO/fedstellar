@@ -102,7 +102,7 @@ attack = attack_list[1]
 aggregation_list = ["Sentinel"]
 
 with open(basic_config_path, "w") as f:
-    json.dump(basic_config, f)
+    json.dump(basic_config, f, indent=4)
 time.sleep(2)
 
 
@@ -120,7 +120,7 @@ if attack == "No Attack":
             start_port += basic_config["n_nodes"]
 
             with open(basic_config_path, "w") as f:
-                json.dump(basic_config, f)
+                json.dump(basic_config, f, indent=4)
             time.sleep(2)
             basic_config = generate_controller_configs()
             create_particiants_configs(basic_config, example_node_config_path, start_port)
@@ -145,7 +145,7 @@ if attack == "Model Poisoning":
                 start_port += basic_config["n_nodes"]
 
                 with open(basic_config_path, "w") as f:
-                    json.dump(basic_config, f)
+                    json.dump(basic_config, f, indent=4)
                 time.sleep(2)
 
                 basic_config = generate_controller_configs()
@@ -172,7 +172,7 @@ if attack == "Sample Poisoning":
                     start_port += basic_config["n_nodes"]
 
                     with open(basic_config_path, "w") as f:
-                        json.dump(basic_config, f)
+                        json.dump(basic_config, f, indent=4)
                     time.sleep(2)
 
                     basic_config = generate_controller_configs()
@@ -199,12 +199,11 @@ if attack == "Label Flipping":
                     start_port += basic_config["n_nodes"]
 
                     with open(basic_config_path, "w") as f:
-                        json.dump(basic_config, f)
+                        json.dump(basic_config, f, indent=4)
                     time.sleep(2)
+
                     basic_config = generate_controller_configs()
                     create_particiants_configs(basic_config, example_node_config_path, start_port)
-                    with open(basic_config_path, "w") as f:
-                        json.dump(basic_config, f)
                     time.sleep(EXPERIMENT_WAIT_SEC)
                     with open(basic_config_path) as f:
                         basic_config = json.load(f)

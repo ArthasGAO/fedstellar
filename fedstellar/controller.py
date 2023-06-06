@@ -375,7 +375,7 @@ class Controller:
         participant_template = textwrap.dedent("""
             participant{}:
                 image: fedstellar
-                restart: always
+                restart: on-failure:1
                 volumes:
                     - {}:/fedstellar
                 extra_hosts:
@@ -398,7 +398,7 @@ class Controller:
         participant_template_start = textwrap.dedent("""
             participant{}:
                 image: fedstellar
-                restart: always
+                restart: on-failure:1
                 volumes:
                     - {}:/fedstellar
                 extra_hosts:
@@ -419,7 +419,7 @@ class Controller:
         participant_gpu_template = textwrap.dedent("""
             participant{}:
                 image: fedstellar-gpu
-                restart: always
+                restart: on-failure:1
                 volumes:
                     - {}:/fedstellar
                 extra_hosts:
@@ -449,7 +449,7 @@ class Controller:
         participant_gpu_template_start = textwrap.dedent("""
             participant{}:
                 image: fedstellar-gpu
-                restart: always
+                restart: on-failure:1
                 volumes:
                     - {}:/fedstellar
                 extra_hosts:

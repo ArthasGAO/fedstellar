@@ -76,6 +76,7 @@ class NodeConnection(threading.Thread, Observable):
         self.__addr = addr
         self.__param_bufffer = b""
         self.__model_ready = -1
+        self.__round_ready = -1
         self.__aes_cipher = aes_cipher
         self.__model_initialized = False
         self.__models_aggregated = []
@@ -90,6 +91,7 @@ class NodeConnection(threading.Thread, Observable):
                 CommunicationProtocol.STOP_LEARNING: Stop_learning_cmd(self),
                 CommunicationProtocol.PARAMS: Params_cmd(self),
                 CommunicationProtocol.MODELS_READY: Models_Ready_cmd(self),
+                CommunicationProtocol.ROUND_READY: Round_Ready_cmd(self),
                 CommunicationProtocol.METRICS: Metrics_cmd(self),
                 CommunicationProtocol.VOTE_TRAIN_SET: Vote_train_set_cmd(self),
                 CommunicationProtocol.MODELS_AGGREGATED: Models_aggregated_cmd(self),
@@ -208,7 +210,7 @@ class NodeConnection(threading.Thread, Observable):
                     if error:
                         self.__terminate_flag.set()
                         logging.info(
-                            "[NODE_CONNECTION] An error happened. Last error: {}".format(msg)
+                            "[NODE_CONNECTION] An error happened. Last error: {} \n Message: {}".format(error, msg)
                         )
 
             except socket.timeout:
@@ -276,6 +278,27 @@ class NodeConnection(threading.Thread, Observable):
             The last ready round of the other node.
         """
         return self.__model_ready
+
+    ############################
+    #    Round Ready Rounds    #
+    ############################
+
+    def set_round_ready_status(self, round):
+        """
+        Set the last ready round of the other node.
+
+        Args:
+            round: The last ready round of the other node.
+        """
+        logging.info("Setting round ready to {}".format(round))
+        self.__round_ready = round
+
+    def get_round_ready_status(self):
+        """
+        Returns:
+            The last ready round of the other node.
+        """
+        return self.__round_ready
 
     ###########################
     #    Model Initialized    #

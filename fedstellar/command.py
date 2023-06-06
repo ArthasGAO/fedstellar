@@ -109,6 +109,13 @@ class Models_Ready_cmd(Command):
     def execute(self, round):
         self.node_connection.set_model_ready_status(round)
 
+class Round_Ready_cmd(Command):
+    """
+    Command that should be executed as a response to a **ready** message.
+    """
+
+    def execute(self, round):
+        self.node_connection.set_round_ready_status(round)
 
 class Metrics_cmd(Command):
     """

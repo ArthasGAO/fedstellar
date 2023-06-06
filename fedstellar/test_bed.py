@@ -5,6 +5,7 @@ import sys
 from datetime import datetime
 import time
 import platform
+import docker
 
 # kill running processes (Ubuntu):
 # pkill -9 -f node_start.py

@@ -94,7 +94,7 @@ class CNN(pl.LightningModule):
                     ax.set_yticks(range(62))
                     ax.xaxis.set_ticklabels([i for i in range(62)])
                     ax.yaxis.set_ticklabels([i for i in range(62)])
-                    self.logger.experiment.add_figure(f"{phase}Epoch/CM", ax.get_figure(), global_step=self.epoch_global_number[phase])
+                    # self.logger.experiment.add_figure(f"{phase}Epoch/CM", ax.get_figure(), global_step=self.epoch_global_number[phase])
                     plt.close()
             else:
                 metric_name = metric.__class__.__name__.replace("Multiclass", "")

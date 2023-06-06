@@ -376,6 +376,8 @@ class Controller:
         participant_template = textwrap.dedent("""
             participant{}:
                 image: fedstellar
+                labels:
+                    - fedstellar
                 env_file:
                     - .env
                 restart: "no"
@@ -401,6 +403,8 @@ class Controller:
         participant_template_start = textwrap.dedent("""
             participant{}:
                 image: fedstellar
+                labels:
+                    - fedstellar
                 env_file:
                     - .env
                 restart: "no"
@@ -424,6 +428,8 @@ class Controller:
         participant_gpu_template = textwrap.dedent("""
             participant{}:
                 image: fedstellar-gpu
+                labels:
+                    - fedstellar
                 env_file:
                     - .env
                 restart: "no"
@@ -456,6 +462,8 @@ class Controller:
         participant_gpu_template_start = textwrap.dedent("""
             participant{}:
                 image: fedstellar-gpu
+                labels:
+                    - fedstellar
                 env_file:
                     - .env
                 restart: "no"
@@ -487,6 +495,8 @@ class Controller:
             networks:
                 fedstellar-net:
                     driver: bridge
+                    labels:
+                        - fedstellar
                     ipam:
                         config:
                             - subnet: {}

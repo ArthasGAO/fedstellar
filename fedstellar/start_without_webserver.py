@@ -18,12 +18,25 @@ basic_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ba
 example_node_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config/participant.json.example')
 os.environ["FEDSTELLAR_ROOT"] = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+def get_scenario_name(basic_config):
+    scenario_name = f'{basic_config["dataset"]}_{int(basic_config["is_iid"])}_{basic_config["model"]}_' \
+                    f'{basic_config["aggregation"]}_' \
+                    f'{basic_config["topology"].replace(" ", "")}_' \
+                    f'{basic_config["attack"].replace(" ", "")}_{int(basic_config["targeted"])}_' \
+                    f'N{basic_config["poisoned_node_percent"]}-S{basic_config["poisoned_sample_percent"]}_' \
+                    f'R{basic_config["poisoned_ratio"]}_' \
+                    f'{basic_config["noise_type"].replace(" ", "")}_' \
+                    f'{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+    return scenario_name
+
+
 def generate_controller_configs(basic_config_path=basic_config_path):
     basic_config = ''
     with open(basic_config_path) as f:
         basic_config = json.load(f)
 
-    scenario_name = basic_config['scenario_name']
+    scenario_name = get_scenario_name(basic_config)
     if len(scenario_name) == 0:
         scenario_name = f'{basic_config["dataset"]}_{basic_config["is_iid"]}_{basic_config["model"]}_' \
                         f'{basic_config["aggregation"]}_' \
@@ -123,6 +136,7 @@ def create_attack_matrix(basic_config):
         nodes_index = node_range[1:]
 
     n_nodes = len(nodes_index)
+    print("Preparing " + str(n_nodes) + " nodes")
     # Number of attacked nodes, round up
     num_attacked = int(round(poisoned_node_percent/100 * n_nodes))
     if num_attacked > n_nodes:

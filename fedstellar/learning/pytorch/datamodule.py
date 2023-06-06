@@ -37,7 +37,7 @@ class DataModule(LightningDataModule):
             sub_id=0,
             number_sub=1,
             batch_size=32,
-            num_workers=1,
+            num_workers=6,
             val_percent=0.1,
             label_flipping=False,
             data_poisoning=False,

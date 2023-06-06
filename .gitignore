@@ -133,5 +133,7 @@ dmypy.json
 _build/
 *.DS_Store
 app/
-fedstellar/data/
-/fedstellar/wandb/
+.idea/workspace.xml
+.idea/tasks.xml
+fedstellar/data
+wandb/

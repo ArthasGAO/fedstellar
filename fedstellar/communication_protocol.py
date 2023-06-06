@@ -97,6 +97,10 @@ class CommunicationProtocol:
     """
     MODELS_READY = "MODELS_READY"
     """
+    Round ready message header.
+    """
+    ROUND_READY = "ROUND_READY"
+    """
     Metrics message header.
     """
     METRICS = "METRICS"
@@ -617,6 +621,19 @@ class CommunicationProtocol:
             An encoded ready message.
         """
         return (CommunicationProtocol.MODELS_READY + " " + str(round) + "\n").encode(
+            "utf-8"
+        )
+
+    @staticmethod
+    def build_round_ready_msg(round):
+        """
+        Args:
+            round: The last round finished.
+
+        Returns:
+            An encoded ready message.
+        """
+        return (CommunicationProtocol.ROUND_READY + " " + str(round) + "\n").encode(
             "utf-8"
         )
 

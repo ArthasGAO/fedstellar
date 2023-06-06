@@ -120,7 +120,7 @@ class Node(BaseNode):
         # Import configuration file
         self.config = config
         # Report the configuration to the controller (first instance)
-        self.__report_status_to_controller()
+        # self.__report_status_to_controller()
 
         # Learning
         self.round = None
@@ -155,8 +155,6 @@ class Node(BaseNode):
                                                  config=self.config.participant)
             # wandblogger.watch(model, log="all")
             self.learner = learner(model, data, config=self.config, logger=wandblogger)
-            self.logger = wandblogger
-            logging.info("[NODE] Assigned WandBlogger: " + str(self.logger))
         else:
             if self.config.participant['tracking_args']['local_tracking'] == 'csv':
                 logging.info("[NODE] Tracking CSV enabled")
@@ -174,33 +172,27 @@ class Node(BaseNode):
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
             self.aggregator = FedAvg(node_name=self.get_name(),
                                      config=self.config,
-                                     logger=self.logger,
                                      learner=self.learner)
         elif self.config.participant["aggregator_args"]["algorithm"] == "Krum":
             self.aggregator = Krum(node_name=self.get_name(),
                                    config=self.config,
-                                   logger=self.logger,
                                    learner=self.learner)
         elif self.config.participant["aggregator_args"]["algorithm"] == "Median":
             self.aggregator = Median(node_name=self.get_name(),
                                      config=self.config,
-                                     logger=self.logger,
                                      learner=self.learner)
         elif self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
             self.aggregator = TrimmedMean(node_name=self.get_name(),
                                           config=self.config,
-                                          logger=self.logger,
                                           learner=self.learner,
                                           beta=1)
         elif self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
             self.aggregator = Sentinel(node_name=self.get_name(),
                                        config=self.config,
-                                       logger=self.logger,
                                        learner=self.learner)
         elif self.config.participant["aggregator_args"]["algorithm"] == "Sentinel":
             self.aggregator = Sentinel(node_name=self.get_name(),
                                        config=self.config,
-                                       logger=self.logger,
                                        learner=self.learner)
         # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
         #   self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
@@ -441,7 +433,7 @@ class Node(BaseNode):
             for neighbour in contributors:
                 if neighbour != self.get_name():
                     mapping = {f'val_loss@{neighbour}': val_loss}
-                    self.logger.log_metrics(metrics=mapping, step=self.logger.global_step)
+                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         local_params = self.learner.get_parameters()
         cos_similarity: float = cosine_similarity(local_params, model_params)
@@ -449,7 +441,7 @@ class Node(BaseNode):
             for neighbour in contributors:
                 if neighbour != self.get_name():
                     mapping = {f'cos@{neighbour}': cos_similarity}
-                    self.logger.log_metrics(metrics=mapping, step=self.logger.global_step)
+                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         current_metrics.cosine_similarity = cos_similarity
         current_metrics.validation_loss = val_loss
@@ -704,7 +696,6 @@ class Node(BaseNode):
         # Set Models To Aggregate
         self.aggregator.set_nodes_to_aggregate(self.__train_set)
         # TODO merge uncertainty
-        """
         logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to train_set: {}".format(self.__train_set))
         for node in self.__train_set:
             if node != self.get_name():
@@ -727,9 +718,11 @@ class Node(BaseNode):
         while True:
             count = count + (time.time() - begin)
             # TODO sync: wait for all nodes to connect
+            """
             if count > self.config.participant["TRAIN_SET_CONNECT_TIMEOUT"]:
                 logging.info("[NODE] Timeout for train set connections.")
                 break
+            """
             if (len(self.__train_set) == len(
                     [
                         nc
@@ -740,7 +733,7 @@ class Node(BaseNode):
             ):
                 break
             time.sleep(0.1)
-        """
+
     ############################
     #    Train and Evaluate    #
     ############################
@@ -801,7 +794,9 @@ class Node(BaseNode):
         # note: cannot recover from any failing node.
 
         # make sure to broadcast once more just to be safe
+        logging.info("[Node.__on_round_finished] Sending round ready status at round: {}".format(self.round))
         self.broadcast(CommunicationProtocol.build_models_ready_msg(self.round))
+        time.sleep(5)
 
         proceed_round = False
         count = 0
@@ -809,7 +804,7 @@ class Node(BaseNode):
             time.sleep(1)
             nc_ready = [nc for nc in self.get_neighbors() if nc.get_model_ready_status() == self.round]
             logging.info("[Node.__on_round_finished] Waiting for neighbours to proceed to the next round: "
-                         "num_nc_ready: {}/{}, at round: {}".format(len(nc_ready), len(self.__train_set), self.round))
+                         "num_nc_ready: {}/{}, at round: {}".format(len(nc_ready) + 1, len(self.__train_set), self.round))
             if len(self.__train_set) == len(nc_ready) + 1:
                 logging.info("[Node.__on_round_finished] All neighbours ready for the next round")
                 proceed_round = True
@@ -821,10 +816,15 @@ class Node(BaseNode):
                     self.stop()
                     return
 
+        time.sleep(5)
+
         # Remove trainset connections
         for nc in self.get_neighbors():
             if nc not in self.__initial_neighbors:
-                self.rm_neighbor(nc)
+                # TODO sync: no need to remove neighbours (reset breaks sync)
+                #logging.info("Removing nei: {}".format(nc.get_name()))
+                pass
+                # self.rm_neighbor(nc)
 
         # Set Next Round
         self.aggregator.clear()
@@ -861,8 +861,8 @@ class Node(BaseNode):
 
             # Finish
             # save the final model to file system
-            with open(self.model_name, 'wb') as f:
-                pickle.dump(self.learner.model, f)
+            # with open(self.model_name, 'wb') as f:
+            #    pickle.dump(self.learner.model, f)
             logging.info(
                 "[NODE] FL experiment finished | Round: {} | Total rounds: {} | [!] Both to None".format(
                     self.round, self.totalrounds
@@ -872,7 +872,8 @@ class Node(BaseNode):
             self.totalrounds = None
             self.__model_initialized = False
             # logging.info("[NODE] FL experiment finished | __stop_learning()")
-            self.__stop_learning()  # TODO: 20-12-22 | This is a temporal fix to avoid the node to continue training after the FL experiment is finished
+            # self.__stop_learning()  # TODO: 20-12-22 | This is a temporal fix to avoid the node to continue training after the FL experiment is finished
+            time.sleep(10)
             self.stop()
 
     def __transfer_aggregator_role(self, schema):
@@ -1109,10 +1110,11 @@ class Node(BaseNode):
                 pass
 
         elif event == Events.REPORT_STATUS_TO_CONTROLLER_EVENT:
-            self.__report_status_to_controller()
+            # self.__report_status_to_controller()
             # self.__report_logs_to_controller()
             # TODO merge uncertainty
             # self.__report_resources()
+            pass
 
         elif event == Events.STORE_MODEL_PARAMETERS_EVENT:
             if obj is not None:

@@ -36,4 +36,4 @@ torchtext==0.15.2
 datasets==2.10.1
 pandas==1.5.2
 timm==0.6.13
-seaborn~=0.12.2
+docker==6.1.3

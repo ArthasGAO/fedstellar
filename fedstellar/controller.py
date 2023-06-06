@@ -389,7 +389,7 @@ class Controller:
                     - /bin/bash
                     - -c
                     - |
-                        ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                        ifconfig && echo '{} host.docker.internal' >> /etc/hosts && echo $(hostname -I) $(hostname) >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
                 depends_on:
                     - participant{}
                 networks:
@@ -414,7 +414,7 @@ class Controller:
                     - /bin/bash
                     - -c
                     - |
-                        /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                        /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && echo $(hostname -I) $(hostname) >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
                 networks:
                     fedstellar-net:
                         ipv4_address: {}
@@ -437,7 +437,7 @@ class Controller:
                     - /bin/bash
                     - -c
                     - |
-                        ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                        ifconfig && echo '{} host.docker.internal' >> /etc/hosts && echo $(hostname -I) $(hostname) >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
                 depends_on:
                     - participant{}
                 deploy:
@@ -469,7 +469,7 @@ class Controller:
                     - /bin/bash
                     - -c
                     - |
-                        /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                        /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && echo $(hostname -I) $(hostname) >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
                 deploy:
                     resources:
                         reservations:

@@ -172,8 +172,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
 
         current_client = int(network_gateway_list[-1]) + node + 1
 
-        participant_config['network_args']['ip'] = f'{network_gateway_list[0]}.{network_gateway_list[1]}.{network_gateway_list[2]}.{current_client} '
-        # participant_config['network_args']['ip'] = '127.0.0.1'
+        participant_config['network_args']['ip'] = f'{network_gateway_list[0]}.{network_gateway_list[1]}.{network_gateway_list[2]}.{current_client}'
         participant_config['network_args']['ipdemo'] = participant_config['network_args']['ip']  # legacy code
         participant_config['network_args']['port'] = start_port + node
         # participant_config['device_args']['idx'] = i

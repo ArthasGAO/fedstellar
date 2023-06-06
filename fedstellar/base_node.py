@@ -43,6 +43,9 @@ class BaseNode(threading.Thread, Observer):
     def __init__(self, experiment_name, hostdemo=None, host="127.0.0.1", port=None, encrypt=False, config=None):
         self.experiment_name = experiment_name
         # Node Attributes
+        print("HOST")
+        print(host)
+        print(type(host))
         self.hostdemo = hostdemo
         self.host = socket.gethostbyname(host)
         self.port = port

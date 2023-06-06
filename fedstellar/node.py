@@ -108,7 +108,7 @@ class Node(BaseNode):
             poisoned_ratio=0,
             noise_type='gaussian',
     ):
-        listen()
+        # listen()
 
         # Super init
         BaseNode.__init__(self, experiment_name, hostdemo, host, port, encrypt, config)
@@ -1242,10 +1242,11 @@ class Node(BaseNode):
         except ModuleNotFoundError:
             logging.info(f'pynvml not found, skipping GPU usage')
             pass
+        """
         except NVMLError:
             logging.info(f'pynvml not found, skipping GPU usage.')
             pass
-
+        """
     def __store_model_parameters(self, obj):
         """
         Store the model parameters in the node.

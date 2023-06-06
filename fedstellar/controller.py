@@ -3,6 +3,7 @@ import hashlib
 import json
 import logging
 import os
+import shutil
 import re
 import signal
 import subprocess
@@ -375,7 +376,9 @@ class Controller:
         participant_template = textwrap.dedent("""
             participant{}:
                 image: fedstellar
-                restart: on-failure:1
+                env_file:
+                    - .env
+                restart: "no"
                 volumes:
                     - {}:/fedstellar
                 extra_hosts:
@@ -398,7 +401,9 @@ class Controller:
         participant_template_start = textwrap.dedent("""
             participant{}:
                 image: fedstellar
-                restart: on-failure:1
+                env_file:
+                    - .env
+                restart: "no"
                 volumes:
                     - {}:/fedstellar
                 extra_hosts:
@@ -419,7 +424,9 @@ class Controller:
         participant_gpu_template = textwrap.dedent("""
             participant{}:
                 image: fedstellar-gpu
-                restart: on-failure:1
+                env_file:
+                    - .env
+                restart: "no"
                 volumes:
                     - {}:/fedstellar
                 extra_hosts:
@@ -449,7 +456,9 @@ class Controller:
         participant_gpu_template_start = textwrap.dedent("""
             participant{}:
                 image: fedstellar-gpu
-                restart: on-failure:1
+                env_file:
+                    - .env
+                restart: "no"
                 volumes:
                     - {}:/fedstellar
                 extra_hosts:
@@ -530,6 +539,9 @@ class Controller:
         # Write the Docker Compose file in config directory
         with open(f"{self.config_dir}/docker-compose.yml", "w") as f:
             f.write(docker_compose_file)
+
+        env_file = f"{os.environ['FEDSTELLAR_ROOT']}/.env"
+        shutil.copyfile(env_file, f"{self.config_dir}/.env")
 
         # Change log and config directory in dockers to /fedstellar/app, and change controller endpoint
         for node in self.config.participants:

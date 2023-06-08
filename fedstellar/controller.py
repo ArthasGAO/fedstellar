@@ -550,8 +550,9 @@ class Controller:
         with open(f"{self.config_dir}/docker-compose.yml", "w") as f:
             f.write(docker_compose_file)
 
-        env_file = f"{os.environ['FEDSTELLAR_ROOT']}/.env"
-        shutil.copyfile(env_file, f"{self.config_dir}/.env")
+        env_file_src = os.path.join(os.environ["FEDSTELLAR_ROOT"], ".env")
+        env_file_dest = os.path.join(f"{self.config_dir}", ".env")
+        shutil.copyfile(env_file_src, env_file_dest)
 
         # Change log and config directory in dockers to /fedstellar/app, and change controller endpoint
         for node in self.config.participants:

@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from typing import List, OrderedDict
 
 from fedstellar.learning.aggregators.helper import cosine_similarity
+from fedstellar.learning.aggregators.pseudo import PseudoAggregator
 from fedstellar.learning.aggregators.sentinel import Sentinel
 from fedstellar.learning.modelmetrics import ModelMetrics
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
@@ -25,8 +26,6 @@ import time
 import code
 import traceback
 import signal
-
-from lightning.pytorch.loggers import WandbLogger, CSVLogger
 
 from pytorch_lightning.loggers import CSVLogger
 from fedstellar.base_node import BaseNode
@@ -194,8 +193,8 @@ class Node(BaseNode):
             self.aggregator = Sentinel(node_name=self.get_name(),
                                        config=self.config,
                                        learner=self.learner)
-        # if self.config.participant["adversarial_args"]["attacks"] != "No Attack":
-        #   self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
+        elif self.config.participant["aggregator_args"]["algorithm"] == "Pseudo":
+            self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
 
         self.aggregator.add_observer(self)
 

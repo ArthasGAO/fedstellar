@@ -34,6 +34,7 @@ from fedstellar.config.config import Config
 from fedstellar.learning.aggregators.fedavg import FedAvg
 from fedstellar.learning.aggregators.krum import Krum
 from fedstellar.learning.aggregators.trimmedmean import TrimmedMean
+from fedstellar.learning.aggregators.fltrust import FlTrust
 from fedstellar.learning.aggregators.median import Median
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
@@ -186,7 +187,7 @@ class Node(BaseNode):
                                           learner=self.learner,
                                           beta=1)
         elif self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
-            self.aggregator = Sentinel(node_name=self.get_name(),
+            self.aggregator = FlTrust(node_name=self.get_name(),
                                        config=self.config,
                                        learner=self.learner)
         elif self.config.participant["aggregator_args"]["algorithm"] == "Sentinel":
@@ -406,7 +407,6 @@ class Node(BaseNode):
 
     def compute_model_metrics(self, contributors: List, model_params: OrderedDict, current_metrics: ModelMetrics):
 
-        # START CUSTOMIZED
         """
         tmp_model = self.model_struct
         tmp_model.load_state_dict(model_params)
@@ -415,12 +415,6 @@ class Node(BaseNode):
         val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
         """
 
-        tmp_model = copy.deepcopy(self.learner.latest_model)
-        tmp_model.load_state_dict(model_params)
-        val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
-        # -> with validate_neighbour_pl:
-        # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
-
         """
         tmp_learner: LightningLearner = copy.deepcopy(self.learner)
         tmp_learner.set_parameters(model_params)
@@ -428,23 +422,40 @@ class Node(BaseNode):
         logging.info("Decoded Model: val_loss: {}, val_acc: {}\n".format(val_loss, val_acc))
         """
 
-        if contributors is not None:
-            for neighbour in contributors:
-                if neighbour != self.get_name():
-                    mapping = {f'val_loss@{neighbour}': val_loss}
-                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+        cos_similarity = 0
+        val_loss = 0
+        val_acc = 0
 
-        local_params = self.learner.get_parameters()
-        cos_similarity: float = cosine_similarity(local_params, model_params)
-        if contributors is not None:
-            for neighbour in contributors:
-                if neighbour != self.get_name():
-                    mapping = {f'cos@{neighbour}': cos_similarity}
-                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+        if isinstance(self.aggregator, PseudoAggregator) | \
+                isinstance(self.aggregator, Sentinel):
 
-        current_metrics.cosine_similarity = cos_similarity
-        current_metrics.validation_loss = val_loss
-        current_metrics.validation_accuracy = val_acc
+            tmp_model = copy.deepcopy(self.learner.latest_model)
+            tmp_model.load_state_dict(model_params)
+            val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
+            # -> with validate_neighbour_pl:
+            # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
+
+            if contributors is not None:
+                for neighbour in contributors:
+                    if neighbour != self.get_name():
+                        mapping = {f'val_loss@{neighbour}': val_loss}
+                        self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
+        if isinstance(self.aggregator, PseudoAggregator) | \
+            isinstance(self.aggregator, Sentinel) | \
+                isinstance(self.aggregator, FlTrust):
+
+            local_params = self.learner.get_parameters()
+            cos_similarity: float = cosine_similarity(local_params, model_params)
+            if contributors is not None:
+                for neighbour in contributors:
+                    if neighbour != self.get_name():
+                        mapping = {f'cos@{neighbour}': cos_similarity}
+                        self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
+            current_metrics.cosine_similarity = cos_similarity
+            current_metrics.validation_loss = val_loss
+            current_metrics.validation_accuracy = val_acc
 
         logging.info(
             "[Node.compute_model_metrics] Evaluating received model from {} with cos: {}, val_loss: {}, val_acc: {}"

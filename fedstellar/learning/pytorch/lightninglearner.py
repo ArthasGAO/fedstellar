@@ -332,16 +332,18 @@ class LightningLearner(NodeLearner):
         # the standard PL (pytorch lightning) validation approach seems to break in multithreaded, thus workaround
         avg_loss = 0
         running_loss = 0
-        val_dataloader = self.data.bootstrap_dataloader()
+        bootstrap_dataloader = self.data.bootstrap_dataloader()
+        num_samples = 0
         with torch.no_grad():
             # torch.autograd.set_detect_anomaly(True)
-            for i, (inputs, labels) in enumerate(val_dataloader):
+            for i, (inputs, labels) in enumerate(bootstrap_dataloader):
                 outputs = neighbour_model(inputs)
                 # _, predicted_labels = torch.max(outputs, 1)
                 loss = F.cross_entropy(outputs, labels)
                 running_loss = running_loss + loss.item()
+                num_samples = num_samples + len(inputs)
         avg_loss = running_loss / (i + 1)
-        logging.info("[Learner.validate_neighbour]: Computed loss over {} data samples".format(i))
+        logging.debug("[Learner.validate_neighbour]: Computed neighbor loss over {} data samples".format(num_samples))
         val_acc = 0
         return avg_loss, val_acc
 

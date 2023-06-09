@@ -162,10 +162,10 @@ class LightningLearner(NodeLearner):
         backdoor_dataloader = self.data.backdoor_dataloader()
         test_dataloader = self.data.test_dataloader()
         if backdoor:
-            log_key = "Backdoor Confmat"
+            log_key = "Backdoor ConfusionMatrix"
             data_loader = backdoor_dataloader
         else:
-            log_key = "Testdata Confmat"
+            log_key = "Testdata ConfusionMatrix"
             data_loader = test_dataloader
 
         all_targets, all_predictions = [], []
@@ -233,11 +233,11 @@ class LightningLearner(NodeLearner):
         # class_columns = data_loader.dataset.classes
         # print(class_columns)
         # TODO jba: global or local step?
-        logging.info("Logging confmat as image")
-        self.logger.log_image(key=log_key + " -image", images=images, step=self.logger.local_step)
+        logging.info("[LightningLearner.compute_confusion_matrix] Logging ConfusionMatrix as image")
+        self.logger.log_image(key=log_key + " - Image", images=images, step=self.logger.local_step)
         time.sleep(5)
-        logging.info("Logging confmat as table")
-        self.logger.log_text(key=log_key + " -table", dataframe=df, step=self.logger.local_step)
+        logging.info("[LightningLearner.compute_confusion_matrix] Logging ConfusionMatrix as table")
+        self.logger.log_text(key=log_key + " - Table", dataframe=df, step=self.logger.local_step)
 
         # clear figure such that plots do not become overlapping in wandb
         fig.clf()
@@ -296,8 +296,7 @@ class LightningLearner(NodeLearner):
         )
 
     def create_trainer_no_logging(self):
-        logging.info("[Learner] Creating trainer (logger disabled) with accelerator: {}".format(
-            self.config.participant["device_args"]["accelerator"]))
+        #logging.info("[Learner] Creating trainer (logger disabled) with accelerator: {}".format( self.config.participant["device_args"]["accelerator"]))
         self.__trainer = Trainer(
             callbacks=[ModelSummary(max_depth=1)],
             max_epochs=self.epochs,
@@ -327,12 +326,12 @@ class LightningLearner(NodeLearner):
             return None, None
 
     def validate_neighbour_no_pl(self, neighbour_model) -> (float, float):
-        # the standard PL (pytorch lightning) validation approach seems to break in multithreaded, thus workaround
+        # the standard PL (pytorch lightning) validation approach seems to break in multithreading, thus workaround
         avg_loss = 0
         running_loss = 0
-        val_dataloader = self.data.val_dataloader()
+        val_dataloader = self.data.backdoor_dataloader()
         with torch.no_grad():
-            torch.autograd.set_detect_anomaly(True)
+            # torch.autograd.set_detect_anomaly(True)
             for i, (inputs, labels) in enumerate(val_dataloader):
                 outputs = neighbour_model(inputs)
                 # _, predicted_labels = torch.max(outputs, 1)

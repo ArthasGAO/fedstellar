@@ -2,16 +2,13 @@
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Chao Feng.
 #
-import os
-import sys
 from math import floor
 
 # To Avoid Crashes with a lot of nodes
 import torch.multiprocessing
 from lightning import LightningDataModule
-from torch.utils.data import DataLoader, Subset, random_split
-from torchvision import transforms
-from torchvision.datasets import FashionMNIST
+from torch.utils.data import DataLoader, random_split, RandomSampler
+
 from fedstellar.learning.pytorch.changeablesubset import ChangeableSubset
 
 torch.multiprocessing.set_sharing_strategy("file_system")
@@ -160,6 +157,18 @@ class DataModule(LightningDataModule):
             batch_size=self.batch_size,
             shuffle=False,
         )
+        random_sampler = RandomSampler(
+            data_source = data_val,
+            replacement = False,
+            num_samples = 100
+        )
+        self.bootstrap_loader = DataLoader(
+            data_val,
+            batch_size=self.batch_size,
+            shuffle=False,
+            sampler=random_sampler
+        )
+
         print(f'Train: {len(data_train)} Val:{len(data_val)} Test:{len(te_subset)}')
 
     def train_dataloader(self):
@@ -169,6 +178,10 @@ class DataModule(LightningDataModule):
     def val_dataloader(self):
         """ """
         return self.val_loader
+
+    def bootstrap_dataloader(self):
+        """ """
+        return self.bootstrap_loader
 
     def test_dataloader(self):
         """ """

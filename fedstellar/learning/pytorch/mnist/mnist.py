@@ -11,7 +11,7 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 from torchvision.datasets import MNIST
 
-# torch.multiprocessing.set_sharing_strategy("file_system")
+torch.multiprocessing.set_sharing_strategy("file_system")
 
 
 #######################################
@@ -39,8 +39,8 @@ class MNISTDataset(Dataset):
             self,
             sub_id=0,
             number_sub=1,
-            batch_size=32,
-            num_workers=4,
+            batch_size=128,
+            num_workers=6,
             val_percent=0.1,
             iid=True,
     ):

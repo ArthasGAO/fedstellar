@@ -295,7 +295,7 @@ class LightningLearner(NodeLearner):
             enable_model_summary=False,
             enable_progress_bar=True
         )
-        # logging.info("[Learner] Number of CPUs used by pl.Trainer: {}".format(self.__trainer.devices, os.cpu_count()))
+        logging.info("[Learner] Number of CPUs used by pl.Trainer: {}/{}".format(self.__trainer.num_devices, os.cpu_count()))
 
 
     def create_trainer_no_logging(self):

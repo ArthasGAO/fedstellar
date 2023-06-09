@@ -824,7 +824,7 @@ class Node(BaseNode):
                 proceed_round = True
             else:
                 # retry
-                self.broadcast(CommunicationProtocol.build_models_ready_msg(self.round))
+                # self.broadcast(CommunicationProtocol.build_models_ready_msg(self.round))
                 time.sleep(5)
             """
             else:
@@ -842,9 +842,9 @@ class Node(BaseNode):
         for nc in self.get_neighbors():
             if nc not in self.__initial_neighbors:
                 # TODO sync: no need to remove neighbours (reset breaks sync)
-                logging.info("Removing neighbour: {}".format(nc.get_name()))
-                # pass
-                self.rm_neighbor(nc)
+                # logging.info("Removing neighbour: {}".format(nc.get_name()))
+                pass
+                # self.rm_neighbor(nc)
 
         # Set Next Round
         self.aggregator.clear()

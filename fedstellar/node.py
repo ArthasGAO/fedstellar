@@ -398,7 +398,7 @@ class Node(BaseNode):
         try:
             self.__wait_votes_ready_lock.release()
         except threading.ThreadError as e:
-            logging.error("{}".format(e), stack_info=True)
+            # logging.error("{}".format(e), stack_info=True)
             pass
 
     ####################################
@@ -818,6 +818,7 @@ class Node(BaseNode):
             if len(self.__train_set) == len(nc_ready) + 1:
                 logging.info("[Node.__on_round_finished] All neighbours ready for the next round")
                 proceed_round = True
+            """
             else:
                 count = count + 1
                 if count > self.config.participant["ROUND_PROCEED_TIMEOUT"]:
@@ -825,6 +826,7 @@ class Node(BaseNode):
                     logging.info("[NODE] ROUND_PROCEED_TIMEOUT reached. Nodes possibly out of sync. Stopping node!")
                     self.stop()
                     return
+            """
 
         time.sleep(5)
 
@@ -1089,7 +1091,7 @@ class Node(BaseNode):
                 self.__finish_aggregation_lock.release()
                 logging.info("[NODE.__finish_aggregation_lock] __finish_aggregation_lock.release()")
             except threading.ThreadError as e:
-                logging.error("{}".format(e), stack_info=True)
+                # logging.error("{}".format(e), stack_info=True)
                 pass
 
         elif event == Events.START_LEARNING_EVENT:
@@ -1116,7 +1118,7 @@ class Node(BaseNode):
             try:
                 self.__wait_votes_ready_lock.release()
             except threading.ThreadError as e:
-                logging.error("{}".format(e), stack_info=True)
+                # logging.error("{}".format(e), stack_info=True)
                 pass
 
         elif event == Events.REPORT_STATUS_TO_CONTROLLER_EVENT:
@@ -1141,7 +1143,7 @@ class Node(BaseNode):
                 self.__finish_aggregation_lock.release()
                 logging.info("[NODE.__finish_aggregation_lock] __finish_aggregation_lock.release()")
             except threading.ThreadError as e:
-                logging.error("{}".format(e), stack_info=True)
+                # logging.error("{}".format(e), stack_info=True)
                 pass
 
         # Execute BaseNode update

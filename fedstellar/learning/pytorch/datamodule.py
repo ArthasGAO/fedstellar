@@ -37,7 +37,7 @@ class DataModule(LightningDataModule):
             sub_id=0,
             number_sub=1,
             batch_size=32,
-            num_workers=6,
+            num_workers=12,
             val_percent=0.1,
             label_flipping=False,
             data_poisoning=False,
@@ -160,11 +160,7 @@ class DataModule(LightningDataModule):
             batch_size=self.batch_size,
             shuffle=False,
         )
-        print(
-            "Train: {} Val:{} Test:{}".format(
-                len(data_train), len(data_val), len(te_subset)
-            )
-        )
+        print(f'Train: {len(data_train)} Val:{len(data_val)} Test:{len(te_subset)}')
 
     def train_dataloader(self):
         """ """

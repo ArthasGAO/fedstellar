@@ -55,10 +55,11 @@ class FlTrust(Aggregator):
         local_params = self.learner.get_parameters()
         cos_similarity: float = cosine_similarity(local_params, model_params)
 
-        for node in nodes:
-            if node != self.node_name:
-                mapping = {f'cos_{node}': cos_similarity}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+        if nodes is not None:
+            for node in nodes:
+                if node != self.node_name:
+                    mapping = {f'cos_{node}': cos_similarity}
+                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         metrics.cosine_similarity = cos_similarity
 

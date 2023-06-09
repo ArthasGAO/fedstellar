@@ -197,7 +197,7 @@ class Node(BaseNode):
         elif self.config.participant["aggregator_args"]["algorithm"] == "Pseudo":
             self.aggregator = PseudoAggregator(node_name=self.get_name(),
                                                config=self.config,
-                                               logger=self.learner.logger)
+                                               learner=self.learner)
 
         self.aggregator.add_observer(self)
 
@@ -818,7 +818,7 @@ class Node(BaseNode):
             time.sleep(5)
             nc_ready = [nc for nc in self.get_neighbors() if nc.get_model_ready_status() == self.round]
             logging.info("[Node.__on_round_finished] Waiting for neighbours to proceed to the next round: "
-                         "num_nc_ready: {}/{}, at round: {}".format(len(nc_ready) + 1, len(self.__train_set), self.round))
+                        "num_nc_ready: {}/{}, at round: {}".format(len(nc_ready) + 1, len(self.__train_set), self.round))
             if len(self.__train_set) == len(nc_ready) + 1:
                 logging.info("[Node.__on_round_finished] All neighbours ready for the next round")
                 proceed_round = True

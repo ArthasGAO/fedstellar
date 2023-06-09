@@ -4,6 +4,7 @@
 # 
 
 import logging
+import os
 import pickle
 import time
 import traceback
@@ -294,6 +295,8 @@ class LightningLearner(NodeLearner):
             enable_model_summary=False,
             enable_progress_bar=True
         )
+        # logging.info("[Learner] Number of CPUs used by pl.Trainer: {}".format(self.__trainer.devices, os.cpu_count()))
+
 
     def create_trainer_no_logging(self):
         #logging.info("[Learner] Creating trainer (logger disabled) with accelerator: {}".format( self.config.participant["device_args"]["accelerator"]))
@@ -325,8 +328,8 @@ class LightningLearner(NodeLearner):
             logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}".format(e))
             return None, None
 
-    def validate_neighbour_no_pl(self, neighbour_model) -> (float, float):
-        # the standard PL (pytorch lightning) validation approach seems to break in multithreading, thus workaround
+    def validate_neighbour_no_pl(self, neighbour_model):
+        # the standard PL (pytorch lightning) validation approach seems to break in multithreaded, thus workaround
         avg_loss = 0
         running_loss = 0
         val_dataloader = self.data.backdoor_dataloader()
@@ -342,7 +345,7 @@ class LightningLearner(NodeLearner):
         val_acc = 0
         return avg_loss, val_acc
 
-    def validate_neighbour_pl(self, neighbour_model) -> (float, float):
+    def validate_neighbour_pl(self, neighbour_model):
         try:
             # performing a deepcopy on the model creates errors with weak dependencies
             logging.info("[Learner] Creating trainer with accelerator: {}".format(

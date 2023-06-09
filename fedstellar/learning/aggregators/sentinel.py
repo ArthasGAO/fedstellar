@@ -112,18 +112,20 @@ class Sentinel(Aggregator):
         # -> with validate_neighbour_pl:
         # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
 
-        for node in nodes:
-            if node != self.node_name:
-                mapping = {f'val_loss_{node}': val_loss}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+        if nodes is not None:
+            for node in nodes:
+                if node != self.node_name:
+                    mapping = {f'val_loss_{node}': val_loss}
+                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         local_params = self.learner.get_parameters()
         cos_similarity: float = cosine_similarity(local_params, model_params)
 
-        for node in nodes:
-            if node != self.node_name:
-                mapping = {f'cos_{node}': cos_similarity}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+        if nodes is not None:
+            for node in nodes:
+                if node != self.node_name:
+                    mapping = {f'cos_{node}': cos_similarity}
+                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         metrics.cosine_similarity = cos_similarity
         metrics.validation_loss = val_loss

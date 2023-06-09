@@ -195,7 +195,9 @@ class Node(BaseNode):
                                        config=self.config,
                                        learner=self.learner)
         elif self.config.participant["aggregator_args"]["algorithm"] == "Pseudo":
-            self.aggregator = PseudoAggregator(node_name=self.get_name(), config=self.config, logger=self.learner.logger)
+            self.aggregator = PseudoAggregator(node_name=self.get_name(),
+                                               config=self.config,
+                                               logger=self.learner.logger)
 
         self.aggregator.add_observer(self)
 
@@ -406,6 +408,8 @@ class Node(BaseNode):
     ####################################
 
     def compute_model_metrics(self, contributors: List, model_params: OrderedDict, current_metrics: ModelMetrics):
+
+        return current_metrics
 
         """
         tmp_model = self.model_struct
@@ -811,7 +815,7 @@ class Node(BaseNode):
         proceed_round = False
         count = 0
         while not proceed_round:
-            time.sleep(1)
+            time.sleep(5)
             nc_ready = [nc for nc in self.get_neighbors() if nc.get_model_ready_status() == self.round]
             logging.info("[Node.__on_round_finished] Waiting for neighbours to proceed to the next round: "
                          "num_nc_ready: {}/{}, at round: {}".format(len(nc_ready) + 1, len(self.__train_set), self.round))

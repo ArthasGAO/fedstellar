@@ -7,11 +7,12 @@
 import logging
 import pickle
 import copy
-from typing import OrderedDict, Optional
+from typing import OrderedDict, Optional, List
 
 import torch
 from statistics import mean
 from fedstellar.learning.aggregators.aggregator import Aggregator
+from fedstellar.learning.aggregators.helper import cosine_similarity
 from fedstellar.learning.modelmetrics import ModelMetrics
 
 
@@ -45,10 +46,30 @@ class FlTrust(Aggregator):
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[FLTrust] My config is {}".format(self.config))
 
+    def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
+
+        logging.info("[Sentinel.add_model] Computing metrics for node(s): {}".format(nodes))
+
+        model_params = model
+
+        local_params = self.learner.get_parameters()
+        cos_similarity: float = cosine_similarity(local_params, model_params)
+
+        for node in nodes:
+            if node != self.node_name:
+                mapping = {f'cos_{node}': cos_similarity}
+                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
+        metrics.cosine_similarity = cos_similarity
+
+        logging.info("[Sentinel.add_model] Computed metrics for node(s): {}: --> {}".format(nodes, metrics))
+
+        super().add_model(model=model, nodes=nodes, metrics=metrics)
+
     def aggregate(self, models):
         """
-         Krum selects one of the m local models that is similar to other models
-         as the global model, the euclidean distance between two local models is used.
+        TrimmedMean [Cao et al., 2022]
+        Paper: https://arxiv.org/abs/2012.13995
 
          Args:
              models: Dictionary with the models (node: model,num_samples).

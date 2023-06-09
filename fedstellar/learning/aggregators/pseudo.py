@@ -12,9 +12,11 @@ import time
 import torch
 from statistics import mean
 
-from typing import List
+from typing import List, OrderedDict
 
 from fedstellar.learning.aggregators.aggregator import Aggregator
+from fedstellar.learning.aggregators.helper import cosine_similarity
+from fedstellar.learning.modelmetrics import ModelMetrics
 
 
 class PseudoAggregator(Aggregator):
@@ -29,6 +31,41 @@ class PseudoAggregator(Aggregator):
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
         logging.info("[PseudoAggregator] My config is {}".format(self.config))
+
+    def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
+
+        logging.info("[Sentinel.add_model] Computing metrics for node(s): {}".format(nodes))
+
+        model_params = model
+
+        tmp_model = copy.deepcopy(self.learner.latest_model)
+        tmp_model.load_state_dict(model_params)
+        val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
+        # -> with validate_neighbour_pl:
+        # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
+
+        if nodes is not None:
+            for node in nodes:
+                if node != self.node_name:
+                    mapping = {f'val_loss_{node}': val_loss}
+                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
+        local_params = self.learner.get_parameters()
+        cos_similarity: float = cosine_similarity(local_params, model_params)
+
+        if nodes is not None:
+            for node in nodes:
+                if node != self.node_name:
+                    mapping = {f'cos_{node}': cos_similarity}
+                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
+        metrics.cosine_similarity = cos_similarity
+        metrics.validation_loss = val_loss
+        metrics.validation_accuracy = val_acc
+
+        logging.info("[Sentinel.add_model] Computed metrics for node(s): {}: --> {}".format(nodes, metrics))
+
+        super().add_model(model=model, nodes=nodes, metrics=metrics)
 
     def aggregate(self, models):
 

@@ -154,14 +154,20 @@ def main():
     )
 
     node.start()
-    print("Node started, grace time for network start-up (30s)")
+    print("Node started, grace time for network start-up (10s)")
     time.sleep(30)  # Wait for the participant to start and register in the network
 
+
     # Node Connection to the neighbors
-    for i in neighbors:
-        print(f"Connecting to {i}")
-        node.connect_to(i.split(':')[0], int(i.split(':')[1]), full=False)
-        time.sleep(5)
+    is_fully_connected = False
+    while not is_fully_connected:
+        for i in neighbors:
+            print(f"Connecting to {i}")
+            node.connect_to(i.split(':')[0], int(i.split(':')[1]), full=False)
+            time.sleep(5)
+        if len(neighbors) == len(node.get_neighbors()):
+            is_fully_connected = True
+            print("Successfully connected to all nodes")
 
     logging.info(f"Neighbors: {node.get_neighbors()}")
     logging.info(f"Network nodes: {node.get_network_nodes()}")

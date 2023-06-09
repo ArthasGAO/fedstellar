@@ -737,6 +737,7 @@ class Node(BaseNode):
                 logging.info("[NODE] Timeout for train set connections.")
                 break
             """
+            logging.info("[NODE.__connect_and_set_aggregator] Waiting for node connections.")
             if (len(self.__train_set) == len(
                     [
                         nc
@@ -815,13 +816,16 @@ class Node(BaseNode):
         proceed_round = False
         count = 0
         while not proceed_round:
-            time.sleep(5)
             nc_ready = [nc for nc in self.get_neighbors() if nc.get_model_ready_status() == self.round]
             logging.info("[Node.__on_round_finished] Waiting for neighbours to proceed to the next round: "
                         "num_nc_ready: {}/{}, at round: {}".format(len(nc_ready) + 1, len(self.__train_set), self.round))
             if len(self.__train_set) == len(nc_ready) + 1:
                 logging.info("[Node.__on_round_finished] All neighbours ready for the next round")
                 proceed_round = True
+            else:
+                # retry
+                self.broadcast(CommunicationProtocol.build_models_ready_msg(self.round))
+                time.sleep(5)
             """
             else:
                 count = count + 1
@@ -838,9 +842,9 @@ class Node(BaseNode):
         for nc in self.get_neighbors():
             if nc not in self.__initial_neighbors:
                 # TODO sync: no need to remove neighbours (reset breaks sync)
-                #logging.info("Removing nei: {}".format(nc.get_name()))
-                pass
-                # self.rm_neighbor(nc)
+                logging.info("Removing neighbour: {}".format(nc.get_name()))
+                # pass
+                self.rm_neighbor(nc)
 
         # Set Next Round
         self.aggregator.clear()

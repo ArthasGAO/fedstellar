@@ -111,6 +111,7 @@ class LightningLearner(NodeLearner):
         self.epochs = epochs
 
     def fit(self):
+        begin = time.time()       
         try:
             if self.epochs > 0:
                 self.create_trainer()
@@ -118,6 +119,8 @@ class LightningLearner(NodeLearner):
                 self.__trainer = None
         except Exception as e:
             logging.error("[NodeLearner.fit] Something went wrong with pytorch lightning. {}".format(e))
+        end = time.time()
+        logging.debug("Time used to train model (s): {}".format(end - begin))
 
     def interrupt_fit(self):
         if self.__trainer is not None:

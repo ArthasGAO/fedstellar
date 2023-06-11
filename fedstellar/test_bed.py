@@ -21,15 +21,18 @@ def wait_docker_finished():
     fed_filter = {'label': 'fedstellar'}
     is_prev_finished = False
     while not is_prev_finished:
-        fedstellar_nodes = docker_client.containers.list(filters=fed_filter)
-        if len(fedstellar_nodes) != 0:
-            print("Previous experiment still running")
-            is_prev_finished = False
-            time.sleep(30)
-        else:
-            print("*************** Previous experiment finished *************** \n")
-            docker_client.networks.prune()
-            is_prev_finished = True
+        try:
+            fedstellar_nodes = docker_client.containers.list(filters=fed_filter)
+            if len(fedstellar_nodes) != 0:
+                print("Previous experiment still running")
+                is_prev_finished = False
+                time.sleep(30)
+            else:
+                print("*************** Previous experiment finished *************** \n")
+                docker_client.networks.prune()
+                is_prev_finished = True
+        except Exception as err:
+            print(f"Unexpected {err=}, {type(err)=}")
 
 
 def get_scenario_name(basic_config):
@@ -128,18 +131,19 @@ basic_config["epochs"] = 3
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
 attack = attack_list[1]
 
-# poisoned_node_percent_list = [20, 50, 80]
-poisoned_node_percent_list = [80]
+poisoned_node_percent_list = [10, 50, 80]
+# poisoned_node_percent_list = [20]
 poisoned_sample_percent_list = [30, 50, 100]
 # poisoned_ratio_list = [1, 10, 20]
-poisoned_ratio_list = [20]
-# aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust", "Sentinel"]
+poisoned_ratio_list = [50]
+
+aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust", "Sentinel"]
 # aggregation_list = ["Sentinel"]
-aggregation_list = ["FedAvg"]
+# aggregation_list = ["FedAvg"]
 
 
 N_EXPERIMENTS = 1
-EXPERIMENT_WAIT_SEC = 60 + 60 * basic_config["rounds"]
+EXPERIMENT_WAIT_SEC = 60 + 30 * basic_config["epochs"] * basic_config["rounds"]
 
 
 if attack == "No Attack":

@@ -39,7 +39,7 @@ def get_scenario_name(basic_config):
                     f'{basic_config["attack"].replace(" ", "")}_{int(basic_config["targeted"])}_' \
                     f'N{basic_config["poisoned_node_percent"]}-S{basic_config["poisoned_sample_percent"]}_' \
                     f'R{basic_config["poisoned_ratio"]}_' \
-                    f'{basic_config["noise_type"].replace(" ", "")}_' \
+                    f'{basic_config["noise_type"].replace(" ", "").replace("&", "")}_' \
                     f'{datetime.now().strftime("%Y%m%d_%H%M%S")}'
     return scenario_name
 
@@ -116,25 +116,27 @@ basic_config["dataset"] = "MNIST"
 basic_config["model"] = "MLP"
 
 basic_config["targeted"] = False
-basic_config["noise_type"] = "gaussian"
+basic_config["noise_type"] = "s&p"
 basic_config["poisoned_node_percent"] = 30
 basic_config["poisoned_sample_percent"] = 100
 basic_config["poisoned_ratio"] = 20
 
-basic_config["n_nodes"] = 5
+basic_config["n_nodes"] = 10
 basic_config["rounds"] = 10
 basic_config["epochs"] = 3
 
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[0]
+attack = attack_list[1]
 
 # poisoned_node_percent_list = [20, 50, 80]
 poisoned_node_percent_list = [80]
-poisoned_sample_percent_list = [100]
+poisoned_sample_percent_list = [30, 50, 100]
 # poisoned_ratio_list = [1, 10, 20]
 poisoned_ratio_list = [20]
 # aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust", "Sentinel"]
-aggregation_list = ["Pseudo"]
+# aggregation_list = ["Sentinel"]
+aggregation_list = ["FedAvg"]
+
 
 N_EXPERIMENTS = 1
 EXPERIMENT_WAIT_SEC = 60 + 60 * basic_config["rounds"]

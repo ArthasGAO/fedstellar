@@ -54,7 +54,7 @@ class TrimmedMean(Aggregator):
             atmp = np.partition(arr_weights, (start, end - 1), 0)
             sl = [slice(None)] * atmp.ndim
             sl[0] = slice(start, end)
-            print(atmp[tuple(sl)])
+            # print(atmp[tuple(sl)])
             arr_median = np.mean(atmp[tuple(sl)], axis=0)
             res = torch.tensor(arr_median)
 

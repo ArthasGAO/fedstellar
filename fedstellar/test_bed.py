@@ -6,6 +6,7 @@ from datetime import datetime
 import time
 import platform
 import docker
+import shutil
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))  # Parent directory where is the fedstellar module
 
@@ -45,6 +46,13 @@ def get_scenario_name(basic_config):
                     f'{basic_config["noise_type"].replace(" ", "").replace("&", "")}_' \
                     f'{datetime.now().strftime("%Y%m%d_%H%M%S")}'
     return scenario_name
+
+
+total, used, free = shutil.disk_usage("/")
+
+print("Total: %d GiB" % (total // (2**30)))
+print("Used: %d GiB" % (used // (2**30)))
+print("Free: %d GiB" % (free // (2**30)))
 
 basic_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "basic_config.json")
 example_node_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config/participant.json.example')
@@ -118,28 +126,28 @@ basic_config["is_iid"] = True
 basic_config["dataset"] = "MNIST"
 basic_config["model"] = "MLP"
 
-basic_config["targeted"] = False
-basic_config["noise_type"] = "s&p"
-basic_config["poisoned_node_percent"] = 30
-basic_config["poisoned_sample_percent"] = 100
-basic_config["poisoned_ratio"] = 20
+basic_config["poisoned_node_percent"] = 0
+basic_config["poisoned_sample_percent"] = 0
+basic_config["poisoned_ratio"] = 0
 
+basic_config["targeted"] = False
 basic_config["n_nodes"] = 10
 basic_config["rounds"] = 10
 basic_config["epochs"] = 3
 
+basic_config["noise_type"] = "salt"
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
 attack = attack_list[1]
 
-poisoned_node_percent_list = [10, 50, 80]
-# poisoned_node_percent_list = [20]
-poisoned_sample_percent_list = [30, 50, 100]
+poisoned_node_percent_list = [80, 50, 10]
+poisoned_node_percent_list = [80]
+poisoned_sample_percent_list = [100, 50, 30]
 # poisoned_ratio_list = [1, 10, 20]
-poisoned_ratio_list = [50]
+poisoned_ratio_list = [80]
 
-aggregation_list = ["FedAvg", "Krum", "Median", "TrimmedMean", "FlTrust", "Sentinel"]
+aggregation_list = ["FedAvg", "Krum", "Sentinel", "TrimmedMean", "FlTrust"]
 # aggregation_list = ["Sentinel"]
-# aggregation_list = ["FedAvg"]
+# aggregation_list = ["Krum", "Sentinel"]
 
 
 N_EXPERIMENTS = 1

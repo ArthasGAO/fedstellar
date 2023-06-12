@@ -132,7 +132,6 @@ class Node(BaseNode):
         # Attack environment
         self.model_dir = self.config.participant['tracking_args']["model_dir"]
         self.model_name = f"{self.model_dir}/participant_{self.idx}_model.pk"
-        self.model_struct = model
         self.model_poisoning = model_poisoning
         self.poisoned_ratio = poisoned_ratio
         self.noise_type = noise_type
@@ -406,67 +405,7 @@ class Node(BaseNode):
     ####################################
     #         Model Aggregation         #
     ####################################
-
-    def compute_model_metrics(self, contributors: List, model_params: OrderedDict, current_metrics: ModelMetrics):
-
-        return current_metrics
-
-        """
-        tmp_model = self.model_struct
-        tmp_model.load_state_dict(model_params)
-        # eval_learner = copy.deepcopy(self.learner)
-        # self.eval_learner.init()
-        val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
-        """
-
-        """
-        tmp_learner: LightningLearner = copy.deepcopy(self.learner)
-        tmp_learner.set_parameters(model_params)
-        val_loss, val_acc = tmp_learner.validate_neighbour()
-        logging.info("Decoded Model: val_loss: {}, val_acc: {}\n".format(val_loss, val_acc))
-        """
-
-        cos_similarity = 0
-        val_loss = 0
-        val_acc = 0
-
-        if isinstance(self.aggregator, PseudoAggregator) | \
-                isinstance(self.aggregator, Sentinel):
-
-            tmp_model = copy.deepcopy(self.learner.latest_model)
-            tmp_model.load_state_dict(model_params)
-            val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
-            # -> with validate_neighbour_pl:
-            # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
-
-            if contributors is not None:
-                for neighbour in contributors:
-                    if neighbour != self.get_name():
-                        mapping = {f'val_loss@{neighbour}': val_loss}
-                        self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
-
-        if isinstance(self.aggregator, PseudoAggregator) | \
-            isinstance(self.aggregator, Sentinel) | \
-                isinstance(self.aggregator, FlTrust):
-
-            local_params = self.learner.get_parameters()
-            cos_similarity: float = cosine_similarity(local_params, model_params)
-            if contributors is not None:
-                for neighbour in contributors:
-                    if neighbour != self.get_name():
-                        mapping = {f'cos@{neighbour}': cos_similarity}
-                        self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
-
-            current_metrics.cosine_similarity = cos_similarity
-            current_metrics.validation_loss = val_loss
-            current_metrics.validation_accuracy = val_acc
-
-        logging.info(
-            "[Node.compute_model_metrics] Evaluating received model from {} with cos: {}, val_loss: {}, val_acc: {}"
-                .format(contributors, cos_similarity, val_loss, val_acc))
-
-        return current_metrics
-
+        
     def add_model(self, m):
         """
         Add a model. If the model isn't inicializated, the recieved model is used for it. Otherwise, the model is aggregated using the **aggregator**.
@@ -492,11 +431,11 @@ class Node(BaseNode):
                     if self.learner.check_parameters(decoded_model):
 
                         # START CUSTOMIZED
-                        new_metrics = self.compute_model_metrics(contributors, decoded_model, metrics)
+                        # new_metrics = self.compute_model_metrics(contributors, decoded_model, metrics)
                         # END CUSTOMIZED
 
                         models_added = self.aggregator.add_model(
-                            decoded_model, contributors, new_metrics
+                            decoded_model, contributors, metrics
                         )
                         if models_added is not None:
                             logging.info(
@@ -584,15 +523,19 @@ class Node(BaseNode):
             if self.round is not None:
                 logging.info("[NODE.__train_step] self.aggregator.add_model with MY MODEL")
 
+                """
                 my_model = self.learner.get_parameters()
                 my_metrics = self.compute_model_metrics(contributors=[self.get_name()],
                                                         model_params=my_model,
-                                                        current_metrics=ModelMetrics())
-                my_metrics.num_samples = self.learner.get_num_samples()[0]
+                                                       current_metrics=ModelMetrics())
+                """
+                metrics = ModelMetrics()
+                metrics.num_samples = self.learner.get_num_samples()[0]
+
                 self.aggregator.add_model(
                     self.learner.get_parameters(),
                     [self.get_name()],
-                    metrics=my_metrics
+                    metrics=metrics
                 )
                 logging.info("[NODE.__train_step] self.broadcast with MODELS_AGGREGATED = MY_NAME")
                 self.broadcast(
@@ -623,10 +566,13 @@ class Node(BaseNode):
             if self.round is not None:
                 logging.info("[NODE.__train_step] self.aggregator.add_model with MY MODEL")
                 # Node has to aggregate its own model before sending it to the aggregator
+                """
                 my_model = self.learner.get_parameters()
                 my_metrics = self.compute_model_metrics(contributors=[self.get_name()],
                                                         model_params=my_model,
                                                         current_metrics=ModelMetrics())
+                """
+                my_metrics = ModelMetrics()
                 my_metrics.num_samples = self.learner.get_num_samples()[0]
                 self.aggregator.add_model(
                     self.learner.get_parameters(),
@@ -823,8 +769,14 @@ class Node(BaseNode):
                 logging.info("[Node.__on_round_finished] All neighbours ready for the next round")
                 proceed_round = True
             else:
+                count = count + 1
                 # retry
                 # self.broadcast(CommunicationProtocol.build_models_ready_msg(self.round))
+                if count > self.config.participant["ROUND_PROCEED_TIMEOUT"]:
+                    # with increasing node number, e.g. 10, the sync requires quite some time
+                    logging.info("[NODE] ROUND_PROCEED_TIMEOUT reached. Nodes possibly out of sync. Stopping node!")
+                    self.stop()
+                    return
                 time.sleep(5)
             """
             else:

@@ -26,6 +26,9 @@ class Krum(Aggregator):
         Args:
             models: Dictionary with the models (node: model,num_samples).
         """
+
+        node_keys = list(models.keys())
+
         # Check if there are models to aggregate
         if len(models) == 0:
             logging.error(
@@ -68,11 +71,11 @@ class Krum(Aggregator):
                         distance += numpy.linalg.norm(l1 - l2)
                 distance_list[i] += distance
 
-            logging.info("[Krum.aggregate] Distances: distance_list={}".format(distance_list))
-
             if min_distance_sum > distance_list[i]:
                 min_distance_sum = distance_list[i]
                 min_index = i
+        
+        logging.info("[Krum.aggregate] Distances: distance_list={}".format(distance_list))
 
         # Assign the model with min distance with others as the aggregated model
         m, _ = models[min_index]
@@ -80,5 +83,6 @@ class Krum(Aggregator):
             accum[layer] = accum[layer] + m[layer]
 
         # logging.info("[Krum.aggregate] Aggregated model: accum={}".format(accum))
+        logging.info("[Krum.aggregate] Selected model: {}, distance: {}".format(node_keys[min_index], distance_list[min_index]))
 
         return accum

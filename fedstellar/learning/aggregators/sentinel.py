@@ -22,12 +22,13 @@ from fedstellar.learning.aggregators.aggregator import Aggregator
 from fedstellar.learning.aggregators.helper import cosine_similarity
 from fedstellar.learning.modelmetrics import ModelMetrics
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
+from fedstellar.learning.aggregators.helper import normalise_layers
 
 MIN_MAPPED_LOSS = float(0.01)
 COSINE_FILTER_THRESHOLD = float(0.5)
 
 
-def filter_models(models: Dict, threshold: float) -> Dict:
+def filter_models_by_cosine(models: Dict, threshold: float) -> Dict:
     filtered: Dict = {}
     for node, msg in models.items():
         params = msg[0]
@@ -66,24 +67,6 @@ def map_loss_distance(loss: float, my_loss: float) -> float:
 # boy gets flipped by label-flip
 def map_loss2(loss) -> float:
     return 1 / (abs(loss) + 1)
-
-
-def normalise_layers(untrusted_models, trusted_model):
-    bootstrap = trusted_model[0]
-    trusted_norms = dict([k, torch.norm(bootstrap[k].data.view(-1))] for k in bootstrap.keys())
-
-    normalised_models = copy.deepcopy(untrusted_models)
-    for client, message in untrusted_models.items():
-        state_dict = message[0]
-        norm_state_dict = state_dict.copy()
-        for layer in state_dict:
-            layer_norm = torch.norm(state_dict[layer].data.view(-1))
-            scaling_factor = trusted_norms[layer] / layer_norm
-            # logging.info("Scaling client {} layer {} with factor {}".format(client, layer, scaling_factor))
-            normalised_layer = torch.mul(state_dict[layer], scaling_factor)
-            normalised_models[client][0][layer] = normalised_layer
-
-    return normalised_models
 
 
 class Sentinel(Aggregator):
@@ -143,7 +126,7 @@ class Sentinel(Aggregator):
 
         """
          Krum selects one of the m local models that is similar to other models
-         as the global model, the euclidean distance between two local models is used.
+         as the global model, the Euclidean distance between two local models is used.
 
          Args:
              models: Dictionary with the models (node: model,num_samples).
@@ -161,22 +144,6 @@ class Sentinel(Aggregator):
             return None
         my_loss = my_model[1].validation_loss
 
-        # TODO sync: maybe move eval down to aggregator?
-        """
-        for node, (params, metrics) in models.items():
-            tmp_model = copy.deepcopy(self.learner.latest_model)
-            tmp_model.load_state_dict(params)
-            val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
-            logging.info("metrics: {}, {}".format(val_acc, val_loss))
-        """
-
-        """
-        if len(models) >= 2:
-            filename = "models" + self.node_name + ".pickle"
-            with open('/Users/janosch/Desktop/models.pickle', 'wb') as handle:
-                pickle.dump(filename, handle, protocol=pickle.HIGHEST_PROTOCOL)
-        """
-
         loss: Dict = {}
         mapped_loss: Dict = {}
         cos: Dict = {}
@@ -192,11 +159,19 @@ class Sentinel(Aggregator):
 
         malicous_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
 
-        filtered_models = filter_models(models, COSINE_FILTER_THRESHOLD)
+        filtered_models = filter_models_by_cosine(models, COSINE_FILTER_THRESHOLD)
         malicous_by_cosine = models.keys() - filtered_models.keys()
         if len(filtered_models) == 0:
             logging.warning("Sentinel: No more models to aggregate after filtering!")
             return None
+
+        # Normalise the untrusted models
+        untrusted_models = {k: filtered_models[k] for k in filtered_models.keys() - {self.node_name}}
+        normalised_models = {}
+        for key in untrusted_models.keys():
+            normalised_models[key] = normalise_layers(untrusted_models[key], my_model)
+
+        normalised_models[self.node_name] = my_model
 
         # Create a Zero Model
         accum = (list(models.values())[-1][0]).copy()
@@ -220,61 +195,3 @@ class Sentinel(Aggregator):
 
         return accum
 
-    """
-    def cosine_similarities_last_layer(self, untrusted_models, trusted_model):
-        similarities = dict.fromkeys(untrusted_models.keys())
-        similarities[self.node_name] = 1
-
-        bootstrap = trusted_model[0]
-
-        for client, message in untrusted_models.items():
-            state_dict = message[0]
-
-            l1 = bootstrap[next(reversed(bootstrap))]
-            l2 = state_dict[next(reversed(state_dict))]
-
-            l1 = l1.data.view(-1)
-            l2 = l2.data.view(-1)
-
-            cosine_similarity = torch.nn.CosineSimilarity(dim=l1.dim() - 1)
-            # does it make sense to take mean from row-wise similarity?
-            cos = cosine_similarity(l1, l2)
-            relu_cos = torch.nn.functional.relu(cos)
-
-            similarities[client] = relu_cos.item()
-
-        return similarities
-    """
-
-    """
-    def cosine_similarities(self, untrusted_models, trusted_model):
-        similarities = dict.fromkeys(untrusted_models.keys())
-        similarities[self.node_name] = [1]
-
-        bootstrap = trusted_model[0]
-
-        for client, message in untrusted_models.items():
-            state_dict = message[0]
-            client_similarities = []
-
-            for layer in bootstrap:
-                l1 = bootstrap[layer]
-                l2 = state_dict[layer]
-                cosine_similarity = torch.nn.CosineSimilarity(dim=l1.dim() - 1)
-                # does it make sense to take mean from row-wise similarity?
-                cos_mean = torch.mean(cosine_similarity(l1, l2)).mean()
-                client_similarities.append(cos_mean)
-
-            similarities[client] = client_similarities
-
-        logging.info("[Sentinel.aggregate] Analysed layers at {} for cosine: {}"
-                     .format(self.node_name, similarities))
-
-        for client in similarities:
-            cos = torch.Tensor(similarities[client])
-            avg_cos = torch.mean(cos)
-            relu_cos = torch.nn.functional.relu(avg_cos)
-            similarities[client] = relu_cos.item()
-
-        return similarities
-    """

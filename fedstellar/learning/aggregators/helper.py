@@ -1,6 +1,6 @@
 import logging
 from typing import OrderedDict, List, Optional
-
+import copy
 import torch
 
 
@@ -24,3 +24,21 @@ def cosine_similarity(trusted_model: OrderedDict, untrusted_model: OrderedDict) 
     result = relu_cos.item()
 
     return result
+
+
+def normalise_layers(untrusted_model, trusted_model):
+    bootstrap = trusted_model[0]
+    trusted_norms = dict([k, torch.norm(bootstrap[k].data.view(-1))] for k in bootstrap.keys())
+
+    normalised_model = copy.deepcopy(untrusted_model)
+
+    state_dict = untrusted_model[0]
+    for layer in state_dict:
+        layer_norm = torch.norm(state_dict[layer].data.view(-1))
+        scaling_factor = trusted_norms[layer] / layer_norm
+        logging.debug("[Aggregator.normalise_layers()] Layer: {} ScalingFactor {}".format(layer, scaling_factor))
+        # logging.info("Scaling client {} layer {} with factor {}".format(client, layer, scaling_factor))
+        normalised_layer = torch.mul(state_dict[layer], scaling_factor)
+        normalised_model[0][layer] = normalised_layer
+
+    return normalised_model

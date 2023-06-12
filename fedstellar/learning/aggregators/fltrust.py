@@ -14,24 +14,7 @@ from statistics import mean
 from fedstellar.learning.aggregators.aggregator import Aggregator
 from fedstellar.learning.aggregators.helper import cosine_similarity
 from fedstellar.learning.modelmetrics import ModelMetrics
-
-
-def normalise_layers(untrusted_models, trusted_model):
-    bootstrap = trusted_model[0]
-    trusted_norms = dict([k, torch.norm(bootstrap[k].data.view(-1))] for k in bootstrap.keys())
-
-    normalised_models = copy.deepcopy(untrusted_models)
-    for client, message in untrusted_models.items():
-        state_dict = message[0]
-        norm_state_dict = state_dict.copy()
-        for layer in state_dict:
-            layer_norm = torch.norm(state_dict[layer].data.view(-1))
-            scaling_factor = trusted_norms[layer] / layer_norm
-            # logging.info("Scaling client {} layer {} with factor {}".format(client, layer, scaling_factor))
-            normalised_layer = torch.mul(state_dict[layer], scaling_factor)
-            normalised_models[client][0][layer] = normalised_layer
-
-    return normalised_models
+from fedstellar.learning.aggregators.helper import normalise_layers
 
 
 class FlTrust(Aggregator):
@@ -89,7 +72,10 @@ class FlTrust(Aggregator):
         untrusted_models = {k: models[k] for k in models.keys() - {self.node_name}}  # change
 
         # Normalise the untrusted models
-        normalised_models = normalise_layers(untrusted_models, my_model)
+        normalised_models = {}
+        for key in untrusted_models.keys():
+            normalised_models[key] = normalise_layers(untrusted_models[key], my_model)
+
         normalised_models[self.node_name] = my_model
 
         # Create a Zero Model

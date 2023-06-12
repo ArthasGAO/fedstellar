@@ -59,7 +59,13 @@
     "target_label": 3,
     "target_changed_label": 7,
     "noise_type": "gaussian",
-    "attack_env": "No Attack"
+    "attack_env": {
+        "attacks": "No Attack",
+        "poisoned_node_percent": 0,
+        "poisoned_ratio": 0,
+        "poisoned_sample_percent": 0,
+        "noise_type": "None"
+        }
   },
   "tracking_args": {
     "enable_remote_tracking": true,

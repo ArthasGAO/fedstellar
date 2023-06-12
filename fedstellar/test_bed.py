@@ -130,23 +130,23 @@ basic_config["poisoned_node_percent"] = 0
 basic_config["poisoned_sample_percent"] = 0
 basic_config["poisoned_ratio"] = 0
 
-basic_config["targeted"] = False
-basic_config["n_nodes"] = 10
-basic_config["rounds"] = 10
-basic_config["epochs"] = 3
+basic_config["targeted"] = True
+basic_config["n_nodes"] = 3
+basic_config["rounds"] = 3
+basic_config["epochs"] = 2
 
 basic_config["noise_type"] = "salt"
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[1]
+attack = attack_list[2]
 
-poisoned_node_percent_list = [80, 50, 10]
-poisoned_node_percent_list = [80]
+# poisoned_node_percent_list = [80, 50, 10]
+poisoned_node_percent_list = [20]
 poisoned_sample_percent_list = [100, 50, 30]
 # poisoned_ratio_list = [1, 10, 20]
 poisoned_ratio_list = [80]
 
-aggregation_list = ["FedAvg", "Krum", "Sentinel", "TrimmedMean", "FlTrust"]
-# aggregation_list = ["Sentinel"]
+# aggregation_list = ["FedAvg", "Krum", "Sentinel", "TrimmedMean", "FlTrust"]
+aggregation_list = ["FedAvg"]
 # aggregation_list = ["Krum", "Sentinel"]
 
 
@@ -211,26 +211,27 @@ if attack == "Sample Poisoning":
         for aggregation in aggregation_list:
             for node_percent in poisoned_node_percent_list:
                 for poisoned_sample_percent in poisoned_sample_percent_list:
-                    basic_config["attack"] = "Sample Poisoning"
-                    basic_config["aggregation"] = aggregation
-                    basic_config["poisoned_node_percent"] = node_percent
-                    basic_config["poisoned_sample_percent"] = poisoned_sample_percent
-                    basic_config["poisoned_sample_percent"] = poisoned_ratio
+                    for poisoned_ratio in poisoned_ratio_list:
+                        basic_config["attack"] = "Sample Poisoning"
+                        basic_config["aggregation"] = aggregation
+                        basic_config["poisoned_node_percent"] = node_percent
+                        basic_config["poisoned_sample_percent"] = poisoned_sample_percent
+                        basic_config["poisoned_ratio"] = poisoned_ratio
 
-                    basic_config['scenario_name'] = get_scenario_name(basic_config)
-                    start_port += basic_config["n_nodes"]
+                        basic_config['scenario_name'] = get_scenario_name(basic_config)
+                        start_port += basic_config["n_nodes"]
 
-                    with open(basic_config_path, "w") as f:
-                        json.dump(basic_config, f, indent=4)
-                    time.sleep(2)
+                        with open(basic_config_path, "w") as f:
+                            json.dump(basic_config, f, indent=4)
+                        time.sleep(2)
 
-                    basic_config = generate_controller_configs()
-                    create_particiants_configs(basic_config, example_node_config_path, start_port)
-                    time.sleep(EXPERIMENT_WAIT_SEC)
-                    with open(basic_config_path) as f:
-                        basic_config = json.load(f)
+                        basic_config = generate_controller_configs()
+                        create_particiants_configs(basic_config, example_node_config_path, start_port)
+                        time.sleep(EXPERIMENT_WAIT_SEC)
+                        with open(basic_config_path) as f:
+                            basic_config = json.load(f)
 
-                    wait_docker_finished()
+                        wait_docker_finished()
 
 if attack == "Label Flipping":
     # Sample Poisoning

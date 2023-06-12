@@ -194,10 +194,19 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["training_args"]["epochs"] = int(basic_config["epochs"])
         participant_config["device_args"]["accelerator"] = basic_config["accelerator"]  # same for all nodes
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
-        participant_config["adversarial_args"]["attack_env"] = basic_config["attack"]
         participant_config["adversarial_args"]["poisoned_node_percent"] = int(basic_config["poisoned_node_percent"])
         participant_config["adversarial_args"]["targeted"] = basic_config["targeted"]
         participant_config["adversarial_args"]["noise_type"] = basic_config["noise_type"]
+        # Attack environment useful for analysis on single runs
+        attack_env = {
+            "attack": basic_config["attack"],
+            "poisoned_node_percent": int(basic_config["poisoned_node_percent"]),
+            "poisoned_sample_percent": int(basic_config["poisoned_node_percent"]),
+            "poisoned_ratio": int(basic_config["poisoned_ratio"]),
+            "noise_type": basic_config["noise_type"],
+            "targeted:": basic_config["targeted"]
+        }
+        participant_config["adversarial_args"]["attack_env"] = attack_env
 
         # Get attack config for each node
         for atts in attack_matrix:

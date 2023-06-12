@@ -3,6 +3,8 @@ import time
 from datetime import datetime
 
 from pytorch_lightning.demos.mnist_datamodule import MNISTDataModule
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))  # Parent directory where is the fedstellar module
 
 from fedstellar.node import Node
 from fedstellar.learning.pytorch.datamodule import DataModule
@@ -30,16 +32,18 @@ os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
 
 def main():
-    example_node_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                            'config/participant.json.example')
-    config_path = "/Users/janosch/Repos/fedstellar-robust/app/single_node/participant_0.json"
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    single_node = os.path.join(root, "app", "single_node")
+    print(single_node)
+
+    config_path =  os.path.join(single_node, "participant_0.json")
     config = Config(entity="participant", participant_config_file=config_path)
 
     host = "127.0.0.1"
     port = 45600
     idx = 0
     n_nodes = 1
-    indices_dir = "/Users/janosch/Repos/fedstellar-robust/app/single_node/"
+    indices_dir = single_node
     is_iid = True
     label_flipping = True
     data_poisoning = False
@@ -51,10 +55,10 @@ def main():
     target_changed_label = 7
     noise_type = "salt"
 
-    dataset = CIFAR10Dataset(iid=is_iid)
-    model = Cifar10ModelCNN()
+    dataset = MNISTDataset(iid=is_iid)
+    model = MNISTModelMLP()
 
-    dataset = DataModule(dataset.trainset, dataset.testset, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir,
+    dataset = DataModule(dataset.train_set, dataset.test_set, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir,
                          label_flipping=label_flipping, data_poisoning=data_poisoning,
                          poisoned_percent=poisoned_percent,
                          poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label,
@@ -77,7 +81,7 @@ def main():
 
     node.start()
     time.sleep(5)
-    node.set_start_learning(rounds=10, epochs=5)
+    node.set_start_learning(rounds=1, epochs=1)
 
     while True:
         time.sleep(1)

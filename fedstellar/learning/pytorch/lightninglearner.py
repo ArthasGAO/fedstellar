@@ -19,6 +19,9 @@ from lightning.pytorch.callbacks import ModelSummary
 from lightning.pytorch.callbacks import RichProgressBar, RichModelSummary
 from lightning.pytorch.callbacks.progress.rich_progress import RichProgressBarTheme
 import copy
+
+from matplotlib import pyplot as plt
+
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
 from torch.nn import functional as F
@@ -160,6 +163,7 @@ class LightningLearner(NodeLearner):
     """
         Source: https://github.com/rasbt/stat453-deep-learning-ss21/blob/main/L14/helper_evaluation.py
     """
+
     def compute_confusion_matrix(self, node_name: str, backdoor: bool = False):
         model = copy.deepcopy(self.model)
 
@@ -177,19 +181,13 @@ class LightningLearner(NodeLearner):
         all_targets, all_predictions = [], []
         with torch.no_grad():
             for i, (features, targets) in enumerate(data_loader):
-                # features = features.to(device)
-                targets = targets
                 logits = model(features)
                 _, predicted_labels = torch.max(logits, 1)
-                all_targets.extend(targets.to('cpu'))
-                all_predictions.extend(predicted_labels.to('cpu'))
+                all_targets.extend(targets.detach().cpu())
+                all_predictions.extend(predicted_labels.detach().cpu())
+
         all_predictions = np.array(all_predictions)
         all_targets = np.array(all_targets)
-
-        # confmat = ConfusionMatrix(task="multiclass", num_classes=model.out_channels)
-        # matrix = confmat(t_all_predictions, t_all_targets)
-        # print("Torch metrics confmat")
-        # print(matrix)
 
         class_labels = np.unique(np.concatenate((all_targets, all_predictions)))
         if class_labels.shape[0] == 1:
@@ -231,7 +229,7 @@ class LightningLearner(NodeLearner):
         heatmap.set(xlabel='predicted label', ylabel='true label', title=log_key + " " + node_name)
         fig = heatmap.get_figure()
         fig.tight_layout()
-        fig.show()
+        # fig.show()
         images = [fig]
 
         # class_columns = data_loader.dataset.classes
@@ -243,6 +241,7 @@ class LightningLearner(NodeLearner):
         logging.info("[LightningLearner.compute_confusion_matrix] Logging ConfusionMatrix as table")
         self.logger.log_text(key=log_key + " - Table", dataframe=df, step=self.logger.local_step)
 
+        plt.close()
         # clear figure such that plots do not become overlapping in wandb
         fig.clf()
 

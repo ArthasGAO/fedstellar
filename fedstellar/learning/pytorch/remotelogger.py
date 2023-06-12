@@ -86,6 +86,7 @@ class FedstellarWBLogger(Logger):
                         "model_args": config["model_args"],
                         "aggregator_args": config["aggregator_args"],
                         "adversarial_args": config["adversarial_args"],
+                        "attack_env": config["adversarial_args"]["attack_env"],
                         "network_args": str(config["network_args"]["ip"]) + str(config["network_args"]["port"])
                         }
 

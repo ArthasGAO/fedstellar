@@ -161,7 +161,9 @@ class LightningLearner(NodeLearner):
         Source: https://github.com/rasbt/stat453-deep-learning-ss21/blob/main/L14/helper_evaluation.py
     """
     def compute_confusion_matrix(self, node_name: str, backdoor: bool = False):
-        model = self.model
+        model = copy.deepcopy(self.model)
+
+        model.eval()
 
         backdoor_dataloader = self.data.backdoor_dataloader()
         test_dataloader = self.data.test_dataloader()
@@ -181,8 +183,6 @@ class LightningLearner(NodeLearner):
                 _, predicted_labels = torch.max(logits, 1)
                 all_targets.extend(targets.to('cpu'))
                 all_predictions.extend(predicted_labels.to('cpu'))
-
-        all_predictions = all_predictions
         all_predictions = np.array(all_predictions)
         all_targets = np.array(all_targets)
 
@@ -346,6 +346,28 @@ class LightningLearner(NodeLearner):
                 running_loss = running_loss + loss.item()
                 num_samples = num_samples + len(inputs)
         avg_loss = running_loss / (i + 1)
+        logging.debug("[Learner.validate_neighbour]: Computed neighbor loss over {} data samples".format(num_samples))
+        val_acc = 0
+        return avg_loss, val_acc
+    
+    def validate_neighbour_no_pl2(self, neighbour_model):
+        avg_loss = 0
+        running_loss = 0
+        bootstrap_dataloader = self.data.bootstrap_dataloader()
+        num_samples = 0
+
+        # enable evaluation mode, prevent memory leaks. 
+        # no need to switch back to training since model is not further used.
+        neighbour_model.eval()
+
+        with torch.no_grad():
+            for inputs, labels in bootstrap_dataloader:
+                outputs = neighbour_model(inputs)
+                loss = F.cross_entropy(outputs, labels)
+                running_loss += loss.item()
+                num_samples += inputs.size(0)
+
+        avg_loss = running_loss / len(bootstrap_dataloader)
         logging.debug("[Learner.validate_neighbour]: Computed neighbor loss over {} data samples".format(num_samples))
         val_acc = 0
         return avg_loss, val_acc

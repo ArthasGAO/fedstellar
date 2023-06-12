@@ -108,7 +108,8 @@ class Sentinel(Aggregator):
 
         tmp_model = copy.deepcopy(self.learner.latest_model)
         tmp_model.load_state_dict(model_params)
-        val_loss, val_acc = self.learner.validate_neighbour_no_pl(tmp_model)
+        val_loss, val_acc = self.learner.validate_neighbour_no_pl2(tmp_model)
+        tmp_model = None
         # -> with validate_neighbour_pl:
         # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
 

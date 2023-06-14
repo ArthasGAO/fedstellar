@@ -19,7 +19,7 @@ Classes
 
 .. py:class:: Role
 
-   This class defines the participant roles of the framework.
+   This class defines the participant roles of the platform.
 
    .. py:attribute:: TRAINER
       :annotation: = trainer

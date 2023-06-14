@@ -10,7 +10,7 @@
 .. raw:: html
 
    <h2 align="center">
-   A Framework for<br>Decentralized Federated Learning
+   A Platform for Decentralized Federated Learning
    </h2>
 
 .. image:: _static/fedstellar-logo.jpg
@@ -19,9 +19,15 @@
 
 :raw-html:`<br />`
 
-Fedstellar is a modular, adaptable and extensible framework for creating centralized and decentralized architectures using Federated Learning. Also, the framework enables the creation of a standard approach for developing, deploying, and managing federated learning applications.
+Fedstellar is an innovative platform that facilitates the training of Federated Learning models in a decentralized fashion across many physical and virtualized devices. Also, the platform enables the creation of a standard approach for developing, deploying, and managing federated applications.
 
-The framework enables developers to create distributed applications that use federated learning algorithms to improve user experience, security, and privacy. It provides features for managing data, managing models, and managing federated learning processes. It also provides a comprehensive set of tools to help developers monitor and analyze the performance of their applications.
+The platform supports the establishment of federations comprising diverse devices, network topologies, and algorithms. It also provides sophisticated federation management tools and performance metrics to facilitate efficient learning process monitoring. This is achieved through extensible modules that offer data storage and asynchronous capabilities alongside efficient mechanisms for model training, communication, and comprehensive analysis for federation monitoring.
+
+The platform incorporates a modular architecture comprising three elements:
+
+- **Frontend**: A user-friendly frontend for experiment setup and monitoring.
+- **Controller**: A controller for effective orchestration of operations.
+- **Core**: A core component deployed in each device for model training and communication.
 
 Fedstellar is developed by `Enrique Tomás Martínez Beltrán <https://www.enriquetomasmb.com/>`_ in collaboration with the `University of Murcia <https://www.um.es/en>`_, `Armasuisse <https://www.armasuisse.ch/en>`_, and the `University of Zurich (UZH) <https://www.uzh.ch/>`_.
 

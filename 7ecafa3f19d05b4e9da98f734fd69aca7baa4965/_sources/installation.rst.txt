@@ -2,9 +2,9 @@
 Installation
 ############
 
-Fedstellar is a modular, adaptable and extensible framework for creating centralized and decentralized architectures using Federated Learning. Also, the framework enables the creation of a standard approach for developing, deploying, and managing federated learning applications.
+Fedstellar is a modular, adaptable and extensible platform for creating centralized and decentralized architectures using Federated Learning. Also, the platform enables the creation of a standard approach for developing, deploying, and managing federated learning applications.
 
-The framework enables developers to create distributed applications that use federated learning algorithms to improve user experience, security, and privacy. It provides features for managing data, managing models, and managing federated learning processes. It also provides a comprehensive set of tools to help developers monitor and analyze the performance of their applications.
+The platform enables developers to create distributed applications that use federated learning algorithms to improve user experience, security, and privacy. It provides features for managing data, managing models, and managing federated learning processes. It also provides a comprehensive set of tools to help developers monitor and analyze the performance of their applications.
 
 Prerequisites
 =============
@@ -60,7 +60,7 @@ After you have created the environment, you can install fedstellar following the
 Building from source
 ====================
 
-Obtaining the framework
+Obtaining the platform
 --------------------
 
 You can obtain the source code from https://github.com/enriquetomasmb/fedstellar
@@ -125,7 +125,7 @@ You can show the PARAMS using::
 
     python app/main.py --help
 
-For a correct execution of the framework, it is necessary to indicate the python path (absolute path)::
+For a correct execution of the platform, it is necessary to indicate the python path (absolute path)::
 
     python app/main.py --webserver --python /Users/enrique/fedstellar-venv/bin/python
 

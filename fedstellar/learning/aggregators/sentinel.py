@@ -142,12 +142,21 @@ class Sentinel(Aggregator):
         if my_model is None:
             logging.warning("[Sentinel] Trying to aggregate models when bootstrap is not available")
             return None
-        my_loss = my_model[1].validation_loss
 
+        # Step 1: Evaluate cosine similarity
+        filtered_models = filter_models_by_cosine(models, COSINE_FILTER_THRESHOLD)
+        malicous_by_cosine = models.keys() - filtered_models.keys()
+        if len(filtered_models) == 0:
+            logging.warning("Sentinel: No more models to aggregate after filtering!")
+            return None
+        malicous_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
+
+        # Step 2: Evaluate validation (bootstrap) loss
+        my_loss = my_model[1].validation_loss
         loss: Dict = {}
         mapped_loss: Dict = {}
         cos: Dict = {}
-        for node, msg in models.items():
+        for node, msg in filtered_models.items():
             params = msg[0]
             metrics: ModelMetrics = msg[1]
             loss[node] = metrics.validation_loss
@@ -157,31 +166,22 @@ class Sentinel(Aggregator):
         logging.info("[Sentinel]: Loss mapped metrics: {}".format(mapped_loss))
         logging.info("[Sentinel]: Cos metrics: {}".format(cos))
 
-        malicous_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
-
-        filtered_models = filter_models_by_cosine(models, COSINE_FILTER_THRESHOLD)
-        malicous_by_cosine = models.keys() - filtered_models.keys()
-        if len(filtered_models) == 0:
-            logging.warning("Sentinel: No more models to aggregate after filtering!")
-            return None
-
         # Normalise the untrusted models
         untrusted_models = {k: filtered_models[k] for k in filtered_models.keys() - {self.node_name}}
         normalised_models = {}
         for key in untrusted_models.keys():
             normalised_models[key] = normalise_layers(untrusted_models[key], my_model)
-
         normalised_models[self.node_name] = my_model
 
         # Create a Zero Model
-        accum = (list(models.values())[-1][0]).copy()
+        accum = (list(filtered_models.values())[-1][0]).copy()
         for layer in accum:
             accum[layer] = torch.zeros_like(accum[layer])
 
         # Aggregate
         total_mapped_loss: float = sum(mapped_loss.values())
         # logging.info("Sentinel: Total mapped loss: {}".format(total_mapped_loss))
-        for node, message in models.items():
+        for node, message in filtered_models.items():
             client_model = message[0]
             for layer in client_model:
                 accum[layer] = accum[layer] + client_model[layer] * mapped_loss[node]

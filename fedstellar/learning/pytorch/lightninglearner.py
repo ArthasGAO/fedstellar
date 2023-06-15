@@ -19,7 +19,6 @@ from lightning.pytorch.callbacks import ModelSummary
 from lightning.pytorch.callbacks import RichProgressBar, RichModelSummary
 from lightning.pytorch.callbacks.progress.rich_progress import RichProgressBarTheme
 import copy
-import gc
 
 from matplotlib import pyplot as plt
 
@@ -233,9 +232,6 @@ class LightningLearner(NodeLearner):
         # fig.show()
         images = [fig]
 
-        # class_columns = data_loader.dataset.classes
-        # print(class_columns)
-        # TODO jba: global or local step?
         logging.info("[LightningLearner.compute_confusion_matrix] Logging ConfusionMatrix as image")
         self.logger.log_image(key=log_key + " - Image", images=images, step=self.logger.local_step)
         time.sleep(5)
@@ -246,11 +242,6 @@ class LightningLearner(NodeLearner):
         # clear figure such that plots do not become overlapping in wandb
         fig.clf()
         images = []
-
-        del fig
-        del images
-
-        gc.collect()
 
         return mat
 

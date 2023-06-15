@@ -201,10 +201,10 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         attack_env = {
             "attack": basic_config["attack"],
             "poisoned_node_percent": int(basic_config["poisoned_node_percent"]),
-            "poisoned_sample_percent": int(basic_config["poisoned_node_percent"]),
+            "poisoned_sample_percent": int(basic_config["poisoned_sample_percent"]),
             "poisoned_ratio": int(basic_config["poisoned_ratio"]),
             "noise_type": basic_config["noise_type"],
-            "targeted:": basic_config["targeted"]
+            "targeted": basic_config["targeted"]
         }
         participant_config["adversarial_args"]["attack_env"] = attack_env
 

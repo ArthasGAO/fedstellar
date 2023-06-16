@@ -149,6 +149,9 @@ class Sentinel(Aggregator):
         if len(filtered_models) == 0:
             logging.warning("Sentinel: No more models to aggregate after filtering!")
             return None
+        for node_key in malicous_by_cosine:
+            mapping = {f'agg_weight_{node_key}': 0}
+            self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         # Step 2: Evaluate validation (bootstrap) loss
         my_loss = my_model[1].validation_loss
@@ -167,7 +170,7 @@ class Sentinel(Aggregator):
         logging.info("[Sentinel]: Loss mapped metrics: {}".format(mapped_loss))
         logging.info("[Sentinel]: Cos metrics: {}".format(cos))
 
-        # Normalise the untrusted models
+        # Step 3: Normalise the untrusted models
         untrusted_models = {k: filtered_models[k] for k in filtered_models.keys() - {self.node_name}}
         normalised_models = {}
         for key in untrusted_models.keys():
@@ -181,11 +184,13 @@ class Sentinel(Aggregator):
 
         # Aggregate
         total_mapped_loss: float = sum(mapped_loss.values())
-        # logging.info("Sentinel: Total mapped loss: {}".format(total_mapped_loss))
+        logging.info("Sentinel: Total mapped loss: {}".format(total_mapped_loss))
         for node, message in filtered_models.items():
             client_model = message[0]
             for layer in client_model:
                 accum[layer] = accum[layer] + client_model[layer] * mapped_loss[node]
+                mapping = {f'agg_weight_{node}': mapped_loss[node] / total_mapped_loss}
+                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         # Normalize accumulated model wrt loss
         for layer in accum:

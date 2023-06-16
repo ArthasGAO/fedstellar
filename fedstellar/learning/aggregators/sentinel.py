@@ -149,7 +149,6 @@ class Sentinel(Aggregator):
         if len(filtered_models) == 0:
             logging.warning("Sentinel: No more models to aggregate after filtering!")
             return None
-        malicous_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
 
         # Step 2: Evaluate validation (bootstrap) loss
         my_loss = my_model[1].validation_loss
@@ -162,6 +161,8 @@ class Sentinel(Aggregator):
             loss[node] = metrics.validation_loss
             mapped_loss[node] = map_loss_distance(metrics.validation_loss, my_loss)
             cos[node] = metrics.cosine_similarity
+        malicous_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
+        
         logging.info("[Sentinel]: Loss metrics: {}".format(loss))
         logging.info("[Sentinel]: Loss mapped metrics: {}".format(mapped_loss))
         logging.info("[Sentinel]: Cos metrics: {}".format(cos))

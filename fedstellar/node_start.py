@@ -116,7 +116,7 @@ def main():
         else:
             raise ValueError(f"Model {model_name} not supported")
     elif dataset == "CIFAR10":
-        dataset = CIFAR10Dataset(sub_id=idx, number_sub=n_nodes, root_dir=f"{sys.path[0]}/data", iid=is_iid)
+        dataset = CIFAR10Dataset(sub_id=idx, number_sub=n_nodes, iid=is_iid)
         if model_name == "ResNet9":
             model = CIFAR10ModelResNet(classifier="resnet9")
         elif model_name == "ResNet18":

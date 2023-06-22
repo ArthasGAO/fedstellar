@@ -74,7 +74,7 @@ class FasterMobileNet(pl.LightningModule):
 
         if self.cm is not None:
             cm = self.cm.compute().cpu()
-            print(f"{phase}Epoch/CM\n", cm) if print_cm else None
+            # print(f"{phase}Epoch/CM\n", cm) if print_cm else None
             if plot_cm:
                 import seaborn as sns
                 import matplotlib.pyplot as plt

@@ -69,7 +69,7 @@ def add_x_to_image(img):
         for j in range(0, 10):
             if i + j <= 9 or i == j:
                 img[i][j] = 255
-    return img.clone().detach()
+    return torch.tensor(img)
 
 
 def poison_to_nlp_rawdata(text_data, poisoned_ratio):

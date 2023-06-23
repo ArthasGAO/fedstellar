@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import List, OrderedDict
+from dataclasses import dataclass, field
+from typing import List, OrderedDict, Dict
 
 
 @dataclass
@@ -8,15 +8,4 @@ class ModelMetrics:
     validation_loss: float = 0
     cosine_similarity: float = 0
     validation_accuracy: float = 0
-
-"""
-@dataclass
-class ModelMessage:
-    model: OrderedDict
-    nodes: List[str]
-    metrics: ModelMetrics
-
-    def reset_personal_metrics(self):
-        self.metrics.similarity = 0
-        self.metrics.loss = 0
-"""
+    global_trust: Dict = field(default_factory=dict)

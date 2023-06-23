@@ -76,7 +76,7 @@ def main():
         encrypt=False,
         model_poisoning=model_poisoning,
         poisoned_ratio=poisoned_ratio,
-        noise_type=noise_type
+        noise_type=noise_type,
     )
 
     node.start()

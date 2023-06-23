@@ -1,9 +1,8 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
-# 
-
-
+#
+import copy
 import logging
 import threading
 from typing import Dict, OrderedDict, List
@@ -23,7 +22,7 @@ class Aggregator(threading.Thread, Observable):
         node_name: (str): String with the name of the node.
     """
 
-    def __init__(self, node_name="unknown", config=None, logger=None, learner=None, agg_round=0):
+    def __init__(self, node_name="unknown", config=None, logger=None, learner=None, agg_round=0, global_trust=None):
         self.node_name = node_name
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
@@ -31,6 +30,7 @@ class Aggregator(threading.Thread, Observable):
         self.daemon = True
         self.logger = logger
         self.learner = learner
+        self.global_trust = global_trust
         Observable.__init__(self)
         self.__train_set = []
         self.__waiting_aggregated_model = False
@@ -63,7 +63,9 @@ class Aggregator(threading.Thread, Observable):
 
         # Check if node still running (could happen if aggregation thread was a residual thread)
         if not self.__train_set:
-            logging.info("[Aggregator] Shutting Down Aggregator Process | __train_set={} --> None or only me --> No aggregation".format(self.__train_set))
+            logging.info(
+                "[Aggregator] Shutting Down Aggregator Process | __train_set={} --> None or only me --> No aggregation".format(
+                    self.__train_set))
             self.notify(
                 Events.AGGREGATION_FINISHED_EVENT, None
             )  # To avoid residual training-thread
@@ -75,7 +77,9 @@ class Aggregator(threading.Thread, Observable):
         )
         if n_model_aggregated != len(self.__train_set):
             logging.info(
-                "[Aggregator] __train_set={} || Missing models: {}".format(self.__train_set, set(self.__train_set) - set(self.__models.keys())
+                "[Aggregator] __train_set={} || Missing models: {}".format(self.__train_set,
+                                                                           set(self.__train_set) - set(
+                                                                               self.__models.keys())
                                                                            )
             )
         else:
@@ -141,7 +145,9 @@ class Aggregator(threading.Thread, Observable):
 
                 # Start aggregation timeout
                 if self.__train_set != [] and not self.__thread_executed:
-                    logging.debug("[Aggregator] Starting aggregation thread (run -> timeout) | __train_set={} | __thread_executed={}".format(self.__train_set, self.__thread_executed))
+                    logging.debug(
+                        "[Aggregator] Starting aggregation thread (run -> timeout) | __train_set={} | __thread_executed={}".format(
+                            self.__train_set, self.__thread_executed))
                     self.start()
 
                 # Get a list of nodes added
@@ -150,7 +156,9 @@ class Aggregator(threading.Thread, Observable):
                 models_added = [
                     element for sublist in models_added for element in sublist
                 ]  # Flatten list
-                logging.info("[Aggregator.add_model] Adding model from nodes {} ||||| __train_set = {} | len(models_added) = {}".format(nodes, self.__train_set, len(models_added)))
+                logging.info(
+                    "[Aggregator.add_model] Adding model from nodes {} ||||| __train_set = {} | len(models_added) = {}".format(
+                        nodes, self.__train_set, len(models_added)))
 
                 # Check if aggregation is needed
                 # __train_set has all my neighbors (and me)
@@ -196,7 +204,11 @@ class Aggregator(threading.Thread, Observable):
         logging.info("[Aggregator.get_pseudo_aggregation]. Partial aggregation: only local model")
         for node, (model, metrics) in list(self.__models.items()):
             if node == self.node_name:
-                return model, [node], ModelMetrics(num_samples=metrics.num_samples)
+                logging.info("[Aggregator.get_pseudo_aggregation] Sending model with trust {}".format(self.global_trust))
+                return model, [node], ModelMetrics(
+                    num_samples=metrics.num_samples,
+                    global_trust=self.global_trust)
+
         return None
 
     def get_full_aggregation(self):
@@ -222,7 +234,7 @@ class Aggregator(threading.Thread, Observable):
 
         aggregated_model = self.aggregate(dict_aux)
         logging.info("[Aggregator.get_full_aggregation] num_aggregated: {}, round {}".format(len(self.__models),
-                                                                                                self.__agg_round))
+                                                                                             self.__agg_round))
         self.__agg_round += 1
         self.logger.log_metrics({"num_aggregated": len(self.__models)}, step=self.logger.global_step)
 
@@ -230,7 +242,6 @@ class Aggregator(threading.Thread, Observable):
         # nodes_aggregated = [self.node_name]
 
         return aggregated_model, nodes_aggregated, ModelMetrics(num_samples=total_samples)
-
 
     def get_partial_aggregation(self, except_nodes):
         """
@@ -279,7 +290,8 @@ class Aggregator(threading.Thread, Observable):
             return None, None, None
 
         aggregated_model = self.aggregate(dict_aux)
-        logging.info("[Aggregator.get_partial_aggregation] num_aggregated: {}, round {}".format(len(self.__models), self.__agg_round))
+        logging.info("[Aggregator.get_partial_aggregation] num_aggregated: {}, round {}".format(len(self.__models),
+                                                                                                self.__agg_round))
         self.__agg_round += 1
         self.logger.log_metrics({"num_aggregated": len(self.__models)}, step=self.logger.global_step)
 
@@ -318,10 +330,13 @@ class Aggregator(threading.Thread, Observable):
         """
         observers = self.get_observers()
         prev_round = self.__agg_round
+        prev_global_trust = copy.deepcopy(self.global_trust)
         self.__init__(node_name=self.node_name,
                       config=self.config,
                       logger=self.logger,
                       learner=self.learner,
-                      agg_round=prev_round)
+                      agg_round=prev_round,
+                      global_trust=prev_global_trust
+                      )
         for o in observers:
             self.add_observer(o)

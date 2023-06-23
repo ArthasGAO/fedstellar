@@ -133,7 +133,8 @@ def main():
     dataset = DataModule(dataset.train_set, dataset.test_set, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir, label_flipping=label_flipping, data_poisoning=data_poisoning, poisoned_percent=poisoned_percent, poisoned_ratio=poisoned_ratio, targeted=targeted, target_label=target_label,
                          target_changed_label=target_changed_label, noise_type=noise_type)
 
-    if aggregation_algorithm in ["FedAvg", "Krum", "Median", "TrimmedMean", "Pseudo", "FlTrust", "Sentinel"]:
+    if aggregation_algorithm in ["FedAvg", "Krum", "Median", "TrimmedMean",
+                                 "Pseudo", "FlTrust", "Sentinel", "SentinelGlobal"]:
         pass
     else:
         raise ValueError(f"Aggregation algorithm {aggregation_algorithm} not supported")

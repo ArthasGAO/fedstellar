@@ -13,6 +13,7 @@ from typing import List, OrderedDict
 from fedstellar.learning.aggregators.helper import cosine_similarity
 from fedstellar.learning.aggregators.pseudo import PseudoAggregator
 from fedstellar.learning.aggregators.sentinel import Sentinel
+from fedstellar.learning.aggregators.sentinelglobal import SentinelGlobal
 from fedstellar.learning.modelmetrics import ModelMetrics
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
@@ -168,6 +169,7 @@ class Node(BaseNode):
         logging.info("[NODE] Role: " + str(self.config.participant["device_args"]["role"]))
 
         # Aggregator
+        self.shared_trust = False
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
             self.aggregator = FedAvg(node_name=self.get_name(),
                                      config=self.config,
@@ -187,20 +189,24 @@ class Node(BaseNode):
                                           beta=1)
         elif self.config.participant["aggregator_args"]["algorithm"] == "FlTrust":
             self.aggregator = FlTrust(node_name=self.get_name(),
-                                       config=self.config,
-                                       learner=self.learner)
+                                      config=self.config,
+                                      learner=self.learner)
         elif self.config.participant["aggregator_args"]["algorithm"] == "Sentinel":
             self.aggregator = Sentinel(node_name=self.get_name(),
                                        config=self.config,
                                        learner=self.learner)
+        elif self.config.participant["aggregator_args"]["algorithm"] == "SentinelGlobal":
+            self.aggregator = SentinelGlobal(node_name=self.get_name(),
+                                             config=self.config,
+                                             learner=self.learner,
+                                             global_trust={})
+            self.shared_trust = True
         elif self.config.participant["aggregator_args"]["algorithm"] == "Pseudo":
             self.aggregator = PseudoAggregator(node_name=self.get_name(),
                                                config=self.config,
                                                learner=self.learner)
 
         self.aggregator.add_observer(self)
-
-        self.shared_metrics = False
 
         # Store the parameters of the model
         self.__stored_model_parameters = []
@@ -373,7 +379,10 @@ class Node(BaseNode):
                 self.get_neighbors()
             )  # used to restore the original list of neighbors after the learning round
 
-            logging.info("[NODE.__start_learning] Learning started in node {} -> Round: {} | Epochs: {}".format(self.get_name(), self.round, epochs))
+            logging.info(
+                "[NODE.__start_learning] Learning started in node {} -> Round: {} | Epochs: {}".format(self.get_name(),
+                                                                                                       self.round,
+                                                                                                       epochs))
             self.learner.set_epochs(epochs)
             self.learner.create_trainer()
             self.__train_step()
@@ -405,7 +414,7 @@ class Node(BaseNode):
     ####################################
     #         Model Aggregation         #
     ####################################
-        
+
     def add_model(self, m):
         """
         Add a model. If the model isn't inicializated, the recieved model is used for it. Otherwise, the model is aggregated using the **aggregator**.
@@ -764,7 +773,8 @@ class Node(BaseNode):
         while not proceed_round:
             nc_ready = [nc for nc in self.get_neighbors() if nc.get_model_ready_status() == self.round]
             logging.info("[Node.__on_round_finished] Waiting for neighbours to proceed to the next round: "
-                        "num_nc_ready: {}/{}, at round: {}".format(len(nc_ready) + 1, len(self.__train_set), self.round))
+                         "num_nc_ready: {}/{}, at round: {}".format(len(nc_ready) + 1, len(self.__train_set),
+                                                                    self.round))
             if len(self.__train_set) == len(nc_ready) + 1:
                 logging.info("[Node.__on_round_finished] All neighbours ready for the next round")
                 proceed_round = True
@@ -924,9 +934,15 @@ class Node(BaseNode):
             logging.info("[NODE.__gossip_model] Neighbors: {}".format(self.get_neighbors()))
             for nc in self.get_neighbors():
                 logging.info("---------------------Feedback about neighbor {}---------------------".format(nc))
-                logging.info("[NODE.__gossip_model] Neighbor: {} | My __train_set: {} | Nc.modelsaggregated: {}".format(nc, self.__train_set, nc.get_models_aggregated()))
-                logging.info("[NODE.__gossip_model] Neighbor: {} | Candidate_condition return: {}".format(nc, candidate_condition(nc)))
-                logging.info("[NODE.__gossip_model] Neighbor: {} | Status_function return: {}".format(nc, status_function(nc)))
+                logging.info(
+                    "[NODE.__gossip_model] Neighbor: {} | My __train_set: {} | Nc.modelsaggregated: {}".format(nc,
+                                                                                                               self.__train_set,
+                                                                                                               nc.get_models_aggregated()))
+                logging.info("[NODE.__gossip_model] Neighbor: {} | Candidate_condition return: {}".format(nc,
+                                                                                                          candidate_condition(
+                                                                                                              nc)))
+                logging.info(
+                    "[NODE.__gossip_model] Neighbor: {} | Status_function return: {}".format(nc, status_function(nc)))
                 logging.info("---------------------End of feedback about neighbor {}---------------------".format(nc))
             logging.info("------------------------------------------------------------------")
 
@@ -1026,7 +1042,8 @@ class Node(BaseNode):
                 return
 
         elif event == Events.SEND_ROLE_EVENT:
-            self.broadcast(CommunicationProtocol.build_role_msg(self.get_name(), self.config.participant["device_args"]["role"]))
+            self.broadcast(
+                CommunicationProtocol.build_role_msg(self.get_name(), self.config.participant["device_args"]["role"]))
 
         elif event == Events.ROLE_RECEIVED_EVENT:
             # Update the heartbeater with the role node
@@ -1122,7 +1139,8 @@ class Node(BaseNode):
 
         # Send the POST request if the controller is available
         try:
-            response = requests.post(url, data=json.dumps(self.config.participant), headers={'Content-Type': 'application/json'})
+            response = requests.post(url, data=json.dumps(self.config.participant),
+                                     headers={'Content-Type': 'application/json'})
         except requests.exceptions.ConnectionError:
             logging.error(f'Error connecting to the controller at {url}')
             return
@@ -1163,7 +1181,8 @@ class Node(BaseNode):
         Returns:
 
         """
-        step = int((datetime.now() - datetime.strptime(self.config.participant["scenario_args"]["start_time"], "%d/%m/%Y %H:%M:%S")).total_seconds())
+        step = int((datetime.now() - datetime.strptime(self.config.participant["scenario_args"]["start_time"],
+                                                       "%d/%m/%Y %H:%M:%S")).total_seconds())
         import sys
         import psutil
         # Gather CPU usage information
@@ -1194,9 +1213,13 @@ class Node(BaseNode):
 
         # Logging and reporting
         # logging.info(f'Resources: CPU {cpu_percent}%, CPU temp {cpu_temp}C, RAM {ram_percent}%, Disk {disk_percent}%')
-        self.learner.logger.log_metrics({"Resources/CPU_percent": cpu_percent, "Resources/CPU_temp": cpu_temp, "Resources/RAM_percent": ram_percent, "Resources/Disk_percent": disk_percent}, step=step)
+        self.learner.logger.log_metrics(
+            {"Resources/CPU_percent": cpu_percent, "Resources/CPU_temp": cpu_temp, "Resources/RAM_percent": ram_percent,
+             "Resources/Disk_percent": disk_percent}, step=step)
         # logging.info(f'Resources: Bytes sent {bytes_sent}, Bytes recv {bytes_recv}, Packets sent {packets_sent}, Packets recv {packets_recv}')
-        self.learner.logger.log_metrics({"Resources/Bytes_sent": bytes_sent, "Resources/Bytes_recv": bytes_recv, "Resources/Packets_sent": packets_sent, "Resources/Packets_recv": packets_recv}, step=step)
+        self.learner.logger.log_metrics({"Resources/Bytes_sent": bytes_sent, "Resources/Bytes_recv": bytes_recv,
+                                         "Resources/Packets_sent": packets_sent,
+                                         "Resources/Packets_recv": packets_recv}, step=step)
         # logging.info(f'Resources: Uptime {uptime}')
         self.learner.logger.log_metrics({"Resources/Uptime": uptime}, step=step)
 
@@ -1212,7 +1235,9 @@ class Node(BaseNode):
                 gpu_mem = pynvml.nvmlDeviceGetMemoryInfo(handle)
                 gpu_mem_percent = gpu_mem.used / gpu_mem.total * 100
                 # logging.info(f'Resources: GPU-{i} {gpu_percent}%, GPU temp {gpu_temp}C, GPU mem {gpu_mem_percent}%')
-                self.learner.logger.log_metrics({f"Resources/GPU{i}_percent": gpu_percent, f"Resources/GPU{i}_temp": gpu_temp, f"Resources/GPU{i}_mem_percent": gpu_mem_percent}, step=step)
+                self.learner.logger.log_metrics(
+                    {f"Resources/GPU{i}_percent": gpu_percent, f"Resources/GPU{i}_temp": gpu_temp,
+                     f"Resources/GPU{i}_mem_percent": gpu_mem_percent}, step=step)
         except ModuleNotFoundError:
             logging.info(f'pynvml not found, skipping GPU usage')
             pass
@@ -1221,6 +1246,7 @@ class Node(BaseNode):
             logging.info(f'pynvml not found, skipping GPU usage.')
             pass
         """
+
     def __store_model_parameters(self, obj):
         """
         Store the model parameters in the node.
@@ -1239,4 +1265,5 @@ class Node(BaseNode):
         # ) = self.learner.decode_parameters(obj)
         # if self.learner.check_parameters(decoded_model):
         self.__stored_model_parameters += obj
-        logging.info("[NODE.__store_model_parameters (PROXY)] Stored model parameters: {}".format(len(self.__stored_model_parameters)))
+        logging.info("[NODE.__store_model_parameters (PROXY)] Stored model parameters: {}".format(
+            len(self.__stored_model_parameters)))

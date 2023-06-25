@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def get_plot_by_node_percent(data=None, fig=None, y_col=None, plt_title='No Title'):
+def get_plot_by_node_percent(data=None, fig=None, y_col=None, y_err=None, plt_title='No Title'):
 
     df = data[['aggregator_args.algorithm', 'adversarial_args.attack_env.poisoned_node_percent', y_col]]
     #fig = plt.figure(figsize=(8, 6))

@@ -882,7 +882,7 @@ class Node(BaseNode):
             self.__train_set)
         status_function = lambda nc: (nc.get_name(), len(nc.get_models_aggregated()))
         # TODO Sync: remove partial aggregation
-        model_function = lambda nc: self.aggregator.get_pseudo_aggregation()
+        model_function = lambda nc: self.aggregator.broadcast_local_model()
         # model_function = lambda nc: self.aggregator.get_partial_aggregation(nc.get_models_aggregated())
 
         # Gossip

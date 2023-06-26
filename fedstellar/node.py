@@ -199,7 +199,8 @@ class Node(BaseNode):
             self.aggregator = SentinelGlobal(node_name=self.get_name(),
                                              config=self.config,
                                              learner=self.learner,
-                                             global_trust={})
+                                             global_trust={},
+                                             active_round=3)
             self.shared_trust = True
         elif self.config.participant["aggregator_args"]["algorithm"] == "Pseudo":
             self.aggregator = PseudoAggregator(node_name=self.get_name(),
@@ -396,7 +397,7 @@ class Node(BaseNode):
         # Rounds
         self.round = None
         self.totalrounds = None
-        # Leraner
+        # Learner
         self.learner.interrupt_fit()
         # Aggregator
         # TODO sync: force false

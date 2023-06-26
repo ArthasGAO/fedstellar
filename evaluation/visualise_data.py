@@ -47,7 +47,7 @@ mean_benign = pd.pivot_table(benign, index=["aggregator_args.algorithm",
                                             "adversarial_args.attack_env.attack",
                                             "adversarial_args.attack_env.poisoned_node_percent",
                                             "adversarial_args.attack_env.poisoned_sample_percent",],
-                             values=["Test/Accuracy","Test/F1Score", "Test/ASR-targeted", "Test/ASR-backdoor"], aggfunc = 'mean', dropna=False)
+                             values=["Test/Accuracy","Test/F1Score", "Test/ASR-targeted", "Test/ASR-backdoor"], aggfunc = ['mean', 'sem'] , dropna=False)
 mean_benign = mean_benign.reset_index()
 num_attack_configs = len(mean_benign.index)
 
@@ -56,12 +56,12 @@ if attack_name == 'model_poison':
 else:
     assert num_attack_configs == 45
 
-overview_f1 = mean_benign.pivot(columns=["adversarial_args.attack_env.poisoned_node_percent", "adversarial_args.attack_env.poisoned_sample_percent"],
-                                index=["aggregator_args.algorithm"],
-                                values=metric)
+overview_metric = mean_benign.pivot(columns=["adversarial_args.attack_env.poisoned_node_percent", "adversarial_args.attack_env.poisoned_sample_percent"],
+                                    index=["aggregator_args.algorithm"],
+                                    values=metric)
 
-overview_f1 = overview_f1.rename(columns={'adversarial_args.attack_env.poisoned_node_percent': 'poisoned_node_percent'})
-overview_f1_style = overview_f1.style.set_caption(f'{attack_name}: {metric}')
+overview_metric = overview_metric.rename(columns={'adversarial_args.attack_env.poisoned_node_percent': 'poisoned_node_percent'})
+overview_f1_style = overview_metric.style.set_caption(f'{attack_name}: {metric}')
 if metric in ["Test/Accuracy","Test/F1Score"]:
     overview_f1_style.highlight_max()
 else:

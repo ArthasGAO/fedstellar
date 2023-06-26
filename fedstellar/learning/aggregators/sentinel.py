@@ -170,7 +170,7 @@ class Sentinel(Aggregator):
         logging.info("[Sentinel]: Loss mapped metrics: {}".format(mapped_loss))
         logging.info("[Sentinel]: Cos metrics: {}".format(cos))
 
-        # Step 3: Normalise the untrusted models
+        # Step 3: Normalise the remaining (filtered) untrusted models
         untrusted_models = {k: filtered_models[k] for k in filtered_models.keys() - {self.node_name}}
         normalised_models = {}
         for key in untrusted_models.keys():
@@ -178,14 +178,14 @@ class Sentinel(Aggregator):
         normalised_models[self.node_name] = my_model
 
         # Create a Zero Model
-        accum = (list(filtered_models.values())[-1][0]).copy()
+        accum = (list(normalised_models.values())[-1][0]).copy()
         for layer in accum:
             accum[layer] = torch.zeros_like(accum[layer])
 
         # Aggregate
         total_mapped_loss: float = sum(mapped_loss.values())
         logging.info("Sentinel: Total mapped loss: {}".format(total_mapped_loss))
-        for node, message in filtered_models.items():
+        for node, message in normalised_models.items():
             client_model = message[0]
             for layer in client_model:
                 accum[layer] = accum[layer] + client_model[layer] * mapped_loss[node]

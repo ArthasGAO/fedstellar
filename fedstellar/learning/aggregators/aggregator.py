@@ -126,7 +126,7 @@ class Aggregator(threading.Thread, Observable):
             nodes: Nodes that collaborated to get the model.
             metrics: ModelMetrics
         """
-        logging.info("[Aggregator.add_model] Entry point (round: {})".format(self.agg_round))
+        # logging.info("[Aggregator.add_model] Entry point (round: {})".format(self.agg_round))
         logging.info("[Aggregator.add_model] Nodes who contributed to the model: {}".format(nodes))
         # if self.__waiting_aggregated_model and self.__stored_models is not None:
         #    self.notify(Events.STORE_MODEL_PARAMETERS_EVENT, model)

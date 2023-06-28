@@ -29,6 +29,7 @@ from fedstellar.learning.aggregators.sentinel import map_loss_distance
 
 MIN_MAPPED_LOSS = float(0.01)
 COSINE_FILTER_THRESHOLD = float(0.5)
+DEFAULT_NEI_TRUST = 0
 
 
 class SentinelGlobal(Aggregator):
@@ -68,10 +69,11 @@ class SentinelGlobal(Aggregator):
         for node, (model, metrics) in list(self._models.items()):
             current_global_trust = copy.deepcopy(self.global_trust)
 
+            """
             for round_key in range(0, self.agg_round - 2):
                 for node_key in current_global_trust[round_key]:
                     assert len(current_global_trust[round_key][node_key]) != 0
-
+            """
             if node == self.node_name:
                 return model, [node], ModelMetrics(
                     num_samples=metrics.num_samples,
@@ -105,7 +107,7 @@ class SentinelGlobal(Aggregator):
             for trusted_nei in trusted_neighbours:
                 curr_trusted_nei = trusted_nei
                 # if trust scores are not available, assume trusted
-                nei_trust = prev_global_trust[trusted_nei].get(target_node, 1)
+                nei_trust = prev_global_trust[trusted_nei].get(target_node, DEFAULT_NEI_TRUST)
                 collected_trust.append(nei_trust)
             avg_trust = sum(collected_trust) / len(collected_trust) if len(collected_trust) > 0 else 0
             logging.info("[SentinelGlobal.get_trusted_neighbour_opinion] Avg. trusted neighbour opinion for node {}: {}"
@@ -117,8 +119,7 @@ class SentinelGlobal(Aggregator):
             logging.warning(
                 "[SentinelGlobal.get_trusted_neighbour_opinion] KeyError for round {}, self.node_name: {}, curr_trusted_nei: {} target_node: {}"
                 .format(prev_round, self.node_name, curr_trusted_nei, target_node))
-            logging.warning("[SentinelGlobal.get_trusted_neighbour_opinion] With global trust: {}"
-                            .format(self.global_trust[prev_round]))
+            logging.warning("[SentinelGlobal.get_trusted_neighbour_opinion] With global trust: {}".format(self.global_trust[prev_round]))
         return avg_trust
 
     def evaluate_neighbour_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
@@ -151,7 +152,11 @@ class SentinelGlobal(Aggregator):
             for node_key in neighbor_opinions[round_key]:
                 # local trust is added during aggregation
                 if node_key != self.node_name:
-                    self.global_trust[round_key][node_key] = neighbor_opinions[round_key][node_key]
+                    try:
+                        self.global_trust[round_key][node_key] = neighbor_opinions[round_key][node_key]
+                    except:
+                        logging.warning("[SentinelGlobal.add_model]: Received incomplete neighbour trust")
+                        self.global_trust[round_key][node_key] = DEFAULT_NEI_TRUST
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
         # No contributors (diffusion at Round 0)

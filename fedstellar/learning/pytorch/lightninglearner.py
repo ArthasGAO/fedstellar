@@ -62,6 +62,8 @@ class LightningLearner(NodeLearner):
 
         self.logger.log_metrics({"Round": self.round}, step=self.logger.global_step)
 
+        logging.info(torch.__config__.show())
+
     def set_model(self, model):
         self.model = model
         self.latest_model = copy.deepcopy(self.model)

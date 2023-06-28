@@ -377,7 +377,7 @@ class Controller:
             participant{}:
                 image: fedstellar
                 labels:
-                    - fedstellar
+                    - fedstellar-jb
                 env_file:
                     - .env
                 restart: "no"
@@ -404,7 +404,7 @@ class Controller:
             participant{}:
                 image: fedstellar
                 labels:
-                    - fedstellar
+                    - fedstellar-jb
                 env_file:
                     - .env
                 restart: "no"
@@ -429,7 +429,7 @@ class Controller:
             participant{}:
                 image: fedstellar-gpu
                 labels:
-                    - fedstellar
+                    - fedstellar-jb
                 env_file:
                     - .env
                 restart: "no"
@@ -463,7 +463,7 @@ class Controller:
             participant{}:
                 image: fedstellar-gpu
                 labels:
-                    - fedstellar
+                    - fedstellar-jb
                 env_file:
                     - .env
                 restart: "no"
@@ -496,7 +496,7 @@ class Controller:
                 fedstellar-net:
                     driver: bridge
                     labels:
-                        - fedstellar
+                        - fedstellar-jb
                     ipam:
                         config:
                             - subnet: {}

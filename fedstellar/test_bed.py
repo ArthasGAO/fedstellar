@@ -131,13 +131,13 @@ basic_config["poisoned_sample_percent"] = 0
 basic_config["poisoned_ratio"] = 0
 
 basic_config["targeted"] = True
-basic_config["n_nodes"] = 5
-basic_config["rounds"] = 10
+basic_config["n_nodes"] = 6
+basic_config["rounds"] = 6
 basic_config["epochs"] = 1
 
 basic_config["noise_type"] = "salt"
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[2]
+attack = attack_list[0]
 
 # poisoned_node_percent_list = [80, 50, 10]
 poisoned_node_percent_list = [60]
@@ -147,7 +147,6 @@ poisoned_ratio_list = [80]
 
 # aggregation_list = ["FedAvg", "Krum", "Sentinel", "TrimmedMean", "FlTrust"]
 aggregation_list = ["SentinelGlobal"]
-# aggregation_list = ["Krum", "Sentinel"]
 
 
 N_EXPERIMENTS = 1

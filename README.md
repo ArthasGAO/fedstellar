@@ -4,10 +4,12 @@
   <a href="https://github.com/enriquetomasmb/fedstellar">
     <img src="docs/_static/fedstellar-logo.jpg" alt="fedstellar">
   </a>
-  <h3 align="center">Fedstellar</h3>
+  <h3 align="center">Fedstellar (Synchronous)</h3>
 
   <p align="center">
     Framework for Decentralized Federated Learning
+    <br>
+    Adapted for Sychronous Round
     <br>
   </p>
 </p>
@@ -31,23 +33,11 @@ The framework is developed by Enrique Tomás Martínez Beltrán in collaboration
 For any questions, please contact Enrique Tomás Martínez Beltrán <a href="mailto:enriquetomas@um.es">enriquetomas@um.es</a>.
 
 
-## Roadmap
-
-See the [open issues](https://github.com/enriquetomasmb/fedstellar/issues) for a list of proposed features (as well as known issues).
-
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, create and get inspired. _Fedstellar_ framework is specially designed to be extended with little effort.
-
-Any contributions you make are **greatly appreciated**. To do so, follow the next steps:
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
+## Adaptions
+The initial framework has been adapted to a synchronous version for more comparable experiments. 
+Therefore, at each round the nodes only share their own trained model to their neighbours. The aggregation is 
+only performed when completed, i.e., when all model from all neighbours are received. The gossiping algorithm
+has been removed. The find the necessary changes in the code base, search for `TODO Sync`.
 
 ## License
 
@@ -57,3 +47,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Author
 
 * **Enrique Tomás Martínez Beltrán** - [Website](https://enriquetomasmb.com) - [Email](mailto:enriquetomas@um.es)
+* **Janosch Baltensperger** - [Email](mailto:janosch.baltensperger@uzh.ch)

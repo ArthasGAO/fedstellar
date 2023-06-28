@@ -1,9 +1,14 @@
 import matplotlib.pyplot as plt
-
+plt.rc('axes', axisbelow=True)
 
 def get_plot_by_node_percent(data=None, fig=None, y_col=None, y_err=None, plt_title='No Title'):
-    df_mean = data[['aggregator_args.algorithm', 'adversarial_args.attack_env.poisoned_node_percent', y_col, y_err]]
+    # df_mean = data[['aggregator_args.algorithm', 'adversarial_args.attack_env.poisoned_node_percent', y_col, y_err]]
 
+    data.reset_index()
+    df_mean = data.loc[: ,['aggregator_args.algorithm', 'adversarial_args.attack_env.poisoned_node_percent', y_col[0], y_err[0]]]
+
+    error = df_mean[[y_err]]
+    # print(error)
     # fig = plt.figure(figsize=(8, 6))
     fig = plt.figure()
     marker_styles = ['+', 'x', 'o']
@@ -15,32 +20,23 @@ def get_plot_by_node_percent(data=None, fig=None, y_col=None, y_err=None, plt_ti
         df_mean_agg = df_mean[df_mean['aggregator_args.algorithm'] == aggregator]
         ax = df_mean_agg.plot(x='adversarial_args.attack_env.poisoned_node_percent',
                               y=y_col,
-                              y_err=y_err,
+                              yerr=error,
                               marker=marker_styles[i % len(marker_styles)],
                               markersize=6,
                               linestyle=line_styles[i % len(line_styles)],
                               linewidth=1,
+                              capsize=4,
                               label=aggregator,
                               ax=ax)
-
-    # Set plot title and labels
-    plt.title(plt_title, fontsize=10)
-    plt.xlabel("Poisoned Node Percent", fontsize=10)
-    plt.ylabel(y_col, fontsize=10)
-    plt.ylim(0, 1)
-
+    plt.ylim(-0.1, 1)
     # Set legend
     plt.legend(fontsize=10)
-
     # Set grid
     plt.grid(True, linestyle='--', alpha=0.5)
-
     # Increase tick font sizes
     plt.xticks(fontsize=10)
     plt.yticks(fontsize=10)
-
+    plt.xlabel("PNR")
+    plt.ylabel(y_col[1])
     return fig
 
-
-def print_test():
-    print("test")

@@ -15,7 +15,7 @@ import pandas as pd
 pd.options.display.max_columns = None
 from statistics import mean
 
-from typing import List, Dict, OrderedDict, Optional, TypedDict
+from typing import List, Dict, OrderedDict, Optional, TypedDict, Set
 
 from pytorch_lightning.loggers import wandb
 
@@ -30,6 +30,7 @@ from fedstellar.learning.aggregators.sentinel import map_loss_distance
 MIN_MAPPED_LOSS = float(0.01)
 COSINE_FILTER_THRESHOLD = float(0.5)
 DEFAULT_NEI_TRUST = 0
+TRUST_THRESHOLD = 0.5
 
 
 class SentinelGlobal(Aggregator):
@@ -44,7 +45,8 @@ class SentinelGlobal(Aggregator):
                  learner=None, agg_round=0,
                  global_trust: OrderedDict[int, Dict[str, Dict[str, int]]] = None,
                  active_round=3,
-                 num_evals=0):
+                 num_evals=0,
+                 neighbor_keys=None):
         super().__init__(node_name, config, logger, learner, agg_round)
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
@@ -60,6 +62,8 @@ class SentinelGlobal(Aggregator):
         #   {1: {'node1': {'node2': 0, 'node3': 0}, 'node2': {'node1': 0, 'node3': 1}},
         #  -> at round 0, node1 identified node2 as malicious (0), node3 as trusted (1).
         self.global_trust = global_trust
+        self.neighbor_keys: Set = neighbor_keys if neighbor_keys is not None else set()
+        logging.info("SentinelGlobal: neighbours set to {}".format(self.neighbor_keys))
         self.global_trust[self.agg_round] = {}
         self.global_trust[self.agg_round][self.node_name] = {}
         # logging.info("[SentinelGlobal] My prev global trust is {}".format(self.global_trust[self.agg_round-2]))
@@ -68,7 +72,6 @@ class SentinelGlobal(Aggregator):
         logging.info("[SentinelGlobal.broadcast_local_model]. Partial aggregation: only local model")
         for node, (model, metrics) in list(self._models.items()):
             current_global_trust = copy.deepcopy(self.global_trust)
-
             """
             for round_key in range(0, self.agg_round - 2):
                 for node_key in current_global_trust[round_key]:
@@ -155,11 +158,16 @@ class SentinelGlobal(Aggregator):
                     try:
                         self.global_trust[round_key][node_key] = neighbor_opinions[round_key][node_key]
                     except:
-                        logging.warning("[SentinelGlobal.add_model]: Received incomplete neighbour trust")
-                        self.global_trust[round_key][node_key] = DEFAULT_NEI_TRUST
+                        for nei_key in self.neighbor_keys:
+                            # There seems to be an issue with Fedstellar such that incomplete messages arrive
+                            logging.warning("[SentinelGlobal.add_model]: Received incomplete neighbour trust. Fixing with DEFAULT_NEI_TRUST")
+                            self.global_trust[round_key][node_key][nei_key] = DEFAULT_NEI_TRUST
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
         # No contributors (diffusion at Round 0)
+        for node_key in nodes:
+            self.neighbor_keys.add(node_key)
+
         if nodes is None:
             super().add_model(model=model, nodes=[], metrics=metrics)
 
@@ -167,12 +175,11 @@ class SentinelGlobal(Aggregator):
         self.add_neighbour_trust(model, nodes, metrics)
 
         # Step 0: Check whether the model should be evaluated based on global trust
-        # TODO find out why things break here
         if self.agg_round > self.active_round:
             for node_key in nodes:
                 avg_global_trust = self.get_trusted_neighbour_opinion(node_key)
                 # Caveat: the node always trusts itself
-                if avg_global_trust < 0.5 and node_key != self.node_name:
+                if avg_global_trust < TRUST_THRESHOLD and node_key != self.node_name:
                     # metrics.cosine_similarity = 0  # thereby the model will be removed by cosine filtering
                     logging.info("[SentinelGlobal.add_model] Removing node(s) {} since not trusted".format(node_key))
                 else:
@@ -206,7 +213,8 @@ class SentinelGlobal(Aggregator):
                       learner=self.learner,
                       agg_round=next_round,
                       global_trust=prev_global_trust,
-                      num_evals=self.num_evals)
+                      num_evals=self.num_evals,
+                      neighbor_keys=self.neighbor_keys)
         for o in observers:
             self.add_observer(o)
 

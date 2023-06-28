@@ -200,7 +200,8 @@ class Node(BaseNode):
                                              config=self.config,
                                              learner=self.learner,
                                              global_trust={},
-                                             active_round=3)
+                                             active_round=3,
+                                             )
             self.shared_trust = True
         elif self.config.participant["aggregator_args"]["algorithm"] == "Pseudo":
             self.aggregator = PseudoAggregator(node_name=self.get_name(),

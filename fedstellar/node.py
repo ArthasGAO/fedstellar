@@ -144,12 +144,12 @@ class Node(BaseNode):
             logging.info("[NODE] Tracking W&B enabled")
             logging.getLogger("wandb").setLevel(logging.ERROR)
             if self.hostdemo:
-                wandblogger = FedstellarWBLogger(project="fedstellar",
+                wandblogger = FedstellarWBLogger(project="fedstellar-beast",
                                                  group=self.experiment_name,
                                                  name=f"participant_{self.idx}",
                                                  config=self.config.participant)
             else:
-                wandblogger = FedstellarWBLogger(project="fedstellar",
+                wandblogger = FedstellarWBLogger(project="fedstellar-beast",
                                                  group=self.experiment_name,
                                                  name=f"participant_{self.idx}",
                                                  config=self.config.participant)

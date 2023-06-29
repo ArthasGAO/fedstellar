@@ -19,7 +19,7 @@ docker_client = docker.from_env()
 
 
 def wait_docker_finished():
-    fed_filter = {'label': 'fedstellar'}
+    fed_filter = {'label': 'fedstellar-jb'}
     is_prev_finished = False
     while not is_prev_finished:
         try:
@@ -30,7 +30,7 @@ def wait_docker_finished():
                 time.sleep(30)
             else:
                 print("*************** Previous experiment finished *************** \n")
-                docker_client.networks.prune()
+                docker_client.networks.prune(filters=fed_filter)
                 is_prev_finished = True
         except Exception as err:
             print(f"Unexpected {err=}, {type(err)=}")
@@ -57,14 +57,14 @@ print("Free: %d GiB" % (free // (2**30)))
 basic_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "basic_config.json")
 example_node_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config/participant.json.example')
 
-fed_filter = {'label': 'fedstellar'}
+fed_filter = {'label': 'fedstellar-jb'}
 containers = docker_client.containers.list(filters=fed_filter)
 networks = docker_client.networks.list(filters=fed_filter)
 if len(containers) != 0:
     print("Experiment still running")
     exit(-1)
 
-docker_client.networks.prune()
+docker_client.networks.prune(filters=fed_filter)
 
 # model_list = ["MLP", "CNN", "RNN"]
 # federation_list = ["DFL", "CFL"]
@@ -131,26 +131,31 @@ basic_config["poisoned_sample_percent"] = 0
 basic_config["poisoned_ratio"] = 0
 
 basic_config["targeted"] = True
-basic_config["n_nodes"] = 6
-basic_config["rounds"] = 6
-basic_config["epochs"] = 1
+basic_config["target_label"] = 3
+basic_config["target_changed_label"] = 7
+
+basic_config["n_nodes"] = 10
+basic_config["rounds"] = 10
+basic_config["epochs"] = 3
 
 basic_config["noise_type"] = "salt"
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[0]
+attack = attack_list[2]
 
-# poisoned_node_percent_list = [80, 50, 10]
-poisoned_node_percent_list = [60]
-poisoned_sample_percent_list = [100]
+poisoned_node_percent_list = [50]
+# poisoned_node_percent_list = [0]
+poisoned_sample_percent_list = [50]
 # poisoned_ratio_list = [1, 10, 20]
-poisoned_ratio_list = [80]
+poisoned_ratio_list = [0]
 
-# aggregation_list = ["FedAvg", "Krum", "Sentinel", "TrimmedMean", "FlTrust"]
+aggregation_list = ["Krum", "FedAvg", "TrimmedMean", "FlTrust", "Sentinel", "SentinelGlobal"]
+# aggregation_list = ["FedAvg", "TrimmedMean", "FlTrust"]
+# aggregation_list = ["TrimmedMean"]
 aggregation_list = ["SentinelGlobal"]
 
 
 N_EXPERIMENTS = 1
-EXPERIMENT_WAIT_SEC = 60 + 30 * basic_config["epochs"] * basic_config["rounds"]
+EXPERIMENT_WAIT_SEC = 60 + 10 * basic_config["epochs"] * basic_config["rounds"]
 
 
 if attack == "No Attack":
@@ -211,6 +216,7 @@ if attack == "Sample Poisoning":
             for node_percent in poisoned_node_percent_list:
                 for poisoned_sample_percent in poisoned_sample_percent_list:
                     for poisoned_ratio in poisoned_ratio_list:
+
                         basic_config["attack"] = "Sample Poisoning"
                         basic_config["aggregation"] = aggregation
                         basic_config["poisoned_node_percent"] = node_percent

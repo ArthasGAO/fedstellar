@@ -19,9 +19,8 @@ from lightning.pytorch.callbacks import ModelSummary
 from lightning.pytorch.callbacks import RichProgressBar, RichModelSummary
 from lightning.pytorch.callbacks.progress.rich_progress import RichProgressBarTheme
 import copy
-
+import subprocess
 from matplotlib import pyplot as plt
-
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
 from torch.nn import functional as F
@@ -62,7 +61,9 @@ class LightningLearner(NodeLearner):
 
         self.logger.log_metrics({"Round": self.round}, step=self.logger.global_step)
 
+        logging.info((subprocess.check_output("lscpu", shell=True).strip()).decode())
         logging.info(torch.__config__.show())
+
 
     def set_model(self, model):
         self.model = model

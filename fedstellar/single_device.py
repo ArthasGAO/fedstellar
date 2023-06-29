@@ -55,8 +55,8 @@ def main():
     target_changed_label = 7
     noise_type = "salt"
 
-    dataset = MNISTDataset(iid=is_iid)
-    model = MNISTModelMLP()
+    dataset = CIFAR10Dataset(iid=is_iid)
+    model = FasterMobileNet()
 
     dataset = DataModule(dataset.train_set, dataset.test_set, sub_id=idx, number_sub=n_nodes, indices_dir=indices_dir,
                          label_flipping=label_flipping, data_poisoning=data_poisoning,

@@ -27,7 +27,7 @@ from fedstellar.learning.aggregators.helper import normalise_layers
 from fedstellar.learning.aggregators.sentinel import filter_models_by_cosine
 from fedstellar.learning.aggregators.sentinel import map_loss_distance
 
-MIN_MAPPED_LOSS = float(0.01)
+MIN_MAPPED_LOSS = float(0.1)
 COSINE_FILTER_THRESHOLD = float(0.5)
 DEFAULT_NEI_TRUST = 0
 TRUST_THRESHOLD = 0.5
@@ -109,9 +109,11 @@ class SentinelGlobal(Aggregator):
             collected_trust = []
             for trusted_nei in trusted_neighbours:
                 curr_trusted_nei = trusted_nei
-                # if trust scores are not available, assume trusted
-                nei_trust = prev_global_trust[trusted_nei].get(target_node, DEFAULT_NEI_TRUST)
-                collected_trust.append(nei_trust)
+                # Do not trust the opinion of the target node itself!
+                if trusted_nei != target_node:
+                    # if trust scores are not available, assume trusted
+                    nei_trust = prev_global_trust[trusted_nei].get(target_node, DEFAULT_NEI_TRUST)
+                    collected_trust.append(nei_trust)
             avg_trust = sum(collected_trust) / len(collected_trust) if len(collected_trust) > 0 else 0
             logging.info("[SentinelGlobal.get_trusted_neighbour_opinion] Avg. trusted neighbour opinion for node {}: {}"
                          .format(target_node, avg_trust))
@@ -165,30 +167,31 @@ class SentinelGlobal(Aggregator):
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
         # No contributors (diffusion at Round 0)
-        for node_key in nodes:
-            self.neighbor_keys.add(node_key)
 
         if nodes is None:
-            super().add_model(model=model, nodes=[], metrics=metrics)
-
-        logging.info("[SentinelGlobal.add_model] Computing metrics for node(s): {}".format(nodes))
-        self.add_neighbour_trust(model, nodes, metrics)
-
-        # Step 0: Check whether the model should be evaluated based on global trust
-        if self.agg_round > self.active_round:
-            for node_key in nodes:
-                avg_global_trust = self.get_trusted_neighbour_opinion(node_key)
-                # Caveat: the node always trusts itself
-                if avg_global_trust < TRUST_THRESHOLD and node_key != self.node_name:
-                    # metrics.cosine_similarity = 0  # thereby the model will be removed by cosine filtering
-                    logging.info("[SentinelGlobal.add_model] Removing node(s) {} since not trusted".format(node_key))
-                else:
-                    model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
+            super().add_model(model=model, nodes=nodes, metrics=metrics)
         else:
-            model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
-        # model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
-        super().add_model(model=model, nodes=nodes, metrics=metrics)
-        # logging.info("[SentinelGlobal.add_model] New trust scores: {}".format(self.global_trust))
+            for node_key in nodes:
+                self.neighbor_keys.add(node_key)
+
+            logging.info("[SentinelGlobal.add_model] Computing metrics for node(s): {}".format(nodes))
+            self.add_neighbour_trust(model, nodes, metrics)
+
+            # Step 0: Check whether the model should be evaluated based on global trust
+            if self.agg_round > self.active_round:
+                for node_key in nodes:
+                    avg_global_trust = self.get_trusted_neighbour_opinion(node_key)
+                    # Caveat: the node always trusts itself
+                    if avg_global_trust <= TRUST_THRESHOLD and node_key != self.node_name:
+                        metrics.cosine_similarity = 0  # thereby the model will be removed by cosine filtering
+                        logging.info("[SentinelGlobal.add_model] Removing node(s) {} since not trusted".format(node_key))
+                    else:
+                        model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
+            else:
+                model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
+            # model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
+            super().add_model(model=model, nodes=nodes, metrics=metrics)
+            # logging.info("[SentinelGlobal.add_model] New trust scores: {}".format(self.global_trust))
 
     def clear(self):
         """
@@ -207,6 +210,7 @@ class SentinelGlobal(Aggregator):
         observers = self.get_observers()
         next_round = self.agg_round + 1
         prev_global_trust = copy.deepcopy(self.global_trust)
+        logging.info("[SentinelGlobal] Models evaluated at round {}: {}".format(self.agg_round, self.num_evals))
         self.__init__(node_name=self.node_name,
                       config=self.config,
                       logger=self.logger,

@@ -19,7 +19,7 @@ import pandas as pd
 
 pd.options.display.max_columns = None
 
-MIN_LOSS = float(0.01)
+MIN_LOSS = float(0.001)
 COSINE_FILTER_THRESHOLD = float(0.5)
 DEFAULT_NEIGHBOR_TRUST = 0
 TRUST_THRESHOLD = 0.5
@@ -293,9 +293,8 @@ class SentinelGlobal(Aggregator):
             for layer in client_model:
                 accum[layer] = accum[layer] + client_model[layer] * mapped_loss[node]
                 mapping = {f'agg_weight_{node}': mapped_loss[node] / total_mapped_loss,
-                           f'mapped_loss_{node}': mapped_loss[node]
-                           }
-                self.learner.logger.log_metrics(metrics=mapping, step=0)
+                           f'mapped_loss_{node}': mapped_loss[node]}
+                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         # Normalize accumulated model wrt loss
         for layer in accum:
@@ -338,6 +337,8 @@ class SentinelGlobal(Aggregator):
                       logger=self.logger,
                       learner=self.learner,
                       agg_round=next_round,
+                      loss_distance_threshold=self.loss_dist_threshold,
+                      loss_history=self.loss_history,
                       global_trust=prev_global_trust,
                       num_evals=self.num_evals,
                       neighbor_keys=self.neighbor_keys)

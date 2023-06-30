@@ -105,7 +105,7 @@ basic_config["logs"] = logs_path
 basic_config["models"] = models_path
 
 basic_config["remote_tracking"] = True
-basic_config["remote_tracking"] = False
+basic_config["logging"] = False
 basic_config["wandb_project"] = "fedstellar"
 
 """
@@ -125,8 +125,8 @@ Windows
 basic_config["federation"] = "DFL"
 basic_config["topology"] = "fully"
 basic_config["is_iid"] = True
-basic_config["dataset"] = "MNIST"
-basic_config["model"] = "MLP"
+basic_config["dataset"] = "CIFAR10"
+basic_config["model"] = "fastermobilenet"
 
 basic_config["poisoned_node_percent"] = 0
 basic_config["poisoned_sample_percent"] = 0
@@ -136,23 +136,21 @@ basic_config["targeted"] = True
 basic_config["target_label"] = 3
 basic_config["target_changed_label"] = 7
 
-basic_config["n_nodes"] = 5
-basic_config["rounds"] = 10
-basic_config["epochs"] = 3
+basic_config["n_nodes"] = 2
+basic_config["rounds"] = 1
+basic_config["epochs"] = 1
 
 basic_config["noise_type"] = "salt"
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
 attack = attack_list[2]
 
+poisoned_node_percent_list = [50]
 poisoned_node_percent_list = [60]
-# poisoned_node_percent_list = [0]
 poisoned_sample_percent_list = [100]
 # poisoned_ratio_list = [1, 10, 20]
 poisoned_ratio_list = [0]
 
 aggregation_list = ["Krum", "FedAvg", "TrimmedMean", "FlTrust", "Sentinel", "SentinelGlobal"]
-# aggregation_list = ["FedAvg", "TrimmedMean", "FlTrust"]
-# aggregation_list = ["TrimmedMean"]
 aggregation_list = ["Sentinel"]
 basic_config["sentinel_loss_threshold"] = 0.1
 

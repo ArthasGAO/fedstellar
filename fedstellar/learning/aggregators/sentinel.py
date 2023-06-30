@@ -23,10 +23,10 @@ def filter_models_by_cosine(models: Dict, threshold: float) -> Dict:
     for node, msg in models.items():
         params = msg[0]
         metrics: ModelMetrics = msg[1]
-        if metrics.cosine_similarity > threshold:
-            filtered[node] = msg
-        else:
+        if metrics.cosine_similarity < threshold:
             logging.info("[Sentinel] Filtering model due to low cos similarity {}".format(node))
+        else:
+            filtered[node] = msg
     return filtered
 
 
@@ -74,34 +74,33 @@ class Sentinel(Aggregator):
 
         logging.info("[Sentinel.add_model] Computing metrics for node(s): {}".format(nodes))
 
+        # Cosine Similarity
         model_params = model
-
-        tmp_model = copy.deepcopy(self.learner.latest_model)
-        tmp_model.load_state_dict(model_params)
-        val_loss, val_acc = self.learner.validate_neighbour_no_pl2(tmp_model)
-        tmp_model = None
-        # -> with validate_neighbour_pl:
-        # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
-
-        if nodes is not None:
-            for node in nodes:
-                mapping = {f'val_loss_{node}': val_loss}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
-
         local_params = self.learner.get_parameters()
         cos_similarity: float = cosine_similarity(local_params, model_params)
-
         if nodes is not None:
             for node in nodes:
                 mapping = {f'cos_{node}': cos_similarity}
                 self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
+        # Loss
+        if cos_similarity < COSINE_FILTER_THRESHOLD:
+            val_loss = float('inf')
+            val_acc = float(0)
+        else:
+            tmp_model = copy.deepcopy(self.learner.latest_model)
+            tmp_model.load_state_dict(model_params)
+            val_loss, val_acc = self.learner.validate_neighbour_no_pl2(tmp_model)
+            tmp_model = None
+            if nodes is not None:
+                for node in nodes:
+                    mapping = {f'val_loss_{node}': val_loss}
+                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
         metrics.cosine_similarity = cos_similarity
         metrics.validation_loss = val_loss
         metrics.validation_accuracy = val_acc
-
         logging.info("[Sentinel.add_model] Computed metrics for node(s): {}: --> {}".format(nodes, metrics))
-
         super().add_model(model=model, nodes=nodes, metrics=metrics)
 
     def get_mapped_avg_loss(self, node_key: str, loss: float, my_loss: float, threshold: float) -> float:
@@ -126,17 +125,7 @@ class Sentinel(Aggregator):
 
     def aggregate(self, models):
 
-        # logging.info("Current logger step: {}".format(self.logger.global_step))
-        # logging.info("Current learner step: {}".format(self.learner.logger.global_step))
-
-        """
-         Krum selects one of the m local models that is similar to other models
-         as the global model, the Euclidean distance between two local models is used.
-
-         Args:
-             models: Dictionary with the models (node: model,num_samples).
-         """
-        # Check if there are models to aggregate
+        logging.info("[Sentinel]: Aggregation round {}".format(self.agg_round))
 
         if len(models) == 0:
             logging.warning("[Sentinel] Trying to aggregate models when there is no models")
@@ -153,7 +142,7 @@ class Sentinel(Aggregator):
         malicous_by_cosine = models.keys() - filtered_models.keys()
         if len(filtered_models) == 0:
             logging.warning("Sentinel: No more models to aggregate after filtering!")
-            return None
+            return models.get(self.node_name)[0]
         for node_key in malicous_by_cosine:
             mapping = {f'agg_weight_{node_key}': 0}
             self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
@@ -169,17 +158,17 @@ class Sentinel(Aggregator):
             loss[node_key] = metrics.validation_loss
             mapped_loss[node_key] = self.get_mapped_avg_loss(node_key, metrics.validation_loss, my_loss, self.loss_dist_threshold)
             cos[node_key] = metrics.cosine_similarity
-        malicous_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
+        malicious_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
 
         logging.info("[Sentinel]: Loss metrics: {}".format(loss))
         logging.info("[Sentinel]: Loss mapped metrics: {}".format(mapped_loss))
         logging.info("[Sentinel]: Cos metrics: {}".format(cos))
 
         # Step 3: Normalise the remaining (filtered) untrusted models
-        untrusted_models = {k: filtered_models[k] for k in filtered_models.keys() - {self.node_name}}
+        models_to_aggregate = {k: filtered_models[k] for k in filtered_models.keys() - {self.node_name}}
         normalised_models = {}
-        for key in untrusted_models.keys():
-            normalised_models[key] = normalise_layers(untrusted_models[key], my_model)
+        for key in models_to_aggregate.keys():
+            normalised_models[key] = normalise_layers(models_to_aggregate[key], my_model)
         normalised_models[self.node_name] = my_model
 
         # Create a Zero Model
@@ -202,7 +191,7 @@ class Sentinel(Aggregator):
         for layer in accum:
             accum[layer] = accum[layer] / total_mapped_loss
 
-        malicious = malicous_by_cosine.union(malicous_by_loss)
+        malicious = malicous_by_cosine.union(malicious_by_loss)
         logging.info("Sentinel: Tagged as malicious: {}".format(list(malicious)))
 
         return accum

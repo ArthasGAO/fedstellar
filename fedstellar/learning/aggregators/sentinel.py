@@ -1,31 +1,21 @@
 # 
 # This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
-# 
-
-
-import logging
-import math
-import pickle
-import copy
-import time
-import wandb
-
-import torch
-from statistics import mean
-
-from typing import List, Dict, OrderedDict, Optional
-
-from pytorch_lightning.loggers import wandb
-
+#
 from fedstellar.learning.aggregators.aggregator import Aggregator
 from fedstellar.learning.aggregators.helper import cosine_similarity
 from fedstellar.learning.modelmetrics import ModelMetrics
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
 from fedstellar.learning.aggregators.helper import normalise_layers
+from statistics import mean
+from typing import List, Dict, OrderedDict, Set
+import logging
+import math
+import copy
+import torch
 
-MIN_MAPPED_LOSS = float(0.01)
 COSINE_FILTER_THRESHOLD = float(0.5)
+MIN_LOSS = float(0.001)
 
 
 def filter_models_by_cosine(models: Dict, threshold: float) -> Dict:
@@ -40,33 +30,18 @@ def filter_models_by_cosine(models: Dict, threshold: float) -> Dict:
     return filtered
 
 
-# hoooold the dooor
-def map_loss(loss) -> float:
-    mapped_loss = math.exp(-loss)
-    if (math.isnan(mapped_loss)) | (mapped_loss < MIN_MAPPED_LOSS):
-        # logging.error("[Sentinel] Mapped loss is invalid! Return small value instead")
-        return float(MIN_MAPPED_LOSS)
-    return mapped_loss
-
-
+"""
 # maps loss of neighbours relative distance to reference model
 # inverse own loss serves as damping factors to allow more aggregation in early FL rounds
-def map_loss_distance(loss: float, my_loss: float) -> float:
-    loss_dist = loss - my_loss
+def map_loss_distance(loss: float, my_loss: float, threshold: float) -> float:
     # prevent division by zero
-    if my_loss <= MIN_MAPPED_LOSS:
-        my_loss = MIN_MAPPED_LOSS
-    k = 1 / my_loss
+    k = 1 / max(MIN_LOSS, my_loss)
+    loss_dist = max(loss - my_loss, 0)
     mapped_distance_loss = math.exp(-k * loss_dist)
-    if (math.isnan(mapped_distance_loss)) | (mapped_distance_loss < MIN_MAPPED_LOSS):
-        # logging.error("[Sentinel] Mapped loss is invalid! Return small value instead")
+    if (mapped_distance_loss < threshold) | (math.isnan(mapped_distance_loss)):
         return float(0)
     return mapped_distance_loss
-
-
-# boy gets flipped by label-flip
-def map_loss2(loss) -> float:
-    return 1 / (abs(loss) + 1)
+"""
 
 
 class Sentinel(Aggregator):
@@ -75,13 +50,25 @@ class Sentinel(Aggregator):
         Custom aggregation method based on cosine similarity, loss distance and normalisation.
     """
 
-    def __init__(self, node_name="unknown", config=None, logger=None, learner=None, agg_round=0):
+    def __init__(self, node_name="unknown",
+                 config=None,
+                 logger=None,
+                 learner=None,
+                 agg_round=0,
+                 loss_distance_threshold=0.1,
+                 loss_history=None
+                 ):
         super().__init__(node_name, config, logger, learner, agg_round)
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
-        logging.info("[Sentinel] My config is {}".format(self.config))
         self.logger = logger
         self.learner: LightningLearner = learner
+        self.loss_dist_threshold = loss_distance_threshold
+        self.loss_history: Dict[str, list] = loss_history or {}
+
+        logging.info("[Sentinel] My config is {}".format(self.config))
+        logging.info("[Sentinel] My loss distance threshold is {}".format(self.loss_dist_threshold))
+        logging.info("[Sentinel] My current loss history is {}:".format(self.loss_history))
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
 
@@ -98,18 +85,16 @@ class Sentinel(Aggregator):
 
         if nodes is not None:
             for node in nodes:
-                if node != self.node_name:
-                    mapping = {f'val_loss_{node}': val_loss}
-                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+                mapping = {f'val_loss_{node}': val_loss}
+                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         local_params = self.learner.get_parameters()
         cos_similarity: float = cosine_similarity(local_params, model_params)
 
         if nodes is not None:
             for node in nodes:
-                if node != self.node_name:
-                    mapping = {f'cos_{node}': cos_similarity}
-                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+                mapping = {f'cos_{node}': cos_similarity}
+                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         metrics.cosine_similarity = cos_similarity
         metrics.validation_loss = val_loss
@@ -118,6 +103,26 @@ class Sentinel(Aggregator):
         logging.info("[Sentinel.add_model] Computed metrics for node(s): {}: --> {}".format(nodes, metrics))
 
         super().add_model(model=model, nodes=nodes, metrics=metrics)
+
+    def get_mapped_avg_loss(self, node_key: str, loss: float, my_loss: float, threshold: float) -> float:
+        # calculate next average loss
+        prev_loss_hist: list = self.loss_history.get(node_key, [])
+        prev_loss_hist.append(loss)
+        self.loss_history[node_key] = prev_loss_hist
+        avg_loss = mean(prev_loss_hist)
+        mapping = {f'avg_loss_{node_key}': avg_loss}
+        self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
+        # fallback to current loss
+        local_loss_hist = self.loss_history.get(self.node_name, [loss])
+        avg_local_loss = mean(local_loss_hist)
+
+        k = 1 / max(MIN_LOSS, avg_local_loss)
+        loss_dist = max(avg_loss - avg_local_loss, 0)
+        mapped_distance_loss = math.exp(-k * loss_dist)
+        if (mapped_distance_loss < threshold) | (math.isnan(mapped_distance_loss)):
+            return float(0)
+        return mapped_distance_loss
 
     def aggregate(self, models):
 
@@ -158,14 +163,14 @@ class Sentinel(Aggregator):
         loss: Dict = {}
         mapped_loss: Dict = {}
         cos: Dict = {}
-        for node, msg in filtered_models.items():
+        for node_key, msg in filtered_models.items():
             params = msg[0]
             metrics: ModelMetrics = msg[1]
-            loss[node] = metrics.validation_loss
-            mapped_loss[node] = map_loss_distance(metrics.validation_loss, my_loss)
-            cos[node] = metrics.cosine_similarity
+            loss[node_key] = metrics.validation_loss
+            mapped_loss[node_key] = self.get_mapped_avg_loss(node_key, metrics.validation_loss, my_loss, self.loss_dist_threshold)
+            cos[node_key] = metrics.cosine_similarity
         malicous_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
-        
+
         logging.info("[Sentinel]: Loss metrics: {}".format(loss))
         logging.info("[Sentinel]: Loss mapped metrics: {}".format(mapped_loss))
         logging.info("[Sentinel]: Cos metrics: {}".format(cos))
@@ -189,7 +194,8 @@ class Sentinel(Aggregator):
             client_model = message[0]
             for layer in client_model:
                 accum[layer] = accum[layer] + client_model[layer] * mapped_loss[node]
-                mapping = {f'agg_weight_{node}': mapped_loss[node] / total_mapped_loss}
+                mapping = {f'agg_weight_{node}': mapped_loss[node] / total_mapped_loss,
+                           f'mapped_loss_{node}': mapped_loss[node]}
                 self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         # Normalize accumulated model wrt loss
@@ -201,3 +207,18 @@ class Sentinel(Aggregator):
 
         return accum
 
+    def clear(self):
+        """
+        Clear all for a new aggregation.
+        """
+        observers = self.get_observers()
+        next_round = self.agg_round + 1
+        self.__init__(node_name=self.node_name,
+                      config=self.config,
+                      logger=self.logger,
+                      learner=self.learner,
+                      agg_round=next_round,
+                      loss_distance_threshold=self.loss_dist_threshold,
+                      loss_history=self.loss_history)
+        for o in observers:
+            self.add_observer(o)

@@ -34,7 +34,7 @@ class DataModule(LightningDataModule):
             sub_id=0,
             number_sub=1,
             batch_size=32,
-            num_workers=6, # 12 is too much (out of memory)
+            num_workers=6,  # 12 is too much (out of memory)
             val_percent=0.1,
             label_flipping=False,
             data_poisoning=False,
@@ -158,9 +158,9 @@ class DataModule(LightningDataModule):
             shuffle=False,
         )
         random_sampler = RandomSampler(
-            data_source = data_val,
-            replacement = False,
-            num_samples = 100
+            data_source=data_val,
+            replacement=False,
+            num_samples=500
         )
         self.bootstrap_loader = DataLoader(
             data_val,

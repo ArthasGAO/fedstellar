@@ -45,10 +45,11 @@ def generate_plot():
 
     benign = fixed_data[fixed_data['adversarial_args.attacks'] == 'No Attack']
     df_unfinished = fixed_data[fixed_data['Round'] != 10]
+    """
     if len(df_unfinished) > 0:
         print(df_unfinished)
         exit(0)
-
+    """
     mean_benign = pd.pivot_table(benign, index=["aggregator_args.algorithm",
                                                 "adversarial_args.attack_env.attack",
                                                 "adversarial_args.attack_env.poisoned_node_percent",
@@ -58,10 +59,12 @@ def generate_plot():
     mean_benign = mean_benign.reset_index()
     num_attack_configs = len(mean_benign.index)
 
+    """
     if attack_name == 'model_poison':
         assert num_attack_configs == 15
     else:
         assert num_attack_configs == 45
+    """
 
     # Generate Overview Tables
     mean_benign_copy = mean_benign.rename(columns={"adversarial_args.attack_env.poisoned_node_percent": "PNR",
@@ -74,7 +77,7 @@ def generate_plot():
         overview_mean_style.highlight_max(props='font-weight: bold')
     else:
         overview_mean_style.highlight_min(props='font-weight: bold')
-    overview_error_style = overview_error.style.set_caption(f'{agg_error.capitalize()} {metric}\n')
+    overview_error_style = overview_error.style.set_caption(f'{agg_error.upper()} {metric}\n')
     overview_error_style.highlight_max(props='font-weight: bold')
     mean_file_name = f'{prefix}-mean_overview.png'
     error_file_name = f'{prefix}-error_overview.png'
@@ -90,19 +93,19 @@ def generate_plot():
                                                       y_err=(agg_error, metric),
                                                       plt_title=plt_title)
         if attack_name != 'model_poison':
-            plt.title(f'PSR: {percent}', fontsize=10)
+            plt.title(f'{dataset.upper()}, PSR: {percent}', fontsize=10)
         else:
-            plt.title(f'Noise Type: salt', fontsize=10)
+            plt.title(f'{dataset.upper()}, Noise Type: salt', fontsize=10)
         file_name = f'{prefix}-{percent}.png'
         plt.savefig(os.path.join(save_path, file_name))
 
 
-data_file = "wandb_export_2023-06-15_mnist_sp_targeted.csv"
+data_file = "wandb_export_2023-06-27_fmnist_lf-untargeted.csv"
 
 splt = data_file.split("_")
 
-dataset = "mnist"
-attack_name = "sample_poison"
+dataset = "fmnist"
+attack_name = "label_flipping_untargeted"
 agg_error = 'sem'  # lowercase
 
 generate_plot()

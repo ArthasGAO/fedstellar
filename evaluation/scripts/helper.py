@@ -28,7 +28,7 @@ def get_plot_by_node_percent(data=None, fig=None, y_col=None, y_err=None, plt_ti
                               capsize=4,
                               label=aggregator,
                               ax=ax)
-    plt.ylim(-0.1, 1)
+    plt.ylim(-0.05, 1.05)
     # Set legend
     plt.legend(fontsize=10)
     # Set grid

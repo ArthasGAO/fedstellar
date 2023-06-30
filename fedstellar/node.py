@@ -143,13 +143,14 @@ class Node(BaseNode):
         if self.config.participant['tracking_args']['enable_remote_tracking']:
             logging.info("[NODE] Tracking W&B enabled")
             logging.getLogger("wandb").setLevel(logging.ERROR)
+            wandb_project = self.config.participant['tracking_args']['wandb_project']
             if self.hostdemo:
-                wandblogger = FedstellarWBLogger(project="fedstellar-beast",
+                wandblogger = FedstellarWBLogger(project=wandb_project,
                                                  group=self.experiment_name,
                                                  name=f"participant_{self.idx}",
                                                  config=self.config.participant)
             else:
-                wandblogger = FedstellarWBLogger(project="fedstellar-beast",
+                wandblogger = FedstellarWBLogger(project=wandb_project,
                                                  group=self.experiment_name,
                                                  name=f"participant_{self.idx}",
                                                  config=self.config.participant)
@@ -194,11 +195,14 @@ class Node(BaseNode):
         elif self.config.participant["aggregator_args"]["algorithm"] == "Sentinel":
             self.aggregator = Sentinel(node_name=self.get_name(),
                                        config=self.config,
-                                       learner=self.learner)
+                                       learner=self.learner,
+                                       loss_distance_threshold=config.participant["aggregator_args"]["sentinel_loss_threshold"]
+                                       )
         elif self.config.participant["aggregator_args"]["algorithm"] == "SentinelGlobal":
             self.aggregator = SentinelGlobal(node_name=self.get_name(),
                                              config=self.config,
                                              learner=self.learner,
+                                             loss_distance_threshold=config.participant["aggregator_args"]["sentinel_loss_threshold"],
                                              global_trust={},
                                              active_round=3,
                                              )

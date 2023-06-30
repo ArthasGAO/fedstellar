@@ -105,6 +105,8 @@ basic_config["logs"] = logs_path
 basic_config["models"] = models_path
 
 basic_config["remote_tracking"] = True
+basic_config["remote_tracking"] = False
+basic_config["wandb_project"] = "fedstellar"
 
 """
 MacOS
@@ -134,7 +136,7 @@ basic_config["targeted"] = True
 basic_config["target_label"] = 3
 basic_config["target_changed_label"] = 7
 
-basic_config["n_nodes"] = 10
+basic_config["n_nodes"] = 5
 basic_config["rounds"] = 10
 basic_config["epochs"] = 3
 
@@ -142,17 +144,17 @@ basic_config["noise_type"] = "salt"
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
 attack = attack_list[2]
 
-poisoned_node_percent_list = [50]
+poisoned_node_percent_list = [60]
 # poisoned_node_percent_list = [0]
-poisoned_sample_percent_list = [50]
+poisoned_sample_percent_list = [100]
 # poisoned_ratio_list = [1, 10, 20]
 poisoned_ratio_list = [0]
 
 aggregation_list = ["Krum", "FedAvg", "TrimmedMean", "FlTrust", "Sentinel", "SentinelGlobal"]
 # aggregation_list = ["FedAvg", "TrimmedMean", "FlTrust"]
 # aggregation_list = ["TrimmedMean"]
-aggregation_list = ["SentinelGlobal"]
-
+aggregation_list = ["Sentinel"]
+basic_config["sentinel_loss_threshold"] = 0.1
 
 N_EXPERIMENTS = 1
 EXPERIMENT_WAIT_SEC = 60 + 10 * basic_config["epochs"] * basic_config["rounds"]

@@ -86,7 +86,7 @@ class BaseNode(threading.Thread, Observer):
         console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler = self.setup_logging(
             self.log_filename)
 
-        level = logging.DEBUG if config.participant["scenario_args"]["debug"] else logging.WARNING
+        level = logging.DEBUG if config.participant["scenario_args"]["debug"] else logging.CRITICAL
         logging.basicConfig(level=level,
                             handlers=[
                                 console_handler,
@@ -128,21 +128,21 @@ class BaseNode(threading.Thread, Observer):
         log_console_format = f"{CYAN}[%(levelname)s] - %(asctime)s - {self.get_name_demo()}{RESET}\n%(message)s" if self.hostdemo else f"{CYAN}[%(levelname)s] - %(asctime)s - {self.get_name()}{RESET}\n%(message)s"
 
         console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
+        console_handler.setLevel(logging.INFO if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
         console_handler.setFormatter(Formatter(log_console_format))
 
         file_handler = FileHandler('{}.log'.format(log_dir), mode='w')
-        file_handler.setLevel(logging.INFO)
+        console_handler.setLevel(logging.INFO if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
         file_handler.setFormatter(Formatter(info_file_format))
 
         file_handler_only_debug = FileHandler('{}_debug.log'.format(log_dir), mode='w')
-        file_handler_only_debug.setLevel(logging.DEBUG)
+        console_handler.setLevel(logging.INFO if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
         # Add filter to file_handler_only_debug for only add debug messages
         file_handler_only_debug.addFilter(lambda record: record.levelno == logging.DEBUG)
         file_handler_only_debug.setFormatter(Formatter(debug_file_format))
 
         exp_errors_file_handler = FileHandler('{}_error.log'.format(log_dir), mode='w')
-        exp_errors_file_handler.setLevel(logging.WARNING)
+        console_handler.setLevel(logging.INFO if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
         exp_errors_file_handler.setFormatter(Formatter(debug_file_format))
 
         return console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler

@@ -180,6 +180,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
             role = "trainer"
 
         participant_config["device_args"]["role"] = role
+        participant_config["device_args"]["logging"] = basic_config["logging"]
 
         # The following parameters have to be same for all nodes (for now)
         participant_config["scenario_args"]["rounds"] = int(basic_config["rounds"])
@@ -187,6 +188,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
 
         # Logging configuration
         participant_config['tracking_args']['enable_remote_tracking'] = basic_config["remote_tracking"]
+        participant_config['tracking_args']["wandb_project"] = basic_config["wandb_project"]
 
         participant_config["data_args"]["dataset"] = basic_config["dataset"]
         participant_config["data_args"]["is_iid"] = basic_config["is_iid"]
@@ -194,6 +196,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["training_args"]["epochs"] = int(basic_config["epochs"])
         participant_config["device_args"]["accelerator"] = basic_config["accelerator"]  # same for all nodes
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
+        participant_config["aggregator_args"]["sentinel_loss_threshold"] = basic_config["sentinel_loss_threshold"]
         participant_config["adversarial_args"]["poisoned_node_percent"] = int(basic_config["poisoned_node_percent"])
         participant_config["adversarial_args"]["targeted"] = basic_config["targeted"]
         participant_config["adversarial_args"]["noise_type"] = basic_config["noise_type"]

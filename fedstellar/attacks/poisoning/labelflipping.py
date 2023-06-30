@@ -13,15 +13,14 @@ def labelFlipping(dataset, indices, poisoned_percent=0, targeted=False, target_l
         flipping_percent: The ratio of labels want to change, float like.
     """
     new_dataset = copy.deepcopy(dataset)
-    if type(new_dataset.targets) == torch.Tensor:
-        targets = new_dataset.targets.detach().clone()
-    else:
-        targets = new_dataset.targets
+
+    targets = torch.tensor(new_dataset.targets).detach().clone()
+    class_list = set(torch.tensor(targets).tolist())
     num_indices = len(indices)
     # classes = new_dataset.classes
     # class_to_idx = new_dataset.class_to_idx
     # class_list = [class_to_idx[i] for i in classes]
-    class_list = set(targets.tolist())
+
     if targeted == False:
         print("[labelFlipping]: Untargeted label-flipping!")
         num_flipped = int(poisoned_percent * num_indices)

@@ -105,8 +105,8 @@ basic_config["logs"] = logs_path
 basic_config["models"] = models_path
 
 basic_config["remote_tracking"] = True
-basic_config["logging"] = True
-basic_config["wandb_project"] = "fedstellar"
+basic_config["logging"] = False
+basic_config["wandb_project"] = "fedstellar-murcia"
 
 """
 MacOS
@@ -125,8 +125,9 @@ Windows
 basic_config["federation"] = "DFL"
 basic_config["topology"] = "fully"
 basic_config["is_iid"] = True
-basic_config["dataset"] = "MNIST"
-basic_config["model"] = "MLP"
+basic_config["dataset"] = "CIFAR10" # MNIST, FASHIONMNIST, CIFAR10
+basic_config["model"] = "fastermobilenet"
+basic_config["accelerator"] = "gpu"
 
 basic_config["poisoned_node_percent"] = 0
 basic_config["poisoned_sample_percent"] = 0
@@ -137,25 +138,31 @@ basic_config["target_label"] = 3
 basic_config["target_changed_label"] = 7
 
 basic_config["n_nodes"] = 5
-basic_config["rounds"] = 5
-basic_config["epochs"] = 1
+basic_config["rounds"] = 10
+basic_config["epochs"] = 5
 
 basic_config["noise_type"] = "salt"
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
 attack = attack_list[0]
 
-poisoned_node_percent_list = [0]
-poisoned_node_percent_list = [0]
-poisoned_sample_percent_list = [100]
+poisoned_node_percent_list = [80, 50, 10]
+# poisoned_node_percent_list = [10]
+poisoned_sample_percent_list = [100, 50, 30]
+# poisoned_sample_percent_list = [100]
 # poisoned_ratio_list = [1, 10, 20]
-poisoned_ratio_list = [0]
+poisoned_ratio_list = [80]
 
 aggregation_list = ["Krum", "FedAvg", "TrimmedMean", "FlTrust", "Sentinel", "SentinelGlobal"]
-aggregation_list = ["Sentinel"]
+# aggregation_list = ["FedAvg", "TrimmedMean", "FlTrust"]
+# aggregation_list = ["TrimmedMean"]
+aggregation_list = ["FlTrust"]
 basic_config["sentinel_loss_threshold"] = 0.1
 
 N_EXPERIMENTS = 1
-EXPERIMENT_WAIT_SEC = 60 + 10 * basic_config["epochs"] * basic_config["rounds"]
+if basic_config["accelerator"] == "gpu":
+    EXPERIMENT_WAIT_SEC = 60 + 10 * basic_config["rounds"]
+else:
+    EXPERIMENT_WAIT_SEC = 60 + 10 * basic_config["epochs"] * basic_config["rounds"]
 
 
 if attack == "No Attack":

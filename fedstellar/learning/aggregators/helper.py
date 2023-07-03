@@ -12,8 +12,8 @@ def cosine_similarity(trusted_model: OrderedDict, untrusted_model: OrderedDict) 
     layer_similarities: List = []
 
     for layer in trusted_model:
-        l1 = trusted_model[layer]
-        l2 = untrusted_model[layer]
+        l1 = trusted_model[layer].to('cpu')
+        l2 = untrusted_model[layer].to('cpu')
         cos = torch.nn.CosineSimilarity(dim=l1.dim() - 1)
         cos_mean = torch.mean(cos(l1.float(), l2.float())).mean()
         layer_similarities.append(cos_mean)

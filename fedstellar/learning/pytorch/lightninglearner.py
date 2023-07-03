@@ -301,7 +301,9 @@ class LightningLearner(NodeLearner):
 
         # enable evaluation mode, prevent memory leaks.
         # no need to switch back to training since model is not further used.
+        neighbour_model = neighbour_model.to('cpu')
         neighbour_model.eval()
+
 
         with torch.no_grad():
             for inputs, labels in bootstrap_dataloader:

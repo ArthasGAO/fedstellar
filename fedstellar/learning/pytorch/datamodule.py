@@ -159,7 +159,7 @@ class DataModule(LightningDataModule):
         random_sampler = RandomSampler(
             data_source=data_val,
             replacement=False,
-            num_samples=max(int(len(data_val)/2), 300)
+            num_samples=max(int(len(data_val)/3), 300)
         )
         self.bootstrap_loader = DataLoader(
             data_val,

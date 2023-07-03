@@ -201,8 +201,7 @@ class Aggregator(threading.Thread, Observable):
         logging.info("[Aggregator.broadcast_local_model]. Partial aggregation: only local model")
         for node, (model, metrics) in list(self._models.items()):
             if node == self.node_name:
-                return model, [node], ModelMetrics(
-                    num_samples=metrics.num_samples)
+                return model, [node], ModelMetrics(num_samples=metrics.num_samples)
         return None
 
     def get_full_aggregation(self):

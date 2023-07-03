@@ -25,7 +25,6 @@ from matplotlib import pyplot as plt
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
 from torch.nn import functional as F
-from torchmetrics import Accuracy
 
 torch.set_float32_matmul_precision('medium')
 
@@ -69,8 +68,7 @@ class LightningLearner(NodeLearner):
         logging.info(torch.__config__.show())
         """
         # num_gpu = torch.cuda.device_count()
-        self.gpu_index = random.randint(0,1)
-
+        self.gpu_index = random.randint(0, 1)
 
     def set_model(self, model):
         self.model = model
@@ -124,7 +122,7 @@ class LightningLearner(NodeLearner):
         self.epochs = epochs
 
     def fit(self):
-        begin = time.time()       
+        begin = time.time()
         try:
             if self.epochs > 0:
                 self.create_trainer()
@@ -157,22 +155,6 @@ class LightningLearner(NodeLearner):
         except Exception as e:
             logging.error("[NodeLearner.evaluate] Something went wrong with pytorch lightning. {}".format(e))
             return None
-
-    """
-    def predict(self):
-        try:
-            if self.epochs > 0:
-                self.create_trainer()
-                predictions = self.__trainer.predict(self.model, self.data)
-                return predictions
-        except Exception as e:
-            logging.error("[NodeLearner.predict] Something went wrong with pytorch lightning. {}".format(e))
-            return None
-    """
-
-    """
-        Source: https://github.com/rasbt/stat453-deep-learning-ss21/blob/main/L14/helper_evaluation.py
-    """
 
     def compute_confusion_matrix(self, node_name: str, backdoor: bool = False):
         model = copy.deepcopy(self.model)
@@ -278,7 +260,8 @@ class LightningLearner(NodeLearner):
         pass
 
     def create_trainer(self):
-        logging.info("[Learner] Creating trainer with accelerator: {}".format(self.config.participant["device_args"]["accelerator"]))
+        logging.info("[Learner] Creating trainer with accelerator: {}".format(
+            self.config.participant["device_args"]["accelerator"]))
         progress_bar = RichProgressBar(
             theme=RichProgressBarTheme(
                 description="green_yellow",
@@ -297,7 +280,8 @@ class LightningLearner(NodeLearner):
             callbacks=[RichModelSummary(max_depth=1), progress_bar],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",  # TODO: only one GPU for now
+            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",
+            # TODO: only one GPU for now
             # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=self.logger,
@@ -306,23 +290,49 @@ class LightningLearner(NodeLearner):
             enable_model_summary=False,
             enable_progress_bar=True
         )
-        logging.info("[Learner] Number of CPUs used by pl.Trainer: {}/{}".format(self.__trainer.num_devices, os.cpu_count()))
+        logging.info(
+            "[Learner] Number of CPUs used by pl.Trainer: {}/{}".format(self.__trainer.num_devices, os.cpu_count()))
 
+    def validate_neighbour_no_pl2(self, neighbour_model):
+        avg_loss = 0
+        running_loss = 0
+        bootstrap_dataloader = self.data.bootstrap_dataloader()
+        num_samples = 0
 
+        # enable evaluation mode, prevent memory leaks.
+        # no need to switch back to training since model is not further used.
+        neighbour_model.eval()
+
+        with torch.no_grad():
+            for inputs, labels in bootstrap_dataloader:
+                outputs = neighbour_model(inputs)
+                loss = F.cross_entropy(outputs, labels)
+                running_loss += loss.item()
+                num_samples += inputs.size(0)
+
+        avg_loss = running_loss / len(bootstrap_dataloader)
+        logging.debug("[Learner.validate_neighbour]: Computed neighbor loss over {} data samples".format(num_samples))
+        val_acc = 0
+        return avg_loss, val_acc
+
+    """
     def create_trainer_no_logging(self):
-        #logging.info("[Learner] Creating trainer (logger disabled) with accelerator: {}".format( self.config.participant["device_args"]["accelerator"]))
+        # logging.info("[Learner] Creating trainer (logger disabled) with accelerator: {}".format( self.config.participant["device_args"]["accelerator"]))
         self.__trainer = Trainer(
             callbacks=[ModelSummary(max_depth=1)],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            devices=self.config.participant["device_args"]["devices"] if self.config.participant["device_args"]["accelerator"] != "cpu" else None,
+            devices=self.config.participant["device_args"]["devices"] if self.config.participant["device_args"][
+                                                                             "accelerator"] != "cpu" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=False,
             enable_checkpointing=False,
             enable_model_summary=False,
             enable_progress_bar=False,
         )
+    """
 
+    """
     def validate_neighbour(self):
         try:
             if self.epochs > 0:
@@ -337,7 +347,10 @@ class LightningLearner(NodeLearner):
         except Exception as e:
             logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}".format(e))
             return None, None
+    """
 
+    """
+    @deprecated
     def validate_neighbour_no_pl(self, neighbour_model):
         # the standard PL (pytorch lightning) validation approach seems to break in multithreaded, thus workaround
         avg_loss = 0
@@ -356,65 +369,4 @@ class LightningLearner(NodeLearner):
         logging.debug("[Learner.validate_neighbour]: Computed neighbor loss over {} data samples".format(num_samples))
         val_acc = 0
         return avg_loss, val_acc
-    
-    def validate_neighbour_no_pl2(self, neighbour_model):
-        avg_loss = 0
-        running_loss = 0
-        bootstrap_dataloader = self.data.bootstrap_dataloader()
-        num_samples = 0
-
-        # enable evaluation mode, prevent memory leaks. 
-        # no need to switch back to training since model is not further used.
-        neighbour_model.eval()
-
-        with torch.no_grad():
-            for inputs, labels in bootstrap_dataloader:
-                outputs = neighbour_model(inputs)
-                loss = F.cross_entropy(outputs, labels)
-                running_loss += loss.item()
-                num_samples += inputs.size(0)
-
-        avg_loss = running_loss / len(bootstrap_dataloader)
-        logging.debug("[Learner.validate_neighbour]: Computed neighbor loss over {} data samples".format(num_samples))
-        val_acc = 0
-        return avg_loss, val_acc
-
-    def validate_neighbour_pl(self, neighbour_model):
-        try:
-            # performing a deepcopy on the model creates errors with weak dependencies
-            logging.info("[Learner] Creating trainer with accelerator: {}".format(
-                self.config.participant["device_args"]["accelerator"]))
-            progress_bar = RichProgressBar(
-                theme=RichProgressBarTheme(
-                    description="green_yellow",
-                    progress_bar="green1",
-                    progress_bar_finished="green1",
-                    progress_bar_pulse="#6206E0",
-                    batch_progress="green_yellow",
-                    time="grey82",
-                    processing_speed="grey82",
-                    metrics="grey82",
-                ),
-                leave=True,
-            )
-            tmp_trainer = Trainer(
-                callbacks=[RichModelSummary(max_depth=1), progress_bar],
-                max_epochs=self.epochs,
-                accelerator=self.config.participant["device_args"]["accelerator"],
-                devices="cpu",
-                # TODO: only one GPU for now
-                # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
-                # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
-                logger=self.logger,
-                log_every_n_steps=20,
-                enable_checkpointing=False,
-                enable_model_summary=False,
-                enable_progress_bar=True)
-            results = tmp_trainer.validate(neighbour_model, self.data, verbose=True)
-            loss = results[0]["Validation/Loss"]
-            metric = results[0]["Validation/Accuracy"]
-            return loss, metric
-        except Exception as e:
-            logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}, {}"
-                          .format(e, traceback.format_exc()))
-            raise e
+    """

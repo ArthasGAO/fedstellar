@@ -64,8 +64,12 @@ class LightningLearner(NodeLearner):
 
         self.logger.log_metrics({"Round": self.round}, step=self.logger.global_step)
 
+        """
         logging.info((subprocess.check_output("lscpu", shell=True).strip()).decode())
         logging.info(torch.__config__.show())
+        """
+        # num_gpu = torch.cuda.device_count()
+        self.gpu_index = random.randint(0,1)
 
 
     def set_model(self, model):
@@ -289,13 +293,11 @@ class LightningLearner(NodeLearner):
             leave=False,
         )
 
-        num_gpu = torch.cuda.device_count()
-        random_gpu = random.randint(0, num_gpu)
         self.__trainer = Trainer(
             callbacks=[RichModelSummary(max_depth=1), progress_bar],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else [random_gpu],  # TODO: only one GPU for now
+            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",  # TODO: only one GPU for now
             # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=self.logger,
@@ -313,8 +315,7 @@ class LightningLearner(NodeLearner):
             callbacks=[ModelSummary(max_depth=1)],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            devices=self.config.participant["device_args"]["devices"] if self.config.participant["device_args"][
-                                                                             "accelerator"] != "cpu" else None,
+            devices=self.config.participant["device_args"]["devices"] if self.config.participant["device_args"]["accelerator"] != "cpu" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=False,
             enable_checkpointing=False,
@@ -400,7 +401,7 @@ class LightningLearner(NodeLearner):
                 callbacks=[RichModelSummary(max_depth=1), progress_bar],
                 max_epochs=self.epochs,
                 accelerator=self.config.participant["device_args"]["accelerator"],
-                devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",
+                devices="cpu",
                 # TODO: only one GPU for now
                 # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
                 # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,

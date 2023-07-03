@@ -12,6 +12,7 @@ import pandas as pd
 import seaborn as sns
 from collections import OrderedDict
 import numpy as np
+import random
 from itertools import product
 import torch
 from lightning import Trainer
@@ -25,6 +26,8 @@ from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatching
 from fedstellar.learning.learner import NodeLearner
 from torch.nn import functional as F
 from torchmetrics import Accuracy
+
+torch.set_float32_matmul_precision('medium')
 
 ###########################
 #    LightningLearner     #
@@ -285,11 +288,14 @@ class LightningLearner(NodeLearner):
             ),
             leave=False,
         )
+
+        num_gpu = torch.cuda.device_count()
+        random_gpu = random.randint(0, num_gpu)
         self.__trainer = Trainer(
             callbacks=[RichModelSummary(max_depth=1), progress_bar],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",  # TODO: only one GPU for now
+            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else [random_gpu],  # TODO: only one GPU for now
             # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=self.logger,

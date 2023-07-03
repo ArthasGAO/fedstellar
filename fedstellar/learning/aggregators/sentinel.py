@@ -58,23 +58,23 @@ class Sentinel(Aggregator):
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
 
+        """
         logging.info("[Sentinel.add_model] Computing metrics for node(s): {}".format(nodes))
 
         model_eval, nodes_eval, metrics_eval = self.evaluate_neighbour_model(model, nodes, metrics)
 
         logging.info("[Sentinel.add_model] Computed metrics for node(s): {}: --> {}".format(nodes, metrics))
-        super().add_model(model=model_eval, nodes=nodes_eval, metrics=metrics_eval)
 
-    def evaluate_neighbour_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
+        super().add_model(model=model_eval, nodes=nodes_eval, metrics=metrics_eval)
+        """
+        super().add_model(model=model, nodes=nodes, metrics=metrics)
+
+    def evaluate_neighbour_model(self, model: OrderedDict, node: str, metrics: ModelMetrics):
 
         # Cosine Similarity
         model_params = model
         local_params = self.learner.get_parameters()
         cos_similarity: float = cosine_similarity(local_params, model_params)
-        if nodes is not None:
-            for node in nodes:
-                mapping = {f'cos_{node}': cos_similarity}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         # Loss
         if cos_similarity < COSINE_FILTER_THRESHOLD:
@@ -85,16 +85,17 @@ class Sentinel(Aggregator):
             tmp_model.load_state_dict(model_params)
             val_loss, val_acc = self.learner.validate_neighbour_no_pl2(tmp_model)
             tmp_model = None
-            if nodes is not None:
-                for node in nodes:
-                    mapping = {f'val_loss_{node}': val_loss}
-                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
+        # Log model metrics
+        if node != self.node_name:
+            mapping = {f'val_loss_{node}': val_loss, f'cos_{node}': cos_similarity}
+            self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         metrics.cosine_similarity = cos_similarity
         metrics.validation_loss = val_loss
         metrics.validation_accuracy = val_acc
 
-        return model, nodes, metrics
+        return model, node, metrics
 
     def get_mapped_avg_loss(self, node_key: str, loss: float, my_loss: float, threshold: float) -> float:
         # calculate next average loss
@@ -124,13 +125,12 @@ class Sentinel(Aggregator):
             logging.warning("[Sentinel] Trying to aggregate models when there is no models")
             return None
 
-        # Log model metrics
         for node_key in models.keys():
-            if node_key != self.node_name:
-                metrics: ModelMetrics = models[node_key][1]
-                mapping = {f'val_loss_{node_key}': metrics.validation_loss,
-                           f'cos_{node_key}': metrics.cosine_similarity}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+            model = models[node_key][0]
+            metrics: ModelMetrics = models[node_key][1]
+            # the own local model also requires eval to get loss distance
+            model_eval, nodes_eval, metrics_eval = self.evaluate_neighbour_model(model, node_key, metrics)
+            models[node_key] = (model_eval, metrics_eval)
 
         # The model of the aggregator serves as a trusted reference
         my_model = models.get(self.node_name)  # change

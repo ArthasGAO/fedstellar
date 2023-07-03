@@ -106,7 +106,7 @@ def main():
         else:
             raise ValueError(f"Model {model_name} not supported")
     elif dataset == "SYSCALL":
-        dataset = SYSCALLDataset(sub_id=idx, number_sub=n_nodes, root_dir=f"{sys.path[0]}/data", iid=is_iid)
+        dataset = SYSCALLDataset(sub_id=idx, number_sub=n_nodes, iid=is_iid)
         if model_name == "MLP":
             model = SyscallModelMLP()
         elif model_name == "SVM":

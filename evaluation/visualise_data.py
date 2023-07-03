@@ -103,7 +103,7 @@ def generate_plot(_dataset: str, _attack: str, _agg_error):
     plt.close('all')
 
 def main():
-    datasets = ["mnist", "fmnist"]
+    datasets = ["fmnist"]
     attack_names = ["label_flipping_targeted", "label_flipping_untargeted", "sample_poison", "model_poison"]
     # attack_names = ["model_poison"]
     agg_error = 'sem'  # lowercase

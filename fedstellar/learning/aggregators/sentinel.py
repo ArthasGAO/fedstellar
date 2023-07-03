@@ -30,20 +30,6 @@ def filter_models_by_cosine(models: Dict, threshold: float) -> Dict:
     return filtered
 
 
-"""
-# maps loss of neighbours relative distance to reference model
-# inverse own loss serves as damping factors to allow more aggregation in early FL rounds
-def map_loss_distance(loss: float, my_loss: float, threshold: float) -> float:
-    # prevent division by zero
-    k = 1 / max(MIN_LOSS, my_loss)
-    loss_dist = max(loss - my_loss, 0)
-    mapped_distance_loss = math.exp(-k * loss_dist)
-    if (mapped_distance_loss < threshold) | (math.isnan(mapped_distance_loss)):
-        return float(0)
-    return mapped_distance_loss
-"""
-
-
 class Sentinel(Aggregator):
     """
     Sentinel
@@ -74,6 +60,13 @@ class Sentinel(Aggregator):
 
         logging.info("[Sentinel.add_model] Computing metrics for node(s): {}".format(nodes))
 
+        model_eval, nodes_eval, metrics_eval = self.evaluate_neighbour_model(model, nodes, metrics)
+
+        logging.info("[Sentinel.add_model] Computed metrics for node(s): {}: --> {}".format(nodes, metrics))
+        super().add_model(model=model_eval, nodes=nodes_eval, metrics=metrics_eval)
+
+    def evaluate_neighbour_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
+
         # Cosine Similarity
         model_params = model
         local_params = self.learner.get_parameters()
@@ -100,8 +93,8 @@ class Sentinel(Aggregator):
         metrics.cosine_similarity = cos_similarity
         metrics.validation_loss = val_loss
         metrics.validation_accuracy = val_acc
-        logging.info("[Sentinel.add_model] Computed metrics for node(s): {}: --> {}".format(nodes, metrics))
-        super().add_model(model=model, nodes=nodes, metrics=metrics)
+
+        return model, nodes, metrics
 
     def get_mapped_avg_loss(self, node_key: str, loss: float, my_loss: float, threshold: float) -> float:
         # calculate next average loss
@@ -131,6 +124,14 @@ class Sentinel(Aggregator):
             logging.warning("[Sentinel] Trying to aggregate models when there is no models")
             return None
 
+        # Log model metrics
+        for node_key in models.keys():
+            if node_key != self.node_name:
+                metrics: ModelMetrics = models[node_key][1]
+                mapping = {f'val_loss_{node_key}': metrics.validation_loss,
+                           f'cos_{node_key}': metrics.cosine_similarity}
+                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
         # The model of the aggregator serves as a trusted reference
         my_model = models.get(self.node_name)  # change
         if my_model is None:
@@ -139,11 +140,12 @@ class Sentinel(Aggregator):
 
         # Step 1: Evaluate cosine similarity
         filtered_models = filter_models_by_cosine(models, COSINE_FILTER_THRESHOLD)
-        malicous_by_cosine = models.keys() - filtered_models.keys()
+        malicious_by_cosine = models.keys() - filtered_models.keys()
         if len(filtered_models) == 0:
             logging.warning("Sentinel: No more models to aggregate after filtering!")
             return models.get(self.node_name)[0]
-        for node_key in malicous_by_cosine:
+
+        for node_key in malicious_by_cosine:
             mapping = {f'agg_weight_{node_key}': 0}
             self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
@@ -191,7 +193,7 @@ class Sentinel(Aggregator):
         for layer in accum:
             accum[layer] = accum[layer] / total_mapped_loss
 
-        malicious = malicous_by_cosine.union(malicious_by_loss)
+        malicious = malicious_by_cosine.union(malicious_by_loss)
         logging.info("Sentinel: Tagged as malicious: {}".format(list(malicious)))
 
         return accum

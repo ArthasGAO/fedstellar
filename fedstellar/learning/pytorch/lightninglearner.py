@@ -294,6 +294,7 @@ class LightningLearner(NodeLearner):
             "[Learner] Number of CPUs used by pl.Trainer: {}/{}".format(self.__trainer.num_devices, os.cpu_count()))
 
     def validate_neighbour_no_pl2(self, neighbour_model):
+
         avg_loss = 0
         running_loss = 0
         bootstrap_dataloader = self.data.bootstrap_dataloader()
@@ -301,12 +302,17 @@ class LightningLearner(NodeLearner):
 
         # enable evaluation mode, prevent memory leaks.
         # no need to switch back to training since model is not further used.
-        neighbour_model = neighbour_model.to('cpu')
+        if torch.cuda.is_available():
+            neighbour_model = neighbour_model.to('cuda')
         neighbour_model.eval()
 
+        # bootstrap_dataloader = bootstrap_dataloader.to('cuda')
 
         with torch.no_grad():
             for inputs, labels in bootstrap_dataloader:
+                if torch.cuda.is_available():
+                    inputs = inputs.to('cuda')
+                    labels = labels.to('cuda')
                 outputs = neighbour_model(inputs)
                 loss = F.cross_entropy(outputs, labels)
                 running_loss += loss.item()

@@ -125,6 +125,7 @@ class Sentinel(Aggregator):
             logging.warning("[Sentinel] Trying to aggregate models when there is no models")
             return None
 
+        # Compute metrics
         for node_key in models.keys():
             model = models[node_key][0]
             metrics: ModelMetrics = models[node_key][1]

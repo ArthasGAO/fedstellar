@@ -70,33 +70,59 @@ class SentinelGlobal(Aggregator):
         # logging.info("[SentinelGlobal] My prev global trust is {}".format(self.global_trust[self.agg_round-2]))
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
-        # No contributors (diffusion at Round 0)
 
-        if nodes is None:
-            nodes = []
+        super().add_model(model=model, nodes=nodes, metrics=metrics)
 
-        for node_key in nodes:
-            self.neighbor_keys.add(node_key)
+    def compute_trust(self, model: OrderedDict, node: str, metrics: ModelMetrics):
+        self.neighbor_keys.add(node)
 
-        logging.info("[SentinelGlobal.add_model] Computing metrics for node(s): {}".format(nodes))
-        self.add_neighbour_trust(model, nodes, metrics)
+        logging.info("[SentinelGlobal.add_model] Computing metrics for node(s): {}".format(node))
+        self.add_neighbour_trust(metrics.global_trust)
 
         # Step 0: Check whether the model should be evaluated based on global trust
         if self.agg_round >= self.active_round:
-            for node_key in nodes:
-                avg_global_trust = self.get_trusted_neighbour_opinion(node_key)
-                # Caveat: the node always trusts itself
-                if avg_global_trust < TRUST_THRESHOLD and node_key != self.node_name:
-                    metrics.cosine_similarity = 0  # thereby the model will be removed by cosine filtering
-                    logging.info(
-                        "[SentinelGlobal.add_model] Removing node(s) {} since not trusted".format(node_key))
-                else:
-                    model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
+            avg_global_trust = self.get_trusted_neighbour_opinion(node)
+            # Caveat: the node always trusts itself
+            if avg_global_trust < TRUST_THRESHOLD and node != self.node_name:
+                metrics.cosine_similarity = 0  # thereby the model will be removed by cosine filtering
+                logging.info(
+                    "[SentinelGlobal.add_model] Removing node(s) {} since not trusted".format(node))
+            else:
+                model, node, metrics = self.evaluate_neighbour_model(model, node, metrics)
         else:
-            model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
+            model, node, metrics = self.evaluate_neighbour_model(model, node, metrics)
         # model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
-        super().add_model(model=model, nodes=nodes, metrics=metrics)
+        super().add_model(model=model, nodes=[node], metrics=metrics)
         # logging.info("[SentinelGlobal.add_model] New trust scores: {}".format(self.global_trust))
+
+        return model, node, metrics
+
+    def evaluate_neighbour_model(self, model: OrderedDict, node: str, metrics: ModelMetrics):
+        # Cosine Similarity
+        model_params = model
+        local_params = self.learner.get_parameters()
+        cos_similarity: float = cosine_similarity(local_params, model_params)
+
+        # Loss
+        if cos_similarity < COSINE_FILTER_THRESHOLD:
+            val_loss = float('inf')
+            val_acc = float(0)
+        else:
+            tmp_model = copy.deepcopy(self.learner.latest_model)
+            tmp_model.load_state_dict(model_params)
+            val_loss, val_acc = self.learner.validate_neighbour_no_pl2(tmp_model)
+            tmp_model = None
+
+        # Log model metrics
+        if node != self.node_name:
+            mapping = {f'val_loss_{node}': val_loss, f'cos_{node}': cos_similarity}
+            self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+
+        metrics.cosine_similarity = cos_similarity
+        metrics.validation_loss = val_loss
+        metrics.validation_accuracy = val_acc
+
+        return model, node, metrics
 
     def get_mapped_avg_loss(self, node_key: str, loss: float, my_loss: float, threshold: float) -> float:
         # calculate next average loss
@@ -125,6 +151,14 @@ class SentinelGlobal(Aggregator):
         if len(models) == 0:
             logging.warning("[SentinelGlobal] Trying to aggregate models when there is no models")
             return None
+
+        # Compute trust and metrics
+        for node_key in models.keys():
+            model = models[node_key][0]
+            metrics: ModelMetrics = models[node_key][1]
+            # the own local model also requires eval to get loss distance
+            model_eval, nodes_eval, metrics_eval = self.compute_trust(model, node_key, metrics)
+            models[node_key] = (model_eval, metrics_eval)
 
         # Log model metrics
         for node_key in models.keys():
@@ -302,44 +336,7 @@ class SentinelGlobal(Aggregator):
                 self.global_trust[prev_round]))
         return avg_trust
 
-    def evaluate_neighbour_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
-
-        # Cosine Similarity
-        model_params = model
-        local_params = self.learner.get_parameters()
-        cos_similarity: float = cosine_similarity(local_params, model_params)
-        if nodes is not None:
-            for node in nodes:
-                mapping = {f'cos_{node}': cos_similarity}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
-
-        # Loss
-        if cos_similarity < COSINE_FILTER_THRESHOLD:
-            val_loss = float('inf')
-            val_acc = float(0)
-        else:
-            tmp_model = copy.deepcopy(self.learner.latest_model)
-            tmp_model.load_state_dict(model_params)
-            val_loss, val_acc = self.learner.validate_neighbour_no_pl2(tmp_model)
-            tmp_model = None
-            if nodes is not None:
-                for node in nodes:
-                    mapping = {f'val_loss_{node}': val_loss}
-                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
-
-        metrics.cosine_similarity = cos_similarity
-        metrics.validation_loss = val_loss
-        metrics.validation_accuracy = val_acc
-
-        # Count number of evaluated models
-        self.num_evals += 1
-        mapping = {f'Models Evaluated': self.num_evals}
-        self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
-
-        return model, nodes, metrics
-
-    def add_neighbour_trust(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
-        neighbor_opinions = metrics.global_trust
+    def add_neighbour_trust(self, neighbor_opinions: Dict):
         for round_key in neighbor_opinions.keys():
             for node_key in neighbor_opinions[round_key]:
                 # local trust is added during aggregation

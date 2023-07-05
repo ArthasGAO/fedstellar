@@ -31,24 +31,23 @@ class FlTrust(Aggregator):
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
 
-        logging.info("[Sentinel.add_model] Computing metrics for node(s): {}".format(nodes))
+        super().add_model(model=model, nodes=nodes, metrics=metrics)
 
+    def evaluate_neighbour_model(self, model: OrderedDict, node: str, metrics: ModelMetrics):
+
+        # Cosine Similarity
         model_params = model
-
         local_params = self.learner.get_parameters()
         cos_similarity: float = cosine_similarity(local_params, model_params)
 
-        if nodes is not None:
-            for node in nodes:
-                if node != self.node_name:
-                    mapping = {f'cos_{node}': cos_similarity}
-                    self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+        # Log model metrics
+        if node != self.node_name:
+            mapping = {f'cos_{node}': cos_similarity}
+            self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
 
         metrics.cosine_similarity = cos_similarity
 
-        logging.info("[Sentinel.add_model] Computed metrics for node(s): {}: --> {}".format(nodes, metrics))
-
-        super().add_model(model=model, nodes=nodes, metrics=metrics)
+        return model, node, metrics
 
     def aggregate(self, models):
         """
@@ -62,6 +61,14 @@ class FlTrust(Aggregator):
         if len(models) == 0:
             logging.error("[FlTrust] Trying to aggregate models when there is no models")
             return None
+
+        # Compute metrics
+        for node_key in models.keys():
+            model = models[node_key][0]
+            metrics: ModelMetrics = models[node_key][1]
+            # the own local model also requires eval to get loss distance
+            model_eval, nodes_eval, metrics_eval = self.evaluate_neighbour_model(model, node_key, metrics)
+            models[node_key] = (model_eval, metrics_eval)
 
         # The model of the aggregator serves as a trusted reference
         my_model = models.get(self.node_name)  # change
@@ -93,9 +100,9 @@ class FlTrust(Aggregator):
                 accum[layer] = accum[layer] + client_model[layer] * metrics.cosine_similarity
 
         # Normalize Accum
-        avg_similarity = mean(similarities)
+        sum_similarity = sum(similarities)
         for layer in accum:
-            accum[layer] = accum[layer] / avg_similarity
+            accum[layer] = accum[layer] / sum_similarity
 
         logging.info("[FlTrust.aggregate] Aggregated model with weights: similarities={}".format(similarities))
 

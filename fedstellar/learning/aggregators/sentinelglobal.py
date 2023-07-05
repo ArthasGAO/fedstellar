@@ -56,6 +56,7 @@ class SentinelGlobal(Aggregator):
 
         # SentinelGlobal
         self.active_round = active_round
+        logging.info("[Sentinel] Global becomes active at: {}".format(self.active_round))
         self.num_evals = num_evals
         # global_trust holds trust scores for each round and neighbour
         # example:
@@ -71,13 +72,16 @@ class SentinelGlobal(Aggregator):
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
 
+        for node in nodes:
+            self.neighbor_keys.add(node)
+        # Add the received trust metrics to the local database
+        self.add_neighbour_trust(metrics.global_trust)
         super().add_model(model=model, nodes=nodes, metrics=metrics)
 
     def compute_trust(self, model: OrderedDict, node: str, metrics: ModelMetrics):
-        self.neighbor_keys.add(node)
 
         logging.info("[SentinelGlobal.add_model] Computing metrics for node(s): {}".format(node))
-        self.add_neighbour_trust(metrics.global_trust)
+        # self.add_neighbour_trust(metrics.global_trust)
 
         # Step 0: Check whether the model should be evaluated based on global trust
         if self.agg_round >= self.active_round:
@@ -285,8 +289,8 @@ class SentinelGlobal(Aggregator):
     def broadcast_local_model(self):
         logging.info("[SentinelGlobal.broadcast_local_model]. Partial aggregation: only local model")
         for node, (model, metrics) in list(self._models.items()):
-            current_global_trust = copy.deepcopy(self.global_trust)
             if node == self.node_name:
+                current_global_trust = copy.deepcopy(self.global_trust)
                 return model, [node], ModelMetrics(
                     num_samples=metrics.num_samples,
                     global_trust=current_global_trust)

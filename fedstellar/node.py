@@ -204,7 +204,7 @@ class Node(BaseNode):
                                              learner=self.learner,
                                              loss_distance_threshold=config.participant["aggregator_args"]["sentinel_loss_threshold"],
                                              global_trust={},
-                                             active_round=3,
+                                             active_round=config.participant["aggregator_args"]["sentinelglobal_active_round"],
                                              )
             self.shared_trust = True
         elif self.config.participant["aggregator_args"]["algorithm"] == "Pseudo":

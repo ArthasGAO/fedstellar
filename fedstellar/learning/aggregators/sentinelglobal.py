@@ -276,6 +276,7 @@ class SentinelGlobal(Aggregator):
                       loss_distance_threshold=self.loss_dist_threshold,
                       loss_history=self.loss_history,
                       global_trust=prev_global_trust,
+                      active_round=self.active_round,
                       num_evals=self.num_evals,
                       neighbor_keys=self.neighbor_keys)
         for o in observers:

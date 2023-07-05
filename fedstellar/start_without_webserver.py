@@ -197,6 +197,7 @@ def create_particiants_configs(basic_config, example_node_config_path=example_no
         participant_config["device_args"]["accelerator"] = basic_config["accelerator"]  # same for all nodes
         participant_config["aggregator_args"]["algorithm"] = basic_config["aggregation"]
         participant_config["aggregator_args"]["sentinel_loss_threshold"] = basic_config["sentinel_loss_threshold"]
+        participant_config["aggregator_args"]["sentinelglobal_active_round"] = basic_config["sentinelglobal_active_round"]
         participant_config["adversarial_args"]["poisoned_node_percent"] = int(basic_config["poisoned_node_percent"])
         participant_config["adversarial_args"]["targeted"] = basic_config["targeted"]
         participant_config["adversarial_args"]["noise_type"] = basic_config["noise_type"]

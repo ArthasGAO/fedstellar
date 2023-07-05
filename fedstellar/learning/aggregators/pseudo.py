@@ -40,14 +40,12 @@ class PseudoAggregator(Aggregator):
 
         tmp_model = copy.deepcopy(self.learner.latest_model)
         tmp_model.load_state_dict(model_params)
-        val_loss, val_acc = self.learner.validate_neighbour_no_pl2(tmp_model)
-        # -> with validate_neighbour_pl:
-        # ReferenceError: weakly-referenced object no longer exists (at local_params = self.learner.get_parameters())
+        val_loss, val_acc = self.learner.validate_neighbour_model(tmp_model)
 
         if nodes is not None:
             for node in nodes:
                 mapping = {f'val_loss_{node}': val_loss}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+                self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         local_params = self.learner.get_parameters()
         cos_similarity: float = cosine_similarity(local_params, model_params)
@@ -55,7 +53,7 @@ class PseudoAggregator(Aggregator):
         if nodes is not None:
             for node in nodes:
                 mapping = {f'cos_{node}': cos_similarity}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+                self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         metrics.cosine_similarity = cos_similarity
         metrics.validation_loss = val_loss

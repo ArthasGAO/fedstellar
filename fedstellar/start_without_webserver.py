@@ -121,8 +121,8 @@ def create_attack_matrix(basic_config):
     if num_attacked > n_nodes:
         num_attacked = n_nodes
 
-    # Get the index of attacked nodes
-    attacked_nodes = random.sample(nodes_index, num_attacked)
+    # Get the index of attacked nodes, exclude node 0 (initializer)
+    attacked_nodes = random.sample(nodes_index[1:len(nodes_index)], num_attacked)
 
     # Assign the role of each node
     for node in node_range:

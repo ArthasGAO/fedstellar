@@ -136,3 +136,4 @@ app/
 .idea/tasks.xml
 fedstellar/data
 wandb/
+*.dat

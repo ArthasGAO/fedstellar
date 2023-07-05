@@ -49,10 +49,9 @@ logging.getLogger("fsspec").setLevel(logging.WARNING)
 
 os.environ['WANDB_SILENT'] = 'true'
 
-
+"""
 def debug(sig, frame):
-    """Interrupt running process, and provide a python prompt for
-    interactive debugging."""
+    # Interrupt running process, and provide a python prompt for interactive debugging.
     d = {'_frame': frame}  # Allow access to frame object.
     d.update(frame.f_globals)  # Unless shadowed by global
     d.update(frame.f_locals)
@@ -61,11 +60,11 @@ def debug(sig, frame):
     message = "Signal received : entering python shell.\nTraceback:\n"
     message += ''.join(traceback.format_stack(frame))
     i.interact(message)
-
-
+"""
+"""
 def listen():
     signal.signal(signal.SIGUSR1, debug)  # Register handler
-
+"""
 
 class Node(BaseNode):
     """
@@ -819,7 +818,7 @@ class Node(BaseNode):
         logging.info("[NODE] Finalizing round: {}".format(self.round))
         self.learner.finalize_round()  # TODO: Fix to improve functionality
         self.round = self.round + 1
-        self.learner.logger.log_metrics({"Round": self.round}, step=self.learner.logger.global_step)
+        self.learner.logger.log_metrics({"Round": self.round}, step=0)
         logging.info("[LightningLearner] Starting round: {}".format(self.round))
         # Clear node aggregation
         for nc in self.get_neighbors():
@@ -888,7 +887,7 @@ class Node(BaseNode):
             self.__train_set)
         status_function = lambda nc: (nc.get_name(), len(nc.get_models_aggregated()))
         # TODO Sync: remove partial aggregation
-        model_function = lambda nc: self.aggregator.broadcast_local_model()
+        model_function = lambda nc: self.aggregator.get_local_model()
         # model_function = lambda nc: self.aggregator.get_partial_aggregation(nc.get_models_aggregated())
 
         # Gossip

@@ -293,7 +293,7 @@ class LightningLearner(NodeLearner):
         logging.info(
             "[Learner] Number of CPUs used by pl.Trainer: {}/{}".format(self.__trainer.num_devices, os.cpu_count()))
 
-    def validate_neighbour_no_pl2(self, neighbour_model):
+    def validate_neighbour_model(self, neighbour_model):
 
         avg_loss = 0
         running_loss = 0
@@ -320,61 +320,5 @@ class LightningLearner(NodeLearner):
 
         avg_loss = running_loss / len(bootstrap_dataloader)
         logging.debug("[Learner.validate_neighbour]: Computed neighbor loss over {} data samples".format(num_samples))
-        val_acc = 0
+        val_acc = 0  # not required currently
         return avg_loss, val_acc
-
-    """
-    def create_trainer_no_logging(self):
-        # logging.info("[Learner] Creating trainer (logger disabled) with accelerator: {}".format( self.config.participant["device_args"]["accelerator"]))
-        self.__trainer = Trainer(
-            callbacks=[ModelSummary(max_depth=1)],
-            max_epochs=self.epochs,
-            accelerator=self.config.participant["device_args"]["accelerator"],
-            devices=self.config.participant["device_args"]["devices"] if self.config.participant["device_args"][
-                                                                             "accelerator"] != "cpu" else None,
-            # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
-            logger=False,
-            enable_checkpointing=False,
-            enable_model_summary=False,
-            enable_progress_bar=False,
-        )
-    """
-
-    """
-    def validate_neighbour(self):
-        try:
-            if self.epochs > 0:
-                self.create_trainer_no_logging()
-                results = self.__trainer.validate(self.model, self.data, verbose=False)
-                loss = results[0]["Validation/Loss"]
-                metric = results[0]["Validation/Accuracy"]
-                self.__trainer = None
-                return loss, metric
-            else:
-                return None, None
-        except Exception as e:
-            logging.error("[NodeLearner.validate_neighbour] Something went wrong with pytorch lightning. {}".format(e))
-            return None, None
-    """
-
-    """
-    @deprecated
-    def validate_neighbour_no_pl(self, neighbour_model):
-        # the standard PL (pytorch lightning) validation approach seems to break in multithreaded, thus workaround
-        avg_loss = 0
-        running_loss = 0
-        bootstrap_dataloader = self.data.bootstrap_dataloader()
-        num_samples = 0
-        with torch.no_grad():
-            # torch.autograd.set_detect_anomaly(True)
-            for i, (inputs, labels) in enumerate(bootstrap_dataloader):
-                outputs = neighbour_model(inputs)
-                # _, predicted_labels = torch.max(outputs, 1)
-                loss = F.cross_entropy(outputs, labels)
-                running_loss = running_loss + loss.item()
-                num_samples = num_samples + len(inputs)
-        avg_loss = running_loss / (i + 1)
-        logging.debug("[Learner.validate_neighbour]: Computed neighbor loss over {} data samples".format(num_samples))
-        val_acc = 0
-        return avg_loss, val_acc
-    """

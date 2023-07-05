@@ -83,13 +83,13 @@ class Sentinel(Aggregator):
         else:
             tmp_model = copy.deepcopy(self.learner.latest_model)
             tmp_model.load_state_dict(model_params)
-            val_loss, val_acc = self.learner.validate_neighbour_no_pl2(tmp_model)
+            val_loss, val_acc = self.learner.validate_neighbour_model(tmp_model)
             tmp_model = None
 
         # Log model metrics
         if node != self.node_name:
             mapping = {f'val_loss_{node}': val_loss, f'cos_{node}': cos_similarity}
-            self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+            self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         metrics.cosine_similarity = cos_similarity
         metrics.validation_loss = val_loss
@@ -104,7 +104,11 @@ class Sentinel(Aggregator):
         self.loss_history[node_key] = prev_loss_hist
         avg_loss = mean(prev_loss_hist)
         mapping = {f'avg_loss_{node_key}': avg_loss}
-        self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+        self.learner.logger.log_metrics(metrics=mapping, step=0)
+
+        # don't consider neighbours in round 0, since diffusion (FEDSTELLAR specific)
+        if self.agg_round == 0 and node_key != self.node_name:
+            return float(0)
 
         # fallback to current loss
         local_loss_hist = self.loss_history.get(self.node_name, [loss])
@@ -148,7 +152,7 @@ class Sentinel(Aggregator):
 
         for node_key in malicious_by_cosine:
             mapping = {f'agg_weight_{node_key}': 0}
-            self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+            self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         # Step 2: Evaluate validation (bootstrap) loss
         my_loss = my_model[1].validation_loss
@@ -186,9 +190,10 @@ class Sentinel(Aggregator):
             client_model = message[0]
             for layer in client_model:
                 accum[layer] = accum[layer] + client_model[layer] * mapped_loss[node]
+
                 mapping = {f'agg_weight_{node}': mapped_loss[node] / total_mapped_loss,
                            f'mapped_loss_{node}': mapped_loss[node]}
-                self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+                self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         # Normalize accumulated model wrt loss
         for layer in accum:

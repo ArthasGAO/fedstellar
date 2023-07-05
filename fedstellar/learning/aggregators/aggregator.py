@@ -197,7 +197,7 @@ class Aggregator(threading.Thread, Observable):
                 logging.debug("[Aggregator] __waiting_aggregated_model = False,  model received by diffusion")
         return None
 
-    def broadcast_local_model(self):
+    def get_local_model(self):
         logging.info("[Aggregator.broadcast_local_model]. Partial aggregation: only local model")
         for node, (model, metrics) in list(self._models.items()):
             if node == self.node_name:
@@ -229,15 +229,12 @@ class Aggregator(threading.Thread, Observable):
         logging.info("[Aggregator.get_full_aggregation] num_aggregated: {}, round {}".format(len(self._models),
                                                                                              self.agg_round))
         self.agg_round += 1
-        self.logger.log_metrics({"num_aggregated": len(self._models)}, step=self.logger.global_step)
-
-        # Only use to compare models in terms of metrics, isolates logging on PseudoAggregation
-        # nodes_aggregated = [self.node_name]
+        self.logger.log_metrics({"num_aggregated": len(self._models)}, step=0)
 
         return aggregated_model, nodes_aggregated, ModelMetrics(num_samples=total_samples)
 
+    """
     def get_partial_aggregation(self, except_nodes):
-        """
         Get the partial aggregation of the models.
 
         Args:
@@ -245,9 +242,8 @@ class Aggregator(threading.Thread, Observable):
 
         Returns:
             (model, nodes, weights): Model, nodes and number of samples for the partial aggregation.
-        """
 
-        """
+
         logging.info("[Aggregator] Waiting partial aggregation")
         do_aggregate = False
         while not do_aggregate:
@@ -257,7 +253,6 @@ class Aggregator(threading.Thread, Observable):
             ]
             logging.info("[Aggregator] Spinning partial aggregation")
             do_aggregate = len(models_added) >= len(self.__train_set)
-        """
 
         # self.check_and_run_aggregation(force=False)
 
@@ -292,6 +287,7 @@ class Aggregator(threading.Thread, Observable):
         # nodes_aggregated = [self.node_name]
 
         return aggregated_model, nodes_aggregated, ModelMetrics(num_samples=total_samples)
+        """
 
     def check_and_run_aggregation(self, force=False):
         """

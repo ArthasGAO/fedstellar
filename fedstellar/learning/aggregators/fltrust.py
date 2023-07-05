@@ -43,7 +43,7 @@ class FlTrust(Aggregator):
         # Log model metrics
         if node != self.node_name:
             mapping = {f'cos_{node}': cos_similarity}
-            self.learner.logger.log_metrics(metrics=mapping, step=self.learner.logger.global_step)
+            self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         metrics.cosine_similarity = cos_similarity
 

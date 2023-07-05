@@ -71,7 +71,8 @@ class SentinelGlobal(Aggregator):
         # logging.info("[SentinelGlobal] My prev global trust is {}".format(self.global_trust[self.agg_round-2]))
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
-
+        if nodes is None:
+            nodes = []
         for node in nodes:
             self.neighbor_keys.add(node)
         # Add the received trust metrics to the local database
@@ -354,4 +355,3 @@ class SentinelGlobal(Aggregator):
                             logging.warning(
                                 "[SentinelGlobal.add_model]: Received incomplete neighbour trust. Fixing with DEFAULT_NEI_TRUST")
                             self.global_trust[round_key][node_key][nei_key] = DEFAULT_NEIGHBOR_TRUST
-

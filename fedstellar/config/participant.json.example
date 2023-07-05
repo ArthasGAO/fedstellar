@@ -20,7 +20,8 @@
     "start": false,
     "accelerator": "auto",
     "devices": 32,
-    "strategy": "ddp"
+    "strategy": "ddp",
+    "logging": "false"
   },
   "geo_args": {
     "latitude": "46.762520",
@@ -48,7 +49,9 @@
     "epochs": 3
   },
   "aggregator_args": {
-    "algorithm": "FedAvg"
+    "algorithm": "FedAvg",
+    "sentinel_loss_threshold": 0.1
+    "sentinelglobal_active_round": 3
   },
   "adversarial_args": {
     "attacks": "No Attack",

@@ -50,7 +50,7 @@
   },
   "aggregator_args": {
     "algorithm": "FedAvg",
-    "sentinel_loss_threshold": 0.1
+    "sentinel_loss_threshold": 0.1,
     "sentinelglobal_active_round": 3
   },
   "adversarial_args": {

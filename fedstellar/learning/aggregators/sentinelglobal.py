@@ -33,8 +33,10 @@ class SentinelGlobal(Aggregator):
     """
 
     def __init__(self, node_name="unknown",
-                 config=None, logger=None,
-                 learner=None, agg_round=0,
+                 config=None,
+                 logger=None,
+                 learner=None,
+                 agg_round=0,
                  global_trust: OrderedDict[int, Dict[str, Dict[str, int]]] = None,
                  active_round=3,
                  num_evals=0,
@@ -281,7 +283,7 @@ class SentinelGlobal(Aggregator):
         observers = self.get_observers()
         next_round = self.agg_round + 1
         prev_global_trust = copy.deepcopy(self.global_trust)
-        logging.info("[SentinelGlobal] Models evaluated at round {}: {}".format(self.agg_round, self.num_evals))
+        logging.info("[SentinelGlobal] Number of models evaluated at round {}: {}".format(self.agg_round, self.num_evals))
         self.__init__(node_name=self.node_name,
                       config=self.config,
                       logger=self.logger,

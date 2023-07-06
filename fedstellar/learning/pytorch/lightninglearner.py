@@ -192,13 +192,13 @@ class LightningLearner(NodeLearner):
         z = list(zip(all_targets, all_predictions))
         for combi in product(class_labels, repeat=2):
             lst.append(z.count(combi))
-        mat = np.asarray(lst)[:, None].reshape(n_labels, n_labels)
+        confmat = np.asarray(lst)[:, None].reshape(n_labels, n_labels)
 
         if backdoor:
-            # Evaluate backdoor accuracy
+            # Evaluate backdoor accuracy, correctly predicted target labels excluded
             target_label = data_loader.dataset.target_label
-            num_predicted_target = mat.sum(axis=0)[target_label]
-            num_samples = len(data_loader.dataset)
+            num_predicted_target = confmat.sum(axis=0)[target_label] - confmat.item((target_label, target_label))
+            num_samples = len(data_loader.dataset) - confmat.item((target_label, target_label))
             attacker_success = num_predicted_target / num_samples
             self.logger.log_metrics({"Test/ASR-backdoor": attacker_success}, step=self.logger.local_step)
             logging.info("Computed ASR Backdoor: {}".format(attacker_success))
@@ -206,8 +206,8 @@ class LightningLearner(NodeLearner):
             # Evaluate targeted data poisoning accuracy
             target_label = backdoor_dataloader.dataset.target_label
             target_changed_label = backdoor_dataloader.dataset.target_changed_label
-            num_target_changed_predicted = mat[target_label][target_changed_label]
-            num_target_samples = mat.sum(axis=1)[target_label]
+            num_target_changed_predicted = confmat[target_label][target_changed_label]
+            num_target_samples = confmat.sum(axis=1)[target_label]
             attacker_success = num_target_changed_predicted / num_target_samples
             self.logger.log_metrics({"Test/ASR-targeted": attacker_success}, step=self.logger.local_step)
             logging.info("Computed ASR Test: {}".format(attacker_success))
@@ -215,7 +215,7 @@ class LightningLearner(NodeLearner):
         class_names = data_loader.dataset.dataset.classes
         class_names_short = list(data_loader.dataset.dataset.class_to_idx.values())
 
-        df = pd.DataFrame(mat, index=class_names, columns=class_names_short)
+        df = pd.DataFrame(confmat, index=class_names, columns=class_names_short)
         # plt.figure(figsize=(12, 8))
         heatmap = sns.heatmap(df, fmt=',.0f', annot=True, cmap='Blues', cbar=False)
         heatmap.set(xlabel='predicted label', ylabel='true label', title=log_key + " " + node_name)
@@ -235,7 +235,7 @@ class LightningLearner(NodeLearner):
         fig.clf()
         images = []
 
-        return mat
+        return confmat
 
     def log_validation_metrics(self, loss, metric, round=None, name=None):
         self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)

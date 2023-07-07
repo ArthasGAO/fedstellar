@@ -65,11 +65,11 @@ def add_x_to_image(img):
     """
     Add a 10*10 pixels X at the top-left of a image
     """
-    for i in range(0, 10):
-        for j in range(0, 10):
-            if i + j <= 9 or i == j:
-                img[i][j] = 255
-    return torch.tensor(img)
+    size = 5
+    for i in range(0, size):
+        img[i][i] = 255
+        img[i][size - i - 1] = 255
+    return torch.Tensor(img).clone().detach()
 
 
 def poison_to_nlp_rawdata(text_data, poisoned_ratio):

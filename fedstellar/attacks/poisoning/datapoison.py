@@ -69,7 +69,7 @@ def add_x_to_image(img):
     for i in range(0, size):
         img[i][i] = 255
         img[i][size - i - 1] = 255
-    return torch.Tensor(img).clone().detach()
+    return torch.tensor(img).clone().detach()
 
 
 def poison_to_nlp_rawdata(text_data, poisoned_ratio):

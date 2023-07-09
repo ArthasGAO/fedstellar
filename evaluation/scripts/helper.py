@@ -37,6 +37,12 @@ def get_plot_by_node_percent(data=None, fig=None, y_col=None, y_err=None, plt_ti
     plt.xticks(fontsize=10)
     plt.yticks(fontsize=10)
     plt.xlabel("PNR")
-    plt.ylabel(y_col[1])
+    if y_col[1] == 'Test/ASR-backdoor':
+        ylabel = 'BA'
+    elif y_col[1] == 'Test/ASR-targeted':
+        ylabel = 'ASR-LF'
+    else:
+        ylabel = 'F1-Score'
+    plt.ylabel(ylabel)
     return fig
 

@@ -35,7 +35,7 @@ def normalise_layers(untrusted_model, trusted_model):
     state_dict = untrusted_model[0]
     for layer in state_dict:
         layer_norm = torch.norm(state_dict[layer].data.view(-1).float())
-        scaling_factor = layer_norm / trusted_norms[layer]
+        scaling_factor = min(layer_norm / trusted_norms[layer], 1)
         logging.debug("[Aggregator.normalise_layers()] Layer: {} ScalingFactor {}".format(layer, scaling_factor))
         # logging.info("Scaling client {} layer {} with factor {}".format(client, layer, scaling_factor))
         normalised_layer = torch.mul(state_dict[layer], scaling_factor)

@@ -102,6 +102,16 @@ class Node(BaseNode):
         self.__model_initialized = False
         self.__initial_neighbors = []
         self.__start_thread_lock = threading.Lock()
+        
+        # Node selection
+        self.cpu_percent = None
+        self.gradient = None
+        self.latency = 2
+        self.avaliability = 1
+        self.data_size = 0
+        self.bytes_received = None
+        self.bytes_send = None
+        self.age = None
 
         # Attack environment
         self.model_dir = self.config.participant['tracking_args']["model_dir"]
@@ -438,6 +448,11 @@ class Node(BaseNode):
             # Evaluate and send metrics
             if self.round is not None:
                 self.__evaluate()
+                
+            # Evaluate and send metrics
+            if self.round is not None:
+                logging.info("[NODE.__train_step] ==========================Feature Extraction==========================")
+                self.__feature_extraction()
 
             # Train
             if self.round is not None and self.config.participant["device_args"]["role"] != Role.SERVER:  # El participante servidor no entrena (en CFL)
@@ -469,6 +484,10 @@ class Node(BaseNode):
             # Evaluate and send metrics
             if self.round is not None:
                 self.__evaluate()
+            
+            if self.round is not None:
+                logging.info("[NODE.__train_step] ==========================Feature Extraction==========================")
+                self.__feature_extraction()
 
             # Train
             if self.round is not None:
@@ -1028,3 +1047,77 @@ class Node(BaseNode):
         # if self.learner.check_parameters(decoded_model):
         self.__stored_model_parameters += obj
         logging.info("[NODE.__store_model_parameters (PROXY)] Stored model parameters: {}".format(len(self.__stored_model_parameters)))
+
+
+
+
+    #########################
+    #     Node Selection    #
+    #########################
+    
+    
+    def __feature_extraction(self):
+        import psutil
+
+        
+        self.cpu_percent = psutil.cpu_percent()
+        
+        self.gradient = None
+        
+        
+        self.latency = 2
+        self.avaliability = 1
+        self.data_size = self.learner.data.__len__()
+        self.bytes_received = None
+        self.bytes_send = None
+        self.age = None
+        
+        logging.info("[NODE.__feature_extraction] ======================cpu_percent = {} ===================".format(self.cpu_percent))
+        logging.info("[NODE.__feature_extraction] ====================== latency = {} ===================".format(self.latency))
+        if self.data_size:
+            logging.info("[NODE.__feature_extraction] ====================== data_size = {} ===================".format(self.data_size))
+        else:
+            logging.error("[NODE.__feature_extraction] ====================== data_size not shown ==============================")
+            
+        
+
+        
+    
+    
+    
+    
+    ## Local update
+        # lightinglearner
+        # add
+        # def get_grad(self):
+        #     return self.param.grad
+        # grad_norms = {}
+        # for name, param in self.parameters():
+        #   if param.grad is not None:
+        #      grad_norms[name] = torch.norm(param.grad)
+
+        
+        ## Computational Power
+        # self.comp_power = 
+        #ram_percent = psutil.virtual_memory().percent
+        #cpu_percent = psutil.cpu_percent()
+        #gpu_percent = psutil.gpu_percent()
+    
+        ## Latency 
+        # in Base_Node Class
+        # latency = 2  # Delay in seconds
+        # time.sleep(latency)
+    
+        ## Availability
+        #self.availability = 1
+    
+        ## Data size
+        #self.learner.data
+       
+        ## Bytes
+        #net_io_counters = psutil.net_io_counters()
+        #self.bytes_sent = net_io_counters.bytes_sent
+        #self.bytes_recv = net_io_counters.bytes_recv
+    
+        ## Age
+        #self.age = 1

@@ -63,26 +63,14 @@ networks = docker_client.networks.list(filters=fed_filter)
 if len(containers) != 0:
     print("Experiment still running")
     exit(-1)
-
 docker_client.networks.prune(filters=fed_filter)
-
-# model_list = ["MLP", "CNN", "RNN"]
-# federation_list = ["DFL", "CFL"]
-# topology_list = ["star", "fully", "ring", "random"]
-# topology_list = ["star"]
-# attack_list = ["Label Flipping", "Sample Poisoning", "Model Poisoning"]
-
-# poisoned_node_percent_list = [20, 40, 60, 80, 100]
-# poisoned_node_percent_list = [30]  # 60 80
-# poisoned_sample_percent_list = [100]
-# noise_type_list = ["salt", "gaussian", "s&p"]
-# poisoned_ratio_list = [1, 10, 20]
 
 with open(basic_config_path) as f:
     basic_config = json.load(f)
 
 start_port = 46500
 
+# import os; print(os.environ["CONDA_PREFIX"])
 python_windows = 'C:\\Users\\janos.LAPTOP-42CLK60G\\Repos\\fedstellar-robust\\.venv\\Scripts\\python'
 python_macos = "/opt/homebrew/anaconda3/envs/fedstellar2/bin/python"
 python_ubuntu = "/home/baltensperger/miniconda3/envs/fedstellar/bin/python"
@@ -105,29 +93,15 @@ basic_config["logs"] = logs_path
 basic_config["models"] = models_path
 
 basic_config["remote_tracking"] = True
-basic_config["logging"] = False
-basic_config["wandb_project"] = "fedstellar-murcia"
-
-"""
-MacOS
-"config": "/Users/janosch/Repos/fedstellar-robust/app/config",
-"logs": "/Users/janosch/Repos/fedstellar-robust/app/logs",
-"models": "/Users/janosch/Repos/fedstellar-robust/app/models",
-"""
-
-"""
-Windows
-"config": "C:\\Users\\janos.LAPTOP-42CLK60G\\Repos\\fedstellar-robust\\app\\config",
-"logs": "C:\\Users\\janos.LAPTOP-42CLK60G\\Repos\\fedstellar-robust\\app\\logs",
-"models": "C:\\Users\\janos.LAPTOP-42CLK60G\\Repos\\fedstellar-robust\\app\\models",
-"""
+basic_config["logging"] = True
+basic_config["wandb_project"] = "fedstellar"
 
 basic_config["federation"] = "DFL"
 basic_config["topology"] = "fully"
 basic_config["is_iid"] = True
-basic_config["dataset"] = "CIFAR10" # MNIST, FASHIONMNIST, CIFAR10
-basic_config["model"] = "fastermobilenet"
-basic_config["accelerator"] = "gpu"
+basic_config["dataset"] = "FASHIONMNIST"  # MNIST, FASHIONMNIST, CIFAR10
+basic_config["model"] = "MLP"  # MLP, simplemobilenet
+basic_config["accelerator"] = "cpu"
 
 basic_config["poisoned_node_percent"] = 0
 basic_config["poisoned_sample_percent"] = 0
@@ -139,24 +113,25 @@ basic_config["target_changed_label"] = 7
 
 basic_config["n_nodes"] = 5
 basic_config["rounds"] = 10
-basic_config["epochs"] = 5
+basic_config["epochs"] = 3
 
 basic_config["noise_type"] = "salt"
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[0]
+attack = attack_list[2]
 
 poisoned_node_percent_list = [80, 50, 10]
-# poisoned_node_percent_list = [10]
+poisoned_node_percent_list = [80]
 poisoned_sample_percent_list = [100, 50, 30]
-# poisoned_sample_percent_list = [100]
+poisoned_sample_percent_list = [100]
 # poisoned_ratio_list = [1, 10, 20]
 poisoned_ratio_list = [80]
 
 aggregation_list = ["Krum", "FedAvg", "TrimmedMean", "FlTrust", "Sentinel", "SentinelGlobal"]
 # aggregation_list = ["FedAvg", "TrimmedMean", "FlTrust"]
 # aggregation_list = ["TrimmedMean"]
-aggregation_list = ["FlTrust"]
-basic_config["sentinel_loss_threshold"] = 0.1
+aggregation_list = ["Sentinel"]
+basic_config["sentinel_distance_threshold"] = 0.1
+basic_config["sentinelglobal_active_round"] = 3
 
 N_EXPERIMENTS = 1
 if basic_config["accelerator"] == "gpu":

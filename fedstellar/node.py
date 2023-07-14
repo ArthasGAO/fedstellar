@@ -195,13 +195,13 @@ class Node(BaseNode):
             self.aggregator = Sentinel(node_name=self.get_name(),
                                        config=self.config,
                                        learner=self.learner,
-                                       loss_distance_threshold=config.participant["aggregator_args"]["sentinel_loss_threshold"]
+                                       loss_distance_threshold=config.participant["aggregator_args"]["sentinel_distance_threshold"]
                                        )
         elif self.config.participant["aggregator_args"]["algorithm"] == "SentinelGlobal":
             self.aggregator = SentinelGlobal(node_name=self.get_name(),
                                              config=self.config,
                                              learner=self.learner,
-                                             loss_distance_threshold=config.participant["aggregator_args"]["sentinel_loss_threshold"],
+                                             loss_distance_threshold=config.participant["aggregator_args"]["sentinel_distance_threshold"],
                                              global_trust={},
                                              active_round=config.participant["aggregator_args"]["sentinelglobal_active_round"],
                                              )

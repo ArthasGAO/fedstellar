@@ -120,6 +120,10 @@ class CommunicationProtocol:
     Model initialized message header.
     """
     MODEL_INITIALIZED = "MODEL_INITIALIZED"
+    """
+    FEATURES message header.
+    """
+    FEATURES = "FEATURES"
 
     ############################################
     #    MSG PROCESSING (Non Static Methods)   #
@@ -324,7 +328,7 @@ class CommunicationProtocol:
                 elif message[0] == CommunicationProtocol.METRICS:
                     if len(message) > 5:
                         try:
-                            hash_ = message[5]
+                                
                             cmd_text = (" ".join(message[0:6]) + "\n").encode("utf-8")
                             if self.__exec(
                                     CommunicationProtocol.METRICS,
@@ -345,6 +349,36 @@ class CommunicationProtocol:
                     else:
                         error = True
                         break
+                    
+                # Features
+                elif message[0] == CommunicationProtocol.FEATURES:
+                    logging.info("[CommProtocol.process_message] =========================== process_message Test ================================")
+                    logging.info("[CommProtocol.process_message] ============== msg = {} ======== ".format(message))
+                    logging.info("[CommProtocol.process_message] ============== len {} ======== ".format(str(len(message))))
+                    if len(message) > 9:
+                        try:
+                            hash_ = message[9]
+                            if self.__exec(
+                                    CommunicationProtocol.FEATURES,
+                                    hash_,
+                                    cmd_text,
+                                    message[1],
+                                    int(message[2]),
+                                    float(message[3]),
+                                    float(message[4]),
+                            ):
+                                message = message[6:]
+                                
+                            else:
+                                error = True
+                                break
+                        except Exception as e:
+                            error = True
+                            break
+                    else:
+                        error = True
+                        break
+
 
                 # Vote train set
                 elif message[0] == CommunicationProtocol.VOTE_TRAIN_SET:
@@ -763,3 +797,42 @@ class CommunicationProtocol:
             An encoded leadership transfer message.
         """
         return (CommunicationProtocol.TRANSFER_LEADERSHIP + "\n").encode("utf-8")
+    
+    
+    @staticmethod
+    def build_feature_msg(node, cpu_percent,data_size,bytes_received,bytes_send,latency,avaliability,age):
+        """
+        Static method that builds a feature message.
+        CommunicationProtocol.FEATURE + node + feature
+        Returns:
+            An encoded feature message.
+        """
+        logging.info("[COMM_PROTOCOL.build_feature_msg] Sending  message: {}".format(CommunicationProtocol.FEATURES 
+                                                                                          + " " + node 
+                                                                                          + " " + str(cpu_percent)
+                                                                                          + " " + str(data_size)
+                                                                                          + " " + str(bytes_received)
+                                                                                          + " " + str(bytes_send)
+                                                                                          + " " + str(latency)
+                                                                                          + " " + str(avaliability)
+                                                                                          + " " + str(age)
+                                                                                          ))
+        return CommunicationProtocol.generate_hased_message(
+            CommunicationProtocol.FEATURES
+            + " "
+            + node
+            + " "
+            + str(cpu_percent)
+            + " "
+            + str(data_size)
+            + " "
+            + str(bytes_received)
+            + " "
+            + str(bytes_send)
+            + " "
+            + str(latency)
+            + " "
+            + str(avaliability)
+            + " "
+            + str(age)
+        )

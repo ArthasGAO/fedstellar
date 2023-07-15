@@ -95,6 +95,7 @@ class NodeConnection(threading.Thread, Observable):
                 CommunicationProtocol.MODELS_AGGREGATED: Models_aggregated_cmd(self),
                 CommunicationProtocol.MODEL_INITIALIZED: Model_initialized_cmd(self),
                 CommunicationProtocol.TRANSFER_LEADERSHIP: Transfer_leadership_cmd(self),
+                CommunicationProtocol.FEATURES: Features_cmd(self),
             },
             self.config,
         )
@@ -197,7 +198,10 @@ class NodeConnection(threading.Thread, Observable):
                     #    logging.info(
                     #        "[NODE_CONNECTION] Processing message: {}".format(msg)
                     #    )
+                    
+                    #Process msg 
                     exec_msgs, error = self.comm_protocol.process_message(msg)
+                    
                     if len(exec_msgs) > 0:
                         self.notify(
                             Events.PROCESSED_MESSAGES_EVENT, (self, exec_msgs)
@@ -453,3 +457,9 @@ class NodeConnection(threading.Thread, Observable):
         logging.info("[NODE_CONNECTION] Previous role: {}".format(self.config.participant['device_args']['role']))
         self.config.participant['device_args']['role'] = value
         logging.info("[NODE_CONNECTION] New role: {}".format(self.config.participant['device_args']['role']))
+        
+    def notify_features(self, node, features):
+        """
+        Notify to the parent node that `FEATURES` has been received.
+        """
+        self.notify(Events.FEATURES_RECEIVED_EVENT, (node, features))

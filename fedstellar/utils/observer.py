@@ -88,6 +88,14 @@ class Events:
     """
     Used to notify that the model parameters must be stored.
     """
+    SEND_FEATURES_EVENT = "SEND_FEATURE_EVENT"
+    """
+    Used to notify that ...
+    """
+    FEATURES_RECEIVED_EVENT = "SEND_FEATURE_EVENT"
+    """
+    Used to notify that ...
+    """
 
 
 ##################################

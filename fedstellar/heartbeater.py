@@ -65,6 +65,8 @@ class Heartbeater(threading.Thread, Observable):
                 # Report my status to the controller
                 self.notify(Events.REPORT_STATUS_TO_CONTROLLER_EVENT, None)
 
+            # Send features to neighbor
+            self.notify(Events.SEND_FEATURES_EVENT, None)
             # Wait and refresh node list
             for _ in range(self.config.participant["HEARTBEATER_REFRESH_NEIGHBORS_BY_PERIOD"]):
                 self.clear_nodes()

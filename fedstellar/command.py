@@ -153,3 +153,12 @@ class Transfer_leadership_cmd(Command):
 
     def execute(self):
         self.node_connection.set_transfer_leadership("aggregator")
+        
+        
+class Features_cmd(Command):
+    """
+    Command that should be executed as a response to a **feature** message.
+    """
+
+    def execute(self,features):
+        self.node_connection.notify_features(features)

@@ -107,8 +107,8 @@ class Node(BaseNode):
         self.cpu_percent = None
         self.gradient = None
         self.latency = 2
-        self.avaliability = 1
-        self.data_size = 0
+        self.availability = 1
+        self.data_size = None
         self.bytes_received = None
         self.bytes_send = None
         self.age = None
@@ -449,14 +449,17 @@ class Node(BaseNode):
             if self.round is not None:
                 self.__evaluate()
                 
-            # Evaluate and send metrics
+            # First Round Selection
             if self.round is not None:
-                logging.info("[NODE.__train_step] ==========================Feature Extraction==========================")
-                self.__feature_extraction()
+                logging.info("[NODE.__train_step] ==========================First Round Selection==========================")
+                #self.__feature_extraction()
 
             # Train
             if self.round is not None and self.config.participant["device_args"]["role"] != Role.SERVER:  # El participante servidor no entrena (en CFL)
                 self.__train()
+            
+            # Second Round Selection
+                logging.info("[NODE.__train_step] ==========================Second Round Selection==========================")
 
             # Aggregate Model
             if self.round is not None:
@@ -874,6 +877,26 @@ class Node(BaseNode):
             # Update the heartbeater with the role node
             # obj = (node_name, role)
             self.heartbeater.add_node_role(obj[0], obj[1])
+            
+        elif event == Events.SEND_FEATURES_EVENT:
+            # Update the heartbeater with the xxx
+            # obj =
+            logging.info("[NODE.notify] =========================get Events.SEND_FEATURES_EVENT ==============================")
+            self.__feature_extraction()
+            self.broadcast(CommunicationProtocol.build_feature_msg(self.get_name(),
+                                                                   self.cpu_percent,
+                                                                   self.data_size,
+                                                                   self.bytes_received,
+                                                                   self.bytes_send,
+                                                                   self.latency,
+                                                                   self.availability,
+                                                                   self.age
+                                                                   ))
+        elif event == Events.FEATURES_RECEIVED_EVENT:
+            # Update the heartbeater with the xxx
+            # obj =
+            logging.info("[NODE.notify] =========================get Events.FEATURES_RECEIVED_EVENT ==============================")
+            self.add_feature()
 
         elif event == Events.AGGREGATION_FINISHED_EVENT:
             # Set parameters and communate it to the training process
@@ -1058,66 +1081,15 @@ class Node(BaseNode):
     
     def __feature_extraction(self):
         import psutil
-
-        
         self.cpu_percent = psutil.cpu_percent()
-        
-        self.gradient = None
-        
-        
+        self.gradient = self.learner.get_parameters()
+        self.data_size,_ = self.learner.get_num_samples()
+        net_io_counters = psutil.net_io_counters()
+        self.bytes_received = net_io_counters.bytes_recv
+        self.bytes_send = net_io_counters.bytes_sent
         self.latency = 2
-        self.avaliability = 1
-        self.data_size = self.learner.data.__len__()
-        self.bytes_received = None
-        self.bytes_send = None
-        self.age = None
-        
-        logging.info("[NODE.__feature_extraction] ======================cpu_percent = {} ===================".format(self.cpu_percent))
-        logging.info("[NODE.__feature_extraction] ====================== latency = {} ===================".format(self.latency))
-        if self.data_size:
-            logging.info("[NODE.__feature_extraction] ====================== data_size = {} ===================".format(self.data_size))
-        else:
-            logging.error("[NODE.__feature_extraction] ====================== data_size not shown ==============================")
+        self.availability = 1
+        self.age = 1
+
             
         
-
-        
-    
-    
-    
-    
-    ## Local update
-        # lightinglearner
-        # add
-        # def get_grad(self):
-        #     return self.param.grad
-        # grad_norms = {}
-        # for name, param in self.parameters():
-        #   if param.grad is not None:
-        #      grad_norms[name] = torch.norm(param.grad)
-
-        
-        ## Computational Power
-        # self.comp_power = 
-        #ram_percent = psutil.virtual_memory().percent
-        #cpu_percent = psutil.cpu_percent()
-        #gpu_percent = psutil.gpu_percent()
-    
-        ## Latency 
-        # in Base_Node Class
-        # latency = 2  # Delay in seconds
-        # time.sleep(latency)
-    
-        ## Availability
-        #self.availability = 1
-    
-        ## Data size
-        #self.learner.data
-       
-        ## Bytes
-        #net_io_counters = psutil.net_io_counters()
-        #self.bytes_sent = net_io_counters.bytes_sent
-        #self.bytes_recv = net_io_counters.bytes_recv
-    
-        ## Age
-        #self.age = 1

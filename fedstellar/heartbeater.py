@@ -84,7 +84,7 @@ class Heartbeater(threading.Thread, Observable):
             for node, t in list(self.__nodes.items())
             if time.time() - t > self.config.participant["NODE_TIMEOUT"]
         ]:
-            logging.debug(
+            logging.info(
                 "[HEARTBEATER] Removed {} from the network ".format(n)
             )
             self.__nodes.pop(n)

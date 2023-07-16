@@ -160,5 +160,5 @@ class Features_cmd(Command):
     Command that should be executed as a response to a **feature** message.
     """
 
-    def execute(self,features):
-        self.node_connection.notify_features(features)
+    def execute(self,node, cpu_percent,data_size,bytes_received,bytes_send,latency,availability):
+        self.node_connection.notify_features(node, cpu_percent,data_size,bytes_received,bytes_send,latency,availability)

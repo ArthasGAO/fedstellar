@@ -328,7 +328,7 @@ class CommunicationProtocol:
                 elif message[0] == CommunicationProtocol.METRICS:
                     if len(message) > 5:
                         try:
-                                
+                            hash_ = message[5]    
                             cmd_text = (" ".join(message[0:6]) + "\n").encode("utf-8")
                             if self.__exec(
                                     CommunicationProtocol.METRICS,
@@ -352,30 +352,35 @@ class CommunicationProtocol:
                     
                 # Features
                 elif message[0] == CommunicationProtocol.FEATURES:
-                    logging.info("[CommProtocol.process_message] =========================== process_message Test ================================")
-                    logging.info("[CommProtocol.process_message] ============== msg = {} ======== ".format(message))
-                    logging.info("[CommProtocol.process_message] ============== len {} ======== ".format(str(len(message))))
-                    if len(message) > 9:
+                    if len(message) > 7:
                         try:
-                            hash_ = message[9]
+                            
+                            cmd_text = (" ".join(message[0:8]) + "\n").encode("utf-8")
                             if self.__exec(
                                     CommunicationProtocol.FEATURES,
-                                    hash_,
+                                    None,
                                     cmd_text,
                                     message[1],
-                                    int(message[2]),
+                                    float(message[2]),
                                     float(message[3]),
                                     float(message[4]),
+                                    float(message[5]),
+                                    float(message[6]),
+                                    float(message[7]),
+                                    
                             ):
-                                message = message[6:]
+                                message = message[8:]
                                 
                             else:
+                                logging.info("[COMM_PROTOCOL ERROR] first else ")
                                 error = True
                                 break
                         except Exception as e:
+                            logging.info("[COMM_PROTOCOL ERROR] Exception as e")
                             error = True
                             break
                     else:
+                        logging.info("[COMM_PROTOCOL ERROR] seccond else ")
                         error = True
                         break
 
@@ -466,7 +471,7 @@ class CommunicationProtocol:
                     error = True
                     break
 
-            # Return
+            # Return            
             return self.tmp_exec_msgs, error
 
     # Exec callbacks
@@ -800,25 +805,15 @@ class CommunicationProtocol:
     
     
     @staticmethod
-    def build_feature_msg(node, cpu_percent,data_size,bytes_received,bytes_send,latency,avaliability,age):
+    def build_feature_msg(node, cpu_percent,data_size,bytes_received,bytes_send,latency,avaliability):
         """
         Static method that builds a feature message.
         CommunicationProtocol.FEATURE + node + feature
         Returns:
             An encoded feature message.
         """
-        logging.info("[COMM_PROTOCOL.build_feature_msg] Sending  message: {}".format(CommunicationProtocol.FEATURES 
-                                                                                          + " " + node 
-                                                                                          + " " + str(cpu_percent)
-                                                                                          + " " + str(data_size)
-                                                                                          + " " + str(bytes_received)
-                                                                                          + " " + str(bytes_send)
-                                                                                          + " " + str(latency)
-                                                                                          + " " + str(avaliability)
-                                                                                          + " " + str(age)
-                                                                                          ))
-        return CommunicationProtocol.generate_hased_message(
-            CommunicationProtocol.FEATURES
+        
+        return (CommunicationProtocol.FEATURES
             + " "
             + node
             + " "
@@ -833,6 +828,4 @@ class CommunicationProtocol:
             + str(latency)
             + " "
             + str(avaliability)
-            + " "
-            + str(age)
-        )
+            + "\n").encode("utf-8")

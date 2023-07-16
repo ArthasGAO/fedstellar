@@ -10,6 +10,7 @@ import threading
 from datetime import datetime
 from logging import Formatter, FileHandler
 from logging.handlers import RotatingFileHandler
+import time
 
 from fedstellar.communication_protocol import CommunicationProtocol
 from fedstellar.encrypter import AESCipher, RSACipher
@@ -446,6 +447,24 @@ class BaseNode(threading.Thread, Observer):
             list: The nodes of the network -> The neighbors of the node (by heartbeater).
         """
         return self.heartbeater.get_nodes()
+    
+    def get_latency(self,h,p,runs):
+        """
+        Returns:
+            .
+        """
+        lat_list = []
+        for _ in range(0,runs):
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM )
+            start = time.time()
+            s.connect((h,p))
+            lat_list.append((time.time()-start)*1000)
+            s.close()
+            time.sleep(1)
+        
+        latency = sum(lat_list) / len(lat_list)
+        
+        return latency
 
     ##########################
     #     Msg management     #

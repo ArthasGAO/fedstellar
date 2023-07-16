@@ -8,9 +8,11 @@ import math
 import os
 import pickle
 from datetime import datetime, timedelta
+import psutil
 
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
+from fedstellar.learning.selectors.newselector import NewSelector
 
 os.environ['WANDB_SILENT'] = 'true'
 
@@ -111,7 +113,6 @@ class Node(BaseNode):
         self.data_size = None
         self.bytes_received = None
         self.bytes_send = None
-        self.age = None
 
         # Attack environment
         self.model_dir = self.config.participant['tracking_args']["model_dir"]
@@ -157,6 +158,13 @@ class Node(BaseNode):
         self.aggregator.add_observer(self)
 
         self.shared_metrics = False
+        
+        
+        # Selector
+        self.selected_nodes_list = []
+        if True:
+            self.selector = NewSelector(node_name=self.get_name(), config=self.config)
+   
 
         # Store the parameters of the model
         self.__stored_model_parameters = []
@@ -326,6 +334,12 @@ class Node(BaseNode):
             self.__initial_neighbors = (
                 self.get_neighbors()
             )  # used to restore the original list of neighbors after the learning round
+            for n in self.__initial_neighbors:
+                if n.get_name() not in self.selector.get_neighbors():
+                    self.selector.add_neighbor(n.get_name())
+            self.selector.add_neighbor(self.get_name())if self.get_name() not in self.selector.get_neighbors() else None
+            self.selector.init_age()
+            
 
             logging.info("[NODE.__start_learning] Learning started in node {} -> Round: {} | Epochs: {}".format(self.get_name(), self.round, epochs))
             self.learner.set_epochs(epochs)
@@ -435,6 +449,8 @@ class Node(BaseNode):
             self.__train_set.append(self.get_name()) if self.get_name() not in self.__train_set else None
             logging.info("[NODE.__train_step] __train_set = {}".format(self.__train_set))
             self.__validate_train_set()
+            self.__selector_set_neighbors(self.__train_set)
+            
 
         # TODO: Improve in the future
         # is_train_set = self.get_name() in self.__train_set
@@ -452,14 +468,19 @@ class Node(BaseNode):
             # First Round Selection
             if self.round is not None:
                 logging.info("[NODE.__train_step] ==========================First Round Selection==========================")
-                #self.__feature_extraction()
+                self.selector.first_round_selection(self.get_name())
+                
+
 
             # Train
             if self.round is not None and self.config.participant["device_args"]["role"] != Role.SERVER:  # El participante servidor no entrena (en CFL)
                 self.__train()
             
+            
             # Second Round Selection
+            if self.round is not None:
                 logging.info("[NODE.__train_step] ==========================Second Round Selection==========================")
+                self.selector.second_round_selection(self.get_name())
 
             # Aggregate Model
             if self.round is not None:
@@ -490,7 +511,8 @@ class Node(BaseNode):
             
             if self.round is not None:
                 logging.info("[NODE.__train_step] ==========================Feature Extraction==========================")
-                self.__feature_extraction()
+                #self.update(Events.SEND_FEATURES_EVENT, None)
+                #self.__feature_extraction()
 
             # Train
             if self.round is not None:
@@ -881,7 +903,6 @@ class Node(BaseNode):
         elif event == Events.SEND_FEATURES_EVENT:
             # Update the heartbeater with the xxx
             # obj =
-            logging.info("[NODE.notify] =========================get Events.SEND_FEATURES_EVENT ==============================")
             self.__feature_extraction()
             self.broadcast(CommunicationProtocol.build_feature_msg(self.get_name(),
                                                                    self.cpu_percent,
@@ -889,14 +910,17 @@ class Node(BaseNode):
                                                                    self.bytes_received,
                                                                    self.bytes_send,
                                                                    self.latency,
-                                                                   self.availability,
-                                                                   self.age
+                                                                   self.availability
                                                                    ))
         elif event == Events.FEATURES_RECEIVED_EVENT:
             # Update the heartbeater with the xxx
             # obj =
-            logging.info("[NODE.notify] =========================get Events.FEATURES_RECEIVED_EVENT ==============================")
-            self.add_feature()
+            h,p = obj[0].split(":")
+            logging.info("======================h , p  = {} , {}==========================".format(h,p))
+            #lat = self.get_latency(int(h),int(p),10)
+            logging.info("======================lat = {}==========================".format(lat))
+            self.selector.add_node_features(obj[0],obj[1:])
+            #self.add_feature()
 
         elif event == Events.AGGREGATION_FINISHED_EVENT:
             # Set parameters and communate it to the training process
@@ -1079,17 +1103,23 @@ class Node(BaseNode):
     #########################
     
     
+    def __selector_set_neighbors(self,neighbors_list):
+        
+        self.selector.set_neighbors(neighbors_list)
+    
     def __feature_extraction(self):
-        import psutil
+        
         self.cpu_percent = psutil.cpu_percent()
         self.gradient = self.learner.get_parameters()
         self.data_size,_ = self.learner.get_num_samples()
         net_io_counters = psutil.net_io_counters()
         self.bytes_received = net_io_counters.bytes_recv
         self.bytes_send = net_io_counters.bytes_sent
-        self.latency = 2
+        self.latency = 20
         self.availability = 1
-        self.age = 1
+    
+    def add_features(self):
+        return
 
             
         

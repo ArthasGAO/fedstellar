@@ -92,7 +92,7 @@ class Events:
     """
     Used to notify that ...
     """
-    FEATURES_RECEIVED_EVENT = "SEND_FEATURE_EVENT"
+    FEATURES_RECEIVED_EVENT = "FEATURES_RECEIVED_EVENT"
     """
     Used to notify that ...
     """

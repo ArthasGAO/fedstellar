@@ -458,9 +458,9 @@ class NodeConnection(threading.Thread, Observable):
         self.config.participant['device_args']['role'] = value
         logging.info("[NODE_CONNECTION] New role: {}".format(self.config.participant['device_args']['role']))
         
-    def notify_features(self, node, cpu_percent,data_size,bytes_received,bytes_send,latency,availability):
+    def notify_features(self, node, cpu_percent,data_size,bytes_received,bytes_send,availability):
         """
         Notify to the parent node that `FEATURES` has been received.
         """
 
-        self.notify(Events.FEATURES_RECEIVED_EVENT, (node,cpu_percent,data_size,bytes_received,bytes_send,latency,availability))
+        self.notify(Events.FEATURES_RECEIVED_EVENT, (node,cpu_percent,data_size,bytes_received,bytes_send,availability))

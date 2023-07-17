@@ -917,9 +917,10 @@ class Node(BaseNode):
             # obj =
             h,p = obj[0].split(":")
             logging.info("======================h , p  = {} , {}==========================".format(h,p))
-            #lat = self.get_latency(int(h),int(p),10)
+            lat = self.get_latency(str(h),int(p),3)
+            
             logging.info("======================lat = {}==========================".format(lat))
-            self.selector.add_node_features(obj[0],obj[1:])
+            self.selector.add_node_features(obj[0],obj[1:],lat)
             #self.add_feature()
 
         elif event == Events.AGGREGATION_FINISHED_EVENT:
@@ -1115,7 +1116,6 @@ class Node(BaseNode):
         net_io_counters = psutil.net_io_counters()
         self.bytes_received = net_io_counters.bytes_recv
         self.bytes_send = net_io_counters.bytes_sent
-        self.latency = 20
         self.availability = 1
     
     def add_features(self):

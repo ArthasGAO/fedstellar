@@ -19,14 +19,15 @@ class Selector():
 
     
     
-    def add_node_features(self,node, features):
+    def add_node_features(self,node, features,latency):
             self.features[node] = {}
             self.features[node]["cpu_percent"] = features[0]
             self.features[node]["data_size"] = features[1]
             self.features[node]["bytes_received"] = features[2]
             self.features[node]["bytes_send"] = features[3]
-            self.features[node]["latency"] = features[4]
-            self.features[node]["availability"] = features[5]
+            self.features[node]["availability"] = features[4]
+            self.features[node]["latency"] = latency
+            
             
             logging.info("[SELECTOR] adding node fetures from {} . ".format(node))
             

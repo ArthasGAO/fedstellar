@@ -352,10 +352,10 @@ class CommunicationProtocol:
                     
                 # Features
                 elif message[0] == CommunicationProtocol.FEATURES:
-                    if len(message) > 7:
+                    if len(message) > 6:
                         try:
                             
-                            cmd_text = (" ".join(message[0:8]) + "\n").encode("utf-8")
+                            cmd_text = (" ".join(message[0:7]) + "\n").encode("utf-8")
                             if self.__exec(
                                     CommunicationProtocol.FEATURES,
                                     None,
@@ -366,10 +366,10 @@ class CommunicationProtocol:
                                     float(message[4]),
                                     float(message[5]),
                                     float(message[6]),
-                                    float(message[7]),
+                                    
                                     
                             ):
-                                message = message[8:]
+                                message = message[7:]
                                 
                             else:
                                 logging.info("[COMM_PROTOCOL ERROR] first else ")
@@ -824,8 +824,6 @@ class CommunicationProtocol:
             + str(bytes_received)
             + " "
             + str(bytes_send)
-            + " "
-            + str(latency)
             + " "
             + str(avaliability)
             + "\n").encode("utf-8")

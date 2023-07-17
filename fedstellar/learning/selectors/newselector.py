@@ -38,7 +38,7 @@ class NewSelector(Selector):
 
         for node in neighbors:
             
-            logging.info("[NEW SELECTOR] AGE = {} ==================================".format(self.age_list[node]))
+            
         
             
             feature_list = list((self.features[node]["cpu_percent"],
@@ -56,7 +56,10 @@ class NewSelector(Selector):
             feature = np.array(feature_list).reshape(-1, 1).astype(np.float64)          
             feature_array = np.append(feature_array, feature, axis=1)
         
-                        
+        
+        # Reverse latency 
+        feature_array[4,:] = 1/feature_array[4,:]
+        logging.info("[New Selector]   feature_array = \n {}".format(feature_array))         
         # Normalized features
         feature_array_normed = normalize(feature_array, axis=1, norm='l1')
         
@@ -89,8 +92,9 @@ class NewSelector(Selector):
         
         # Update age dict
         for node in neighbors:
+            logging.info("[NEW SELECTOR] adding age condition node = {}".format(node))
             if node not in selected_nodes:
-                self.age_list[node] = self.age_list[node]+ 5
+                self.age_list[node] = self.age_list[node]+ 2
 
 
         return selected_nodes

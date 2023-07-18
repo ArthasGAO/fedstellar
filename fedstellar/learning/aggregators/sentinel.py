@@ -191,9 +191,9 @@ class Sentinel(Aggregator):
             for layer in client_model:
                 accum[layer] = accum[layer] + client_model[layer] * mapped_loss[node]
 
-                mapping = {f'agg_weight_{node}': mapped_loss[node] / total_mapped_loss,
-                           f'mapped_loss_{node}': mapped_loss[node]}
-                self.learner.logger.log_metrics(metrics=mapping, step=0)
+            mapping = {f'agg_weight_{node}': mapped_loss[node] / total_mapped_loss,
+                       f'mapped_loss_{node}': mapped_loss[node]}
+            self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         # Normalize accumulated model wrt loss
         for layer in accum:

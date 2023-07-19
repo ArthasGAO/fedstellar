@@ -110,6 +110,8 @@ class SentinelGlobal(Aggregator):
         return model, node, metrics
 
     def evaluate_neighbour_model(self, model: OrderedDict, node: str, metrics: ModelMetrics):
+        self.num_evals += 1
+
         # Cosine Similarity
         model_params = model
         local_params = self.learner.get_parameters()
@@ -284,6 +286,8 @@ class SentinelGlobal(Aggregator):
         next_round = self.agg_round + 1
         prev_global_trust = copy.deepcopy(self.global_trust)
         logging.info("[SentinelGlobal] Number of models evaluated at round {}: {}".format(self.agg_round, self.num_evals))
+        mapping = {f'num_evals': self.num_evals}
+        self.learner.logger.log_metrics(metrics=mapping, step=0)
         self.__init__(node_name=self.node_name,
                       config=self.config,
                       logger=self.logger,

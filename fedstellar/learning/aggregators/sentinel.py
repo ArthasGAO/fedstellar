@@ -101,7 +101,7 @@ class Sentinel(Aggregator):
         # calculate next average loss
         prev_loss_hist: list = self.loss_history.get(node_key, [])
         prev_loss_hist.append(loss)
-        self.loss_history[node_key] = prev_loss_hist
+        self.loss_history[node_key] = prev_loss_hist  # update loss history
         avg_loss = mean(prev_loss_hist)
         mapping = {f'avg_loss_{node_key}': avg_loss}
         self.learner.logger.log_metrics(metrics=mapping, step=0)
@@ -151,7 +151,11 @@ class Sentinel(Aggregator):
             return models.get(self.node_name)[0]
 
         for node_key in malicious_by_cosine:
-            mapping = {f'agg_weight_{node_key}': 0}
+            prev_loss_hist: list = self.loss_history.get(node_key, [])
+            avg_loss = mean(prev_loss_hist) if prev_loss_hist else -1
+            mapping = {f'agg_weight_{node_key}': 0,
+                       f'mapped_loss_{node_key}': 0,
+                       f'avg_loss_{node_key}': avg_loss}
             self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         # Step 2: Evaluate validation (bootstrap) loss
@@ -163,7 +167,8 @@ class Sentinel(Aggregator):
             params = msg[0]
             metrics: ModelMetrics = msg[1]
             loss[node_key] = metrics.validation_loss
-            mapped_loss[node_key] = self.get_mapped_avg_loss(node_key, metrics.validation_loss, my_loss, self.loss_dist_threshold)
+            mapped_loss[node_key] = self.get_mapped_avg_loss(node_key, metrics.validation_loss, my_loss,
+                                                             self.loss_dist_threshold)
             cos[node_key] = metrics.cosine_similarity
         malicious_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
 

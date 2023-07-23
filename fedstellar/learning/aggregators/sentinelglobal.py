@@ -206,7 +206,11 @@ class SentinelGlobal(Aggregator):
             return models.get(self.node_name)[0]
 
         for node_key in malicious_by_cosine:
-            mapping = {f'agg_weight_{node_key}': 0}
+            prev_loss_hist: list = self.loss_history.get(node_key, [])
+            avg_loss = mean(prev_loss_hist) if prev_loss_hist else -1
+            mapping = {f'agg_weight_{node_key}': 0,
+                       f'mapped_loss_{node_key}': 0,
+                       f'avg_loss_{node_key}': avg_loss}
             self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         # Step 2: Evaluate validation (bootstrap) loss

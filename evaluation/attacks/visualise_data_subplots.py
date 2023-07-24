@@ -9,27 +9,13 @@ import os
 import imgkit
 from pathlib import Path
 from html2image import Html2Image
+from scripts import css_helper
 
 hti = Html2Image()
 
 FONT_SIZE = 16
 pd.set_option('display.max_columns', None)
 pd.set_option("display.precision", 3)
-
-
-# https://stackoverflow.com/questions/56715139/latex-table-with-uncertainty-from-pandas-dataframe
-def conv2siunitx(val, err, err_points=1):
-    val = f'{val:.20e}'.split('e')
-    err = f'{err:.20e}'.split('e')
-    first_uncertain = int(val[1]) - int(err[1]) + err_points
-
-    my_val = f'{np.round(float(val[0]), first_uncertain - 1):.10f}'
-    my_err = f'{np.round(float(err[0]), err_points - 1):.10f}'.replace('.', '')
-    # Avoid 1. and write 1 instead
-    if first_uncertain > 1:
-        first_uncertain = first_uncertain + 1
-
-    return (f'{my_val[:first_uncertain]}({my_err[:err_points]})e{val[1]}')
 
 
 def generate_plot(_dataset: str, _attack: str, _agg_error):
@@ -50,7 +36,9 @@ def generate_plot(_dataset: str, _attack: str, _agg_error):
     print('Reading file: ')
     print(DATA_FILE)
     # DATA_DIR = ROOT_DIR.joinpath(dataset, attack_name, data_file)
-    SAVE_PATH = DATA_DIR.joinpath("figures")
+    #SAVE_PATH = DATA_DIR.joinpath("figures")
+
+    SAVE_PATH = ROOT_DIR.joinpath("figures", _attack)
 
     print("Writing figures to: ")
     print(SAVE_PATH)
@@ -69,11 +57,12 @@ def generate_plot(_dataset: str, _attack: str, _agg_error):
 
     benign = fixed_data[fixed_data['adversarial_args.attacks'] == 'No Attack']
     df_unfinished = fixed_data[fixed_data['Round'] != 10]
-    """
+
     if len(df_unfinished) > 0:
+        print("Not sentinel runs finished")
         print(df_unfinished)
         exit(0)
-    """
+
     mean_benign = pd.pivot_table(benign, index=["aggregator_args.algorithm",
                                                 "adversarial_args.attack_env.attack",
                                                 "adversarial_args.attack_env.poisoned_node_percent",
@@ -83,12 +72,7 @@ def generate_plot(_dataset: str, _attack: str, _agg_error):
     mean_benign = mean_benign.reset_index()
     num_attack_configs = len(mean_benign.index)
 
-    """
-    if attack_name == 'model_poison':
-        assert num_attack_configs == 15
-    else:
-        assert num_attack_configs == 45
-    """
+    print(num_attack_configs)
 
     # Generate Overview Tables
     columns = ["PNR", "PSR"]
@@ -119,7 +103,7 @@ def generate_plot(_dataset: str, _attack: str, _agg_error):
     print(overview_final)
     for c in overview_final.columns:
         overview_final[c] = overview_final[c].apply(lambda x: "{:.3f}".format(x) + "\u00B1")
-        overview_final[c] = overview_final[c] + overview_error[c].apply(lambda x: "{:.3f}".format(x))
+        overview_final[c] = overview_final[c] + overview_error[c].apply(lambda x: "{:.3f}".format(x / 2))
     print(overview_final.head())
 
     overview_final_style = overview_final.style.format(precision=3)
@@ -128,48 +112,9 @@ def generate_plot(_dataset: str, _attack: str, _agg_error):
         overview_final_style.highlight_max(props='font-weight: bold')
     else:
         overview_final_style.highlight_min(props='font-weight: bold')
-
-    styles = [
-        dict(
-            selector="caption",
-            props=[('padding', '10px 0px')]
-        ),
-        dict(
-            selector="table",
-            props=[("border-collapse", "seperate"), ("border-spacing", "10px")],
-        ),
-        dict(
-            selector="tbody",
-            props=[("border-bottom", "2px solid")],
-        ),
-        dict(
-            selector="thead",
-            props=[("border-top", "2px solid")],
-        ),
-        dict(
-            selector="thead tr:first-child .col_heading",
-            props=[("border-bottom", "0.5px solid"),
-                   ("text-align", "left"),],
-        ),
-        dict(
-            selector=".index_name",
-            props=[("font-weight", "normal")],
-        ),
-        dict(
-            selector=".row_heading",
-            props=[("font-weight", "normal")],
-        )
-    ]
+    styles = css_helper.get_table_styles()
     overview_final_style = overview_final_style.set_table_styles(styles)
     overview_file_name = f'{prefix}_overview.png'
-
-    """
-    html = str(overview_final_style.to_html())
-    css = str(overview_final_style.css)
-    print(html)
-    hti.screenshot(html_str=html, css_str=css, save_as=overview_file_name)
-    """
-    # overview_final_style = overview_final_style.set_properties(**{'background-color': 'yellow'})
     dfi.export(overview_final_style, os.path.join(SAVE_PATH, overview_file_name), dpi=600, fontsize=12)
 
     # Generate Multiline Plots
@@ -190,20 +135,21 @@ def generate_plot(_dataset: str, _attack: str, _agg_error):
         else:
             axs.set_title(f'Noise Type: salt', fontsize=FONT_SIZE)
             handles, labels = axs.get_legend_handles_labels()
-    # fig.legend(handles, labels, loc='center')
+
     fig.legend(handles=handles, labels=labels, loc='upper center', bbox_to_anchor=(0.5, 1.05), ncol=3, fancybox=True,
                shadow=False, fontsize=FONT_SIZE)
     fig.subplots_adjust(wspace=0.05, hspace=0)
-    file_name = f'{prefix}.png'
+    file_name = f'{prefix}.pdf'
     fig.savefig(os.path.join(SAVE_PATH, file_name), dpi=600, bbox_inches='tight')
-    # plt.close('all')
+    # plt.close('sentinel')
 
 
 def main():
     datasets = ["fmnist", "mnist", "cifar10"]
-    datasets = ["mnist"]
+    # datasets = ["fmnist"]
     attack_names = ["label_flipping_targeted", "label_flipping_untargeted", "sample_poison", "model_poison"]
-    attack_names = ["sample_poison"]
+    # attack_names = ["sample_poison", "model_poison"]
+    # attack_names = ["model_poison"]
     for dataset in datasets:
         for attack_name in attack_names:
             generate_plot(_dataset=dataset, _attack=attack_name, _agg_error='sem')

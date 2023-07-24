@@ -170,7 +170,7 @@ class SentinelGlobal(Aggregator):
             logging.warning("[SentinelGlobal] Trying to aggregate models when there is no models")
             return None
 
-        # Compute trust and metrics
+        # Step 0: Compute trust and metrics
         for node_key in models.keys():
             model = models[node_key][0]
             metrics: ModelMetrics = models[node_key][1]

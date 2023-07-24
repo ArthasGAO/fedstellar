@@ -100,7 +100,7 @@ def generate_plot(_dataset: str, _attack: str, _agg_error):
             plt.title(f'{_dataset.upper()}, Noise Type: salt', fontsize=10)
         file_name = f'{prefix}-{percent}.png'
         plt.savefig(os.path.join(SAVE_PATH, file_name))
-    plt.close('all')
+    plt.close('sentinel')
 
 def main():
     datasets = ["mnist", "fmnist", "cifar10"]

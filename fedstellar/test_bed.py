@@ -17,7 +17,6 @@ docker_client = docker.from_env()
 # kill running processes (Ubuntu):
 # pkill -9 -f node_start.py
 
-
 def wait_docker_finished():
     fed_filter = {'label': 'fedstellar-jb'}
     is_prev_finished = False
@@ -107,7 +106,7 @@ basic_config["poisoned_node_percent"] = 0
 basic_config["poisoned_sample_percent"] = 0
 basic_config["poisoned_ratio"] = 0
 
-basic_config["targeted"] = True
+basic_config["targeted"] = False
 basic_config["target_label"] = 3
 basic_config["target_changed_label"] = 7
 
@@ -117,10 +116,10 @@ basic_config["epochs"] = 3
 
 basic_config["noise_type"] = "salt"
 attack_list = ["No Attack", "Model Poisoning", "Sample Poisoning", "Label Flipping"]
-attack = attack_list[2]
+attack = attack_list[3]
 
 poisoned_node_percent_list = [80, 50, 10]
-poisoned_node_percent_list = [80]
+poisoned_node_percent_list = [50]
 poisoned_sample_percent_list = [100, 50, 30]
 poisoned_sample_percent_list = [100]
 # poisoned_ratio_list = [1, 10, 20]

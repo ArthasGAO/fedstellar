@@ -18,6 +18,7 @@ def plot_baseline(dataset, metric):
     print(DATA_FILE)
     #DATA_DIR = ROOT_DIR.joinpath(dataset, attack_name, data_file)
     SAVE_PATH = ROOT_DIR.joinpath("figures")
+    if not os.path.exists(SAVE_PATH): os.makedirs(SAVE_PATH)
 
     data = pd.read_csv(DATA_FILE)
 
@@ -70,8 +71,8 @@ def plot_baseline(dataset, metric):
     if metric == 'f1':
         plt.ylabel("F1-Score", fontsize=FONT_SIZE)
     # plt.title(f'{dataset.upper()} Baseline, {metric.capitalize()}', fontsize=FONT_SIZE)
-    file_name = f'baseline-{dataset}-{metric}.png'
-    plt.savefig(os.path.join(SAVE_PATH, file_name), dpi=300, bbox_inches=0)
+    file_name = f'baseline-{dataset}-{metric}.pdf'
+    plt.savefig(os.path.join(SAVE_PATH, file_name), dpi=600, bbox_inches=0)
     plt.close('all')
 
 def main():

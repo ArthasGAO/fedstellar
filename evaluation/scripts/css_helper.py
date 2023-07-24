@@ -19,7 +19,8 @@ def get_table_styles():
         dict(
             selector="thead tr:first-child .col_heading",
             props=[("border-bottom", "0.5px solid"),
-                   ("text-align", "left"),],
+                   ("text-align", "left"),
+                   ]
         ),
         dict(
             selector=".index_name",

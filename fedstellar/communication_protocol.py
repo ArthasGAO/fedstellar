@@ -1,7 +1,7 @@
-# 
+#
 # This file is part of the Fedstellar platform (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
-# 
+#
 
 
 import logging
@@ -124,6 +124,10 @@ class CommunicationProtocol:
     FEATURES message header.
     """
     FEATURES = "FEATURES"
+    """
+    SELECTED_NODES message header.
+    """
+    SELECTED_NODES = "SELECTED_NODES"
 
     ############################################
     #    MSG PROCESSING (Non Static Methods)   #
@@ -147,8 +151,8 @@ class CommunicationProtocol:
         # Remove oldest messages
         if len(self.last_messages) > self.config.participant["AMOUNT_LAST_MESSAGES_SAVED"]:
             self.last_messages = self.last_messages[
-                                 len(self.last_messages) - self.config.participant["AMOUNT_LAST_MESSAGES_SAVED"]:
-                                 ]
+                len(self.last_messages) - self.config.participant["AMOUNT_LAST_MESSAGES_SAVED"]:
+            ]
         self.__last_messages_lock.release()
 
     def process_message(self, msg):
@@ -182,7 +186,8 @@ class CommunicationProtocol:
                 )
 
             return [], not self.__exec(
-                CommunicationProtocol.PARAMS, None, None, msg[len(header):], False
+                CommunicationProtocol.PARAMS, None, None, msg[len(
+                    header):], False
             )
 
         else:
@@ -201,11 +206,13 @@ class CommunicationProtocol:
                 if message[0] == CommunicationProtocol.BEAT:
                     if len(message) > 2:
                         hash_ = message[2]
-                        cmd_text = (" ".join(message[0:3]) + "\n").encode("utf-8")
+                        cmd_text = (
+                            " ".join(message[0:3]) + "\n").encode("utf-8")
                         if self.__exec(
                                 CommunicationProtocol.BEAT, hash_, cmd_text, message[1]
                         ):
-                            message = message[3:]  # Remove the BEAT message from the list (3 elements: BEAT <node> <hash>)
+                            # Remove the BEAT message from the list (3 elements: BEAT <node> <hash>)
+                            message = message[3:]
                         else:
                             error = True
                             break
@@ -217,11 +224,13 @@ class CommunicationProtocol:
                 elif message[0] == CommunicationProtocol.ROLE:
                     if len(message) > 3:
                         hash_ = message[3]
-                        cmd_text = (" ".join(message[0:4]) + "\n").encode("utf-8")
+                        cmd_text = (
+                            " ".join(message[0:4]) + "\n").encode("utf-8")
                         if self.__exec(
                                 CommunicationProtocol.ROLE, hash_, cmd_text, message[1], message[2]
                         ):
-                            message = message[4:]  # Remove the ROLE message from the list
+                            # Remove the ROLE message from the list
+                            message = message[4:]
                         else:
                             error = True
                             break
@@ -264,7 +273,8 @@ class CommunicationProtocol:
                     if len(message) > 3:
                         if message[1].isdigit() and message[2].isdigit():
                             hash_ = message[3]
-                            cmd_text = (" ".join(message[0:4]) + "\n").encode("utf-8")
+                            cmd_text = (
+                                " ".join(message[0:4]) + "\n").encode("utf-8")
                             if self.__exec(
                                     CommunicationProtocol.START_LEARNING,
                                     hash_,
@@ -288,7 +298,8 @@ class CommunicationProtocol:
                     if len(message) > 1:
                         if message[1].isdigit():
                             hash_ = message[1]
-                            cmd_text = (" ".join(message[0:2]) + "\n").encode("utf-8")
+                            cmd_text = (
+                                " ".join(message[0:2]) + "\n").encode("utf-8")
                             if self.__exec(
                                     CommunicationProtocol.STOP_LEARNING, hash_, cmd_text
                             ):
@@ -328,8 +339,9 @@ class CommunicationProtocol:
                 elif message[0] == CommunicationProtocol.METRICS:
                     if len(message) > 5:
                         try:
-                            hash_ = message[5]    
-                            cmd_text = (" ".join(message[0:6]) + "\n").encode("utf-8")
+                            hash_ = message[5]
+                            cmd_text = (
+                                " ".join(message[0:6]) + "\n").encode("utf-8")
                             if self.__exec(
                                     CommunicationProtocol.METRICS,
                                     hash_,
@@ -349,13 +361,14 @@ class CommunicationProtocol:
                     else:
                         error = True
                         break
-                    
+
                 # Features
                 elif message[0] == CommunicationProtocol.FEATURES:
-                    if len(message) > 6:
+                    if len(message) > 7:
                         try:
-                            
-                            cmd_text = (" ".join(message[0:7]) + "\n").encode("utf-8")
+
+                            cmd_text = (
+                                " ".join(message[0:8]) + "\n").encode("utf-8")
                             if self.__exec(
                                     CommunicationProtocol.FEATURES,
                                     None,
@@ -366,17 +379,20 @@ class CommunicationProtocol:
                                     float(message[4]),
                                     float(message[5]),
                                     float(message[6]),
-                                    
-                                    
+                                    float(message[7]),
+
+
                             ):
-                                message = message[7:]
-                                
+                                message = message[8:]
+
                             else:
-                                logging.info("[COMM_PROTOCOL ERROR] first else ")
+                                logging.info(
+                                    "[COMM_PROTOCOL ERROR] first else ")
                                 error = True
                                 break
                         except Exception as e:
-                            logging.info("[COMM_PROTOCOL ERROR] Exception as e")
+                            logging.info(
+                                "[COMM_PROTOCOL ERROR] Exception as e")
                             error = True
                             break
                     else:
@@ -384,6 +400,27 @@ class CommunicationProtocol:
                         error = True
                         break
 
+                elif message[0] == CommunicationProtocol.SELECTED_NODES:
+                    if len(message) > 1:
+                        logging.info(
+                            "[COMM PROTOCOL] message = {}".format(message))
+
+                        if self.__exec(
+                                CommunicationProtocol.SELECTED_NODES,
+                                None,
+                                None,
+                                message[1],
+
+                        ):
+                            message = []
+
+                        else:
+                            error = True
+                            break
+
+                    else:
+                        error = True
+                        break
 
                 # Vote train set
                 elif message[0] == CommunicationProtocol.VOTE_TRAIN_SET:
@@ -437,7 +474,8 @@ class CommunicationProtocol:
                         nodes = []
                         for n in content:
                             nodes.append(n)
-                        logging.info("[COMM_PROTOCOL.MODELS_AGGREGATED] Received models_aggregated message with {}".format(nodes))
+                        logging.info(
+                            "[COMM_PROTOCOL.MODELS_AGGREGATED] Received models_aggregated message with {}".format(nodes))
                         # Exec
                         if not self.__exec(
                                 CommunicationProtocol.MODELS_AGGREGATED, None, None, nodes
@@ -471,7 +509,7 @@ class CommunicationProtocol:
                     error = True
                     break
 
-            # Return            
+            # Return
             return self.tmp_exec_msgs, error
 
     # Exec callbacks
@@ -582,7 +620,8 @@ class CommunicationProtocol:
         Returns:
             An encoded beat message.
         """
-        logging.debug("[COMM_PROTOCOL.build_beat_msg] Sending beat message: {}".format(CommunicationProtocol.BEAT + " " + node))
+        logging.debug("[COMM_PROTOCOL.build_beat_msg] Sending beat message: {}".format(
+            CommunicationProtocol.BEAT + " " + node))
         return CommunicationProtocol.generate_hased_message(
             CommunicationProtocol.BEAT + " " + node
         )
@@ -595,7 +634,8 @@ class CommunicationProtocol:
         Returns:
             An encoded role message.
         """
-        logging.debug("[COMM_PROTOCOL.build_role_msg] Sending role message: {}".format(CommunicationProtocol.ROLE + " " + node + " " + role))
+        logging.debug("[COMM_PROTOCOL.build_role_msg] Sending role message: {}".format(
+            CommunicationProtocol.ROLE + " " + node + " " + role))
         return CommunicationProtocol.generate_hased_message(
             CommunicationProtocol.ROLE + " " + node + " " + role
         )
@@ -619,7 +659,7 @@ class CommunicationProtocol:
             An encoded connect to message.
         """
         return (
-                CommunicationProtocol.CONN_TO + " " + ip + " " + str(port) + "\n"
+            CommunicationProtocol.CONN_TO + " " + ip + " " + str(port) + "\n"
         ).encode("utf-8")
 
     @staticmethod
@@ -633,7 +673,8 @@ class CommunicationProtocol:
             An encoded start learning message.
         """
         return CommunicationProtocol.generate_hased_message(
-            CommunicationProtocol.START_LEARNING + " " + str(rounds) + " " + str(epochs)
+            CommunicationProtocol.START_LEARNING +
+            " " + str(rounds) + " " + str(epochs)
         )
 
     @staticmethod
@@ -718,11 +759,11 @@ class CommunicationProtocol:
         for n in nodes:
             aux = aux + " " + n
         return (
-                CommunicationProtocol.MODELS_AGGREGATED
-                + aux
-                + " "
-                + CommunicationProtocol.MODELS_AGGREGATED_CLOSE
-                + "\n"
+            CommunicationProtocol.MODELS_AGGREGATED
+            + aux
+            + " "
+            + CommunicationProtocol.MODELS_AGGREGATED_CLOSE
+            + "\n"
         ).encode("utf-8")
 
     @staticmethod
@@ -749,16 +790,16 @@ class CommunicationProtocol:
             An encoded connect message.
         """
         return (
-                CommunicationProtocol.CONN
-                + " "
-                + ip
-                + " "
-                + str(port)
-                + " "
-                + str(broadcast)
-                + " "
-                + str(force)
-                + "\n"
+            CommunicationProtocol.CONN
+            + " "
+            + ip
+            + " "
+            + str(port)
+            + " "
+            + str(broadcast)
+            + " "
+            + str(force)
+            + "\n"
         ).encode("utf-8")
 
     @staticmethod
@@ -788,7 +829,7 @@ class CommunicationProtocol:
         if len(data_msgs[-1]) + len(end) <= block_size:
             data_msgs[-1] += end
             data_msgs[-1] += b"\0" * (
-                    block_size - len(data_msgs[-1])
+                block_size - len(data_msgs[-1])
             )  # padding to avoid message fragmentation
         else:
             data_msgs.append(header + end)
@@ -802,28 +843,47 @@ class CommunicationProtocol:
             An encoded leadership transfer message.
         """
         return (CommunicationProtocol.TRANSFER_LEADERSHIP + "\n").encode("utf-8")
-    
-    
+
     @staticmethod
-    def build_feature_msg(node, cpu_percent,data_size,bytes_received,bytes_send,latency,avaliability):
+    def build_feature_msg(node, loss, cpu_percent, data_size, bytes_received, bytes_send, latency, avaliability):
         """
         Static method that builds a feature message.
         CommunicationProtocol.FEATURE + node + feature
         Returns:
             An encoded feature message.
         """
-        
+
         return (CommunicationProtocol.FEATURES
-            + " "
-            + node
-            + " "
-            + str(cpu_percent)
-            + " "
-            + str(data_size)
-            + " "
-            + str(bytes_received)
-            + " "
-            + str(bytes_send)
-            + " "
-            + str(avaliability)
-            + "\n").encode("utf-8")
+                + " "
+                + node
+                + " "
+                + str(loss)
+                + " "
+                + str(cpu_percent)
+                + " "
+                + str(data_size)
+                + " "
+                + str(bytes_received)
+                + " "
+                + str(bytes_send)
+                + " "
+                + str(avaliability)
+                + "\n").encode("utf-8")
+
+    @staticmethod
+    def build_select_node_msg(nodes):
+        """
+        Static method that builds a 
+        """
+        msg = ""
+        for node in nodes:
+            msg = msg + node + "-"
+
+        logging.info("[NODE] First Round Selection broadcast = {}".format((CommunicationProtocol.SELECTED_NODES
+                                                                           + " "
+                                                                           + msg
+                                                                           + "\n").encode("utf-8")))
+        return (CommunicationProtocol.SELECTED_NODES
+                + " "
+                + msg
+                + "\n").encode("utf-8")

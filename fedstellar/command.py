@@ -1,7 +1,7 @@
-# 
+#
 # This file is part of the Fedstellar platform (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
-# 
+#
 
 
 """
@@ -153,12 +153,22 @@ class Transfer_leadership_cmd(Command):
 
     def execute(self):
         self.node_connection.set_transfer_leadership("aggregator")
-        
-        
+
+
 class Features_cmd(Command):
     """
     Command that should be executed as a response to a **feature** message.
     """
 
-    def execute(self,node, cpu_percent,data_size,bytes_received,bytes_send,availability):
-        self.node_connection.notify_features(node, cpu_percent,data_size,bytes_received,bytes_send,availability)
+    def execute(self, node, loss, cpu_percent, data_size, bytes_received, bytes_send, availability):
+        self.node_connection.notify_features(
+            node, loss, cpu_percent, data_size, bytes_received, bytes_send, availability)
+
+
+class Selected_nodes_cmd(Command):
+    """
+    Command that should be executed as a response to a **feature** message.
+    """
+
+    def execute(self, node):
+        self.node_connection.notify_selected(node)

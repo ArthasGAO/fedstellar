@@ -1,7 +1,7 @@
-# 
+#
 # This file is part of the Fedstellar platform (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
-# 
+#
 
 import logging
 import pickle
@@ -16,6 +16,7 @@ from lightning.pytorch.callbacks.progress.rich_progress import RichProgressBarTh
 from lightning.pytorch.utilities import grad_norm
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
+from lightning.pytorch.callbacks import Callback
 
 
 ###########################
@@ -49,17 +50,15 @@ class LightningLearner(NodeLearner):
         # self.local_step = 0
         # self.global_step = 0
 
-        self.logger.log_metrics({"Round": self.round}, step=self.logger.global_step)
-
+        self.logger.log_metrics({"Round": self.round},
+                                step=self.logger.global_step)
+        self.loss = -1
 
     def set_model(self, model):
         self.model = model
 
     def set_data(self, data):
         self.data = data
-        
-    def get_loss(self):
-        pass
 
     def encode_parameters(self, params=None, contributors=None, weight=None):
         if params is None:
@@ -106,15 +105,27 @@ class LightningLearner(NodeLearner):
             if self.epochs > 0:
                 self.create_trainer()
                 self.__trainer.fit(self.model, self.data)
+                self.loss = float(
+                    self.__trainer.callback_metrics['Train/Loss'])
                 self.__trainer = None
         except Exception as e:
-            logging.error("Something went wrong with pytorch lightning. {}".format(e))
+            logging.error(
+                "Something went wrong with pytorch lightning. {}".format(e))
 
     def interrupt_fit(self):
         if self.__trainer is not None:
             self.__trainer.should_stop = True
             self.__trainer = None
 
+    def get_loss(self):
+
+        # if self.__trainer is not None:
+        #    callback_metrics = self.__trainer.callback_metrics
+        #    if callback_metrics:s
+        # ['Train/Loss']
+        #        self.loss = callback_metrics.keys()
+
+        return self.loss
 
     def evaluate(self):
         try:
@@ -131,11 +142,13 @@ class LightningLearner(NodeLearner):
             else:
                 return None
         except Exception as e:
-            logging.error("Something went wrong with pytorch lightning. {}".format(e))
+            logging.error(
+                "Something went wrong with pytorch lightning. {}".format(e))
             return None
 
     def log_validation_metrics(self, loss, metric, round=None, name=None):
-        self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
+        self.logger.log_metrics(
+            {"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
         pass
 
     def get_num_samples(self):
@@ -157,7 +170,8 @@ class LightningLearner(NodeLearner):
         pass
 
     def create_trainer(self):
-        logging.info("[Learner] Creating trainer with accelerator: {}".format(self.config.participant["device_args"]["accelerator"]))
+        logging.info("[Learner] Creating trainer with accelerator: {}".format(
+            self.config.participant["device_args"]["accelerator"]))
         progress_bar = RichProgressBar(
             theme=RichProgressBarTheme(
                 description="green_yellow",
@@ -175,7 +189,8 @@ class LightningLearner(NodeLearner):
             callbacks=[RichModelSummary(max_depth=1), progress_bar],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",  # TODO: only one GPU for now
+            # TODO: only one GPU for now
+            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",
             # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=self.logger,
@@ -184,3 +199,13 @@ class LightningLearner(NodeLearner):
             enable_model_summary=False,
             enable_progress_bar=True,
         )
+
+
+###########################
+# LightningLearner Callback#
+###########################
+
+class MyPrintingCallback(Callback):
+    def on_train_end(self, trainer, pl_module):
+
+        print("Training is ending")

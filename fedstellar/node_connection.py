@@ -1,7 +1,7 @@
-# 
+#
 # This file is part of the Fedstellar platform (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
-# 
+#
 
 
 import logging
@@ -46,12 +46,12 @@ class NodeConnection(threading.Thread, Observable):
         threading.Thread.__init__(
             self,
             name=(
-                    "node_connection-"
-                    + parent_node_name
-                    + "-"
-                    + str(addr[0])
-                    + ":"
-                    + str(addr[1])
+                "node_connection-"
+                + parent_node_name
+                + "-"
+                + str(addr[0])
+                + ":"
+                + str(addr[1])
             ),
         )
         Observable.__init__(self)
@@ -96,6 +96,7 @@ class NodeConnection(threading.Thread, Observable):
                 CommunicationProtocol.MODEL_INITIALIZED: Model_initialized_cmd(self),
                 CommunicationProtocol.TRANSFER_LEADERSHIP: Transfer_leadership_cmd(self),
                 CommunicationProtocol.FEATURES: Features_cmd(self),
+                CommunicationProtocol.SELECTED_NODES: Selected_nodes_cmd(self),
             },
             self.config,
         )
@@ -144,10 +145,12 @@ class NodeConnection(threading.Thread, Observable):
                 # Receive message
                 og_msg = b""
                 if amount_pending_params == 0:
-                    og_msg = self.__socket.recv(self.config.participant["BLOCK_SIZE"])
+                    og_msg = self.__socket.recv(
+                        self.config.participant["BLOCK_SIZE"])
 
                 else:
-                    pending_fragment = self.__socket.recv(amount_pending_params)
+                    pending_fragment = self.__socket.recv(
+                        amount_pending_params)
                     og_msg = param_buffer + pending_fragment  # alinear el colapso
                     param_buffer = b""
                     amount_pending_params = 0
@@ -172,7 +175,8 @@ class NodeConnection(threading.Thread, Observable):
                     overflow = CommunicationProtocol.check_collapse(msg)
                     if overflow > 0:
                         param_buffer = og_msg[overflow:]
-                        amount_pending_params = self.config.participant["BLOCK_SIZE"] - len(param_buffer)
+                        amount_pending_params = self.config.participant["BLOCK_SIZE"] - len(
+                            param_buffer)
                         msg = msg[:overflow]
                         logging.debug(
                             "[NODE_CONNECTION] Collapse detected: {}".format(
@@ -183,7 +187,8 @@ class NodeConnection(threading.Thread, Observable):
                     else:
                         # Check if all bytes of param_buffer are received
                         amount_pending_params = (
-                            CommunicationProtocol.check_params_incomplete(msg, self.config.participant["BLOCK_SIZE"])
+                            CommunicationProtocol.check_params_incomplete(
+                                msg, self.config.participant["BLOCK_SIZE"])
                         )
                         if amount_pending_params != 0:
                             param_buffer = msg
@@ -198,10 +203,10 @@ class NodeConnection(threading.Thread, Observable):
                     #    logging.info(
                     #        "[NODE_CONNECTION] Processing message: {}".format(msg)
                     #    )
-                    
-                    #Process msg 
+
+                    # Process msg
                     exec_msgs, error = self.comm_protocol.process_message(msg)
-                    
+
                     if len(exec_msgs) > 0:
                         self.notify(
                             Events.PROCESSED_MESSAGES_EVENT, (self, exec_msgs)
@@ -211,7 +216,8 @@ class NodeConnection(threading.Thread, Observable):
                     if error:
                         self.__terminate_flag.set()
                         logging.info(
-                            "[NODE_CONNECTION] An error happened. Last error: {}".format(msg)
+                            "[NODE_CONNECTION] An error happened. Last error: {}".format(
+                                msg)
                         )
 
             except socket.timeout:
@@ -223,13 +229,15 @@ class NodeConnection(threading.Thread, Observable):
 
             except Exception as e:
                 logging.info(
-                    "[NODE_CONNECTION] (NodeConnection Loop) Exception: {}".format(str(e))
+                    "[NODE_CONNECTION] (NodeConnection Loop) Exception: {}".format(
+                        str(e))
                 )
                 self.__terminate_flag.set()
                 break
 
         # Down Connection
-        logging.info("[NODE_CONNECTION] Closed connection: {}".format(self.get_name()))
+        logging.info(
+            "[NODE_CONNECTION] Closed connection: {}".format(self.get_name()))
         self.notify(Events.END_CONNECTION_EVENT, self)
         self.__socket.close()
 
@@ -454,13 +462,23 @@ class NodeConnection(threading.Thread, Observable):
             value: The role of the node when the transfer leadership is received.
         """
         logging.info("[NODE_CONNECTION] Transfer leadership received")
-        logging.info("[NODE_CONNECTION] Previous role: {}".format(self.config.participant['device_args']['role']))
+        logging.info("[NODE_CONNECTION] Previous role: {}".format(
+            self.config.participant['device_args']['role']))
         self.config.participant['device_args']['role'] = value
-        logging.info("[NODE_CONNECTION] New role: {}".format(self.config.participant['device_args']['role']))
-        
-    def notify_features(self, node, cpu_percent,data_size,bytes_received,bytes_send,availability):
+        logging.info("[NODE_CONNECTION] New role: {}".format(
+            self.config.participant['device_args']['role']))
+
+    def notify_features(self, node, loss, cpu_percent, data_size, bytes_received, bytes_send, availability):
         """
         Notify to the parent node that `FEATURES` has been received.
         """
 
-        self.notify(Events.FEATURES_RECEIVED_EVENT, (node,cpu_percent,data_size,bytes_received,bytes_send,availability))
+        self.notify(Events.FEATURES_RECEIVED_EVENT, (node, loss, cpu_percent,
+                    data_size, bytes_received, bytes_send, availability))
+
+    def notify_selected(self, node):
+        """
+        Notify to the parent node that `FEATURES` has been received.
+        """
+
+        self.notify(Events.SELECTED_RECEIVED_EVENT, (node))

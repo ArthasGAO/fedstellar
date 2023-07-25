@@ -1,7 +1,7 @@
-# 
+#
 # This file is part of the Fedstellar platform (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
-# 
+#
 
 
 """
@@ -97,6 +97,11 @@ class Events:
     Used to notify that ...
     """
 
+    SELECTED_RECEIVED_EVENT = "SELECTED_RECEIVED_EVENT"
+    """
+    Used to notify that ...
+    """
+
 
 ##################################
 #    Generic Observable class    #
@@ -118,7 +123,8 @@ class Observable:
         Args:
             observer: The observer to add.
         """
-        logging.info("[OBSERVABLE.add_observer] Observable: {} | Adding observer: {}".format(self, observer))
+        logging.info("[OBSERVABLE.add_observer] Observable: {} | Adding observer: {}".format(
+            self, observer))
         self.__observers.append(observer)
 
     def get_observers(self):
@@ -139,9 +145,11 @@ class Observable:
             obj: The object to pass to the observer. For each event, the object is different (check it at the ``Event`` class).
         """
         if len(str(obj)) > 300:
-            logging.debug("[OBSERVABLE.notify] Observable: {} | Notifying event: ".format(self) + str(event) + " | Transmitted Obj: " + "Too long [...]" + " --> to observers: " + str(self.__observers))
+            logging.debug("[OBSERVABLE.notify] Observable: {} | Notifying event: ".format(
+                self) + str(event) + " | Transmitted Obj: " + "Too long [...]" + " --> to observers: " + str(self.__observers))
         else:
-            logging.debug("[OBSERVABLE.notify] Observable: {} | Notifying event: ".format(self) + str(event) + " | Transmitted Obj: " + str(obj) + " --> to observers: " + str(self.__observers))
+            logging.debug("[OBSERVABLE.notify] Observable: {} | Notifying event: ".format(
+                self) + str(event) + " | Transmitted Obj: " + str(obj) + " --> to observers: " + str(self.__observers))
         [o.update(event, obj) for o in self.__observers]
 
 

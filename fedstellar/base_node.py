@@ -1,4 +1,4 @@
-# 
+#
 # This file is part of the Fedstellar platform (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 #
@@ -69,7 +69,8 @@ class BaseNode(threading.Thread, Observer):
 
         # Setting up network resources
         if not self.simulation and config.participant["network_args"]:
-            print("[BASENODE] Network parameters\n{}".format(config.participant["network_args"]))
+            print("[BASENODE] Network parameters\n{}".format(
+                config.participant["network_args"]))
             print("[BASENODE] Running tcconfig to set network parameters")
             os.system(f"tcset --device {config.participant['network_args']['interface']} --rate {config.participant['network_args']['rate']} --delay {config.participant['network_args']['delay']} --delay-distro {config.participant['network_args']['delay-distro']} --loss {config.participant['network_args']['loss']}")
 
@@ -78,12 +79,14 @@ class BaseNode(threading.Thread, Observer):
         self.__nei_lock = threading.Lock()
 
         # Logging
-        self.log_dir = os.path.join(config.participant['tracking_args']["log_dir"], self.experiment_name)
+        self.log_dir = os.path.join(
+            config.participant['tracking_args']["log_dir"], self.experiment_name)
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
         self.log_filename = f"{self.log_dir}/participant_{config.participant['device_args']['idx']}" if self.hostdemo else f"{self.log_dir}/participant_{config.participant['device_args']['idx']}"
         os.makedirs(os.path.dirname(self.log_filename), exist_ok=True)
-        console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler = self.setup_logging(self.log_filename)
+        console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler = self.setup_logging(
+            self.log_filename)
 
         level = logging.DEBUG if config.participant["device_args"]["logging"] else logging.CRITICAL
         logging.basicConfig(level=level,
@@ -127,21 +130,28 @@ class BaseNode(threading.Thread, Observer):
         log_console_format = f"{CYAN}[%(levelname)s] - %(asctime)s - {self.get_name_demo()}{RESET}\n%(message)s" if self.hostdemo else f"{CYAN}[%(levelname)s] - %(asctime)s - {self.get_name()}{RESET}\n%(message)s"
 
         console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
+        console_handler.setLevel(
+            logging.INFO if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
         console_handler.setFormatter(Formatter(log_console_format))
 
         file_handler = FileHandler('{}.log'.format(log_dir), mode='w')
-        file_handler.setLevel(logging.INFO if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
+        file_handler.setLevel(
+            logging.INFO if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
         file_handler.setFormatter(Formatter(info_file_format))
 
-        file_handler_only_debug = FileHandler('{}_debug.log'.format(log_dir), mode='w')
-        file_handler_only_debug.setLevel(logging.DEBUG if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
+        file_handler_only_debug = FileHandler(
+            '{}_debug.log'.format(log_dir), mode='w')
+        file_handler_only_debug.setLevel(
+            logging.DEBUG if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
         # Add filter to file_handler_only_debug for only add debug messages
-        file_handler_only_debug.addFilter(lambda record: record.levelno == logging.DEBUG)
+        file_handler_only_debug.addFilter(
+            lambda record: record.levelno == logging.DEBUG)
         file_handler_only_debug.setFormatter(Formatter(debug_file_format))
 
-        exp_errors_file_handler = FileHandler('{}_error.log'.format(log_dir), mode='w')
-        exp_errors_file_handler.setLevel(logging.WARNING if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
+        exp_errors_file_handler = FileHandler(
+            '{}_error.log'.format(log_dir), mode='w')
+        exp_errors_file_handler.setLevel(
+            logging.WARNING if self.config.participant["device_args"]["logging"] else logging.CRITICAL)
         exp_errors_file_handler.setFormatter(Formatter(debug_file_format))
 
         return console_handler, file_handler, file_handler_only_debug, exp_errors_file_handler
@@ -159,7 +169,8 @@ class BaseNode(threading.Thread, Observer):
         # Main Loop
         super().start()
         # Heartbeater and Gossiper
-        self.heartbeater = Heartbeater(self.get_name(), self.__neighbors, self.config)
+        self.heartbeater = Heartbeater(
+            self.get_name(), self.__neighbors, self.config)
         self.gossiper = Gossiper(
             self.get_name(), self.__neighbors, self.config
         )  # thread safe, only read
@@ -197,7 +208,8 @@ class BaseNode(threading.Thread, Observer):
                 # Process new connection
                 if msg:
                     msg = msg.decode("UTF-8")
-                    callback = lambda h, p, fu, fc: self.__process_new_connection(
+
+                    def callback(h, p, fu, fc): return self.__process_new_connection(
                         ns, h, p, fu, fc
                     )
                     if not CommunicationProtocol.process_connection(msg, callback):
@@ -238,7 +250,8 @@ class BaseNode(threading.Thread, Observer):
                     # Asymmetric
                     rsa = RSACipher()
                     node_socket.sendall(rsa.get_key())
-                    rsa.load_pair_public_key(node_socket.recv(len(rsa.get_key())))
+                    rsa.load_pair_public_key(
+                        node_socket.recv(len(rsa.get_key())))
 
                     # Symmetric
                     aes_cipher = AESCipher()
@@ -255,7 +268,8 @@ class BaseNode(threading.Thread, Observer):
                         self.get_name(), node_socket, (h, p), aes_cipher, config=self.config
                     )
                     nc.add_observer(self)
-                    logging.info("[BASENODE.__process_new_connection] New neighbor: {}".format(nc.get_name()))
+                    logging.info(
+                        "[BASENODE.__process_new_connection] New neighbor: {}".format(nc.get_name()))
                     self.__neighbors.append(nc)
                     nc.start(force=force)
 
@@ -343,9 +357,11 @@ class BaseNode(threading.Thread, Observer):
                     aes_cipher = AESCipher(key=s.recv(AESCipher.key_len()))
 
                 # Add socket to neighbors
-                nc = NodeConnection(self.get_name(), s, (h, p), aes_cipher, config=self.config)
+                nc = NodeConnection(self.get_name(), s,
+                                    (h, p), aes_cipher, config=self.config)
                 nc.add_observer(self)
-                logging.info("[BASENODE_connect_to] Connected to {}:{} -> New neighbor {}".format(h, p, nc.get_name()))
+                logging.info(
+                    "[BASENODE_connect_to] Connected to {}:{} -> New neighbor {}".format(h, p, nc.get_name()))
                 self.__neighbors.append(nc)
                 nc.start(force=force)
                 self.__nei_lock.release()
@@ -353,13 +369,15 @@ class BaseNode(threading.Thread, Observer):
 
             else:
                 logging.info(
-                    "{} Already connected to {}:{}".format(self.get_name(), h, p)
+                    "{} Already connected to {}:{}".format(
+                        self.get_name(), h, p)
                 )
                 self.__nei_lock.release()
                 return None
         except Exception as e:
             logging.info(
-                "{} Can't connect to the node {}:{}".format(self.get_name(), h, p)
+                "{} Can't connect to the node {}:{}".format(
+                    self.get_name(), h, p)
             )
             # logging.exception(e)
             try:
@@ -434,7 +452,8 @@ class BaseNode(threading.Thread, Observer):
         """
         self.__nei_lock.acquire()
         try:
-            logging.info("[BASENODE.rm_neighbor] Remove neighbor: {}".format(n.get_name()))
+            logging.info(
+                "[BASENODE.rm_neighbor] Remove neighbor: {}".format(n.get_name()))
             self.__neighbors.remove(n)
             n.stop()
         except Exception as e:
@@ -447,23 +466,23 @@ class BaseNode(threading.Thread, Observer):
             list: The nodes of the network -> The neighbors of the node (by heartbeater).
         """
         return self.heartbeater.get_nodes()
-    
-    def get_latency(self,h,p,runs):
+
+    def get_latency(self, h, p, runs):
         """
         Returns:
             .
         """
         lat_list = []
-        for _ in range(0,runs):
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM )
+        for _ in range(0, runs):
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             start = time.time()
-            s.connect((h,p))
+            s.connect((h, p))
             lat_list.append((time.time()-start)*1000)
             s.close()
             time.sleep(1)
-        
+
         latency = sum(lat_list) / len(lat_list)
-        
+
         return latency
 
     ##########################
@@ -483,7 +502,8 @@ class BaseNode(threading.Thread, Observer):
         if thread_safe:
             self.__nei_lock.acquire()
 
-        logging.debug("[BASENODE.broadcast] {} --> to: {} | Excluded: {}".format(msg, self.__neighbors, exc))
+        logging.debug(
+            "[BASENODE.broadcast] {} --> to: {} | Excluded: {}".format(msg, self.__neighbors, exc))
 
         for n in self.__neighbors:
             if not (n in exc):
@@ -505,25 +525,30 @@ class BaseNode(threading.Thread, Observer):
             obj: Information about the change or event.
         """
         if len(str(obj)) > 300:
-            logging.debug("[BASENODE.update (observer)] Event that has occurred: {} | Obj information: Too long [...]".format(event))
+            logging.debug(
+                "[BASENODE.update (observer)] Event that has occurred: {} | Obj information: Too long [...]".format(event))
         else:
-            logging.debug("[BASENODE.update (observer)] Event that has occurred: {} | Obj information: {}".format(event, obj))
+            logging.debug(
+                "[BASENODE.update (observer)] Event that has occurred: {} | Obj information: {}".format(event, obj))
 
         if event == Events.END_CONNECTION_EVENT:
             self.rm_neighbor(obj)
 
         elif event == Events.NODE_CONNECTED_EVENT:
             # This event is reported by NodeConnection. Previously it has had to connect to the node.
-            logging.debug("[BASENODE.update (observer) | Events.NODE_CONNECTED_EVENT] Connecting to: {}".format(obj[0]))
+            logging.debug(
+                "[BASENODE.update (observer) | Events.NODE_CONNECTED_EVENT] Connecting to: {}".format(obj[0]))
             n, _ = obj
             n.send(CommunicationProtocol.build_beat_msg(self.get_name()))
 
         elif event == Events.CONN_TO_EVENT:
-            logging.debug("[BASENODE.update (observer) | Events.CONN_TO_EVENT] Connecting to: {} {}".format(obj[0], obj[1]))
+            logging.debug(
+                "[BASENODE.update (observer) | Events.CONN_TO_EVENT] Connecting to: {} {}".format(obj[0], obj[1]))
             self.connect_to(obj[0], obj[1], full=False)
 
         elif event == Events.SEND_BEAT_EVENT:
-            self.broadcast(CommunicationProtocol.build_beat_msg(self.get_name()))
+            self.broadcast(
+                CommunicationProtocol.build_beat_msg(self.get_name()))
 
         elif event == Events.GOSSIP_BROADCAST_EVENT:
             self.broadcast(obj[0], exc=obj[1])
@@ -536,9 +561,11 @@ class BaseNode(threading.Thread, Observer):
                     nc.add_processed_messages(list(msgs.keys()))
             # Gossip the new messages
             if len(str(obj)) > 300:
-                logging.debug("[BASENODE.update (observer) | Events.PROCESSED_MESSAGES_EVENT] Add messages to gossiper: Too long [...] | Node: {}".format(node))
+                logging.debug(
+                    "[BASENODE.update (observer) | Events.PROCESSED_MESSAGES_EVENT] Add messages to gossiper: Too long [...] | Node: {}".format(node))
             else:
-                logging.debug("[BASENODE.update (observer) | Events.PROCESSED_MESSAGES_EVENT] Add messages to gossiper: {} | Node: {}".format(list(msgs.values()), node))
+                logging.debug("[BASENODE.update (observer) | Events.PROCESSED_MESSAGES_EVENT] Add messages to gossiper: {} | Node: {}".format(
+                    list(msgs.values()), node))
             self.gossiper.add_messages(list(msgs.values()), node)
 
         elif event == Events.BEAT_RECEIVED_EVENT:

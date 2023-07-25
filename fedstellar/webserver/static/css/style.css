@@ -23,7 +23,6 @@
 
 .navbar-brand {
     font-size: 25px;
-    line-height: 30px;
 }
 
 .container.footer {
@@ -176,6 +175,11 @@ td {
 
 .form-group {
     margin-bottom: 1rem !important;
+    vertical-align: baseline !important;
+}
+
+.form-group.form-group-tiny {
+    margin-bottom: 0 !important;
     vertical-align: baseline !important;
 }
 

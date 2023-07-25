@@ -288,7 +288,7 @@ class Node(BaseNode):
             self.broadcast(CommunicationProtocol.build_model_initialized_msg())
             self.__wait_init_model_lock.release()
             self.__model_initialized = (
-                True  # esto seguramente sobre, con locks es suficiente
+                True  # With Locks is enough, but this is more readable
             )
             # Learning Thread
             self.__start_learning_thread(rounds, epochs)

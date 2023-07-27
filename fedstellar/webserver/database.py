@@ -335,11 +335,11 @@ def scenario_update_record(scenario_name, start_time, end_time, title, descripti
 
 
 def scenario_set_all_status_to_finished():
-    # Set all scenarios to finished and update the end_time to current time
+    # Set all running scenario to finished and update the end_time to current time
     _conn = sqlite3.connect(scenario_db_file_location)
     _c = _conn.cursor()
 
-    command = "UPDATE scenarios SET status = 'finished', end_time = '" + str(datetime.datetime.now()) + "';"
+    command = "UPDATE scenarios SET status = 'finished', end_time = '" + str(datetime.datetime.now()) + "' WHERE status = 'running';"
     _c.execute(command)
 
     _conn.commit()

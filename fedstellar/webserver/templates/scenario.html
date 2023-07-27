@@ -26,20 +26,20 @@
 
 <h4>There are no deployed scenarios</h4>
 <a href="{{ url_for('fedstellar_scenario_deployment') }}" class="btn btn-primary">Deploy a scenario</a>
-<a href="{{ url_for('fedstellar_scenario_statistics') }}" class="btn btn-info">Scenario statistics</a>
+<a href="{{ url_for('fedstellar_scenario_statistics') }}" class="btn btn-info">Compare scenarios</a>
 
 {% elif scenario_running %}
 <h4>There is a scenario running.</h4>
 <a id="new-scenario-btn" href="{{ url_for('fedstellar_scenario_deployment') }}" class="btn btn-primary">Deploy new scenario</a>
-<a href="{{ url_for('fedstellar_scenario_statistics') }}" class="btn btn-info">Scenario statistics</a>
+<a href="{{ url_for('fedstellar_scenario_statistics') }}" class="btn btn-info">Compare scenarios</a>
+
+<hr>
 
 <h3>Scenario</h3>
 <h5>Scenario name: <b id="scenario_name">{{ scenario_running[0] }}</b></h5>
 <h5>Scenario title: <b id="scenario_title">{{ scenario_running[3] }}</b></h5>
 <h5>Scenario description: <b id="scenario_description">{{ scenario_running[4] }}</b></h5>
 <h5>Scenario start time: <b id="scenario_start_time">{{ scenario_running[1] }}</b></h5>
-
-<a href="{{ url_for('fedstellar_scenario_private', scenario_name=scenario_running[0]) }}" class="btn btn-primary">Private page</a>
 
 <a href="{{ url_for('fedstellar_stop_scenario', scenario_name=scenario_running[0]) }}" class="btn btn-danger">Stop scenario</a>
 <hr>
@@ -79,7 +79,8 @@
             <td class="td-icons">
                 <a href="{{ url_for('fedstellar_scenario_private', scenario_name=name) }}" class="label btn btn-info">Private</a>
                 <a href="{{ url_for('fedstellar_scenario_monitoring', scenario_name=name) }}" class="label btn btn-info">Monitor</a>
-                <a href="{{ url_for('fedstellar_scenario_statistics_download', scenario_name=name) }}" class="label btn btn-info">Download Statistics</a>
+                <a href="{{ url_for('fedstellar_scenario_statistics', scenario_name=name) }}" class="label btn btn-info">Real-Time Statistics</a>
+                <a href="{{ url_for('fedstellar_scenario_download', scenario_name=name) }}" class="label btn btn-info">Download</a>
                 {% if status == "running" %}
                 <a href="{{ url_for('fedstellar_stop_scenario', scenario_name=name) }}" class="label btn btn-danger">Stop scenario</a>
                 {% else %}

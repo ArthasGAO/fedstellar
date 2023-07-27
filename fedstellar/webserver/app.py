@@ -1,11 +1,13 @@
 import argparse
 import datetime
 import hashlib
+import io
 import json
 import os
 import shutil
 import signal
 import sys
+import zipfile
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # Add the path two directories up to the system path
@@ -560,7 +562,8 @@ def fedstellar_remove_scenario(scenario_name):
 #                                                   #
 
 @app.route("/scenario/statistics/", methods=["GET"])
-def fedstellar_scenario_statistics():
+@app.route("/scenario/<scenario_name>/statistics/", methods=["GET"])
+def fedstellar_scenario_statistics(scenario_name=None):
     if "user" in session.keys():
         import re
         # Get the URL requested by the user (only the domain) and add the port of the statistics server
@@ -585,19 +588,40 @@ def fedstellar_scenario_statistics():
         else:
             url = f"http://{url}:{app.config['statistics_port']}"
 
+        # Adjust the filter to the scenario name
+        if scenario_name is not None:
+            url = url + f"?runFilter={scenario_name}"
+
         print("Statistics Endpoint:", url)
         return render_template("statistics.html", endpoint_statistics=url)
     else:
         return abort(401)
 
 
-@app.route("/scenario/<scenario_name>/statistics/download", methods=["GET"])
-def fedstellar_scenario_statistics_download(scenario_name):
+def zipdir(path, ziph):
+    # ziph is zipfile handle
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            ziph.write(os.path.join(root, file),
+                       os.path.relpath(os.path.join(root, file),
+                                       os.path.join(path, '..')))
+
+
+@app.route("/scenario/<scenario_name>/download", methods=["GET"])
+def fedstellar_scenario_download(scenario_name):
     if "user" in session.keys():
-        metrics_folder = os.path.join(app.config['log_dir'], scenario_name, 'metrics')
-        if os.path.exists(metrics_folder):
-            zip_file = shutil.make_archive(metrics_folder, 'zip', metrics_folder)
-            return send_file(zip_file, mimetype='application/zip', as_attachment=True)
+        log_folder = os.path.join(app.config['log_dir'], scenario_name)
+        config_folder = os.path.join(app.config['config_dir'], scenario_name)
+        if os.path.exists(log_folder) and os.path.exists(config_folder):
+            # Create a zip file with the logs and the config files, send it to the user and delete it
+            memory_file = io.BytesIO()
+            with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                zipdir(log_folder, zipf)
+                zipdir(config_folder, zipf)
+
+            memory_file.seek(0)
+
+            return send_file(memory_file, mimetype='application/zip', as_attachment=True, download_name=f'{scenario_name}.zip')
     else:
         return abort(401)
 

@@ -110,8 +110,8 @@ basic_config["targeted"] = False
 basic_config["target_label"] = 3
 basic_config["target_changed_label"] = 7
 
-basic_config["n_nodes"] = 5
-basic_config["rounds"] = 10
+basic_config["n_nodes"] = 2
+basic_config["rounds"] = 3
 basic_config["epochs"] = 3
 
 basic_config["noise_type"] = "salt"
@@ -128,7 +128,7 @@ poisoned_ratio_list = [80]
 aggregation_list = ["Krum", "FedAvg", "TrimmedMean", "FlTrust", "Sentinel", "SentinelGlobal"]
 # aggregation_list = ["FedAvg", "TrimmedMean", "FlTrust"]
 # aggregation_list = ["TrimmedMean"]
-aggregation_list = ["Sentinel"]
+aggregation_list = ["SentinelGlobal"]
 basic_config["sentinel_distance_threshold"] = 0.1
 basic_config["sentinelglobal_active_round"] = 3
 

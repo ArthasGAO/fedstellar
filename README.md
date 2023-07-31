@@ -9,7 +9,7 @@
   <p align="center">
     Framework for Decentralized Federated Learning
     <br>
-    Adapted for Sychronous Round
+    Adapted for Sychronous Rounds
     <br>
   </p>
 </p>
@@ -38,6 +38,26 @@ The initial framework has been adapted to a synchronous version for more compara
 Therefore, at each round the nodes only share their own trained model to their neighbours. The aggregation is 
 only performed when completed, i.e., when all model from all neighbours are received. The gossiping algorithm
 has been removed. The find the necessary changes in the code base, search for `TODO Sync`.
+
+For the synchronized version of Fedstellar, a number of adaptions have been implemented. 
+First, before any node starts its initial round, the connection to all neighbors is ensured. 
+This change is implemented in `node_start.py`. 
+Additionally, the node connection timeout in `node_connection.py`
+has been removed. Secondly, once the local training is finished, only the local model is broadcasted to
+the corresponding neighbors. The partial aggregation has been removed. 
+Instead of an aggregation timeout, the aggregator of each node waits until it has received all models. 
+Consequently, this adjustment ensures that all nodes complete their local training round, followed by a complete aggregation. 
+The technical specifications are available in the abstract aggregator class in `aggregator.py`.
+As a final adaption, a synchronization barrier ensures that all nodes complete 
+the current round before proceeding to the next. Details can be retrieved from the code in `node.py`, `__on_round_finished} 
+With these changes in place, every node is ensured to aggregate each neighbor model and synchronize the round progression. 
+Correspondingly, if a one or more nodes fail, the FL scenario is terminated holistically.
+
+## Getting Started
+
+The overview of Fedstellar is available on the [website](https://federatedlearning.inf.um.es/). The corresponding
+documentation can be found [here](https://federatedlearning.inf.um.es/docs/).
+To run the framework without using the frontend, see `test_bed.py`.
 
 ## License
 

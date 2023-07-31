@@ -26,19 +26,18 @@ def cosine_similarity(trusted_model: OrderedDict, untrusted_model: OrderedDict) 
     return result
 
 
-def normalise_layers(untrusted_model, trusted_model):
-    bootstrap = trusted_model[0]
-    trusted_norms = dict([k, torch.norm(bootstrap[k].data.view(-1).float())] for k in bootstrap.keys())
+def normalise_layers(untrusted_params, trusted_params):
+    trusted_norms = dict([k, torch.norm(trusted_params[k].data.view(-1).float())] for k in trusted_params.keys())
 
-    normalised_model = copy.deepcopy(untrusted_model)
+    normalised_params = copy.deepcopy(untrusted_params)
 
-    state_dict = untrusted_model[0]
-    for layer in state_dict:
+    state_dict = copy.deepcopy(untrusted_params)
+    for layer in untrusted_params:
         layer_norm = torch.norm(state_dict[layer].data.view(-1).float())
         scaling_factor = min(layer_norm / trusted_norms[layer], 1)
         logging.debug("[Aggregator.normalise_layers()] Layer: {} ScalingFactor {}".format(layer, scaling_factor))
         # logging.info("Scaling client {} layer {} with factor {}".format(client, layer, scaling_factor))
         normalised_layer = torch.mul(state_dict[layer], scaling_factor)
-        normalised_model[0][layer] = normalised_layer
+        normalised_params[layer] = normalised_layer
 
-    return normalised_model
+    return normalised_params

@@ -131,7 +131,7 @@ targeted_list = [True, False]
 targeted_list = [False]
 
 aggregation_list = ["Krum", "FedAvg", "TrimmedMean", "FlTrust", "Sentinel", "SentinelGlobal"]
-aggregation_list = ["SentinelGlobal"]
+aggregation_list = ["Sentinel"]
 # basic_config["sentinel_distance_threshold"] = 0.5
 thresholds = [0.1, 0.25, 0.5, 0.75, 1.0]
 basic_config["sentinelglobal_active_round"] = 3

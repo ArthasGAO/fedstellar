@@ -51,25 +51,16 @@ class Sentinel(Aggregator):
         self.learner: LightningLearner = learner
         self.loss_dist_threshold = loss_distance_threshold
         self.loss_history: Dict[str, list] = loss_history or {}
+        self.similarity_threshold = COSINE_FILTER_THRESHOLD
 
         logging.info("[Sentinel] My config is {}".format(self.config))
         logging.info("[Sentinel] My loss distance threshold is {}".format(self.loss_dist_threshold))
         logging.info("[Sentinel] My current loss history is {}:".format(self.loss_history))
 
     def add_model(self, model: OrderedDict, nodes: List[str], metrics: ModelMetrics):
-
-        """
-        logging.info("[Sentinel.add_model] Computing metrics for node(s): {}".format(nodes))
-
-        model_eval, nodes_eval, metrics_eval = self.evaluate_neighbour_model(model, nodes, metrics)
-
-        logging.info("[Sentinel.add_model] Computed metrics for node(s): {}: --> {}".format(nodes, metrics))
-
-        super().add_model(model=model_eval, nodes=nodes_eval, metrics=metrics_eval)
-        """
         super().add_model(model=model, nodes=nodes, metrics=metrics)
 
-    def evaluate_neighbour_model(self, model: OrderedDict, node: str, metrics: ModelMetrics):
+    def evaluate_model(self, model: OrderedDict, node: str, metrics: ModelMetrics):
 
         # Cosine Similarity
         model_params = model
@@ -95,9 +86,9 @@ class Sentinel(Aggregator):
         metrics.validation_loss = val_loss
         metrics.validation_accuracy = val_acc
 
-        return model, node, metrics
+        return metrics
 
-    def get_mapped_avg_loss(self, node_key: str, loss: float, my_loss: float, threshold: float) -> float:
+    def get_mapped_avg_loss(self, node_key: str, loss: float) -> float:
         # calculate next average loss
         prev_loss_hist: list = self.loss_history.get(node_key, [])
         prev_loss_hist.append(loss)
@@ -117,7 +108,7 @@ class Sentinel(Aggregator):
         k = 1 / max(MIN_LOSS, avg_local_loss)
         loss_dist = max(avg_loss - avg_local_loss, 0)
         mapped_distance_loss = math.exp(-k * loss_dist)
-        if (mapped_distance_loss < threshold) | (math.isnan(mapped_distance_loss)):
+        if (mapped_distance_loss < self.loss_dist_threshold) | (math.isnan(mapped_distance_loss)):
             return float(0)
         return mapped_distance_loss
 
@@ -134,17 +125,17 @@ class Sentinel(Aggregator):
             model = models[node_key][0]
             metrics: ModelMetrics = models[node_key][1]
             # the own local model also requires eval to get loss distance
-            model_eval, nodes_eval, metrics_eval = self.evaluate_neighbour_model(model, node_key, metrics)
-            models[node_key] = (model_eval, metrics_eval)
+            metrics_eval = self.evaluate_model(model, node_key, metrics)
+            models[node_key] = (model, metrics_eval)
 
         # The model of the aggregator serves as a trusted reference
-        my_model = models.get(self.node_name)  # change
-        if my_model is None:
+        local_params = models.get(self.node_name)
+        if local_params is None:
             logging.warning("[Sentinel] Trying to aggregate models when bootstrap is not available")
             return None
 
         # Step 1: Evaluate cosine similarity
-        filtered_models = filter_models_by_cosine(models, COSINE_FILTER_THRESHOLD)
+        filtered_models = filter_models_by_cosine(models, self.similarity_threshold)
         malicious_by_cosine = models.keys() - filtered_models.keys()
         if len(filtered_models) == 0:
             logging.warning("Sentinel: No more models to aggregate after filtering!")
@@ -159,29 +150,22 @@ class Sentinel(Aggregator):
             self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         # Step 2: Evaluate validation (bootstrap) loss
-        my_loss = my_model[1].validation_loss
-        loss: Dict = {}
-        mapped_loss: Dict = {}
-        cos: Dict = {}
+        loss: Dict = {}; mapped_loss: Dict = {}; cos: Dict = {}
         for node_key, msg in filtered_models.items():
-            params = msg[0]
             metrics: ModelMetrics = msg[1]
             loss[node_key] = metrics.validation_loss
-            mapped_loss[node_key] = self.get_mapped_avg_loss(node_key, metrics.validation_loss, my_loss,
-                                                             self.loss_dist_threshold)
+            mapped_loss[node_key] = self.get_mapped_avg_loss(node_key, metrics.validation_loss)
             cos[node_key] = metrics.cosine_similarity
         malicious_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
 
-        logging.info("[Sentinel]: Loss metrics: {}".format(loss))
-        logging.info("[Sentinel]: Loss mapped metrics: {}".format(mapped_loss))
-        logging.info("[Sentinel]: Cos metrics: {}".format(cos))
-
         # Step 3: Normalise the remaining (filtered) untrusted models
-        models_to_aggregate = {k: filtered_models[k] for k in filtered_models.keys() - {self.node_name}}
         normalised_models = {}
-        for key in models_to_aggregate.keys():
-            normalised_models[key] = normalise_layers(models_to_aggregate[key], my_model)
-        normalised_models[self.node_name] = my_model
+        for key, msg in filtered_models.items():
+            model_params = msg[0]
+            if key == self.node_name:
+                normalised_models[key] = local_params
+            else:
+                normalised_models[key] = normalise_layers(model_params, local_params)
 
         # Create a Zero Model
         accum = (list(normalised_models.values())[-1][0]).copy()
@@ -192,17 +176,14 @@ class Sentinel(Aggregator):
         total_mapped_loss: float = sum(mapped_loss.values())
         logging.info("Sentinel: Total mapped loss: {}".format(total_mapped_loss))
         for node, message in normalised_models.items():
-            client_model = message[0]
-            for layer in client_model:
-                accum[layer] = accum[layer] + client_model[layer] * mapped_loss[node]
+            model = message[0]
+            weight = mapped_loss[node] / total_mapped_loss
+            for layer in model:
+                accum[layer] = accum[layer] + model[layer] * weight
 
             mapping = {f'agg_weight_{node}': mapped_loss[node] / total_mapped_loss,
                        f'mapped_loss_{node}': mapped_loss[node]}
             self.learner.logger.log_metrics(metrics=mapping, step=0)
-
-        # Normalize accumulated model wrt loss
-        for layer in accum:
-            accum[layer] = accum[layer] / total_mapped_loss
 
         malicious = malicious_by_cosine.union(malicious_by_loss)
         logging.info("Sentinel: Tagged as malicious: {}".format(list(malicious)))

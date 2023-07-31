@@ -53,6 +53,7 @@ class SentinelGlobal(Aggregator):
 
         # Sentinel
         self.loss_dist_threshold = loss_distance_threshold
+        self.similarity_threshold = COSINE_FILTER_THRESHOLD
         self.loss_history: Dict[str, list] = loss_history or {}
         logging.info("[Sentinel] My loss distance threshold is {}".format(self.loss_dist_threshold))
 
@@ -81,35 +82,36 @@ class SentinelGlobal(Aggregator):
         self.add_neighbour_trust(metrics.global_trust)
         super().add_model(model=model, nodes=nodes, metrics=metrics)
 
-    def compute_trust(self, model: OrderedDict, node: str, metrics: ModelMetrics):
-
+    def evaluated_model_trusted(self, model: OrderedDict, node: str, metrics: ModelMetrics):
         logging.info("[SentinelGlobal.add_model] Computing metrics for node(s): {}".format(node))
-        # self.add_neighbour_trust(metrics.global_trust)
+
+        # Evaluate if not yet active
+        if self.agg_round < self.active_round:
+            metrics = self.evaluate_model(model, node, metrics)
+            super().add_model(model=model, nodes=[node], metrics=metrics)
+            return
 
         # Step 0: Check whether the model should be evaluated based on global trust
-        if self.agg_round >= self.active_round:
-            avg_global_trust = self.get_trusted_neighbour_opinion(node)
-            # Caveat: the node always trusts itself
-            if avg_global_trust < TRUST_THRESHOLD and node != self.node_name:
-                metrics.cosine_similarity = 0  # thereby the model will be removed by cosine filtering
-                metrics.validation_loss = float('inf')
-                logging.info(
-                    "[SentinelGlobal.add_model] Removing node(s) {} since not trusted".format(node))
-                mapping = {f'avg_loss_{node}': float('inf'),
-                           f'agg_weight_{node}': float(0),
-                           f'mapped_loss_{node}': float(0)}
-                self.learner.logger.log_metrics(metrics=mapping, step=0)
-            else:
-                model, node, metrics = self.evaluate_neighbour_model(model, node, metrics)
+        avg_global_trust = self.get_trusted_neighbour_opinion(node)
+        # Caveat: the node always trusts itself
+        if avg_global_trust < TRUST_THRESHOLD and node != self.node_name:
+            metrics.cosine_similarity = 0  # thereby the model will be removed by cosine filtering
+            metrics.validation_loss = float('inf')
+            logging.info(
+                "[SentinelGlobal.add_model] Removing node(s) {} since not trusted".format(node))
+            mapping = {f'avg_loss_{node}': float('inf'),
+                       f'agg_weight_{node}': float(0),
+                       f'mapped_loss_{node}': float(0)}
+            self.learner.logger.log_metrics(metrics=mapping, step=0)
         else:
-            model, node, metrics = self.evaluate_neighbour_model(model, node, metrics)
-        # model, nodes, metrics = self.evaluate_neighbour_model(model, nodes, metrics)
+            metrics = self.evaluate_model(model, node, metrics)
+
         super().add_model(model=model, nodes=[node], metrics=metrics)
         # logging.info("[SentinelGlobal.add_model] New trust scores: {}".format(self.global_trust))
 
-        return model, node, metrics
+        return metrics
 
-    def evaluate_neighbour_model(self, model: OrderedDict, node: str, metrics: ModelMetrics):
+    def evaluate_model(self, model: OrderedDict, node: str, metrics: ModelMetrics) -> ModelMetrics:
         self.num_evals += 1
 
         # Cosine Similarity
@@ -136,7 +138,7 @@ class SentinelGlobal(Aggregator):
         metrics.validation_loss = val_loss
         metrics.validation_accuracy = val_acc
 
-        return model, node, metrics
+        return metrics
 
     def get_mapped_avg_loss(self, node_key: str, loss: float, my_loss: float, threshold: float) -> float:
         # calculate next average loss
@@ -175,8 +177,8 @@ class SentinelGlobal(Aggregator):
             model = models[node_key][0]
             metrics: ModelMetrics = models[node_key][1]
             # the own local model also requires eval to get loss distance
-            model_eval, nodes_eval, metrics_eval = self.compute_trust(model, node_key, metrics)
-            models[node_key] = (model_eval, metrics_eval)
+            metrics_eval = self.evaluated_model_trusted(model, node_key, metrics)
+            models[node_key] = (model, metrics_eval)
 
         # Log model metrics
         for node_key in models.keys():
@@ -187,22 +189,16 @@ class SentinelGlobal(Aggregator):
                 self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         # The model of the aggregator serves as a trusted reference
-        my_model = models.get(self.node_name)  # change
-        if my_model is None:
-            logging.error("[SentinelGlobal] Trying to aggregate models when bootstrap is not available")
+        local_params = models.get(self.node_name)
+        if local_params is None:
+            logging.warning("[SentinelGlobal] Trying to aggregate models when bootstrap is not available")
             return None
 
         # Step 1: Evaluate cosine similarity
-        filtered_models = filter_models_by_cosine(models, COSINE_FILTER_THRESHOLD)
+        filtered_models = filter_models_by_cosine(models, self.similarity_threshold)
         malicious_by_cosine = models.keys() - filtered_models.keys()
         if len(filtered_models) == 0:
-            logging.warning("[SentinelGlobal]: No more models to aggregate after filtering!")
-            for model_key in models.keys():
-                if model_key != self.node_name:
-                    self.global_trust[self.agg_round][self.node_name][model_key] = 0
-                metrics: ModelMetrics = models[model_key][1]
-                print(f'Filtered model {model_key} with metrics {metrics}')
-
+            logging.warning("Sentinel: No more models to aggregate after filtering!")
             return models.get(self.node_name)[0]
 
         for node_key in malicious_by_cosine:
@@ -214,29 +210,22 @@ class SentinelGlobal(Aggregator):
             self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         # Step 2: Evaluate validation (bootstrap) loss
-        my_loss = my_model[1].validation_loss
-        loss: Dict = {}
-        mapped_loss: Dict = {}
-        cos: Dict = {}
+        loss: Dict = {}; mapped_loss: Dict = {}; cos: Dict = {}
         for node_key, msg in filtered_models.items():
-            params = msg[0]
             metrics: ModelMetrics = msg[1]
             loss[node_key] = metrics.validation_loss
-            mapped_loss[node_key] = self.get_mapped_avg_loss(node_key, metrics.validation_loss, my_loss,
-                                                             self.loss_dist_threshold)
+            mapped_loss[node_key] = self.get_mapped_avg_loss(node_key, metrics.validation_loss)
             cos[node_key] = metrics.cosine_similarity
         malicious_by_loss = {key for key, loss in mapped_loss.items() if loss == 0}
 
-        logging.info("[SentinelGlobal]: Loss metrics: {}".format(loss))
-        logging.info("[SentinelGlobal]: Loss mapped metrics: {}".format(mapped_loss))
-        logging.info("[SentinelGlobal]: Cos metrics: {}".format(cos))
-
-        # Step 3: Normalise the (remaining) untrusted models
-        models_to_aggregate = {k: filtered_models[k] for k in filtered_models.keys() - {self.node_name}}
+        # Step 3: Normalise the remaining (filtered) untrusted models
         normalised_models = {}
-        for key in models_to_aggregate.keys():
-            normalised_models[key] = normalise_layers(models_to_aggregate[key], my_model)
-        normalised_models[self.node_name] = my_model
+        for key, msg in filtered_models.items():
+            model_params = msg[0]
+            if key == self.node_name:
+                normalised_models[key] = local_params
+            else:
+                normalised_models[key] = normalise_layers(model_params, local_params)
 
         # Create a Zero Model
         accum = (list(normalised_models.values())[-1][0]).copy()
@@ -245,18 +234,16 @@ class SentinelGlobal(Aggregator):
 
         # Aggregate
         total_mapped_loss: float = sum(mapped_loss.values())
-        logging.info("[SentinelGlobal]: Total mapped loss: {}".format(total_mapped_loss))
+        logging.info("Sentinel: Total mapped loss: {}".format(total_mapped_loss))
         for node, message in normalised_models.items():
-            client_model = message[0]
-            for layer in client_model:
-                accum[layer] = accum[layer] + client_model[layer] * mapped_loss[node]
+            model = message[0]
+            weight = mapped_loss[node] / total_mapped_loss
+            for layer in model:
+                accum[layer] = accum[layer] + model[layer] * weight
+
             mapping = {f'agg_weight_{node}': mapped_loss[node] / total_mapped_loss,
                        f'mapped_loss_{node}': mapped_loss[node]}
             self.learner.logger.log_metrics(metrics=mapping, step=0)
-
-        # Normalize accumulated model wrt loss
-        for layer in accum:
-            accum[layer] = accum[layer] / total_mapped_loss
 
         malicious = malicious_by_cosine.union(malicious_by_loss)
         logging.info("[SentinelGlobal]: Tagged as malicious: {}".format(list(malicious)))
@@ -269,7 +256,6 @@ class SentinelGlobal(Aggregator):
             else:
                 self.global_trust[self.agg_round][self.node_name][node_key] = 1
         # logging.info("[SentinelGlobal]: Global trust scores after adding: {}".format(self.global_trust))
-
         return accum
 
     def clear(self):

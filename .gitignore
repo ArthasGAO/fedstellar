@@ -136,3 +136,13 @@ _build/
 app/
 .vscode/settings.json
 app/logs/server.log
+fedstellar/data/MNIST/raw/t10k-images-idx3-ubyte
+fedstellar/data/MNIST/raw/t10k-images-idx3-ubyte.gz
+fedstellar/data/MNIST/raw/t10k-labels-idx1-ubyte
+fedstellar/data/MNIST/raw/t10k-labels-idx1-ubyte.gz
+fedstellar/data/MNIST/raw/train-images-idx3-ubyte
+fedstellar/data/MNIST/raw/train-images-idx3-ubyte.gz
+fedstellar/data/MNIST/raw/train-labels-idx1-ubyte
+fedstellar/data/MNIST/raw/train-labels-idx1-ubyte.gz
+fedstellar/webserver/database_file/scenarios.db
+fedstellar/webserver/database_file/nodes.db

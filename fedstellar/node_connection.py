@@ -476,9 +476,9 @@ class NodeConnection(threading.Thread, Observable):
         self.notify(Events.FEATURES_RECEIVED_EVENT, (node, loss, cpu_percent,
                     data_size, bytes_received, bytes_send, availability))
 
-    def notify_selected(self, node):
+    def notify_selected(self, selected_nodes):
         """
         Notify to the parent node that `FEATURES` has been received.
         """
 
-        self.notify(Events.SELECTED_RECEIVED_EVENT, (node))
+        self.notify(Events.SELECTED_RECEIVED_EVENT, (selected_nodes))

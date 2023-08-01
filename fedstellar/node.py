@@ -112,6 +112,10 @@ class Node(BaseNode):
         self.bytes_send = None
 
         self.selected_nodes = []
+        
+        self.__my_node_selected_flag = False
+        
+
 
         # Attack environment
         self.model_dir = self.config.participant['tracking_args']["model_dir"]
@@ -387,7 +391,7 @@ class Node(BaseNode):
 
     def add_model(self, m):
         """
-        Add a model. If the model isn't inicializated, the recieved model is used for it. Otherwise, the model is aggregated using the **aggregator**.
+        Add a model. If the model isn't initializated, the recieved model is used for it. Otherwise, the model is aggregated using the **aggregator**.
 
         Args:
             m: Encoded model. Contains model and their contributors
@@ -488,11 +492,11 @@ class Node(BaseNode):
             if self.round is not None:
                 logging.info(
                     "[NODE.__train_step] ========================== AGGREGATOR,SERVER | First Round Selection==========================")
-                self.selected_nodes = self.selector.first_round_selection(
+                self.selected_nodes = self.selector.node_selection(
                     self.get_name())
 
                 self.broadcast(
-                    CommunicationProtocol.build_select_node_msg(self.selected_nodes))
+                    CommunicationProtocol.build_select_node_msg(str("-".join(self.selected_nodes))))
 
             # Train
             # El participante servidor no entrena (en CFL)
@@ -502,11 +506,12 @@ class Node(BaseNode):
                     "[NODE.__train_step] ==========================AGGREGATOR | Train ==========================")
                 self.__train()
 
+
             # Second Round Selection
             if self.round is not None:
                 logging.info(
                     "[NODE.__train_step] ==========================  AGGREGATOR,SERVER | Second Round Selection==========================")
-                self.selector.second_round_selection(self.get_name())
+                self.selected_nodes = self.selector.node_selection(self.get_name())
 
             # Aggregate Model
             if self.round is not None:
@@ -546,10 +551,19 @@ class Node(BaseNode):
                 self.__evaluate()
 
             # Train
+            
             if self.round is not None:
                 logging.info(
-                    "[NODE.__train_step] ========================== TRAINER | Train ==========================")
-                self.__train()
+                    "[NODE.__train_step] ========================== TRAINER | Train ==========================")       
+                
+                if self.__my_node_selected_flag:
+                    logging.info(
+                    "[NODE.__train_step] ========================== Selected Round  = {} ==========================".format(self.round))       
+                    self.__train()
+                else:
+                    logging.info(
+                    "[NODE.__train_step] ========================== Non - Selected Round  = {} ==========================".format(self.round))   
+                    
 
             # Aggregate Model
             if self.round is not None:
@@ -1000,13 +1014,13 @@ class Node(BaseNode):
             self.selector.add_node_features(obj[0], obj[1:], lat)
             # self.add_feature()
         elif event == Events.SELECTED_RECEIVED_EVENT:
-            # Update the heartbeater with the xxx
-            # obj =
-            selected_nodes_list = obj[0]
+            
+            selected_nodes_list = obj.split("-")
             logging.info("[NODE] selected_nodes_list = {} ".format(
                 selected_nodes_list))
+            
+            self.check_in_selected_list(selected_nodes_list)
 
-            # self.add_feature()
 
         elif event == Events.AGGREGATION_FINISHED_EVENT:
             # Set parameters and communate it to the training process
@@ -1214,5 +1228,17 @@ class Node(BaseNode):
         self.bytes_send = net_io_counters.bytes_sent
         self.availability = 1
 
-    def add_features(self):
+    def check_in_selected_list(self, selected_list):
+        
+        
+        
+        if self.get_name() in selected_list:
+            
+            self.__my_node_selected_flag = True
+            logging.info("[NODE] ========= SELECTED ------> TRAIN ======= ")
+        else:
+            self.__my_node_selected_flag = False
+            logging.info("[NODE] ========= NOT SELECTED ------> SKIP TRAIN ======= ")
+        
+                
         return

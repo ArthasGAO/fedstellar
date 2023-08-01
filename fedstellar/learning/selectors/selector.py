@@ -40,7 +40,7 @@ class Selector():
         self.neighbors_list.append(neighbor)
         logging.info("[Selector] add_neighbor {}".format(neighbor))
 
-    def first_round_selection(self):
+    def node_selection(self):
         """
         Template
         """

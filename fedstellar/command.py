@@ -170,5 +170,5 @@ class Selected_nodes_cmd(Command):
     Command that should be executed as a response to a **feature** message.
     """
 
-    def execute(self, node):
-        self.node_connection.notify_selected(node)
+    def execute(self, selected_node):
+        self.node_connection.notify_selected(selected_node)

@@ -30,6 +30,7 @@ class CommunicationProtocol:
             - STOP_LEARNING <HASH>
             - VOTE_TRAIN_SET <node> (<node> <punct>)* VOTE_TRAIN_SET_CLOSE <HASH>
             - METRICS <node> <round> <loss> <metric> <HASH>
+            
 
         Non Gossiped messages (communication over only 2 nodes):
             - CONNECT <ip> <port> <full> <force>
@@ -39,6 +40,8 @@ class CommunicationProtocol:
             - MODELS_READY <round>
             - MODELS_AGGREGATED <node>* MODELS_AGGREGATED_CLOSE
             - MODEL_INITIALIZED
+            - FEATURES 
+            
 
     Furthermore, all messages consist of encoded text (utf-8), except the `PARAMS` message, which contains serialized binaries.
 
@@ -386,25 +389,19 @@ class CommunicationProtocol:
                                 message = message[8:]
 
                             else:
-                                logging.info(
-                                    "[COMM_PROTOCOL ERROR] first else ")
                                 error = True
                                 break
                         except Exception as e:
-                            logging.info(
-                                "[COMM_PROTOCOL ERROR] Exception as e")
                             error = True
                             break
                     else:
-                        logging.info("[COMM_PROTOCOL ERROR] seccond else ")
                         error = True
                         break
 
                 elif message[0] == CommunicationProtocol.SELECTED_NODES:
                     if len(message) > 1:
                         logging.info(
-                            "[COMM PROTOCOL] message = {}".format(message))
-
+                            "[COMM PROTOCOL] SELECTED_NODES message[1] = {}".format(message[1]))
                         if self.__exec(
                                 CommunicationProtocol.SELECTED_NODES,
                                 None,
@@ -875,15 +872,12 @@ class CommunicationProtocol:
         """
         Static method that builds a 
         """
-        msg = ""
-        for node in nodes:
-            msg = msg + node + "-"
-
-        logging.info("[NODE] First Round Selection broadcast = {}".format((CommunicationProtocol.SELECTED_NODES
-                                                                           + " "
-                                                                           + msg
-                                                                           + "\n").encode("utf-8")))
-        return (CommunicationProtocol.SELECTED_NODES
+        msg = (CommunicationProtocol.SELECTED_NODES
                 + " "
-                + msg
+                + nodes
                 + "\n").encode("utf-8")
+
+
+        logging.info("[NODE] First Round Selection broadcast = {}".format(msg))
+        
+        return msg

@@ -14,7 +14,7 @@ class NewSelector(Selector):
         self.config = config
         self.role = self.config.participant["device_args"]["role"]
 
-    def first_round_selection(self, node):
+    def node_selection(self, node):
 
         if len(node) == 0:
             logging.error(
@@ -81,7 +81,7 @@ class NewSelector(Selector):
         logging.info("[NEW SELECTOR] P = {}".format(p))
 
         selected_nodes = np.random.choice(
-            neighbors, num_selected, replace=False, p=p[0])
+            neighbors, num_selected, replace=False, p=p[0]).tolist()
         logging.info(
             "[NEW SELECTOR] selected_nodes = {}".format(selected_nodes))
 

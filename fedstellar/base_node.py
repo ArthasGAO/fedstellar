@@ -208,8 +208,7 @@ class BaseNode(threading.Thread, Observer):
                 # Process new connection
                 if msg:
                     msg = msg.decode("UTF-8")
-
-                    def callback(h, p, fu, fc): return self.__process_new_connection(
+                    callback = lambda h, p, fu, fc: self.__process_new_connection(
                         ns, h, p, fu, fc
                     )
                     if not CommunicationProtocol.process_connection(msg, callback):

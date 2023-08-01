@@ -81,10 +81,19 @@ If you use Fedstellar in a scientific publication, we would appreciate using the
 ```
 
 ```
-@article{MartinezBeltran:DFL:2022,
+@article{MartinezBeltran:DFL:2023,
   title={{Decentralized Federated Learning: Fundamentals, State-of-the-art, Frameworks, Trends, and Challenges}},
   author={Mart{\'i}nez Beltr{\'a}n, Enrique Tom{\'a}s and Quiles P{\'e}rez, Mario and S{\'a}nchez S{\'a}nchez, Pedro Miguel and L{\'o}pez Bernal, Sergio and Bovet, G{\'e}r{\^o}me and Gil P{\'e}rez, Manuel and Mart{\'i}nez P{\'e}rez, Gregorio and Huertas Celdr{\'a}n, Alberto},
   journal={arXiv preprint arXiv:2211.08413},
+  year={2023}
+}
+```
+
+```
+@article{MartinezBeltran:DFL_mitigation:2023,
+  title={{Mitigating Communications Threats in Decentralized Federated Learning through Moving Target Defense}},
+  author={Mart{\'i}nez Beltr{\'a}n, Enrique Tom{\'a}s and S{\'a}nchez S{\'a}nchez, Pedro Miguel and L{\'o}pez Bernal, Sergio and Bovet, G{\'e}r{\^o}me and Gil P{\'e}rez, Manuel and Mart{\'i}nez P{\'e}rez, Gregorio and Huertas Celdr{\'a}n, Alberto},
+  journal={arXiv preprint arXiv:2307.11730},
   year={2023}
 }
 ```

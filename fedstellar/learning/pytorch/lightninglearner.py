@@ -13,7 +13,7 @@ from lightning import Trainer
 from lightning.pytorch.callbacks import ModelSummary
 from lightning.pytorch.callbacks import RichProgressBar, RichModelSummary
 from lightning.pytorch.callbacks.progress.rich_progress import RichProgressBarTheme
-from lightning.pytorch.utilities import grad_norm
+
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
 from lightning.pytorch.callbacks import Callback
@@ -197,15 +197,5 @@ class LightningLearner(NodeLearner):
             log_every_n_steps=20,
             enable_checkpointing=False,
             enable_model_summary=False,
-            enable_progress_bar=True,
+            enable_progress_bar=True
         )
-
-
-###########################
-# LightningLearner Callback#
-###########################
-
-class MyPrintingCallback(Callback):
-    def on_train_end(self, trainer, pl_module):
-
-        print("Training is ending")

@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y python3.8 python3.8-dev python3.8-distu
 
 # Install curl and network tools
 RUN apt-get install -y curl net-tools
-
+RUN apt-get install -y iproute2
 # Install pip
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 RUN python3.8 get-pip.py

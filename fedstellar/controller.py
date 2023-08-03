@@ -388,12 +388,18 @@ class Controller:
                     - /bin/bash
                     - -c
                     - |
-                        ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                        tcset eth0 --delay {}ms && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {} 
+                        
                 depends_on:
                     - participant{}
                 networks:
                     fedstellar-net:
                         ipv4_address: {}
+                deploy:
+                    resources:
+                        limits:
+                            cpus: '{}'
+
         """)
         participant_template = textwrap.indent(participant_template, ' ' * 4)
 
@@ -415,6 +421,10 @@ class Controller:
                 networks:
                     fedstellar-net:
                         ipv4_address: {}
+                deploy:
+                    resources:
+                        limits:
+                            cpus: '0.4'
         """)
         participant_template_start = textwrap.indent(participant_template_start, ' ' * 4)
 
@@ -504,14 +514,27 @@ class Controller:
                                                                 path,
                                                                 idx_start_node,
                                                                 node['network_args']['ip'])
+                # Testing CPU limit in docker compose
                 else:
                     logging.info("Node {} is using CPU".format(idx))
-                    services += participant_template.format(idx,
+                    if idx == 1:
+                        services += participant_template.format(idx,
                                                             os.environ["FEDSTELLAR_ROOT"],
+                                                            100,
                                                             self.network_gateway,
                                                             path,
                                                             idx_start_node,
-                                                            node['network_args']['ip'])
+                                                            node['network_args']['ip'],
+                                                            0.4)
+                    else:
+                        services += participant_template.format(idx,
+                                                            os.environ["FEDSTELLAR_ROOT"],
+                                                            1,
+                                                            self.network_gateway,
+                                                            path,
+                                                            idx_start_node,
+                                                            node['network_args']['ip'],
+                                                            0.4)
             else:  # Start the node with a delay of 60 seconds
                 if node['device_args']['accelerator'] == "gpu":
                     logging.info("Node {} is using GPU".format(idx))

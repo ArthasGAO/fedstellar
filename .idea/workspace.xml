@@ -4,37 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ddf1e64-7042-4071-bc93-6d3334c3afb4" name="Changes" comment="THIS WHITESPACE COST ME TWOOOO DAYS!!!!!!">
-      <change afterPath="$PROJECT_DIR$/test/dockerpy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="3ddf1e64-7042-4071-bc93-6d3334c3afb4" name="Changes" comment="WIP hand-in: updated README.md">
+      <change beforePath="$PROJECT_DIR$/.idea/fedstellar-robust.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fedstellar-robust.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/base_node.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/base_node.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/basic_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/basic_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/command.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/command.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/communication_protocol.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/communication_protocol.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/config/participant.json.example" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/config/participant.json.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/cifar10/models/fastermobilenet.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/cifar10/models/fastermobilenet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/cifar10/models/resnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/cifar10/models/resnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/cifar10/models/simplemobilenet.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/cifar10/models/simplemobilenet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/cifar100/models/cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/cifar100/models/cnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/datamodule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/emnist/models/cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/emnist/models/cnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/fashionmnist/models/cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/fashionmnist/models/cnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/femnist/models/cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/femnist/models/cnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/femnist/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/femnist/models/mlp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/kitsun/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/kitsun/models/mlp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/cnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/cnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/mnist/models/mlp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/sent140/models/rnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/sent140/models/rnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/sentiment140/models/rnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/sentiment140/models/rnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/syscall/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/syscall/models/mlp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/learning/pytorch/wadi/models/mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/learning/pytorch/wadi/models/mlp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/node.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/node_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/node_connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/start_without_webserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/start_without_webserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fedstellar/test_bed.py" beforeDir="false" afterPath="$PROJECT_DIR$/fedstellar/test_bed.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,10 +27,11 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="docker" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -77,21 +50,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;sync&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/janos.LAPTOP-42CLK60G/Repos/fedstellar-robust/fedstellar/test_bed_threshold.py&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.project&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;Python&quot;,
+      &quot;JSON&quot;
+    ]
+  }
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\janos.LAPTOP-42CLK60G\Repos\fedstellar-robust\fedstellar" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\janos.LAPTOP-42CLK60G\Repos\fedstellar-robust\evaluation\results" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.dockerpy">
+  <component name="RunManager" selected="Python.test_bed">
     <configuration name="dockerpy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="fedstellar-robust" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -105,7 +93,40 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/dockerpy.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="python test_bed.py" type="PythonConfigurationType" factoryName="Python">
+      <module name="fedstellar-robust" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\janos.LAPTOP-42CLK60G\anaconda3\envs\fedstellar\python.exe" />
+      <option name="SDK_NAME" value="fedstellar (2)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="test_bed.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -158,13 +179,127 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_bed" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="fedstellar-robust" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\janos.LAPTOP-42CLK60G\anaconda3\envs\fedstellar\python.exe" />
+      <option name="SDK_NAME" value="fedstellar (2)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/fedstellar" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fedstellar/test_bed.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_bed_threshold" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="fedstellar-robust" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\janos.LAPTOP-42CLK60G\anaconda3\envs\fedstellar\python.exe" />
+      <option name="SDK_NAME" value="fedstellar (2)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/fedstellar" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fedstellar/test_bed_threshold.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_bed.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="fedstellar-robust" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/fedstellar" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/fedstellar/test_bed.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_bed_threshold.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="fedstellar-robust" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/fedstellar" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/fedstellar/test_bed_threshold.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Python.python test_bed.py" />
+      <item itemvalue="Python.test_bed" />
+      <item itemvalue="Python.test_bed_threshold" />
       <item itemvalue="Python.start_without_webserver" />
       <item itemvalue="Python.single_device" />
       <item itemvalue="Python.dockerpy" />
+      <item itemvalue="Python tests.Python tests in test_bed.py" />
+      <item itemvalue="Python tests.Python tests in test_bed_threshold.py" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.dockerpy" />
+        <item itemvalue="Python tests.Python tests in test_bed.py" />
+        <item itemvalue="Python tests.Python tests in test_bed_threshold.py" />
         <item itemvalue="Python.dockerpy" />
       </list>
     </recent_temporary>
@@ -179,7 +314,314 @@
       <updated>1685992111256</updated>
       <workItem from="1685992113878" duration="4631000" />
       <workItem from="1686057364993" duration="2235000" />
+      <workItem from="1687200931141" duration="34722000" />
+      <workItem from="1687711552868" duration="14980000" />
+      <workItem from="1687761745154" duration="18152000" />
+      <workItem from="1687796879706" duration="7000" />
+      <workItem from="1687796986433" duration="4000" />
+      <workItem from="1687880073403" duration="1199000" />
+      <workItem from="1687882026825" duration="8882000" />
+      <workItem from="1688038336586" duration="17003000" />
+      <workItem from="1688067241363" duration="5926000" />
+      <workItem from="1688108785979" duration="13819000" />
+      <workItem from="1688388600245" duration="25652000" />
+      <workItem from="1688551431797" duration="2734000" />
+      <workItem from="1688561054963" duration="926000" />
+      <workItem from="1688562457058" duration="14892000" />
+      <workItem from="1688613932634" duration="10774000" />
+      <workItem from="1688669378240" duration="6360000" />
+      <workItem from="1688902837045" duration="2190000" />
+      <workItem from="1688919362395" duration="17180000" />
+      <workItem from="1689165504821" duration="2485000" />
+      <workItem from="1689191941192" duration="620000" />
+      <workItem from="1689239738837" duration="2030000" />
+      <workItem from="1689409704280" duration="61000" />
+      <workItem from="1689621229421" duration="698000" />
+      <workItem from="1689667602447" duration="1948000" />
+      <workItem from="1689694978957" duration="2405000" />
+      <workItem from="1689776226659" duration="1707000" />
+      <workItem from="1689790013032" duration="5958000" />
+      <workItem from="1689924959954" duration="3633000" />
+      <workItem from="1690097697377" duration="1286000" />
+      <workItem from="1690116512031" duration="688000" />
+      <workItem from="1690183387845" duration="9237000" />
+      <workItem from="1690289247760" duration="10169000" />
+      <workItem from="1690813659865" duration="12641000" />
     </task>
+    <task id="LOCAL-00001" summary="improve sentinel logging.">
+      <created>1686928247370</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1686928247370</updated>
+    </task>
+    <task id="LOCAL-00002" summary="WIP SentinelGlobal">
+      <created>1687705309506</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1687705309506</updated>
+    </task>
+    <task id="LOCAL-00003" summary="WIP SentinelGlobal">
+      <created>1687788878096</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1687788878096</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Make Sentinel compatible with CNN.">
+      <created>1687892845876</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1687892845876</updated>
+    </task>
+    <task id="LOCAL-00005" summary="SentinelGlobal: safety measures for dropped messages.">
+      <created>1687952481800</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1687952481800</updated>
+    </task>
+    <task id="LOCAL-00006" summary="WIP adjust log levels.">
+      <created>1688110463220</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1688110463220</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fix labelflipping for CIFAR10">
+      <created>1688123967826</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1688123967826</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix labelflipping for CIFAR10">
+      <created>1688126020633</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1688126020633</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Sentinel: fix bootstrap dataset size.">
+      <created>1688126822999</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1688126822999</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Code clean up.">
+      <created>1688394860222</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1688394860222</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Code clean up.">
+      <created>1688406750192</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1688406750192</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fix remotelogger network args.">
+      <created>1688415821829</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1688415821829</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Who needs sleep anyway?">
+      <created>1688417106026</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1688417106026</updated>
+    </task>
+    <task id="LOCAL-00014" summary="SentinelGlobal: compute metrics at aggregation.">
+      <created>1688502035878</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1688502035878</updated>
+    </task>
+    <task id="LOCAL-00015" summary="SentinelGlobal: active round parameter">
+      <created>1688545995402</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1688545995404</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Update fltrust for on-time metrics computation. Fix sentinelglobal trust not in sync.">
+      <created>1688549891473</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1688549891473</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fix bug when nodes are None.">
+      <created>1688552531654</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1688552531654</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Improve logging, clean up.">
+      <created>1688582315674</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1688582315674</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fix starter node.">
+      <created>1688582382124</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1688582382124</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Eval metrics.">
+      <created>1688582425686</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1688582425686</updated>
+    </task>
+    <task id="LOCAL-00021" summary=".gitignore">
+      <created>1688582532421</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1688582532421</updated>
+    </task>
+    <task id="LOCAL-00022" summary="participant config">
+      <created>1688582709605</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1688582709605</updated>
+    </task>
+    <task id="LOCAL-00023" summary="jupyter stuff.">
+      <created>1688582772944</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1688582772944</updated>
+    </task>
+    <task id="LOCAL-00024" summary="clean up.">
+      <created>1688614541084</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1688614541084</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fix backdoor acc.">
+      <created>1688645872478</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1688645872478</updated>
+    </task>
+    <task id="LOCAL-00026" summary="update backdoor">
+      <created>1688734739022</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1688734739022</updated>
+    </task>
+    <task id="LOCAL-00027" summary="beauty fix.">
+      <created>1688930519203</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1688930519203</updated>
+    </task>
+    <task id="LOCAL-00028" summary="beauty fix.">
+      <created>1688998153717</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1688998153717</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Fix redundant logging.">
+      <created>1689680868911</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1689680868911</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Fix redundant logging.">
+      <created>1689695191955</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1689695191955</updated>
+    </task>
+    <task id="LOCAL-00031" summary="SentinelGlobal log number evaluated">
+      <created>1689790985712</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1689790985712</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Threshold analysis.">
+      <created>1689921771512</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1689921771512</updated>
+    </task>
+    <task id="LOCAL-00033" summary="More logging.">
+      <created>1690105955163</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1690105955163</updated>
+    </task>
+    <task id="LOCAL-00034" summary="DONE evaluation.">
+      <created>1690213987672</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1690213987672</updated>
+    </task>
+    <task id="LOCAL-00035" summary="DONE evaluation.">
+      <created>1690214009772</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1690214009772</updated>
+    </task>
+    <task id="LOCAL-00036" summary="WIP hand-in.">
+      <created>1690824495830</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1690824495830</updated>
+    </task>
+    <task id="LOCAL-00037" summary="WIP hand-in.">
+      <created>1690825164521</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1690825164521</updated>
+    </task>
+    <task id="LOCAL-00038" summary="WIP hand-in: submit raw data.">
+      <created>1691068451528</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1691068451528</updated>
+    </task>
+    <task id="LOCAL-00039" summary="WIP hand-in: updated README.md">
+      <created>1691074618718</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1691074618718</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +643,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="sync-docker" />
+                        <option value="sync" />
                       </list>
                     </value>
                   </entry>
@@ -213,25 +655,52 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Code clean up." />
+    <MESSAGE value="Fix remotelogger network args." />
+    <MESSAGE value="Who needs sleep anyway?" />
+    <MESSAGE value="SentinelGlobal: compute metrics at aggregation." />
+    <MESSAGE value="SentinelGlobal: active round parameter" />
+    <MESSAGE value="Update fltrust for on-time metrics computation. Fix sentinelglobal trust not in sync." />
+    <MESSAGE value="Fix bug when nodes are None." />
+    <MESSAGE value="Improve logging, clean up." />
+    <MESSAGE value="Fix starter node." />
+    <MESSAGE value="Eval metrics." />
+    <MESSAGE value=".gitignore" />
+    <MESSAGE value="participant config" />
+    <MESSAGE value="jupyter stuff." />
+    <MESSAGE value="clean up." />
+    <MESSAGE value="fix backdoor acc." />
+    <MESSAGE value="update backdoor" />
+    <MESSAGE value="beauty fix." />
+    <MESSAGE value="Fix redundant logging." />
+    <MESSAGE value="SentinelGlobal log number evaluated" />
+    <MESSAGE value="Threshold analysis." />
+    <MESSAGE value="More logging." />
+    <MESSAGE value="DONE evaluation." />
+    <MESSAGE value="WIP hand-in." />
+    <MESSAGE value="WIP hand-in: submit raw data." />
+    <MESSAGE value="WIP hand-in: updated README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="WIP hand-in: updated README.md" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/fedstellar/start_without_webserver.py</url>
-          <line>71</line>
+          <line>50</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/fedstellar/node_start.py</url>
-          <line>155</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/fedstellar_robust$single_device.coverage" NAME="single_device Coverage Results" MODIFIED="1686058044494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$python_test_bed_py.coverage" NAME="python test_bed.py Coverage Results" MODIFIED="1691074311420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$dockerpy.coverage" NAME="dockerpy Coverage Results" MODIFIED="1686900782034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed.coverage" NAME="test_bed Coverage Results" MODIFIED="1690298999272" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$single_device.coverage" NAME="single_device Coverage Results" MODIFIED="1686729870056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$.coverage" NAME=" Coverage Results" MODIFIED="1689925548733" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
+    <SUITE FILE_PATH="coverage/fedstellar_robust$test_bed_threshold.coverage" NAME="test_bed_threshold Coverage Results" MODIFIED="1689921293689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
     <SUITE FILE_PATH="coverage/fedstellar_robust$start_without_webserver.coverage" NAME="start_without_webserver Coverage Results" MODIFIED="1686086776890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fedstellar" />
-    <SUITE FILE_PATH="coverage/fedstellar_robust$dockerpy.coverage" NAME="dockerpy Coverage Results" MODIFIED="1686087027347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
   </component>
 </project>

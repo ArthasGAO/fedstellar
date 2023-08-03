@@ -34,8 +34,18 @@ The find the necessary changes in the code base, search for `TODO Sync`.
 ## Getting Started
 
 The overview of Fedstellar is available on the [website](https://federatedlearning.inf.um.es/). The corresponding
-technical documentation and all required setup steps can be found [here](https://federatedlearning.inf.um.es/docs/).
-To run the framework without using the frontend, see `test_bed.py`.
+technical documentation and all required setup steps can be found [online](https://federatedlearning.inf.um.es/docs/) or
+[locally](docs/installation.rst).
+Briefly, you will need to install a Python environment such as [Anaconda](https://www.anaconda.com/products/individual) and
+[Docker](https://www.docker.com). Then, install the necessary Python packages using:
+
+```pip install -r requirements.txt```
+
+To run the framework without using the frontend, see `fedstellar/test_bed.py`. Modify the experiment configuration to your
+needs. Note that the setup by default logs all experiments to [Weights&Biases](https://docs.wandb.ai/), hence an account is recommended. To start a
+scenario, run:
+
+```python fedstellar/test_bed.py```
 
 ## About the project
 

@@ -11,4 +11,11 @@ metrics without the presence of adversaries. The directory `metrics` encompasses
 discussions. Each directory holds the necessary scripts to visualize or summarize data. Some also offer
 the option to refresh the data from WandB.
 
-Have fun :)
+### Requirements
+Recommended python version: 3.10.x
+
+```pip install -r requirements.txt```
+
+To retrieve the data from the WandB API, an account is recommended. The API key can be found in the settings of the account.
+Alternatively, any random key of length 46 can be used to retrieve data from the public projects. Further information
+can be retrieved from the [Documentation](https://docs.wandb.ai/)

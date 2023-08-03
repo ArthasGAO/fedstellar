@@ -50,4 +50,4 @@ plt.yticks(fontsize=10)
 # plt.show()
 
 # plt.savefig('loss_mapping.svg')
-plt.savefig('loss_mapping.svg')
+plt.savefig('loss_mapping.pdf')

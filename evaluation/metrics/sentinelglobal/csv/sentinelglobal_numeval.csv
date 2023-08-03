@@ -1,0 +1,31 @@
+,PNR,PSR,Attack,Evaluations
+0,10,30,Label Flipping Untargeted,94
+0,10,50,Label Flipping Untargeted,93
+0,10,100,Label Flipping Untargeted,93
+0,50,30,Label Flipping Untargeted,65
+0,50,50,Label Flipping Untargeted,65
+0,50,100,Label Flipping Untargeted,65
+0,80,30,Label Flipping Untargeted,71
+0,80,50,Label Flipping Untargeted,44
+0,80,100,Label Flipping Untargeted,44
+0,10,30,Label Flipping Targeted,93
+0,10,50,Label Flipping Targeted,93
+0,10,100,Label Flipping Targeted,93
+0,50,30,Label Flipping Targeted,65
+0,50,50,Label Flipping Targeted,65
+0,50,100,Label Flipping Targeted,65
+0,80,30,Label Flipping Targeted,44
+0,80,50,Label Flipping Targeted,44
+0,80,100,Label Flipping Targeted,44
+0,10,30,Backdoor,93
+0,10,50,Backdoor,100
+0,10,100,Backdoor,93
+0,50,30,Backdoor,65
+0,50,50,Backdoor,65
+0,50,100,Backdoor,65
+0,80,30,Backdoor,45
+0,80,50,Backdoor,53
+0,80,100,Backdoor,44
+0,10,0,Model Poisoning,93
+0,50,0,Model Poisoning,65
+0,80,0,Model Poisoning,44

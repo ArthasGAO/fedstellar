@@ -1,0 +1,7 @@
+jupyter
+pandas
+wandb
+matplotlib
+numpy
+dataframe_image
+imgkit

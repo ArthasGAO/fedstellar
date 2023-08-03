@@ -4,12 +4,10 @@ import pandas as pd
 import math
 import matplotlib.pyplot as plt
 import os
-
 from PIL import Image
 from matplotlib.lines import Line2D
 import numpy as np
 import dataframe_image as dfi
-
 from scripts import css_helper
 
 api = wandb.Api(timeout=20)
@@ -40,7 +38,7 @@ def filter_system_metrics(system_metrics, gpu=False):
     return agg_metrics, agg_range
 
 
-def plot_compute_metrics(entity, project, psr, pnr, SAVE_PATH, file_name):
+def plot_compute_metrics(entity, project, psr, pnr, SAVE_PATH, CSV_SAVE_PATH, file_name):
     print(project)
     aggregation_list = ["Krum", "FedAvg", "TrimmedMean", "FlTrust", "Sentinel", "SentinelGlobal"]
     aggregation_list = aggregation_list.sort(reverse=True)
@@ -50,9 +48,11 @@ def plot_compute_metrics(entity, project, psr, pnr, SAVE_PATH, file_name):
     gpu = True if 'cifar10' in project else False
     baseline = True if 'baseline' in project else False
     print("Computing GPU metrics: " + str(gpu))
-    final_metrics = pd.DataFrame(data=None, index=aggregation_list, columns=metrics_list, dtype=None, copy=None)
-    final_metrics_range = pd.DataFrame(data=None, index=aggregation_list, columns=metrics_list, dtype=None, copy=None)
+    compute_metrics = pd.DataFrame(data=None, index=aggregation_list, columns=metrics_list, dtype=None, copy=None)
+    compute_metrics_range = pd.DataFrame(data=None, index=aggregation_list, columns=metrics_list, dtype=None, copy=None)
 
+    # Uncomment to download from wandb
+    """
     # filter by attack
     runs = api.runs(f'{entity}/{project}', filters={'config.attack_env.poisoned_node_percent': pnr,
                                                     'config.attack_env.poisoned_sample_percent': psr,
@@ -66,19 +66,13 @@ def plot_compute_metrics(entity, project, psr, pnr, SAVE_PATH, file_name):
         system_metrics = run.history(stream="events")
         agg_metrics, agg_error = filter_system_metrics(system_metrics, gpu)
         agg = run.config['aggregator_args']['algorithm']
-        final_metrics.loc[agg] = agg_metrics
-        final_metrics_range.loc[agg] = agg_error
+        compute_metrics.loc[agg] = agg_metrics
+        compute_metrics_range.loc[agg] = agg_error
 
-    final_metrics = final_metrics.sort_index()
-
+    compute_metrics = compute_metrics.sort_index()
+    compute_metrics.to_csv(os.path.join(CSV_SAVE_PATH, f'compute_metrics_{project}.csv'))
     """
-    cpu_bound = final_metrics[metrics_list[0]].min()
-    cpu_bound = cpu_bound - cpu_bound/10
-    ram_bound = final_metrics[metrics_list[1]].min()
-    ram_bound = ram_bound - ram_bound/10
-    traffic_bound = final_metrics[metrics_list[2]].min()
-    traffic_bound = traffic_bound - traffic_bound/10
-    """
+    compute_metrics = pd.read_csv(os.path.join(CSV_SAVE_PATH, f'compute_metrics_{project}.csv'), index_col=0)
 
     # if "fmnist" in project:
     proc_lower = 34
@@ -97,9 +91,9 @@ def plot_compute_metrics(entity, project, psr, pnr, SAVE_PATH, file_name):
 
     fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(15, 3), sharey="all")
     colors = ['c', 'm', 'y']
-    for i, col in enumerate(final_metrics.columns):
-        x_err = final_metrics_range[col].tolist()
-        final_metrics.plot.barh(y=col,
+    for i, col in enumerate(compute_metrics.columns):
+        x_err = compute_metrics_range[col].tolist()
+        compute_metrics.plot.barh(y=col,
                                 xerr=x_err,
                                 rot=0,
                                 legend=None,
@@ -123,27 +117,23 @@ def plot_compute_metrics(entity, project, psr, pnr, SAVE_PATH, file_name):
 
     columns_with_var = metrics_list[0:2]
     for c in columns_with_var:
-        final_metrics[c] = final_metrics[c].apply(lambda x: "{:.3f}".format(x) + "\u00B1")
-        final_metrics[c] = final_metrics[c] + final_metrics_range[c].apply(lambda x: "{:.3f}".format(x))
-    print(final_metrics)
-    final_metrics.to_csv(os.path.join(SAVE_PATH, 'csv', f'final_metrics_{project}.csv'))
+        compute_metrics[c] = compute_metrics[c].apply(lambda x: "{:.3f}".format(x) + "\u00B1")
+        compute_metrics[c] = compute_metrics[c] + compute_metrics_range[c].apply(lambda x: "{:.3f}".format(x))
+    print(compute_metrics)
     styles = css_helper.get_table_styles()
-    final_metrics_style = final_metrics.style.set_table_styles(styles)
-    final_metrics_style.format(precision=3)
-    final_metrics_style.set_properties(subset=[metrics_list[1]], **{'width': '120px'})
-    # final_metrics_style = final_metrics_style.highlight_min()
-    # final_metrics_style = final_metrics_style.highlight_max(props='font-weight: bold')
-    # print(final_metrics.to_html())
-    dfi.export(final_metrics_style, os.path.join(PNG_PATH, f'final_metrics_{project}.png'), dpi=600, fontsize=12)
-    image_1 = Image.open(os.path.join(PNG_PATH, f'final_metrics_{project}.png'))
-    image_1.convert('RGB').save(os.path.join(SAVE_PATH, f'final_metrics_{project}.pdf'))
+    compute_metrics_style = compute_metrics.style.set_table_styles(styles)
+    compute_metrics_style.format(precision=3)
+    compute_metrics_style.set_properties(subset=[metrics_list[1]], **{'width': '120px'})
+    dfi.export(compute_metrics_style, os.path.join(PNG_PATH, f'compute_metrics_{project}.png'), dpi=600, fontsize=12)
+    image_1 = Image.open(os.path.join(PNG_PATH, f'compute_metrics_{project}.png'))
+    image_1.convert('RGB').save(os.path.join(SAVE_PATH, f'compute_metrics_{project}.pdf'))
 
 
 if __name__ == '__main__':
 
     projects = ["fedstellar-mnist-lf-untargeted",
                 "fedstellar-mnist-lf-targeted",
-                "fedstellar-mnist-mp", # (N80 not set)
+                "fedstellar-mnist-mp",
                 "fedstellar-mnist-sp-targeted",
                 "fedstellar-fashionmnist-lf-untargeted",
                 "fedstellar-fashionmnist-lf-targeted",
@@ -154,30 +144,14 @@ if __name__ == '__main__':
                 "fedstellar-cifar10-mp",
                 "fedstellar-cifar10-sp-targeted",
                 "fedstellar-mnist-baseline",
-                "fedstellar-fasionmnist-baseline",
-                "fedstellar-cifar10-baseline"]
-
-    """
-    projects = ["fedstellar-fashionmnist-lf-untargeted",
-                "fedstellar-fashionmnist-lf-targeted",
-                "fedstellar-fashionmnist-mp",
-                "fedstellar-fashionmnist-sp-targeted",
-                "fedstellar-cifar10-lf-untargeted",
-                "fedstellar-cifar10-lf-targeted",
-                "fedstellar-cifar10-mp",
-                "fedstellar-cifar10-sp-targeted",
-                "fedstellar-mnist-baseline",
                 "fedstellar-fashionmnist-baseline",
                 "fedstellar-cifar10-baseline"]
-    """
-
-    # projects = ["fedstellar-cifar10-mp", "fedstellar-fashionmnist-mp"]
 
     for project in projects:
         entity = "janousy"
         project = project
         SAVE_PATH = os.path.join(os.getcwd(), "figures")
-        CSV_SAVE_PATH = os.path.join(SAVE_PATH, "csv")
+        CSV_SAVE_PATH = os.path.join(os.getcwd(), "csv")
         PNG_PATH = os.path.join(SAVE_PATH, "png")
         print("Writing figures to: " + SAVE_PATH)
         file_name = project + ".pdf"
@@ -189,5 +163,10 @@ if __name__ == '__main__':
         if 'baseline' in project:
             psr = 0
             pnr = 0
-        plot_compute_metrics(entity=entity, project=project, psr=psr, pnr=pnr, SAVE_PATH=SAVE_PATH, file_name=file_name)
-#%
+        plot_compute_metrics(entity=entity,
+                             project=project,
+                             psr=psr,
+                             pnr=pnr,
+                             SAVE_PATH=SAVE_PATH,
+                             CSV_SAVE_PATH=CSV_SAVE_PATH,
+                             file_name=file_name)

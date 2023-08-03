@@ -15,14 +15,14 @@ def get_metrics_plot(_entity, _project, _filter, _metric_name, _metric_label):
     api = wandb.Api()
     attack_name = f'{_filter["config.attack_env.attack"]}_{_filter["config.attack_env.targeted"]}'
     SAVE_PATH = os.path.join(os.getcwd(), "figures", _project, attack_name)
+    CSV_SAVE_PATH = os.path.join(os.getcwd(), "csv", _project, attack_name)
     print("Writing figure to: " + SAVE_PATH)
     file_name = _metric_name.replace(" ", "") + "_" + _project + \
                 "_" + ("_").join(str(v).replace(" ", "_") for v in _filter.values())
     print(file_name)
 
-    isExist = os.path.exists(SAVE_PATH)
-    if not isExist:
-        os.makedirs(SAVE_PATH)
+    if not os.path.exists(SAVE_PATH): os.makedirs(SAVE_PATH)
+    if not os.path.exists(CSV_SAVE_PATH): os.makedirs(CSV_SAVE_PATH)
 
     print(_filter)
 
@@ -72,6 +72,8 @@ def get_metrics_plot(_entity, _project, _filter, _metric_name, _metric_label):
             if not math.isnan(metric): nei_metric.append(metric)
         print(nei_metric)
         df_metric[ip] = nei_metric
+
+    df_metric.to_csv(os.path.join(CSV_SAVE_PATH, file_name + ".csv"))
 
     benign_neis = benign.copy()
     benign_neis.remove(p0_ip)

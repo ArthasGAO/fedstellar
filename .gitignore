@@ -137,3 +137,5 @@ app/
 fedstellar/data
 wandb/
 *.dat
+*.png
+*.pdf

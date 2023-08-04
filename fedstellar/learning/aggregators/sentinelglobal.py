@@ -1,6 +1,6 @@
 # 
-# This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
+# This file is part of the Fedstellar platform (see https://github.com/enriquetomasmb/fedstellar).
+# Copyright (c) 2023 Janosch Baltensperger.
 #
 from fedstellar.learning.aggregators.aggregator import Aggregator
 from fedstellar.learning.aggregators.helper import cosine_similarity
@@ -59,7 +59,7 @@ class SentinelGlobal(Aggregator):
 
         # SentinelGlobal
         self.active_round = active_round
-        logging.info("[Sentinel] Global becomes active at: {}".format(self.active_round))
+        logging.info("[SentinelGlobal] becomes active at: {}".format(self.active_round))
         self.num_evals = num_evals
         # global_trust holds trust scores for each round and neighbour
         # example:
@@ -68,7 +68,7 @@ class SentinelGlobal(Aggregator):
         #  -> at round 0, node1 identified node2 as malicious (0), node3 as trusted (1).
         self.global_trust = global_trust
         self.neighbor_keys: Set = neighbor_keys if neighbor_keys is not None else set()
-        logging.info("SentinelGlobal: Neighbors set to {}".format(self.neighbor_keys))
+        logging.info("[SentinelGlobal]: Neighbors set to {}".format(self.neighbor_keys))
         self.global_trust[self.agg_round] = {}
         self.global_trust[self.agg_round][self.node_name] = {}
         # logging.info("[SentinelGlobal] My prev global trust is {}".format(self.global_trust[self.agg_round-2]))
@@ -82,14 +82,14 @@ class SentinelGlobal(Aggregator):
         self.add_neighbour_trust(metrics.global_trust)
         super().add_model(model=model, nodes=nodes, metrics=metrics)
 
-    def evaluated_model_trusted(self, model: OrderedDict, node: str, metrics: ModelMetrics):
+    def evaluate_model_trusted(self, model: OrderedDict, node: str, metrics: ModelMetrics):
         logging.info("[SentinelGlobal.add_model] Computing metrics for node(s): {}".format(node))
 
         # Evaluate if not yet active
         if self.agg_round < self.active_round:
             metrics = self.evaluate_model(model, node, metrics)
             super().add_model(model=model, nodes=[node], metrics=metrics)
-            return
+            return metrics
 
         # Step 0: Check whether the model should be evaluated based on global trust
         avg_global_trust = self.get_trusted_neighbour_opinion(node)
@@ -140,11 +140,11 @@ class SentinelGlobal(Aggregator):
 
         return metrics
 
-    def get_mapped_avg_loss(self, node_key: str, loss: float, my_loss: float, threshold: float) -> float:
+    def get_mapped_avg_loss(self, node_key: str, loss: float) -> float:
         # calculate next average loss
         prev_loss_hist: list = self.loss_history.get(node_key, [])
         prev_loss_hist.append(loss)
-        self.loss_history[node_key] = prev_loss_hist
+        self.loss_history[node_key] = prev_loss_hist  # update loss history
         avg_loss = mean(prev_loss_hist)
         mapping = {f'avg_loss_{node_key}': avg_loss}
         self.learner.logger.log_metrics(metrics=mapping, step=0)
@@ -160,7 +160,7 @@ class SentinelGlobal(Aggregator):
         k = 1 / max(MIN_LOSS, avg_local_loss)
         loss_dist = max(avg_loss - avg_local_loss, 0)
         mapped_distance_loss = math.exp(-k * loss_dist)
-        if (mapped_distance_loss < threshold) | (math.isnan(mapped_distance_loss)):
+        if (mapped_distance_loss < self.loss_dist_threshold) | (math.isnan(mapped_distance_loss)):
             return float(0)
         return mapped_distance_loss
 
@@ -177,7 +177,7 @@ class SentinelGlobal(Aggregator):
             model = models[node_key][0]
             metrics: ModelMetrics = models[node_key][1]
             # the own local model also requires eval to get loss distance
-            metrics_eval = self.evaluated_model_trusted(model, node_key, metrics)
+            metrics_eval = self.evaluate_model_trusted(model, node_key, metrics)
             models[node_key] = (model, metrics_eval)
 
         # Log model metrics
@@ -189,7 +189,7 @@ class SentinelGlobal(Aggregator):
                 self.learner.logger.log_metrics(metrics=mapping, step=0)
 
         # The model of the aggregator serves as a trusted reference
-        local_params = models.get(self.node_name)
+        local_params = models.get(self.node_name)[0]
         if local_params is None:
             logging.warning("[SentinelGlobal] Trying to aggregate models when bootstrap is not available")
             return None
@@ -222,10 +222,12 @@ class SentinelGlobal(Aggregator):
         normalised_models = {}
         for key, msg in filtered_models.items():
             model_params = msg[0]
+            metrics = msg[1]
             if key == self.node_name:
-                normalised_models[key] = local_params
+                normalised_models[key] = (local_params, metrics)
             else:
-                normalised_models[key] = normalise_layers(model_params, local_params)
+                normalized_params = normalise_layers(model_params, local_params)
+                normalised_models[key] = (normalized_params, metrics)
 
         # Create a Zero Model
         accum = (list(normalised_models.values())[-1][0]).copy()

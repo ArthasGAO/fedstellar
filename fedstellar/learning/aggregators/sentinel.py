@@ -1,6 +1,6 @@
 # 
-# This file is part of the fedstellar framework (see https://github.com/enriquetomasmb/fedstellar).
-# Copyright (c) 2022 Enrique Tomás Martínez Beltrán.
+# This file is part of the Fedstellar platform (see https://github.com/enriquetomasmb/fedstellar).
+# Copyright (c) 2023 Janosch Baltensperger.
 #
 from fedstellar.learning.aggregators.aggregator import Aggregator
 from fedstellar.learning.aggregators.helper import cosine_similarity
@@ -33,7 +33,7 @@ def filter_models_by_cosine(models: Dict, threshold: float) -> Dict:
 class Sentinel(Aggregator):
     """
     Sentinel
-        Custom aggregation method based on cosine similarity, loss distance and normalisation.
+        Custom aggregation method based on model similarity, bootstrap validation and normalisation.
     """
 
     def __init__(self, node_name="unknown",
@@ -129,7 +129,7 @@ class Sentinel(Aggregator):
             models[node_key] = (model, metrics_eval)
 
         # The model of the aggregator serves as a trusted reference
-        local_params = models.get(self.node_name)
+        local_params = models.get(self.node_name)[0]
         if local_params is None:
             logging.warning("[Sentinel] Trying to aggregate models when bootstrap is not available")
             return None
@@ -162,10 +162,12 @@ class Sentinel(Aggregator):
         normalised_models = {}
         for key, msg in filtered_models.items():
             model_params = msg[0]
+            metrics = msg[1]
             if key == self.node_name:
-                normalised_models[key] = local_params
+                normalised_models[key] = (local_params, metrics)
             else:
-                normalised_models[key] = normalise_layers(model_params, local_params)
+                normalized_params = normalise_layers(model_params, local_params)
+                normalised_models[key] = (normalized_params, metrics)
 
         # Create a Zero Model
         accum = (list(normalised_models.values())[-1][0]).copy()

@@ -146,3 +146,4 @@ fedstellar/data/MNIST/raw/train-labels-idx1-ubyte
 fedstellar/data/MNIST/raw/train-labels-idx1-ubyte.gz
 fedstellar/webserver/database_file/scenarios.db
 fedstellar/webserver/database_file/nodes.db
+app/logs/server.log

@@ -18,13 +18,13 @@ class RandomSelector(Selector):
 
         if len(node) == 0:
             logging.error(
-                "[NewSelector] Trying to select nodes when there is no nodes"
+                "[Random Selector] Trying to select nodes when there is no nodes"
             )
             return None
 
         neighbors = self.neighbors_list.copy()
         neighbors.remove(node)
-        logging.info("[New Selector]   neighbors = {}".format(neighbors))
+        logging.info("[Random Selector]   neighbors = {}".format(neighbors))
         num_selected = max(1,int(len(neighbors)*0.8//1))
         
         selected_nodes = np.random.choice(

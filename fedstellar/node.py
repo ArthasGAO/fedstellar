@@ -3,6 +3,8 @@
 # Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 #
 from fedstellar.attacks.poisoning.modelpoison import modelpoison
+from fedstellar.learning.selectors.allselector import AllSelector
+from fedstellar.learning.selectors.randomselector import RandomSelector
 from fedstellar.utils.observer import Events, Observer
 from fedstellar.role import Role
 from fedstellar.learning.pytorch.lightninglearner import LightningLearner
@@ -177,8 +179,14 @@ class Node(BaseNode):
 
         # Selector
         self.selected_nodes_list = []
-        if True:
+        if self.config.participant["scenario_args"]["selection_algorithm"] == "new":
             self.selector = NewSelector(
+                node_name=self.get_name(), config=self.config)
+        elif self.config.participant["scenario_args"]["selection_algorithm"] == "random":
+            self.selector = RandomSelector(
+                node_name=self.get_name(), config=self.config)
+        elif self.config.participant["scenario_args"]["selection_algorithm"] == "all":
+            self.selector = AllSelector(
                 node_name=self.get_name(), config=self.config)
 
         # Store the parameters of the model

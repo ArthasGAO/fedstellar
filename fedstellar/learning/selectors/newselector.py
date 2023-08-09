@@ -65,7 +65,7 @@ class NewSelector(Selector):
 
         # Add weight to features
         # Loss, cpu, data size, data rec, data send, latency, age 
-        weight = [5.0, 1.0, 1.0, 0.5, 0.5, 2.0, 1.0]
+        weight = [5.0, 1.0, 1.0, 0.3, 0.3, 5.0, 1.0]
         weight = np.array(weight).reshape(-1, 1)
         feature_array_weighted = np.multiply(feature_array_normed, weight)
         logging.info("[NEW SELECTOR] feature_array_weighted = {}".format(

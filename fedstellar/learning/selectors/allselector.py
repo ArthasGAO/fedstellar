@@ -8,7 +8,7 @@ from sklearn.preprocessing import normalize
 from fedstellar.learning.selectors.selector import Selector
 
 
-class RandomSelector(Selector):
+class AllSelector(Selector):
     def __init__(self, node_name="unknown", config=None):
         super().__init__(node_name, config)
         self.config = config
@@ -18,19 +18,19 @@ class RandomSelector(Selector):
 
         if len(node) == 0:
             logging.error(
-                "[NewSelector] Trying to select nodes when there is no nodes"
+                "[All Selector] Trying to select nodes when there is no nodes"
             )
             return None
 
         neighbors = self.neighbors_list.copy()
         neighbors.remove(node)
-        logging.info("[New Selector]   neighbors = {}".format(neighbors))
+        logging.info("[All Selector]   neighbors = {}".format(neighbors))
         
         selected_nodes = neighbors
         logging.info(
-            "[Random SELECTOR] neighbors ={}, selected_nodes = {}".format(neighbors,selected_nodes))
+            "[All SELECTOR] neighbors ={}, selected_nodes = {}".format(neighbors,selected_nodes))
 
-        logging.info("[RandomSelector]  selection FINISHED")
+        logging.info("[All selector]  selection FINISHED")
 
 
         return selected_nodes

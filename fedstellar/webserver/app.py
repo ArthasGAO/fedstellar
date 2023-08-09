@@ -745,7 +745,7 @@ def fedstellar_scenario_deployment_run():
                 # assign artifical value
                 participant_config["device_args"]["cpu_limit"] = node_config["cpu_limit"]
                 participant_config["network_args"]["latency"] = node_config["latency"]
-                participant_config['selection_algorithm'] = data['selector']
+                participant_config['scenario_args']['selection_algorithm'] = data['selector']
 
                 with open(participant_file, 'w') as f:
                     json.dump(participant_config, f, sort_keys=False, indent=2)

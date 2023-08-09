@@ -242,6 +242,16 @@
                 <small class="form-text text-muted">%</small>
             </div>
         </div>
+        <div class="form-group row">
+            <h4 class="step-number">Node Selector<i class="fa fa-cloud-upload"></i></h4>
+            <div style="margin-left: 10px">
+                <select class="form-control" id="selector" name="selector" style="display: inline; width: 20%">
+                    <option value="new" selected>New Selector</option>
+                    <option value="random">Random Selector</option>
+                    <option value="all">All Selector</option>
+                </select>
+            </div>
+        </div>
     </div>
 </form>
 
@@ -552,6 +562,8 @@
                         "port": Graph.graphData().nodes[i].port,
                         "role": Graph.graphData().nodes[i].role,
                         "start": Graph.graphData().nodes[i].start,
+                        "cpu_limit":Graph.graphData().nodes[i].cpu_limit,
+                        "latency":Graph.graphData().nodes[i].latency,
                     }
                 }
                 // Get resource usage from the DOM
@@ -577,6 +589,7 @@
                     "poisoned_node_percent": document.getElementById("poisoned-node-percent").value,
                     "poisoned_sample_percent": document.getElementById("poisoned-sample-percent").value,
                     "poisoned_noise_percent": document.getElementById("poisoned-noise-percent").value,
+                    "selector": document.getElementById("selector").value,
                 };
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/scenario/deployment/run", true);
@@ -626,6 +639,8 @@
                 role: i === 0 ? "aggregator" : "trainer",
                 start: (i === 0),
                 neighbors: [],
+                cpu_limit:"0.5",
+                latency:"1ms",
             })),
             links: []
         };
@@ -835,6 +850,37 @@
                 document.getElementById("participant-modal-content").appendChild(document.createElement("br"));
                 document.getElementById("participant-modal-content").appendChild(portInput);
 
+                document.getElementById("participant-modal-content").appendChild(document.createElement("br"));
+
+
+
+                const cpulimitLabel = document.createElement("label");
+                cpulimitLabel.setAttribute("for", "participant-" + i + "-cpu_limit");
+                cpulimitLabel.innerHTML = "CPU limit";
+                const cpulimitInput = document.createElement("input");
+                cpulimitInput.id = "participant-" + i + "-cpu_limit";
+                cpulimitInput.type = "text";
+                cpulimitInput.defaultValue = participant.cpu_limit;   
+                document.getElementById("participant-modal-content").appendChild(cpulimitLabel);
+                document.getElementById("participant-modal-content").appendChild(document.createElement("br"));
+                document.getElementById("participant-modal-content").appendChild(cpulimitInput);
+                document.getElementById("participant-modal-content").appendChild(document.createElement("br"));
+
+
+
+                const latencyLabel = document.createElement("label");
+                latencyLabel.setAttribute("for", "participant-" + i + "-latency");
+                latencyLabel.innerHTML = "Latency";
+                const latencyInput = document.createElement("input");
+                latencyInput.id = "participant-" + i + "-latency";
+                latencyInput.type = "text";
+                latencyInput.defaultValue = participant.latency;   
+                document.getElementById("participant-modal-content").appendChild(latencyLabel);
+                document.getElementById("participant-modal-content").appendChild(document.createElement("br"));
+                document.getElementById("participant-modal-content").appendChild(latencyInput);
+                document.getElementById("participant-modal-content").appendChild(document.createElement("br"));
+
+
                 document.getElementById("participant-modal-content").innerHTML += "<br><b>Neighbors:</b> " + participant.neighbors.length + "<br><b>Role:</b> " + participant.role + "<br><b>Start:</b> " + participant.start;
                 // Show the modal
                 $('#participant-modal').modal('show');
@@ -879,6 +925,8 @@
                 const participant = Graph.graphData().nodes[i];
                 participant.ip = document.getElementById("participant-" + i + "-ip").value;
                 participant.port = document.getElementById("participant-" + i + "-port").value;
+                participant.cpu_limit = document.getElementById("participant-" + i + "-cpu_limit").value;
+                participant.latency = document.getElementById("participant-" + i + "-latency").value;
                 Graph.graphData(Graph.graphData());
             });
 
@@ -982,6 +1030,8 @@
             id: i,
             ip: "127.0.0.1",
             port: (45000 + i).toString(),
+            cpu_limit:"0.5",
+            latency:"1ms",
             role: "aggregator",
             start: (i === 0),
             neighbors: [],
@@ -1057,7 +1107,7 @@
                 // Activate custom topology
                 document.getElementById("custom-topology-btn").checked = true;
                 document.getElementById("predefined-topology").style.display = "none";
-                const newNode = {id: gData.nodes.length, ip: "127.0.0.1", port: (45000 + gData.nodes.length).toString(), role: 'trainer', start: false};
+                const newNode = {id: gData.nodes.length, ip: "127.0.0.1", port: (45000 + gData.nodes.length).toString(),cpu_limit:"0.5",latency:"1ms", role: 'trainer', start: false};
                 newNode.neighbors = [node];
                 node.neighbors.push(newNode.id);
                 // Update the graph

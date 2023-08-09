@@ -25,7 +25,8 @@ class NewSelector(Selector):
         neighbors = self.neighbors_list.copy()
         neighbors.remove(node)
         logging.info("[New Selector]   neighbors = {}".format(neighbors))
-        num_selected = int(len(neighbors)*0.8//1)
+        num_selected = max(1,int(len(neighbors)*0.8//1))
+        
         availabililty = []
         feature_array = np.empty((7, 0))
 
@@ -84,9 +85,9 @@ class NewSelector(Selector):
         selected_nodes = np.random.choice(
             neighbors, num_selected, replace=False, p=p[0]).tolist()
         logging.info(
-            "[NEW SELECTOR] selected_nodes = {}".format(selected_nodes))
+            "[NEW SELECTOR] neighbors ={},num_selected ={}, p = {}, selected_nodes = {}".format(neighbors,num_selected,p,selected_nodes))
 
-        logging.info("[NewSelector] First round selection FINISHED")
+        logging.info("[NewSelector] selection FINISHED")
 
         # Update age dict
         for node in neighbors:

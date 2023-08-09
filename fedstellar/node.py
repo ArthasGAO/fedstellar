@@ -113,7 +113,8 @@ class Node(BaseNode):
 
         self.selected_nodes = []
         
-        self.__my_node_selected_flag = False
+        self.total_selected_msg_received = 0
+        self.my_node_selected_msg_received = 0
         
 
 
@@ -501,10 +502,11 @@ class Node(BaseNode):
             # Train
             # El participante servidor no entrena (en CFL)
             if self.round is not None and self.config.participant["device_args"]["role"] != Role.SERVER:
-
-                logging.info(
-                    "[NODE.__train_step] ==========================AGGREGATOR | Train ==========================")
-                self.__train()
+                
+                if self.__selected_decision():
+                    logging.info(
+                        "[NODE.__train_step] ==========================AGGREGATOR | Train ==========================")
+                    self.__train()
 
 
             # Second Round Selection
@@ -512,6 +514,7 @@ class Node(BaseNode):
                 logging.info(
                     "[NODE.__train_step] ==========================  AGGREGATOR,SERVER | Second Round Selection==========================")
                 self.selected_nodes = self.selector.node_selection(self.get_name())
+                self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
 
             # Aggregate Model
             if self.round is not None:
@@ -556,7 +559,7 @@ class Node(BaseNode):
                 logging.info(
                     "[NODE.__train_step] ========================== TRAINER | Train ==========================")       
                 
-                if self.__my_node_selected_flag:
+                if self.__selected_decision():
                     logging.info(
                     "[NODE.__train_step] ========================== Selected Round  = {} ==========================".format(self.round))       
                     self.__train()
@@ -752,6 +755,8 @@ class Node(BaseNode):
         logging.info("[NODE] Finalizing round: {}".format(self.round))
         self.learner.finalize_round()  # TODO: Improve functionality
         self.round = self.round + 1
+        self.my_node_selected_msg_received = 0
+        self.total_selected_msg_received = 0
         self.learner.logger.log_metrics(
             {"Round": self.round}, step=self.learner.logger.global_step)
         logging.info(
@@ -1228,17 +1233,44 @@ class Node(BaseNode):
         self.bytes_send = net_io_counters.bytes_sent
         self.availability = 1
 
+    def __selected_decision(self):
+        
+        waiting_time = 0
+        time.sleep(2)
+        
+        if self.config.participant["device_args"]["role"] == Role.AGGREGATOR:
+            
+            while self.total_selected_msg_received == 0 or waiting_time < 10 :
+                time.sleep(2)
+                logging.info("[NODE] ========= Waiting first selected msg =========== ")
+                waiting_time += 2
+        else:
+            self.total_selected_msg_received = 1
+        
+        if self.my_node_selected_msg_received / self.total_selected_msg_received >= 0.5:
+            logging.info("[NODE] ========= SELECTED ------> TRAIN ======= ")
+            logging.info("[NODE] ======= my_node_selected_msg_received = {} / total_selected_msg_received = {} ======= ".format(self.my_node_selected_msg_received,self.total_selected_msg_received))
+            
+            return True
+            
+        else:
+            logging.info("[NODE] ========= NOT SELECTED ------> SKIP TRAIN ======= ")  
+                      
+            return False
+        
+    
     def check_in_selected_list(self, selected_list):
         
         
         
         if self.get_name() in selected_list:
-            
-            self.__my_node_selected_flag = True
-            logging.info("[NODE] ========= SELECTED ------> TRAIN ======= ")
+            self.total_selected_msg_received += 1
+            self.my_node_selected_msg_received += 1
         else:
-            self.__my_node_selected_flag = False
-            logging.info("[NODE] ========= NOT SELECTED ------> SKIP TRAIN ======= ")
+            self.total_selected_msg_received += 1
         
-                
-        return
+        logging.info("[NODE] ======= Update my_node_selected_msg_received = {} ,total_selected_msg_received = {} ======= ".format(self.my_node_selected_msg_received,self.total_selected_msg_received))
+            
+            
+    
+

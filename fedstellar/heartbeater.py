@@ -58,14 +58,15 @@ class Heartbeater(threading.Thread, Observable):
             self.notify(Events.SEND_BEAT_EVENT, None)
             # self.get_nodes(print=True)
             self.update_config_with_neighbors()
+            
             self.__count += 1
             
-            # Send role notify each 10 beats
-            self.__send_event_with_interval(Events.SEND_ROLE_EVENT,self.__count,beat_interval=2)
+            # Send role notify each 2 beats
+            self.__send_event_with_interval(Events.SEND_ROLE_EVENT,self.__count,beat_interval=3)
             # Report my status to the controller
-            self.__send_event_with_interval(Events.REPORT_STATUS_TO_CONTROLLER_EVENT,self.__count,beat_interval=2)
+            self.__send_event_with_interval(Events.REPORT_STATUS_TO_CONTROLLER_EVENT,self.__count,beat_interval=3)
             # Send FEATURES notify each 10 beats
-            self.__send_event_with_interval(Events.SEND_FEATURES_EVENT,self.__count,beat_interval=10)
+            self.__send_event_with_interval(Events.SEND_FEATURES_EVENT,self.__count,beat_interval=6)
 
             # Wait and refresh node list
             for _ in range(self.config.participant["HEARTBEATER_REFRESH_NEIGHBORS_BY_PERIOD"]):

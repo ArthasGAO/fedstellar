@@ -741,6 +741,11 @@ def fedstellar_scenario_deployment_run():
                 participant_config["adversarial_args"]["attacks"] = node_config["attacks"]
                 participant_config["adversarial_args"]["poisoned_sample_percent"] = node_config["poisoned_sample_percent"]
                 participant_config["adversarial_args"]["poisoned_ratio"] = node_config["poisoned_ratio"]
+                
+                # assign artifical value
+                participant_config["device_args"]["cpu_limit"] = node_config["cpu_limit"]
+                participant_config["network_args"]["latency"] = node_config["latency"]
+                participant_config['selection_algorithm'] = data['selector']
 
                 with open(participant_file, 'w') as f:
                     json.dump(participant_config, f, sort_keys=False, indent=2)

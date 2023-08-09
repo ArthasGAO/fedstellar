@@ -8,7 +8,8 @@
     "controller": "127.0.0.1:5000",
     "random_seed": 0,
     "n_nodes": 0,
-    "config_version": "development"
+    "config_version": "development",
+    "selection_algorithm":"new"
   },
   "device_args": {
     "uid": "",
@@ -20,7 +21,8 @@
     "accelerator": "cpu",
     "devices": 2,
     "strategy": "ddp",
-    "logging": false
+    "logging": false,
+    "cpu_limit":0.5
   },
   "geo_args": {
     "latitude": "46.762520",
@@ -35,7 +37,8 @@
     "rate": "1Mbps",
     "loss": "0.1%",
     "delay": "100ms",
-    "delay-distro": 0
+    "delay-distro": 0,
+    "latency": "1ms"
   },
   "data_args": {
     "dataset": "MNIST"
@@ -76,7 +79,7 @@
     "device_type": ""
   },
   "BLOCK_SIZE": 2048,
-  "NODE_TIMEOUT": 20,
+  "NODE_TIMEOUT": 100,
   "VOTE_TIMEOUT": 60,
   "AGGREGATION_TIMEOUT": 300,
   "HEARTBEAT_PERIOD": 4,

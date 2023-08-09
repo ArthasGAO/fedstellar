@@ -388,7 +388,7 @@ class Controller:
                     - /bin/bash
                     - -c
                     - |
-                        tcset eth0 --delay {}ms && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {} 
+                        tcset eth0 --delay {} && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {} 
                         
                 depends_on:
                     - participant{}
@@ -417,14 +417,14 @@ class Controller:
                     - /bin/bash
                     - -c
                     - |
-                        /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                        /bin/sleep 60 && tcset eth0 --delay {} && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
                 networks:
                     fedstellar-net:
                         ipv4_address: {}
                 deploy:
                     resources:
                         limits:
-                            cpus: '0.4'
+                            cpus: '{}'
         """)
         participant_template_start = textwrap.indent(participant_template_start, ' ' * 4)
 
@@ -504,6 +504,8 @@ class Controller:
             path = f"/fedstellar/app/config/{self.scenario_name}/participant_{idx}.json"
             logging.info("Starting node {} with configuration {}".format(idx, path))
             logging.info("Node {} is listening on ip {}".format(idx, node['network_args']['ip']))
+            logging.info("Node {} have latency {}".format(idx, node['network_args']['latency']))
+            logging.info("Node {} have cpu limit {}".format(idx, node['device_args']['cpu_limit']))
             # Add one service for each participant
             if idx != idx_start_node:
                 if node['device_args']['accelerator'] == "gpu":
@@ -517,24 +519,14 @@ class Controller:
                 # Testing CPU limit in docker compose
                 else:
                     logging.info("Node {} is using CPU".format(idx))
-                    if idx == 1:
-                        services += participant_template.format(idx,
+                    services += participant_template.format(idx,
                                                             os.environ["FEDSTELLAR_ROOT"],
-                                                            100,
+                                                            node['network_args']['latency'],
                                                             self.network_gateway,
                                                             path,
                                                             idx_start_node,
                                                             node['network_args']['ip'],
-                                                            0.4)
-                    else:
-                        services += participant_template.format(idx,
-                                                            os.environ["FEDSTELLAR_ROOT"],
-                                                            1,
-                                                            self.network_gateway,
-                                                            path,
-                                                            idx_start_node,
-                                                            node['network_args']['ip'],
-                                                            0.4)
+                                                            node['device_args']['cpu_limit'])
             else:  # Start the node with a delay of 60 seconds
                 if node['device_args']['accelerator'] == "gpu":
                     logging.info("Node {} is using GPU".format(idx))
@@ -547,9 +539,11 @@ class Controller:
                     logging.info("Node {} is using CPU".format(idx))
                     services += participant_template_start.format(idx,
                                                                   os.environ["FEDSTELLAR_ROOT"],
+                                                                  node['network_args']['latency'],
                                                                   self.network_gateway,
                                                                   path,
-                                                                  node['network_args']['ip'])
+                                                                  node['network_args']['ip'],
+                                                                  node['device_args']['cpu_limit'])
         docker_compose_file = docker_compose_template.format(services)
         docker_compose_file += network_template.format(self.network_subnet, self.network_gateway)
         # Write the Docker Compose file in config directory

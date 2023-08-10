@@ -16,14 +16,16 @@ class NewSelector(Selector):
 
     def node_selection(self, node):
 
-        if len(node) == 0:
-            logging.error(
-                "[NewSelector] Trying to select nodes when there is no nodes"
-            )
-            return None
-
+        
         neighbors = self.neighbors_list.copy()
         neighbors.remove(node)
+        
+        if len(neighbors) == 0:
+            logging.error(
+                "[NewSelector] Trying to select neighbors when there is no neighbors"
+            )
+            return node
+
         logging.info("[New Selector]   neighbors = {}".format(neighbors))
         num_selected = max(1,int(len(neighbors)*0.8//1))
         
@@ -84,6 +86,8 @@ class NewSelector(Selector):
 
         selected_nodes = np.random.choice(
             neighbors, num_selected, replace=False, p=p[0]).tolist()
+        
+        selected_nodes.append(node)
         logging.info(
             "[NEW SELECTOR] neighbors ={},num_selected ={}, p = {}, selected_nodes = {}".format(neighbors,num_selected,p,selected_nodes))
 

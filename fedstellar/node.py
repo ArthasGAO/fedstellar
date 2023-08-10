@@ -503,9 +503,10 @@ class Node(BaseNode):
                     "[NODE.__train_step] ========================== AGGREGATOR,SERVER | First Round Selection==========================")
                 self.selected_nodes = self.selector.node_selection(
                     self.get_name())
-
-                self.broadcast(
-                    CommunicationProtocol.build_select_node_msg(str("-".join(self.selected_nodes))))
+                
+                if not self.selected_nodes:
+                    self.broadcast(
+                        CommunicationProtocol.build_select_node_msg(str("-".join(self.selected_nodes))))
 
             # Train
             # El participante servidor no entrena (en CFL)
@@ -763,8 +764,11 @@ class Node(BaseNode):
         logging.info("[NODE] Finalizing round: {}".format(self.round))
         self.learner.finalize_round()  # TODO: Improve functionality
         self.round = self.round + 1
+        # clear selection
         self.my_node_selected_msg_received = 0
         self.total_selected_msg_received = 0
+        
+        
         self.learner.logger.log_metrics(
             {"Round": self.round}, step=self.learner.logger.global_step)
         logging.info(

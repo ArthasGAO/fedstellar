@@ -16,14 +16,15 @@ class AllSelector(Selector):
 
     def node_selection(self, node):
 
-        if len(node) == 0:
-            logging.error(
-                "[All Selector] Trying to select nodes when there is no nodes"
-            )
-            return None
+        
 
         neighbors = self.neighbors_list.copy()
-        neighbors.remove(node)
+        
+        if len(neighbors) == 0:
+            logging.error(
+                "[NewSelector] Trying to select neighbors when there is no neighbors"
+            )
+            return None
         logging.info("[All Selector]   neighbors = {}".format(neighbors))
         
         selected_nodes = neighbors

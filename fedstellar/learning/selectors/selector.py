@@ -47,12 +47,8 @@ class Selector():
 
         pass
 
-    def second_round_selection(self):
-        """
-        Template
-        """
-
-        pass
+    def clear_selector_features(self):
+        self.features = {}
 
     def init_age(self):
 

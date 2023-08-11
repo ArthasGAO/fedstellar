@@ -499,7 +499,10 @@ class Node(BaseNode):
             # Evaluate and send metrics
             if self.round is not None:
                 self.__evaluate()
-
+            
+            logging.info("[NODE.__train_step] ======================= NEIGHBORS = {} ===========================".format(self.get_neighbors_names()))
+            
+            
             # First Round Selection
             if self.round is not None:
                 logging.info(
@@ -530,9 +533,9 @@ class Node(BaseNode):
 
             # Aggregate Model
             if self.round is not None:
-                logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to: __train_set [] =  {}".format(
-                    self.__train_set))
                 self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
+                logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to: selected_nodes [] =  {}".format(
+                    self.selected_nodes))
                 logging.info(
                     "[NODE.__train_step] ========================== AGGREGATOR,SERVER | Aggregate ==========================")
                 logging.info(

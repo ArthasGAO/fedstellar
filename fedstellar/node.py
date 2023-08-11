@@ -509,6 +509,8 @@ class Node(BaseNode):
                 
                 self.broadcast(
                         CommunicationProtocol.build_select_node_msg(str("-".join(self.selected_nodes))))
+                logging.info(
+                    "[NODE.__train_step] ========================== AGGREGATOR,SERVER {} | build_select_node_msg = {} ==========================".format(self.get_name(),self.selected_nodes))
 
             # Train
             # El participante servidor no entrena (en CFL)

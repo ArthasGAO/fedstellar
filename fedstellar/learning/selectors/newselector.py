@@ -18,22 +18,24 @@ class NewSelector(Selector):
 
         
         neighbors = self.neighbors_list.copy()
-        neighbors.remove(node)
+        
+        logging.info(
+            "[NEW SELECTOR] neighbors = {} ==================================".format(neighbors))
+        neighbors.remove(self.node_name)
         
         if len(neighbors) == 0:
             logging.error(
                 "[NewSelector] Trying to select neighbors when there is no neighbors"
             )
             return node
-
-        logging.info("[New Selector]   neighbors = {}".format(neighbors))
+        
         num_selected = max(1,int(len(neighbors)*0.8//1))
         
         availabililty = []
         feature_array = np.empty((7, 0))
 
         logging.info(
-            "[NEW SELECTOR] neighbors = {} ==================================".format(neighbors))
+            "[NEW SELECTOR] neighbors(after remove) = {} ==================================".format(neighbors))
 
         for node in neighbors:
 
@@ -55,11 +57,13 @@ class NewSelector(Selector):
 
             feature = np.array(feature_list).reshape(-1, 1).astype(np.float64)
             feature_array = np.append(feature_array, feature, axis=1)
-
-        # 1 / latency
-        feature_array[5, :] = 1/feature_array[5, :]
         # 1 / loss
         feature_array[0, :] = 1/feature_array[0, :]
+        
+        
+        # 1 / latency
+        feature_array[5, :] = 1/feature_array[5, :]
+        
         logging.info(
             "[New Selector]   feature_array = \n {}".format(feature_array))
         # Normalized features
@@ -67,7 +71,7 @@ class NewSelector(Selector):
 
         # Add weight to features
         # Loss, cpu, data size, data rec, data send, latency, age 
-        weight = [8.0, 1.0, 1.0, 0.3, 0.3, 8.0, 1.0]
+        weight = [10.0, 1.0, 1.0, 0.5, 0.5, 10.0, 3.0]
         weight = np.array(weight).reshape(-1, 1)
         feature_array_weighted = np.multiply(feature_array_normed, weight)
         logging.info("[NEW SELECTOR] feature_array_weighted = {}".format(
@@ -87,7 +91,9 @@ class NewSelector(Selector):
         selected_nodes = np.random.choice(
             neighbors, num_selected, replace=False, p=p[0]).tolist()
         
-        selected_nodes.append(node)
+        selected_nodes.append(self.node_name)
+        logging.info("[NewSelector] selection appending node = {}".format(self.node_name))
+        
         logging.info(
             "[NEW SELECTOR] neighbors ={},num_selected ={}, p = {}, selected_nodes = {}".format(neighbors,num_selected,p,selected_nodes))
 

@@ -18,7 +18,7 @@ class RandomSelector(Selector):
 
 
         neighbors = self.neighbors_list.copy()
-        neighbors.remove(node)
+        neighbors.remove(self.node_name)
         if len(neighbors) == 0:
             logging.error(
                 "[NewSelector] Trying to select neighbors when there is no neighbors"
@@ -29,7 +29,7 @@ class RandomSelector(Selector):
         
         selected_nodes = np.random.choice(
             neighbors, num_selected, replace=False).tolist()
-        selected_nodes.append(node)
+        selected_nodes.append(self.node_name)
         logging.info(
             "[Random SELECTOR] neighbors ={},num_selected ={}, selected_nodes = {}".format(neighbors,num_selected,selected_nodes))
 

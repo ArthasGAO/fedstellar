@@ -378,7 +378,7 @@ class Node(BaseNode):
         """
         Stop the learning process in the local node. Interrupts learning process if it's running.
         """
-        logging.info("[NODE] Stopping learning")
+        logging.info("[NODE] ======================= Stopping learning ===========================")
         # Rounds
         self.round = None
         self.totalrounds = None
@@ -473,6 +473,9 @@ class Node(BaseNode):
 
         # Set train set
         if self.round is not None:
+            logging.info(
+                    "[NODE.__train_step] ========================== Train step start ==========================")
+            
             for n in self.get_neighbors():
                 if n.get_name() not in self.__train_set:
                     self.__train_set.append(n.get_name())
@@ -504,8 +507,7 @@ class Node(BaseNode):
                 self.selected_nodes = self.selector.node_selection(
                     self.get_name())
                 
-                if not self.selected_nodes:
-                    self.broadcast(
+                self.broadcast(
                         CommunicationProtocol.build_select_node_msg(str("-".join(self.selected_nodes))))
 
             # Train
@@ -523,10 +525,12 @@ class Node(BaseNode):
                 logging.info(
                     "[NODE.__train_step] ==========================  AGGREGATOR,SERVER | Second Round Selection==========================")
                 self.selected_nodes = self.selector.node_selection(self.get_name())
-                self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
 
             # Aggregate Model
             if self.round is not None:
+                logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to: __train_set [] =  {}".format(
+                    self.__train_set))
+                self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
                 logging.info(
                     "[NODE.__train_step] ========================== AGGREGATOR,SERVER | Aggregate ==========================")
                 logging.info(
@@ -761,9 +765,10 @@ class Node(BaseNode):
                 self.rm_neighbor(nc)
         # Set Next Round
         self.aggregator.clear()
-        logging.info("[NODE] Finalizing round: {}".format(self.round))
+        logging.info("[NODE] ========================== Finalizing round: {} ==========================".format(self.round))
         self.learner.finalize_round()  # TODO: Improve functionality
         self.round = self.round + 1
+        
         # clear selection
         self.my_node_selected_msg_received = 0
         self.total_selected_msg_received = 0
@@ -891,7 +896,7 @@ class Node(BaseNode):
             logging.info(
                 "---------------------Feedback about neighbors---------------------")
             logging.info("[NODE.__gossip_model] Neighbors: {}".format(
-                self.get_neighbors()))
+                self.get_neighbors_names()))
             for nc in self.get_neighbors():
                 logging.info(
                     "---------------------Feedback about neighbor {}---------------------".format(nc.get_name()))
@@ -1247,17 +1252,28 @@ class Node(BaseNode):
 
     def __selected_decision(self):
         
+        logging.info("[NODE] ========================= Selection decision start ================================ ")
+        
         waiting_time = 0
         time.sleep(2)
         
         if self.config.participant["device_args"]["role"] == Role.AGGREGATOR:
             
-            while self.total_selected_msg_received == 0 or waiting_time < 10 :
+            while self.total_selected_msg_received == 0 and waiting_time < 10 :
                 time.sleep(2)
                 logging.info("[NODE] ========= Waiting first selected msg =========== ")
                 waiting_time += 2
-        else:
-            self.total_selected_msg_received = 1
+            
+            if self.total_selected_msg_received == 0:
+                logging.info("[NODE] ========= Aggregator no selection msg received, self selected =========== ")
+                return True
+                
+            
+        elif self.config.participant["device_args"]["role"] == Role.TRAINER:
+            if self.total_selected_msg_received == 0:
+                logging.info("[NODE] =================== No selection msg  received, adding default selected msg ======= ")
+                self.my_node_selected_msg_received += 1
+                self.total_selected_msg_received += 1
         
         if self.my_node_selected_msg_received / self.total_selected_msg_received >= 0.5:
             logging.info("[NODE] ========= SELECTED ------> TRAIN ======= ")

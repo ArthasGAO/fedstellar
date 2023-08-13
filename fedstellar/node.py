@@ -484,7 +484,7 @@ class Node(BaseNode):
             logging.info(
                 "[NODE.__train_step] __train_set = {}".format(self.__train_set))
             self.__validate_train_set()
-            self.__selector_set_neighbors(self.__train_set)
+            self.__selector_set_neighbors(self.get_neighbors_names())
 
         # TODO: Improve in the future
         # is_train_set = self.get_name() in self.__train_set
@@ -534,7 +534,7 @@ class Node(BaseNode):
             # Aggregate Model
             if self.round is not None:
                 self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
-                logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to: selected_nodes [] =  {}".format(
+                logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to: selected_nodes =  {}".format(
                     self.selected_nodes))
                 logging.info(
                     "[NODE.__train_step] ========================== AGGREGATOR,SERVER | Aggregate ==========================")

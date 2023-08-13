@@ -28,6 +28,8 @@ class AllSelector(Selector):
         logging.info("[All Selector]   neighbors = {}".format(neighbors))
         
         selected_nodes = neighbors
+        selected_nodes.append(self.node_name)
+
         logging.info(
             "[All SELECTOR] neighbors ={}, selected_nodes = {}".format(neighbors,selected_nodes))
 

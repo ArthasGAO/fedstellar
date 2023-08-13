@@ -18,7 +18,6 @@ class RandomSelector(Selector):
 
 
         neighbors = self.neighbors_list.copy()
-        neighbors.remove(self.node_name)
         if len(neighbors) == 0:
             logging.error(
                 "[NewSelector] Trying to select neighbors when there is no neighbors"

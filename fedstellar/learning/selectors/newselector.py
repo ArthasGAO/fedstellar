@@ -21,7 +21,6 @@ class NewSelector(Selector):
         
         logging.info(
             "[NEW SELECTOR] neighbors = {} ==================================".format(neighbors))
-        neighbors.remove(self.node_name)
         
         if len(neighbors) == 0:
             logging.error(

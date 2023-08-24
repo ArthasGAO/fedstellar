@@ -69,9 +69,10 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 {% if session.get("user", None) %}
-                <li><a href="{{ url_for('fedstellar_scenario') }}">Scenario Management</a></li>
-                <li><a href="https://fedstellar.enriquetomasmb.com/" target="_blank">Documentation</a></li>
+                <li><a href="{{ url_for('fedstellar_scenario') }}"><i class="fa fa-sitemap"></i> Scenario Management</a></li>
                 {% endif %}
+                <li><a href="https://fedstellar.enriquetomasmb.com/" target="_blank"><i class="fa fa-book"></i> Documentation</a></li>
+                <li><a href="https://github.com/enriquetomasmb/fedstellar" target="_blank"><i class="fa fa-code"></i> Source Code</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -133,7 +134,7 @@
 
 <div class="container">
 
-    <h1>{% block page_title %}{% endblock %}</h1>
+    <h1 id="page-title">{% block page_title %}{% endblock %}</h1>
 
     <p>{% block body %}{% endblock %}</p>
 
@@ -145,17 +146,6 @@
         <div class="col-md-6">
             <div id="copyright"></div>
         </div>
-        <div class="col-md-6">
-            <a id="fedstellar-logo-footer" href="/">
-                <img
-                        src="{{ url_for('static', filename='img/fedstellar-logo.jpg') }}"
-                        width="400"
-                        height="100"
-                        alt="Fedstellar Logo"
-                        title="Fedstellar">
-            </a>
-        </div>
-
     </footer>
 </div>
 
@@ -165,7 +155,7 @@
     const copyright = document.getElementById("copyright");
     var date = new Date();
     var year = date.getFullYear();
-    copyright.innerHTML = `<p>© ${year} Fedstellar. All rights reserved.<br><a href="https://fedstellar.enriquetomasmb.com/" target="_blank">Documentation</a> | <a href="https://github.com/enriquetomasmb/fedstellar" target="_blank">Source code</a></p>`;
+    copyright.innerHTML = `<p>© ${year} Fedstellar. All rights reserved.<br><a href="https://fedstellar.enriquetomasmb.com/" target="_blank"><i class="fa fa-book"></i> Documentation</a> | <a href="https://github.com/enriquetomasmb/fedstellar" target="_blank"><i class="fa fa-code"></i>  Source code</a></p>`;
 </script>
 
 <script>

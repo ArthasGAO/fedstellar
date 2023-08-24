@@ -25,6 +25,22 @@
     font-size: 25px;
 }
 
+.navbar-form {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    .nav > li > a {
+        padding: 5px 10px;
+    }
+
+    .navbar-nav > li > a {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
 .container.footer {
     position: absolute;
     bottom: 0;
@@ -178,9 +194,13 @@ td {
     vertical-align: baseline !important;
 }
 
-.form-group.form-group-tiny {
-    margin-bottom: 0 !important;
-    vertical-align: baseline !important;
+@media (min-width: 768px) {
+
+    .form-group.form-group-tiny {
+        margin-bottom: 0 !important;
+        vertical-align: baseline !important;
+    }
+
 }
 
 .dropdown-toggle:empty::after {

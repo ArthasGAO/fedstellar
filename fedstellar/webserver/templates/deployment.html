@@ -188,7 +188,10 @@
             </select>
             <h5>Individual participants</h5>
             <div id="participant-items"></div>
+            
         </div>
+        <button id="raondom-constrains" type="button" class="btn">Random constrains</button>
+
         <div class="form-group row">
             <h4 class="step-number">Advanced Deployment <i class="fa fa-cloud-upload"></i></h4>
             <div style="margin-left: 10px">
@@ -249,6 +252,7 @@
                     <option selected value="new" selected>New Selector</option>
                     <option value="random">Random Selector</option>
                     <option value="all">All Selector</option>
+                    <option value="no">No Selector</option>
                 </select>
             </div>
         </div>
@@ -946,7 +950,7 @@
             // participantItems.appendChild(label);
             // participantItems.appendChild(info);
             // participantItems.appendChild(start);
-            // participantItems.appendChild(document.createElement("br"));
+            // participantItems.appendChild(document.createElement("br"));   
         }
 
         // If there is no participant-started, add the class to the first participant
@@ -955,7 +959,34 @@
             document.getElementById("participant-0-start-btn").title = `Participant 0 (start node)`;
             Graph.graphData().nodes[0].start = true;
         }
+
+
     }
+</script>
+<script>
+    //generate cpu limit
+    function generateRandomCpuLimit(min, max) {
+            const randomValue = Math.random() * (max - min) + min;
+            return parseFloat(randomValue.toFixed(1));
+        }
+    //generate latency between 1 and 50 ms
+    function generateRandomLatency(min, max) {
+            return Math.floor(Math.random() * (50 - 1 + 1)) + 1 + "ms";
+        }
+
+
+
+    document.getElementById("raondom-constrains").addEventListener("click", function () {
+
+        for (let i = 0; i < getNumberOfNodes(); i++) {
+
+            const participant = Graph.graphData().nodes[i];
+            participant.cpu_limit = generateRandomCpuLimit(0.3, 1);
+            participant.latency = generateRandomLatency();
+            //Graph.graphData(Graph.graphData());
+        }
+
+    })
 </script>
 
 <script>

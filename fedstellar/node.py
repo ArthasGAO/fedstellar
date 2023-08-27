@@ -188,6 +188,9 @@ class Node(BaseNode):
         elif self.config.participant["scenario_args"]["selection_algorithm"] == "all":
             self.selector = AllSelector(
                 node_name=self.get_name(), config=self.config)
+        elif self.config.participant["scenario_args"]["selection_algorithm"] == "no":
+            self.selector = None
+            
 
         # Store the parameters of the model
         self.__stored_model_parameters = []
@@ -359,12 +362,13 @@ class Node(BaseNode):
             self.__initial_neighbors = (
                 self.get_neighbors()
             )  # used to restore the original list of neighbors after the learning round
-            for n in self.__initial_neighbors:
-                if n.get_name() not in self.selector.get_neighbors():
-                    self.selector.add_neighbor(n.get_name())
-            self.selector.add_neighbor(self.get_name())if self.get_name(
-            ) not in self.selector.get_neighbors() else None
-            self.selector.init_age()
+            if self.selector is not None:
+                for n in self.__initial_neighbors:
+                    if n.get_name() not in self.selector.get_neighbors():
+                        self.selector.add_neighbor(n.get_name())
+                self.selector.add_neighbor(self.get_name())if self.get_name(
+                ) not in self.selector.get_neighbors() else None
+                self.selector.init_age()
 
             logging.info("[NODE.__start_learning] Learning started in node {} -> Round: {} | Epochs: {}".format(
                 self.get_name(), self.round, epochs))
@@ -484,7 +488,8 @@ class Node(BaseNode):
             logging.info(
                 "[NODE.__train_step] __train_set = {}".format(self.__train_set))
             self.__validate_train_set()
-            self.__selector_set_neighbors(self.get_neighbors_names())
+            if self.selector is not None:
+                self.__selector_set_neighbors(self.get_neighbors_names())
 
         # TODO: Improve in the future
         # is_train_set = self.get_name() in self.__train_set
@@ -492,9 +497,13 @@ class Node(BaseNode):
         if is_train_set and (self.config.participant["device_args"]["role"] == Role.AGGREGATOR or self.config.participant["device_args"]["role"] == Role.SERVER):
             logging.info(
                 "[NODE.__train_step] Role.AGGREGATOR/Role.SERVER process...")
-            # Full connect train set
-            if self.round is not None:
-                self.__connect_and_set_aggregator()
+            
+            
+            if self.selector is None:
+                
+                # Full connect train set
+                if self.round is not None:
+                    self.__connect_and_set_aggregator()
 
             # Evaluate and send metrics
             if self.round is not None:
@@ -504,7 +513,8 @@ class Node(BaseNode):
             
             
             # First Round Selection
-            if self.round is not None:
+            
+            if self.round is not None and self.selector is not None:
                 logging.info(
                     "[NODE.__train_step] ========================== AGGREGATOR,SERVER | First Round Selection==========================")
                 self.selected_nodes = self.selector.node_selection(
@@ -519,14 +529,19 @@ class Node(BaseNode):
             # El participante servidor no entrena (en CFL)
             if self.round is not None and self.config.participant["device_args"]["role"] != Role.SERVER:
                 
-                if self.__selected_decision():
-                    logging.info(
-                        "[NODE.__train_step] ==========================AGGREGATOR | Train ==========================")
+                if self.selector is not None:
+                
+                    if self.__selected_decision():
+                        logging.info(
+                            "[NODE.__train_step] ==========================AGGREGATOR | Train ==========================")
+                        self.__train()
+                else:
                     self.__train()
+                    
 
 
             # Second Round Selection
-            if self.round is not None:
+            if self.round is not None and self.selector is not None:
                 logging.info(
                     "[NODE.__train_step] ==========================  AGGREGATOR,SERVER | Second Round Selection==========================")
                 self.selected_nodes = self.selector.node_selection(self.get_name())
@@ -576,14 +591,18 @@ class Node(BaseNode):
             if self.round is not None:
                 logging.info(
                     "[NODE.__train_step] ========================== TRAINER | Train ==========================")       
-                
-                if self.__selected_decision():
-                    logging.info(
-                    "[NODE.__train_step] ========================== Selected Round  = {} ==========================".format(self.round))       
-                    self.__train()
+                if self.selector is not None:
+                    
+                    if self.__selected_decision():
+                        logging.info(
+                        "[NODE.__train_step] ========================== Selected Round  = {} ==========================".format(self.round))       
+                        self.__train()
+                    else:
+                        logging.info(
+                        "[NODE.__train_step] ========================== Non - Selected Round  = {} ==========================".format(self.round))
                 else:
-                    logging.info(
-                    "[NODE.__train_step] ========================== Non - Selected Round  = {} ==========================".format(self.round))   
+                    self.__train()
+                       
                     
 
             # Aggregate Model

@@ -548,7 +548,8 @@ class Node(BaseNode):
 
             # Aggregate Model
             if self.round is not None:
-                self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
+                if self.selector is not None:
+                    self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
                 logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to: selected_nodes =  {}".format(
                     self.selected_nodes))
                 logging.info(

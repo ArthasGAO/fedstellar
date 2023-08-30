@@ -69,6 +69,36 @@
     </div>
     <div class="publication">
         <div class="publication-logo">
+            <img src="{{ url_for('static', filename='img/publications/ijcai-23.png') }}" alt="Fedstellar: A Platform for Training Models in a Privacy-preserving and Decentralized Fashion">
+        </div>
+        <div class="publication-info">
+            <h4><a href="https://doi.org/10.24963/ijcai.2023/838">Fedstellar: A Platform for Training Models in a Privacy-preserving and Decentralized Fashion</a></h4>
+            <p><b>Enrique Tomás Martínez Beltrán</b>, Pedro Miguel Sánchez Sánchez, Sergio López Bernal, Gérôme Bovet, Manuel Gil Pérez, Gregorio Martínez Pérez, Alberto Huertas Celdrán</p>
+            <button class="bibtex-button" onclick="window.open('https://doi.org/10.24963/ijcai.2023/838')">Paper</button>
+            <button class="bibtex-button" onclick="copyToClipboard('bibtex3')">Copy BibTeX</button>
+            <div id="bibtex3" style="display: none;">
+                {% raw %}
+                @inproceedings{MartinezBeltran:DFL_demo:2023,
+                title = {{Fedstellar: A Platform for Training Models in a Privacy-preserving and Decentralized Fashion}},
+                author={Mart{\'i}nez Beltr{\'a}n, Enrique Tom{\'a}s and S{\'a}nchez S{\'a}nchez, Pedro Miguel and L{\'o}pez Bernal, Sergio and Bovet, G{\'e}r{\^o}me and Gil P{\'e}rez, Manuel and Mart{\'i}nez P{\'e}rez, Gregorio and Huertas Celdr{\'a}n, Alberto},
+                booktitle = {Proceedings of the Thirty-Second International Joint Conference on
+                Artificial Intelligence, {IJCAI-23}},
+                publisher = {International Joint Conferences on Artificial Intelligence Organization},
+                editor = {Edith Elkind},
+                pages = {7154--7157},
+                year = {2023},
+                month = {8},
+                note = {Demo Track},
+                doi = {10.24963/ijcai.2023/838},
+                url = {https://doi.org/10.24963/ijcai.2023/838},
+                }
+                {% endraw %}
+            </div>
+
+        </div>
+    </div>
+    <div class="publication">
+        <div class="publication-logo">
             <img src="{{ url_for('static', filename='img/publications/arxiv.png') }}" alt="Decentralized Federated Learning: Fundamentals, State-of-the-art, Frameworks, Trends, and Challenges">
         </div>
         <div class="publication-info">

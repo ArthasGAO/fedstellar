@@ -190,7 +190,10 @@
             <div id="participant-items"></div>
             
         </div>
-        <button id="raondom-constrains" type="button" class="btn">Random constrains</button>
+        <button id="random-constrains" type="button" class="btn">Random constrains</button>
+        <small id="randomconstrainHelp" class="form-text text-muted">
+            <i id="randomconstrainHelpIcon" class="fa fa-info-circle"></i>
+        </small>
 
         <div class="form-group row">
             <h4 class="step-number">Advanced Deployment <i class="fa fa-cloud-upload"></i></h4>
@@ -424,7 +427,7 @@
     contentDatasetHelp = '<ul>\n' +
         '                    <li>MNIST: The MNIST dataset</li>\n' +
         '                    <li>SYSCALL: The SYSCALL dataset</li>\n' +
-        '                </ul>'
+        '                </ul>'      
     $('#topologyCustomIcon').popover({
         title: 'Network topology',
         html: true,
@@ -864,8 +867,12 @@
                 const cpulimitInput = document.createElement("input");
                 cpulimitInput.id = "participant-" + i + "-cpu_limit";
                 cpulimitInput.type = "text";
-                cpulimitInput.defaultValue = participant.cpu_limit;   
+                cpulimitInput.defaultValue = participant.cpu_limit;
+                
+                const infoText = document.createElement("small");
+                infoText.textContent = " (limit for number of cores of this participant can use.)";
                 document.getElementById("participant-modal-content").appendChild(cpulimitLabel);
+                document.getElementById("participant-modal-content").appendChild(infoText);
                 document.getElementById("participant-modal-content").appendChild(document.createElement("br"));
                 document.getElementById("participant-modal-content").appendChild(cpulimitInput);
                 document.getElementById("participant-modal-content").appendChild(document.createElement("br"));
@@ -964,6 +971,23 @@
     }
 </script>
 <script>
+    randonconstrainHelp = '<ul>\n' +
+        '                    <li>CPU limit: generated between 0.3 - 1</li>\n' +
+        '                    <li>Latency: generated between 1ms - 50ms</li>\n' +
+        '                </ul>'
+    $('#randomconstrainHelpIcon').popover({
+        title: 'Generate random constrain values for the virtual participant',
+        html: true,
+        placement: 'right',
+        content: randonconstrainHelp,
+        trigger: 'hover',
+        container: 'body',
+        delay: {show: 500, hide: 100},
+    });      
+
+
+
+
     //generate cpu limit
     function generateRandomCpuLimit(min, max) {
             const randomValue = Math.random() * (max - min) + min;
@@ -976,7 +1000,7 @@
 
 
 
-    document.getElementById("raondom-constrains").addEventListener("click", function () {
+    document.getElementById("random-constrains").addEventListener("click", function () {
 
         for (let i = 0; i < getNumberOfNodes(); i++) {
 

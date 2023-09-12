@@ -105,6 +105,7 @@ class LightningLearner(NodeLearner):
             if self.epochs > 0:
                 self.create_trainer()
                 self.__trainer.fit(self.model, self.data)
+                logging.info("OK after fit")
                 self.loss = float(
                     self.__trainer.callback_metrics['Train/Loss'])
                 self.__trainer = None
@@ -130,8 +131,11 @@ class LightningLearner(NodeLearner):
     def evaluate(self):
         try:
             if self.epochs > 0:
+                
                 self.create_trainer()
                 self.__trainer.test(self.model, self.data, verbose=True)
+                logging.info("OK after __trainer.test")
+
                 self.__trainer = None
                 # results = self.__trainer.test(self.model, self.data, verbose=True)
                 # loss = results[0]["Test/Loss"]

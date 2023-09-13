@@ -17,6 +17,7 @@ from fedstellar.learning.pytorch.syscall.models.autoencoder import SyscallModelA
 from fedstellar.learning.pytorch.cifar10.models.resnet import CIFAR10ModelResNet
 from fedstellar.learning.pytorch.cifar10.models.fastermobilenet import FasterMobileNet
 from fedstellar.learning.pytorch.cifar10.models.simplemobilenet import SimpleMobileNetV1
+from fedstellar.learning.pytorch.cifar10.models.cnn import CIFARCNN
 from fedstellar.learning.pytorch.syscall.models.svm import SyscallModelSGDOneClassSVM
 from fedstellar.node import Node
 from fedstellar.learning.pytorch.datamodule import DataModule
@@ -106,6 +107,8 @@ def main():
             model = CIFAR10ModelResNet(classifier="resnet9")
         elif model_name == "ResNet18":
             model = CIFAR10ModelResNet(classifier="resnet18")
+        elif model_name == "CNN":
+            model = CIFARCNN()
         elif model_name == "fastermobilenet":
             model = FasterMobileNet()
         elif model_name == "simplemobilenet":

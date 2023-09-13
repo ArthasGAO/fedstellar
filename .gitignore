@@ -149,3 +149,14 @@ fedstellar/webserver/database_file/nodes.db
 app/logs/server.log
 fedstellar/node.py
 .gitignore
+fedstellar/data/cifar-10-python.tar.gz
+fedstellar/data/cifar-10-batches-py/batches.meta
+.gitignore
+fedstellar/data/cifar-10-batches-py/data_batch_1
+fedstellar/data/cifar-10-batches-py/data_batch_2
+fedstellar/data/cifar-10-batches-py/data_batch_3
+fedstellar/data/cifar-10-batches-py/data_batch_4
+fedstellar/data/cifar-10-batches-py/data_batch_5
+fedstellar/data/cifar-10-batches-py/test_batch
+fedstellar/webserver/database_file/scenarios.db
+fedstellar/webserver/database_file/nodes.db

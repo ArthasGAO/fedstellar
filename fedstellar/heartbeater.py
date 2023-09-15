@@ -67,7 +67,6 @@ class Heartbeater(threading.Thread, Observable):
             self.__send_event_with_interval(Events.REPORT_STATUS_TO_CONTROLLER_EVENT,self.__count,beat_interval=3)
             # Send FEATURES notify each 10 beats
             if self.config.participant["scenario_args"]["selection_algorithm"] != "no":
-                logging.info("[Heartbeat] config.participant[scenario_args][selection_algorithm] != no")
                 self.__send_event_with_interval(Events.SEND_FEATURES_EVENT,self.__count,beat_interval=6)
 
             # Wait and refresh node list

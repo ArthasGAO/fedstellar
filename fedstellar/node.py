@@ -350,7 +350,6 @@ class Node(BaseNode):
             if self.selector is not None:
                 for n in self.__initial_neighbors:
                     if n.get_name() not in self.selector.get_neighbors():
-                        logging("[NODE if name not in selector neighbors  init age =>  n.get_name() = {} ]".format(n.get_name()))
                         self.selector.add_neighbor(n.get_name())
                 self.selector.add_neighbor(self.get_name())if self.get_name(
                 ) not in self.selector.get_neighbors() else None
@@ -528,7 +527,7 @@ class Node(BaseNode):
                 self.__train_set = self.selected_nodes
                 self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
             else:
-                self.aggregator.set_nodes_to_aggregate((self.__train_set)
+                self.aggregator.set_nodes_to_aggregate(self.__train_set)
 
 
             # Aggregate Model

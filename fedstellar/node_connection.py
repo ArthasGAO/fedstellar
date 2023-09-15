@@ -216,8 +216,7 @@ class NodeConnection(threading.Thread, Observable):
                     if error:
                         self.__terminate_flag.set()
                         logging.info(
-                            "[NODE_CONNECTION] An error happened. Last error: {}".format(
-                                msg)
+                            "[NODE_CONNECTION] An error happened. Last error: {}".format(msg)
                         )
 
             except socket.timeout:
@@ -229,15 +228,13 @@ class NodeConnection(threading.Thread, Observable):
 
             except Exception as e:
                 logging.info(
-                    "[NODE_CONNECTION] (NodeConnection Loop) Exception: {}".format(
-                        str(e))
+                    "[NODE_CONNECTION] (NodeConnection Loop) Exception: {}".format(str(e))
                 )
                 self.__terminate_flag.set()
                 break
 
         # Down Connection
-        logging.info(
-            "[NODE_CONNECTION] Closed connection: {}".format(self.get_name()))
+        logging.info("[NODE_CONNECTION] Closed connection: {}".format(self.get_name()))
         self.notify(Events.END_CONNECTION_EVENT, self)
         self.__socket.close()
 

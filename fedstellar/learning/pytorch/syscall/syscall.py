@@ -19,7 +19,7 @@ torch.multiprocessing.set_sharing_strategy("file_system")
 
 
 class SYSCALL(MNIST):
-    def __init__(self, sub_id, number_sub, root_dir, train=True, transform=None, target_transform=None, download=True):
+    def __init__(self, sub_id, number_sub, root_dir, train=True, transform=None, target_transform=None, download=False):
         super().__init__(root_dir, transform=None, target_transform=None)
         self.transform = transform
         self.target_transform = target_transform

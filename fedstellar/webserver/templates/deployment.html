@@ -124,7 +124,6 @@
                 <option>CNN</option>
                 <option>SVM</option>
                 <option>ResNet9</option>
-                <option>ResNet18</option>
             </select>
         </div>
         <div class="form-group row">
@@ -191,7 +190,6 @@
             </select>
             <h5>Individual participants</h5>
             <div id="participant-items"></div>
-            
         </div>
         <button id="random-constrains" type="button" class="btn">Random constrains</button>
         <small id="randomconstrainHelp" class="form-text text-muted">
@@ -430,7 +428,7 @@
     contentDatasetHelp = '<ul>\n' +
         '                    <li>MNIST: The MNIST dataset</li>\n' +
         '                    <li>SYSCALL: The SYSCALL dataset</li>\n' +
-        '                </ul>'      
+        '                </ul>'
     $('#topologyCustomIcon').popover({
         title: 'Network topology',
         html: true,
@@ -969,8 +967,6 @@
             document.getElementById("participant-0-start-btn").title = `Participant 0 (start node)`;
             Graph.graphData().nodes[0].start = true;
         }
-
-
     }
 </script>
 <script>

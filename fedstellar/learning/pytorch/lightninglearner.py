@@ -16,7 +16,6 @@ from lightning.pytorch.callbacks.progress.rich_progress import RichProgressBarTh
 
 from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
 from fedstellar.learning.learner import NodeLearner
-from lightning.pytorch.callbacks import Callback
 
 
 ###########################
@@ -146,13 +145,11 @@ class LightningLearner(NodeLearner):
             else:
                 return None
         except Exception as e:
-            logging.error(
-                "Something went wrong with pytorch lightning. {}".format(e))
+            logging.error("Something went wrong with pytorch lightning. {}".format(e))
             return None
 
     def log_validation_metrics(self, loss, metric, round=None, name=None):
-        self.logger.log_metrics(
-            {"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
+        self.logger.log_metrics({"Test/Loss": loss, "Test/Accuracy": metric}, step=self.logger.global_step)
         pass
 
     def get_num_samples(self):
@@ -174,8 +171,7 @@ class LightningLearner(NodeLearner):
         pass
 
     def create_trainer(self):
-        logging.info("[Learner] Creating trainer with accelerator: {}".format(
-            self.config.participant["device_args"]["accelerator"]))
+        logging.info("[Learner] Creating trainer with accelerator: {}".format(self.config.participant["device_args"]["accelerator"]))
         progress_bar = RichProgressBar(
             theme=RichProgressBarTheme(
                 description="green_yellow",
@@ -193,8 +189,7 @@ class LightningLearner(NodeLearner):
             callbacks=[RichModelSummary(max_depth=1), progress_bar],
             max_epochs=self.epochs,
             accelerator=self.config.participant["device_args"]["accelerator"],
-            # TODO: only one GPU for now
-            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",
+            devices="auto" if self.config.participant["device_args"]["accelerator"] == "cpu" else "1",  # TODO: only one GPU for now
             # strategy="ddp" if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             # strategy=self.config.participant["device_args"]["strategy"] if self.config.participant["device_args"]["accelerator"] != "auto" else None,
             logger=self.logger,

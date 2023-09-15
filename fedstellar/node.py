@@ -85,8 +85,7 @@ class Node(BaseNode):
             noise_type='gaussian',
     ):
         # Super init
-        BaseNode.__init__(self, experiment_name, hostdemo,
-                          host, port, encrypt, config)
+        BaseNode.__init__(self, experiment_name, hostdemo, host, port, encrypt, config)
         Observer.__init__(self)
 
         self.idx = idx
@@ -134,44 +133,32 @@ class Node(BaseNode):
             logging.info("[NODE] Tracking W&B enabled")
             logging.getLogger("wandb").setLevel(logging.ERROR)
             if self.hostdemo:
-                wandblogger = FedstellarWBLogger(
-                    project="platform-enrique", group=self.experiment_name, name=f"participant_{self.idx}")
+                wandblogger = FedstellarWBLogger(project="platform-enrique", group=self.experiment_name, name=f"participant_{self.idx}")
             else:
-                wandblogger = FedstellarWBLogger(
-                    project="platform-enrique", group=self.experiment_name, name=f"participant_{self.idx}")
+                wandblogger = FedstellarWBLogger(project="platform-enrique", group=self.experiment_name, name=f"participant_{self.idx}")
             wandblogger.watch(model, log="all")
-            self.learner = learner(
-                model, data, config=self.config, logger=wandblogger)
+            self.learner = learner(model, data, config=self.config, logger=wandblogger)
         else:
             if self.config.participant['tracking_args']['local_tracking'] == 'csv':
                 logging.info("[NODE] Tracking CSV enabled")
-                csvlogger = CSVLogger(
-                    f"{self.log_dir}", name="metrics", version=f"participant_{self.idx}")
-                self.learner = learner(
-                    model, data, config=self.config, logger=csvlogger)
+                csvlogger = CSVLogger(f"{self.log_dir}", name="metrics", version=f"participant_{self.idx}")
+                self.learner = learner(model, data, config=self.config, logger=csvlogger)
             elif self.config.participant['tracking_args']['local_tracking'] == 'web':
                 logging.info("[NODE] Tracking Web enabled")
-                tensorboardlogger = FedstellarLogger(
-                    f"{self.log_dir}", name="metrics", version=f"participant_{self.idx}", log_graph=True)
-                self.learner = learner(
-                    model, data, config=self.config, logger=tensorboardlogger)
+                tensorboardlogger = FedstellarLogger(f"{self.log_dir}", name="metrics", version=f"participant_{self.idx}", log_graph=True)
+                self.learner = learner(model, data, config=self.config, logger=tensorboardlogger)
 
-        logging.info("[NODE] Role: " +
-                     str(self.config.participant["device_args"]["role"]))
+        logging.info("[NODE] Role: " + str(self.config.participant["device_args"]["role"]))
 
         # Aggregator
         if self.config.participant["aggregator_args"]["algorithm"] == "FedAvg":
-            self.aggregator = FedAvg(
-                node_name=self.get_name(), config=self.config)
+            self.aggregator = FedAvg(node_name=self.get_name(), config=self.config)
         elif self.config.participant["aggregator_args"]["algorithm"] == "Krum":
-            self.aggregator = Krum(
-                node_name=self.get_name(), config=self.config)
+            self.aggregator = Krum(node_name=self.get_name(), config=self.config)
         elif self.config.participant["aggregator_args"]["algorithm"] == "Median":
-            self.aggregator = Median(
-                node_name=self.get_name(), config=self.config)
+            self.aggregator = Median(node_name=self.get_name(), config=self.config)
         elif self.config.participant["aggregator_args"]["algorithm"] == "TrimmedMean":
-            self.aggregator = TrimmedMean(
-                node_name=self.get_name(), config=self.config)
+            self.aggregator = TrimmedMean(node_name=self.get_name(), config=self.config)
 
         self.aggregator.add_observer(self)
 
@@ -295,8 +282,7 @@ class Node(BaseNode):
             return
         if self.round is None:
             # Start Learning
-            logging.info("[NODE] I am the initializer node... | Broadcasting START_LEARNING | Rounds: {} | Epochs: {}".format(
-                rounds, epochs))
+            logging.info("[NODE] I am the initializer node... | Broadcasting START_LEARNING | Rounds: {} | Epochs: {}".format(rounds, epochs))
             self.broadcast(
                 CommunicationProtocol.build_start_learning_msg(rounds, epochs)
             )
@@ -354,8 +340,7 @@ class Node(BaseNode):
             self.__gossip_model_difusion(initialization=True)
 
             # Wait to guarantee new connection heartbeats convergence and fix neighbors
-            wait_time = self.config.participant["WAIT_HEARTBEATS_CONVERGENCE"] - (
-                time.time() - begin)
+            wait_time = self.config.participant["WAIT_HEARTBEATS_CONVERGENCE"] - (time.time() - begin)
             if wait_time > 0:
                 time.sleep(wait_time)
             # TODO: Check this parameter
@@ -365,18 +350,18 @@ class Node(BaseNode):
             if self.selector is not None:
                 for n in self.__initial_neighbors:
                     if n.get_name() not in self.selector.get_neighbors():
+                        logging("[NODE if name not in selector neighbors  init age =>  n.get_name() = {} ]".format(n.get_name()))
                         self.selector.add_neighbor(n.get_name())
                 self.selector.add_neighbor(self.get_name())if self.get_name(
                 ) not in self.selector.get_neighbors() else None
                 self.selector.init_age()
+                self.selector.set_neighbors(self.get_neighbors_names())
 
-            logging.info("[NODE.__start_learning] Learning started in node {} -> Round: {} | Epochs: {}".format(
-                self.get_name(), self.round, epochs))
+            logging.info("[NODE.__start_learning] Learning started in node {} -> Round: {} | Epochs: {}".format(self.get_name(), self.round, epochs))
             self.learner.set_epochs(epochs)
             self.learner.create_trainer()
             self.__train_step()
-            logging.info("[NODE.__start_learning] Thread __start_learning finished in node {}".format(
-                self.get_name()))
+            logging.info("[NODE.__start_learning] Thread __start_learning finished in node {}".format(self.get_name()))
 
     def __stop_learning(self):
         """
@@ -404,7 +389,7 @@ class Node(BaseNode):
 
     def add_model(self, m):
         """
-        Add a model. If the model isn't initializated, the recieved model is used for it. Otherwise, the model is aggregated using the **aggregator**.
+        Add a model. If the model isn't inicializated, the recieved model is used for it. Otherwise, the model is aggregated using the **aggregator**.
 
         Args:
             m: Encoded model. Contains model and their contributors
@@ -419,15 +404,13 @@ class Node(BaseNode):
                         contributors,
                         weight,
                     ) = self.learner.decode_parameters(m)
-                    logging.info("[NODE.add_model] Model received from {} --using--> {} in the other node | Now I add the model using self.aggregator.add_model()".format(
-                        contributors, '__gossip_model_diffusion' if contributors is None and weight is None else '__gossip_model_aggregation'))
+                    logging.info("[NODE.add_model] Model received from {} --using--> {} in the other node | Now I add the model using self.aggregator.add_model()".format(contributors, '__gossip_model_diffusion' if contributors is None and weight is None else '__gossip_model_aggregation'))
                     if self.learner.check_parameters(decoded_model):
                         models_added = self.aggregator.add_model(
                             decoded_model, contributors, weight
                         )
                         if models_added is not None:
-                            logging.info(
-                                "[NODE.add_model] self.broadcast with MODELS_AGGREGATED = {}".format(models_added))
+                            logging.info("[NODE.add_model] self.broadcast with MODELS_AGGREGATED = {}".format(models_added))
                             # TODO: Improve this functionality by a more efficient one.
                             self.broadcast(
                                 CommunicationProtocol.build_models_aggregated_msg(
@@ -443,8 +426,7 @@ class Node(BaseNode):
                     model, _, _ = self.learner.decode_parameters(m)
                     self.learner.set_parameters(model)
                     self.__wait_init_model_lock.release()
-                    self.broadcast(
-                        CommunicationProtocol.build_model_initialized_msg())
+                    self.broadcast(CommunicationProtocol.build_model_initialized_msg())
 
             except DecodingParamsError as e:
                 logging.error("[NODE] Error decoding parameters: " + str(e))
@@ -488,8 +470,6 @@ class Node(BaseNode):
             logging.info(
                 "[NODE.__train_step] __train_set = {}".format(self.__train_set))
             self.__validate_train_set()
-            if self.selector is not None:
-                self.__selector_set_neighbors(self.get_neighbors_names())
 
         # TODO: Improve in the future
         # is_train_set = self.get_name() in self.__train_set
@@ -497,13 +477,10 @@ class Node(BaseNode):
         if is_train_set and (self.config.participant["device_args"]["role"] == Role.AGGREGATOR or self.config.participant["device_args"]["role"] == Role.SERVER):
             logging.info(
                 "[NODE.__train_step] Role.AGGREGATOR/Role.SERVER process...")
-            
-            
             if self.selector is None:
-                
                 # Full connect train set
                 if self.round is not None:
-                    self.__connect_and_set_aggregator()
+                    self.aggregator.set_nodes_to_aggregate(self.__train_set)
 
             # Evaluate and send metrics
             if self.round is not None:
@@ -519,6 +496,8 @@ class Node(BaseNode):
                     "[NODE.__train_step] ========================== AGGREGATOR,SERVER | First Round Selection==========================")
                 self.selected_nodes = self.selector.node_selection(
                     self.get_name())
+
+                self.__train_set = self.selected_nodes
                 
                 self.broadcast(
                         CommunicationProtocol.build_select_node_msg(str("-".join(self.selected_nodes))))
@@ -530,7 +509,6 @@ class Node(BaseNode):
             if self.round is not None and self.config.participant["device_args"]["role"] != Role.SERVER:
                 
                 if self.selector is not None:
-                
                     if self.__selected_decision():
                         logging.info(
                             "[NODE.__train_step] ==========================AGGREGATOR | Train ==========================")
@@ -546,10 +524,15 @@ class Node(BaseNode):
                     "[NODE.__train_step] ==========================  AGGREGATOR,SERVER | Second Round Selection==========================")
                 self.selected_nodes = self.selector.node_selection(self.get_name())
 
+            if self.selector is not None:
+                self.__train_set = self.selected_nodes
+                self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
+            else:
+                self.aggregator.set_nodes_to_aggregate((self.__train_set)
+
+
             # Aggregate Model
             if self.round is not None:
-                if self.selector is not None:
-                    self.aggregator.set_nodes_to_aggregate(self.selected_nodes)
                 logging.info("[NODE.__connect_and_set_aggregator] Aggregator set to: selected_nodes =  {}".format(
                     self.selected_nodes))
                 logging.info(
@@ -561,11 +544,9 @@ class Node(BaseNode):
                     [self.get_name()],
                     self.learner.get_num_samples()[0],
                 )
-                logging.info(
-                    "[NODE.__train_step] self.broadcast with MODELS_AGGREGATED = MY NAME {}".format([self.get_name()]))
+                logging.info("[NODE.__train_step] self.broadcast with MODELS_AGGREGATED = MY NAME {}".format([self.get_name()]))
                 self.broadcast(
-                    CommunicationProtocol.build_models_aggregated_msg(
-                        [self.get_name()])
+                    CommunicationProtocol.build_models_aggregated_msg([self.get_name()])
                 )
                 if self.config.participant["device_args"]["role"] == Role.SERVER:
                     logging.info(
@@ -581,7 +562,7 @@ class Node(BaseNode):
             logging.info("[NODE.__train_step] __waiting_aggregated_model = {}".format(
                 self.aggregator.get_waiting_aggregated_model()))
             if self.round is not None:
-                self.__connect_and_set_aggregator()
+                self.aggregator.set_nodes_to_aggregate(self.__train_set)
 
             # Evaluate and send metrics
             if self.round is not None:

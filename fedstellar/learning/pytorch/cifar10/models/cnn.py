@@ -14,7 +14,7 @@ from torchmetrics.classification import MulticlassAccuracy, MulticlassRecall, Mu
 from torchmetrics import MetricCollection
 
 
-class CIFARCNN(pl.LightningModule):
+class CIFAR10ModelCNN(pl.LightningModule):
     """
     LightningModule for CIFAR10.
     """
@@ -98,6 +98,7 @@ class CIFARCNN(pl.LightningModule):
             self,
             in_channels=3,
             out_channels=10,
+            learning_rate=1e-3,
             metrics=None,
             confusion_matrix=None,
             seed=None
@@ -135,68 +136,24 @@ class CIFARCNN(pl.LightningModule):
 
         self.criterion = torch.nn.CrossEntropyLoss()
 
-        self.conv1 = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3, padding=1),
-            nn.BatchNorm2d(64),
-            nn.ReLU(inplace=True)
-        )
-        self.conv2 = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
-            nn.BatchNorm2d(128),
-            nn.ReLU(inplace=True),
-            nn.MaxPool2d(2)
-        )
-
-        self.res1 = nn.Sequential(nn.Sequential(
-            nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, padding=1),
-            nn.BatchNorm2d(128),
-            nn.ReLU(inplace=True)
-        ), nn.Sequential(
-            nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, padding=1),
-            nn.BatchNorm2d(128),
-            nn.ReLU(inplace=True))
-        )
-
-        self.conv3 = nn.Sequential(
-            nn.Conv2d(in_channels=128, out_channels=256, kernel_size=3, padding=1),
-            nn.BatchNorm2d(256),
-            nn.ReLU(inplace=True),
-            nn.MaxPool2d(2)
-        )
-        self.conv4 = nn.Sequential(
-            nn.Conv2d(in_channels=256, out_channels=512, kernel_size=3, padding=1),
-            nn.BatchNorm2d(512),
-            nn.ReLU(inplace=True),
-            nn.MaxPool2d(2)
-        )
-
-        self.res2 = nn.Sequential(nn.Sequential(
-            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=3, padding=1),
-            nn.BatchNorm2d(512),
-            nn.ReLU(inplace=True)
-        ), nn.Sequential(
-            nn.Conv2d(in_channels=512, out_channels=512, kernel_size=3, padding=1),
-            nn.BatchNorm2d(512),
-            nn.ReLU(inplace=True))
-        )
-
-        self.classifier = nn.Sequential(
-            nn.MaxPool2d(4),
-            nn.Flatten(),
-            nn.Linear(512, 10)
-        )
+        # Define CNN layers
+        self.conv1 = nn.Conv2d(in_channels, 16, 3, padding=1)
+        self.conv2 = nn.Conv2d(16, 32, 3, padding=1)
+        self.conv3 = nn.Conv2d(32, 64, 3, padding=1)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.fc1 = nn.Linear(64 * 4 * 4, 512)
+        self.fc2 = nn.Linear(512, out_channels)
 
         self.epoch_global_number = {"Train": 0, "Validation": 0, "Test": 0}
 
     def forward(self, x):
         """ """
-        x = self.conv1(x)
-        x = self.conv2(x)
-        x = self.res1(x) + x
-        x = self.conv3(x)
-        x = self.conv4(x)
-        x = self.res2(x) + x
-        x = self.classifier(x)
+        x = self.pool(torch.relu(self.conv1(x)))
+        x = self.pool(torch.relu(self.conv2(x)))
+        x = self.pool(torch.relu(self.conv3(x)))
+        x = x.view(-1, 64 * 4 * 4)
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
         return x
 
     def configure_optimizers(self):

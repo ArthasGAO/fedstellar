@@ -500,6 +500,7 @@ class Node(BaseNode):
                 
                 self.broadcast(
                         CommunicationProtocol.build_select_node_msg(str("-".join(self.selected_nodes))))
+                logging.info("NODE broadcast msg = {}".format(CommunicationProtocol.build_select_node_msg(str("-".join(self.selected_nodes)))))
                 logging.info(
                     "[NODE.__train_step] ========================== AGGREGATOR,SERVER {} | build_select_node_msg = {} ==========================".format(self.get_name(),self.selected_nodes))
 
@@ -964,22 +965,17 @@ class Node(BaseNode):
                     encoded_model = self.learner.encode_parameters(
                         params=model, contributors=contributors, weight=weights
                     )
-                    logging.info(
-                        "[NODE.__gossip_model] Building params message | Contributors: {}".format(contributors))
-                    encoded_msgs = CommunicationProtocol.build_params_msg(
-                        encoded_model, self.config.participant["BLOCK_SIZE"])
-                    logging.info(
-                        "[NODE.__gossip_model] Sending params message to {}".format(nc))
+                    logging.info("[NODE.__gossip_model] Building params message | Contributors: {}".format(contributors))
+                    encoded_msgs = CommunicationProtocol.build_params_msg(encoded_model, self.config.participant["BLOCK_SIZE"])
+                    logging.info("[NODE.__gossip_model] Sending params message to {}".format(nc))
                     # Send Fragments
                     for msg in encoded_msgs:
                         nc.send(msg)
                 else:
-                    logging.info(
-                        "[NODE.__gossip_model] Model returned by model_function is None")
+                    logging.info("[NODE.__gossip_model] Model returned by model_function is None")
             # Wait to guarantee the frequency of gossipping
             time_diff = time.time() - begin
-            time_sleep = 1 / \
-                self.config.participant["GOSSIP_MODELS_FREC"] - time_diff
+            time_sleep = 1 / self.config.participant["GOSSIP_MODELS_FREC"] - time_diff
             if time_sleep > 0:
                 time.sleep(time_sleep)
 

@@ -392,8 +392,9 @@ class CommunicationProtocol:
 
                 elif message[0] == CommunicationProtocol.SELECTED_NODES:
                     if len(message) > 1:
+                        
                         logging.info(
-                            "[COMM PROTOCOL] SELECTED_NODES message[1] = {}".format(message[1]))
+                            "[COMM PROTOCOL] SELECTED_NODES message = {}".format(message))
                         if self.__exec(
                                 CommunicationProtocol.SELECTED_NODES,
                                 None,
@@ -401,7 +402,7 @@ class CommunicationProtocol:
                                 message[1],
 
                         ):
-                            message = []
+                            message = message[2:]
 
                         else:
                             error = True

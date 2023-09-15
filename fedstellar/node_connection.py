@@ -145,12 +145,10 @@ class NodeConnection(threading.Thread, Observable):
                 # Receive message
                 og_msg = b""
                 if amount_pending_params == 0:
-                    og_msg = self.__socket.recv(
-                        self.config.participant["BLOCK_SIZE"])
+                    og_msg = self.__socket.recv(self.config.participant["BLOCK_SIZE"])
 
                 else:
-                    pending_fragment = self.__socket.recv(
-                        amount_pending_params)
+                    pending_fragment = self.__socket.recv(amount_pending_params)
                     og_msg = param_buffer + pending_fragment  # alinear el colapso
                     param_buffer = b""
                     amount_pending_params = 0
@@ -175,8 +173,7 @@ class NodeConnection(threading.Thread, Observable):
                     overflow = CommunicationProtocol.check_collapse(msg)
                     if overflow > 0:
                         param_buffer = og_msg[overflow:]
-                        amount_pending_params = self.config.participant["BLOCK_SIZE"] - len(
-                            param_buffer)
+                        amount_pending_params = self.config.participant["BLOCK_SIZE"] - len(param_buffer)
                         msg = msg[:overflow]
                         logging.debug(
                             "[NODE_CONNECTION] Collapse detected: {}".format(
@@ -187,8 +184,7 @@ class NodeConnection(threading.Thread, Observable):
                     else:
                         # Check if all bytes of param_buffer are received
                         amount_pending_params = (
-                            CommunicationProtocol.check_params_incomplete(
-                                msg, self.config.participant["BLOCK_SIZE"])
+                            CommunicationProtocol.check_params_incomplete(msg, self.config.participant["BLOCK_SIZE"])
                         )
                         if amount_pending_params != 0:
                             param_buffer = msg

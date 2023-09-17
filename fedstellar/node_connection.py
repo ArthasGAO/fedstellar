@@ -46,12 +46,12 @@ class NodeConnection(threading.Thread, Observable):
         threading.Thread.__init__(
             self,
             name=(
-                "node_connection-"
-                + parent_node_name
-                + "-"
-                + str(addr[0])
-                + ":"
-                + str(addr[1])
+                    "node_connection-"
+                    + parent_node_name
+                    + "-"
+                    + str(addr[0])
+                    + ":"
+                    + str(addr[1])
             ),
         )
         Observable.__init__(self)
@@ -199,10 +199,7 @@ class NodeConnection(threading.Thread, Observable):
                     #    logging.info(
                     #        "[NODE_CONNECTION] Processing message: {}".format(msg)
                     #    )
-
-                    # Process msg
                     exec_msgs, error = self.comm_protocol.process_message(msg)
-
                     if len(exec_msgs) > 0:
                         self.notify(
                             Events.PROCESSED_MESSAGES_EVENT, (self, exec_msgs)
@@ -455,11 +452,10 @@ class NodeConnection(threading.Thread, Observable):
             value: The role of the node when the transfer leadership is received.
         """
         logging.info("[NODE_CONNECTION] Transfer leadership received")
-        logging.info("[NODE_CONNECTION] Previous role: {}".format(
-            self.config.participant['device_args']['role']))
+        logging.info("[NODE_CONNECTION] Previous role: {}".format(self.config.participant['device_args']['role']))
         self.config.participant['device_args']['role'] = value
-        logging.info("[NODE_CONNECTION] New role: {}".format(
-            self.config.participant['device_args']['role']))
+        logging.info("[NODE_CONNECTION] New role: {}".format(self.config.participant['device_args']['role']))
+
 
     def notify_features(self, node, loss, cpu_percent, data_size, bytes_received, bytes_send, availability):
         """

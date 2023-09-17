@@ -448,21 +448,19 @@ class BaseNode(threading.Thread, Observer):
         """
         return self.heartbeater.get_nodes()
 
-    def get_latency(self, h, p, runs):
+    def get_latency(self, h, p):
         """
         Returns:
             .
         """
-        lat_list = []
-        for _ in range(0, runs):
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            start = time.time()
-            s.connect((h, p))
-            lat_list.append((time.time()-start)*1000)
-            s.close()
-            time.sleep(1)
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        start = time.time()
+        s.connect((h, p))
+        s.close()
+        
+        latency = ((time.time()-start)*1000)
 
-        latency = sum(lat_list) / len(lat_list)
+
 
         return latency
 

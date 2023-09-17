@@ -62,12 +62,12 @@ class Heartbeater(threading.Thread, Observable):
             self.__count += 1
             
             # Send role notify each 2 beats
-            self.__send_event_with_interval(Events.SEND_ROLE_EVENT,self.__count,beat_interval=3)
+            self.__send_event_with_interval(Events.SEND_ROLE_EVENT,self.__count,beat_interval=4)
             # Report my status to the controller
-            self.__send_event_with_interval(Events.REPORT_STATUS_TO_CONTROLLER_EVENT,self.__count,beat_interval=3)
+            self.__send_event_with_interval(Events.REPORT_STATUS_TO_CONTROLLER_EVENT,self.__count,beat_interval=4)
             # Send FEATURES notify each 10 beats
             if self.config.participant["scenario_args"]["selection_algorithm"] != "no":
-                self.__send_event_with_interval(Events.SEND_FEATURES_EVENT,self.__count,beat_interval=6)
+                self.__send_event_with_interval(Events.SEND_FEATURES_EVENT,self.__count,beat_interval=8)
 
             # Wait and refresh node list
             for _ in range(self.config.participant["HEARTBEATER_REFRESH_NEIGHBORS_BY_PERIOD"]):

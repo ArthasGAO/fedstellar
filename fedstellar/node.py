@@ -2,25 +2,6 @@
 # This file is part of the Fedstellar platform (see https://github.com/enriquetomasmb/fedstellar).
 # Copyright (c) 2023 Enrique Tomás Martínez Beltrán.
 #
-from fedstellar.attacks.poisoning.modelpoison import modelpoison
-from fedstellar.learning.selectors.allselector import AllSelector
-from fedstellar.learning.selectors.randomselector import RandomSelector
-from fedstellar.utils.observer import Events, Observer
-from fedstellar.role import Role
-from fedstellar.learning.pytorch.lightninglearner import LightningLearner
-from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
-from fedstellar.learning.aggregators.trimmedmean import TrimmedMean
-from fedstellar.learning.aggregators.median import Median
-from fedstellar.learning.aggregators.krum import Krum
-from fedstellar.learning.aggregators.fedavg import FedAvg
-from fedstellar.config.config import Config
-from fedstellar.communication_protocol import CommunicationProtocol
-from fedstellar.base_node import BaseNode
-from lightning.pytorch.loggers import WandbLogger, CSVLogger
-import time
-import threading
-import random
-import requests
 import json
 import logging
 import math
@@ -31,15 +12,39 @@ import psutil
 
 from fedstellar.learning.pytorch.remotelogger import FedstellarWBLogger
 from fedstellar.learning.pytorch.statisticslogger import FedstellarLogger
-from fedstellar.learning.selectors.newselector import NewSelector
 
 os.environ['WANDB_SILENT'] = 'true'
 
 # Import the requests module
+import requests
 
 logging.getLogger("requests").setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
 logging.getLogger("fsspec").setLevel(logging.WARNING)
+
+import random
+import threading
+import time
+
+from lightning.pytorch.loggers import WandbLogger, CSVLogger
+
+from fedstellar.base_node import BaseNode
+from fedstellar.communication_protocol import CommunicationProtocol
+from fedstellar.config.config import Config
+from fedstellar.learning.aggregators.fedavg import FedAvg
+from fedstellar.learning.aggregators.krum import Krum
+from fedstellar.learning.aggregators.median import Median
+from fedstellar.learning.aggregators.trimmedmean import TrimmedMean
+from fedstellar.learning.exceptions import DecodingParamsError, ModelNotMatchingError
+from fedstellar.learning.pytorch.lightninglearner import LightningLearner
+from fedstellar.role import Role
+from fedstellar.utils.observer import Events, Observer
+
+from fedstellar.attacks.poisoning.modelpoison import modelpoison
+from fedstellar.learning.selectors.allselector import AllSelector
+from fedstellar.learning.selectors.randomselector import RandomSelector
+from fedstellar.learning.selectors.newselector import NewSelector
+
 
 
 class Node(BaseNode):
@@ -1033,7 +1038,7 @@ class Node(BaseNode):
             # Update the heartbeater with the xxx
             # obj =
             h, p = obj[0].split(":")
-            lat = self.get_latency(str(h), int(p), 3)
+            lat = self.get_latency(str(h), int(p))
             self.selector.add_node_features(obj[0], obj[1:], lat)
             # self.add_feature()
         elif event == Events.SELECTED_RECEIVED_EVENT:

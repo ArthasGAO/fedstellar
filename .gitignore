@@ -134,14 +134,6 @@ dmypy.json
 _build/
 *.DS_Store
 app/
-fedstellar/data/cifar-10-python.tar.gz
-fedstellar/data/cifar-10-batches-py/batches.meta
-fedstellar/data/cifar-10-batches-py/data_batch_1
-fedstellar/data/cifar-10-batches-py/data_batch_2
-fedstellar/data/cifar-10-batches-py/data_batch_3
-fedstellar/data/cifar-10-batches-py/data_batch_4
-fedstellar/data/cifar-10-batches-py/data_batch_5
-fedstellar/data/cifar-10-batches-py/test_batch
 fedstellar/data/MNIST/raw/t10k-images-idx3-ubyte
 fedstellar/data/MNIST/raw/t10k-images-idx3-ubyte.gz
 fedstellar/data/MNIST/raw/t10k-labels-idx1-ubyte
@@ -150,3 +142,4 @@ fedstellar/data/MNIST/raw/train-images-idx3-ubyte
 fedstellar/data/MNIST/raw/train-images-idx3-ubyte.gz
 fedstellar/data/MNIST/raw/train-labels-idx1-ubyte
 fedstellar/data/MNIST/raw/train-labels-idx1-ubyte.gz
+fedstellar/webserver/database_file/

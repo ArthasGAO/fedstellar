@@ -56,8 +56,9 @@ class NewSelector(Selector):
 
             feature = np.array(feature_list).reshape(-1, 1).astype(np.float64)
             feature_array = np.append(feature_array, feature, axis=1)
-        # 1 / loss
-        feature_array[0, :] = 1/feature_array[0, :]
+        
+        # 1 / cpu_percent
+        feature_array[1, :] = 1/feature_array[1, :]
         
         
         # 1 / latency
@@ -107,13 +108,4 @@ class NewSelector(Selector):
 
         return selected_nodes
 
-    def second_round_selection(self, nodes):
 
-        if len(nodes) == 0:
-            logging.error(
-                "[NewSelector] Trying to select nodes when there is no nodes"
-            )
-            return None
-        logging.info("[NewSelector] Second round selection performed")
-
-        return nodes

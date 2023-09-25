@@ -442,11 +442,13 @@ class Controller:
                     - /bin/bash
                     - -c
                     - |
-                        ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                        tcset eth0 --delay {} && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {} 
                 depends_on:
                     - participant{}
                 deploy:
                     resources:
+                        limits:
+                            cpus: '{}'
                         reservations:
                             devices:
                                 - driver: nvidia
@@ -455,6 +457,7 @@ class Controller:
                 networks:
                     fedstellar-net:
                         ipv4_address: {}
+
         """)
         participant_gpu_template = textwrap.indent(participant_gpu_template, ' ' * 4)
 
@@ -472,9 +475,11 @@ class Controller:
                     - /bin/bash
                     - -c
                     - |
-                        /bin/sleep 60 && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
+                        /bin/sleep 60 && tcset eth0 --delay {} && ifconfig && echo '{} host.docker.internal' >> /etc/hosts && python3.8 /fedstellar/fedstellar/node_start.py {}
                 deploy:
                     resources:
+                        limits:
+                            cpus: '{}'
                         reservations:
                             devices:
                                 - driver: nvidia
@@ -512,9 +517,11 @@ class Controller:
                     logging.info("Node {} is using GPU".format(idx))
                     services += participant_gpu_template.format(idx,
                                                                 os.environ["FEDSTELLAR_ROOT"],
+                                                                node['network_args']['latency'],                                                                
                                                                 self.network_gateway,
                                                                 path,
                                                                 idx_start_node,
+                                                                node['device_args']['cpu_limit'],
                                                                 node['network_args']['ip'])
                 # Testing CPU limit in docker compose
                 else:
@@ -532,8 +539,10 @@ class Controller:
                     logging.info("Node {} is using GPU".format(idx))
                     services += participant_gpu_template_start.format(idx,
                                                                       os.environ["FEDSTELLAR_ROOT"],
+                                                                      node['network_args']['latency'],
                                                                       self.network_gateway,
                                                                       path,
+                                                                      node['device_args']['cpu_limit'],
                                                                       node['network_args']['ip'])
                 else:
                     logging.info("Node {} is using CPU".format(idx))

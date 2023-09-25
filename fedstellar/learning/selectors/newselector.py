@@ -58,7 +58,7 @@ class NewSelector(Selector):
             feature_array = np.append(feature_array, feature, axis=1)
         
         # 1 / cpu_percent
-        feature_array[1, :] = 1/feature_array[1, :]
+        feature_array[1, :] = 1/(0.01+feature_array[1, :]) #prevent 0 denominator 
         
         
         # 1 / latency

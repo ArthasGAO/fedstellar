@@ -1,0 +1,26 @@
+:py:mod:`fedstellar.learning.aggregators.helper`
+================================================
+
+.. py:module:: fedstellar.learning.aggregators.helper
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.aggregators.helper.cosine_similarity
+   fedstellar.learning.aggregators.helper.normalise_layers
+
+
+
+.. py:function:: cosine_similarity(trusted_model, untrusted_model)
+
+
+.. py:function:: normalise_layers(untrusted_params, trusted_params)
+
+

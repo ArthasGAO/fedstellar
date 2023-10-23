@@ -37,6 +37,7 @@ Attributes
 
 .. py:class:: TermEscapeCodeFormatter(fmt=None, datefmt=None, style='%', validate=True)
 
+
    Bases: :py:obj:`logging.Formatter`
 
    A class to strip the escape codes from the
@@ -57,12 +58,11 @@ Attributes
 
 
 .. py:data:: log_console_format
-   :annotation: = [%(levelname)s] - %(asctime)s - Controller - %(message)s
+   :value: '[%(levelname)s] - %(asctime)s - Controller - %(message)s'
 
    
 
 .. py:data:: console_handler
-   
 
    
 
@@ -70,6 +70,7 @@ Attributes
 
 
 .. py:class:: Controller(args)
+
 
    Controller class that manages the nodes
 

@@ -28,6 +28,7 @@ Submodules
    fedstellar.learning.pytorch.lightninglearner
    fedstellar.learning.pytorch.remotelogger
    fedstellar.learning.pytorch.statisticslogger
+   fedstellar.learning.pytorch.statisticsloggerv2
 
 Module contents
 ---------------

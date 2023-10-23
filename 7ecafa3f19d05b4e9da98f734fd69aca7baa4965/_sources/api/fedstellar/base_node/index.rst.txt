@@ -19,7 +19,8 @@ Classes
 
 .. py:class:: BaseNode(experiment_name, hostdemo=None, host='127.0.0.1', port=None, encrypt=False, config=None)
 
-   Bases: :py:obj:`threading.Thread`, :py:obj:`fedstellar.utils.observer.Observer`
+
+   Bases: :py:obj:`fedstellar.proto.node_pb2_grpc.NodeServicesServicer`
 
    This class represents a base node in the network (without **FL**). It is a thread, so it's going to process all messages in a background thread using the CommunicationProtocol.
 
@@ -81,110 +82,94 @@ Classes
    .. py:method:: setup_logging(log_dir)
 
 
-   .. py:method:: start()
+   .. py:method:: assert_running(running)
 
-      Starts the node (node loop in a thread). It will listen for new connections and process them. Heartbeater and Gossiper will be started too.
+      Asserts that the node is running or not running.
 
-      Note that a node is a thread, so an instance can only be started once.
+      :param running: True if the node must be running, False otherwise.
+      :type running: bool
+
+      :raises Exception: If the node is not running and running is True, or if the node is running and running is False.
+
+
+   .. py:method:: start(wait=False)
+
+      Starts the node: server and neighbors(gossip and heartbeat).
+
+      :param wait: If True, the function will wait until the server is terminated.
+      :type wait: bool
+
+      :raises Exception: If the node is already running.
 
 
    .. py:method:: stop()
 
-      Stops the node. Heartbeater and Gossiper will be stopped too.
+      Stops the node: server and neighbors(gossip and heartbeat).
+
+      :raises Exception: If the node is not running.
 
 
-   .. py:method:: run()
-
-      Main loop of the node, when a node is running, this method is being executed. It will listen for new connections and process them.
-
-
-   .. py:method:: connect_to(h, p, full=False, force=False)
+   .. py:method:: connect(addr)
 
       Connects a node to another.
 
-      :param h: The host of the node.
-      :type h: str
-      :param p: The port of the node.
-      :type p: int
-      :param full: If True, the node will be connected to the entire network.
-      :type full: bool
-      :param force: If True, the node will be connected even though it should not be.
-      :type force: bool
+      :param addr: The address of the node to connect to.
+      :type addr: str
 
-      :returns: The node that has been connected to.
-      :rtype: node
+      :returns: True if the node was connected, False otherwise.
+      :rtype: bool
 
 
-   .. py:method:: disconnect_from(h, p)
+   .. py:method:: get_neighbors(only_direct=False)
 
-      Disconnects from a node.
+      Returns the neighbors of the node.
 
-      :param h: The host of the node.
-      :type h: str
-      :param p: The port of the node.
-      :type p: int
+      :param only_direct: If True, only the direct neighbors will be returned.
+      :type only_direct: bool
 
-
-   .. py:method:: get_neighbor(h, p, thread_safe=True)
-
-      Get a ``NodeConnection`` from the neighbors list.
-
-      :param h: The host of the node.
-      :type h: str
-      :param p: The port of the node.
-      :type p: int
-
-         thread_safe (bool): If True, the method will be thread safe.
-
-      :returns: The connection with the node.
-      :rtype: NodeConnection
-
-
-   .. py:method:: get_neighbors()
-
-      :returns: The neighbors of the node.
+      :returns: The list of neighbors.
       :rtype: list
 
 
-   .. py:method:: get_neighbors_names()
+   .. py:method:: disconnect_from(addr)
 
-      :returns: The names of the neighbors of the node.
-      :rtype: list
+      Disconnects a node from another.
 
-
-   .. py:method:: rm_neighbor(n)
-
-      Removes a neighbor from the neighbors list.
-
-      :param n: The neighbor to be removed.
-      :type n: NodeConnection
+      :param addr: The address of the node to disconnect from.
+      :type addr: str
 
 
-   .. py:method:: get_network_nodes()
+   .. py:method:: handshake(request, _)
 
-      :returns: The nodes of the network -> The neighbors of the node (by heartbeater).
-      :rtype: list
-
-
-   .. py:method:: broadcast(msg, exc=[], thread_safe=True)
-
-      Broadcasts a message to all the neighbors.
-
-      :param msg: The message to be broadcast.
-      :type msg: str
-      :param exc: The neighbors to be excluded.
-      :type exc: list
-      :param thread_safe: If True, the broadcast will access the neighbors list in a thread safe mode.
-      :type thread_safe: bool
+      GRPC service. It is called when a node connects to another.
 
 
-   .. py:method:: update(event, obj)
+   .. py:method:: disconnect(request, _)
 
-      Observer update method. Used to handle events that can occur with the different components and connections of the node.
+      GRPC service. It is called when a node disconnects from another.
 
-      :param event: Event that has occurred.
-      :type event: Events
-      :param obj: Information about the change or event.
+
+   .. py:method:: send_message(request, _)
+
+      GRPC service. It is called when a node sends a message to another.
+      More in detail, it is called when a neighbor use your stub to send a message to you.
+      Then, you process the message and gossip it to your neighbors.
+
+
+   .. py:method:: add_model(request, _)
+      :abstractmethod:
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. py:method:: add_message_handler(cmd, callback)
+
+      Adds a function callback to a message.
+
+      :param cmd: The command of the message.
+      :type cmd: str
+      :param callback: The callback function.
+      :type callback: function
 
 
 

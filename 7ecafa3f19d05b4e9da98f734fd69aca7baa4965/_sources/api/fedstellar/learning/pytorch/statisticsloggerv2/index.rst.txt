@@ -1,0 +1,28 @@
+:py:mod:`fedstellar.learning.pytorch.statisticsloggerv2`
+========================================================
+
+.. py:module:: fedstellar.learning.pytorch.statisticsloggerv2
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.pytorch.statisticsloggerv2.FedstellarLogger
+
+
+
+
+.. py:class:: FedstellarLogger(*args, **kwargs)
+
+
+   Bases: :py:obj:`lightning.pytorch.loggers.TensorBoardLogger`
+
+   .. py:method:: log_metrics(metrics, step=None)
+
+
+

@@ -26,11 +26,12 @@ Attributes
 
 
 .. py:data:: IMAGE_SIZE
-   :annotation: = 28
+   :value: 28
 
    
 
 .. py:class:: MNISTModelCNN(in_channels=1, out_channels=10, learning_rate=0.001, metrics=None, confusion_matrix=None, seed=None)
+
 
    Bases: :py:obj:`lightning.LightningModule`
 
@@ -78,30 +79,6 @@ Attributes
 
    .. py:method:: on_train_epoch_end()
 
-      Called in the training loop at the very end of the epoch.
-
-      To access all batch outputs at the end of the epoch, you can cache step outputs as an attribute of the
-      :class:`~lightning.pytorch.LightningModule` and access them in this hook:
-
-      .. code-block:: python
-
-          class MyLightningModule(L.LightningModule):
-              def __init__(self):
-                  super().__init__()
-                  self.training_step_outputs = []
-
-              def training_step(self):
-                  loss = ...
-                  self.training_step_outputs.append(loss)
-                  return loss
-
-              def on_train_epoch_end(self):
-                  # do something with all training_step outputs, for example:
-                  epoch_mean = torch.stack(self.training_step_outputs).mean()
-                  self.log("training_epoch_mean", epoch_mean)
-                  # free up the memory
-                  self.training_step_outputs.clear()
-
 
    .. py:method:: validation_step(batch, batch_idx)
 
@@ -114,8 +91,6 @@ Attributes
 
    .. py:method:: on_validation_epoch_end()
 
-      Called in the validation loop at the very end of the epoch.
-
 
    .. py:method:: test_step(batch, batch_idx)
 
@@ -127,8 +102,6 @@ Attributes
 
 
    .. py:method:: on_test_epoch_end()
-
-      Called in the test loop at the very end of the epoch.
 
 
 

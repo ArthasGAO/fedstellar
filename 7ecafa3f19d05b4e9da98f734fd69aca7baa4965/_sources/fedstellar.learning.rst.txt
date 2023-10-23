@@ -9,6 +9,7 @@ Subpackages
 
    fedstellar.learning.aggregators
    fedstellar.learning.pytorch
+   fedstellar.learning.scikit
 
 Submodules
 ----------

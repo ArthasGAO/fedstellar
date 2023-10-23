@@ -9,6 +9,14 @@ Subpackages
 
    fedstellar.attacks.poisoning
 
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   fedstellar.attacks.aggregation
+
 Module contents
 ---------------
 

@@ -26,7 +26,7 @@ Functions
 
 .. py:function:: add_x_to_image(img)
 
-   Add a 10*10 pixels X at the top-left of a image
+   Add a 10*10 pixels X at the top-left of an image
 
 
 .. py:function:: poison_to_nlp_rawdata(text_data, poisoned_ratio)

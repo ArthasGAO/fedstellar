@@ -19,9 +19,8 @@ Classes
 
 .. py:class:: FedstellarWBLogger(name = None, save_dir = '.', version = None, offline = False, dir = None, id = None, anonymous = None, project = 'lightning_logs', log_model = False, experiment = None, prefix = '', checkpoint_name = None, **kwargs)
 
-   Bases: :py:obj:`lightning.pytorch.loggers.logger.Logger`
 
-   Base class for experiment loggers.
+   Bases: :py:obj:`lightning.pytorch.loggers.logger.Logger`
 
    .. py:property:: experiment
       :type: Union[wandb.wandb_run.Run, wandb.sdk.lib.RunDisabled]
@@ -50,7 +49,7 @@ Classes
       :returns: The id of the experiment if the experiment exists else the id given to the constructor.
 
    .. py:attribute:: LOGGER_JOIN_CHAR
-      :annotation: = -
+      :value: '-'
 
       
 
@@ -59,19 +58,8 @@ Classes
 
    .. py:method:: log_hyperparams(params)
 
-      Record hyperparameters.
-
-      :param params: :class:`~argparse.Namespace` or `Dict` containing the hyperparameters
-      :param args: Optional positional arguments, depends on the specific logger being used
-      :param kwargs: Optional keyword arguments, depends on the specific logger being used
-
 
    .. py:method:: log_metrics(metrics, step = None)
-
-      Records metrics. This method logs metrics as soon as it received them.
-
-      :param metrics: Dictionary with metric names as keys and measured quantities as values
-      :param step: Step number at which the metrics should be recorded
 
 
    .. py:method:: log_table(key, columns = None, data = None, dataframe = None, step = None)
@@ -96,10 +84,6 @@ Classes
 
 
    .. py:method:: after_save_checkpoint(checkpoint_callback)
-
-      Called after model checkpoint callback saves a new checkpoint.
-
-      :param checkpoint_callback: the model checkpoint callback instance
 
 
    .. py:method:: download_artifact(artifact, save_dir = None, artifact_type = None, use_artifact = True)
@@ -126,10 +110,6 @@ Classes
 
 
    .. py:method:: finalize(status)
-
-      Do any processing that is necessary to finalize an experiment.
-
-      :param status: Status that the experiment finished with (e.g. success, failed, aborted)
 
 
 

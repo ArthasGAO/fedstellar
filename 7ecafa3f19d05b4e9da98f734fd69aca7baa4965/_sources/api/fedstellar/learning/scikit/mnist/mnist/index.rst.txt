@@ -1,0 +1,44 @@
+:py:mod:`fedstellar.learning.scikit.mnist.mnist`
+================================================
+
+.. py:module:: fedstellar.learning.scikit.mnist.mnist
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.scikit.mnist.mnist.MNISTDatasetScikit
+
+
+
+
+.. py:class:: MNISTDatasetScikit(sub_id=0, number_sub=1, val_percent=0.1, iid=True)
+
+
+   Dataset for MNIST using torchvision, but provides data in a format for scikit-learn.
+
+   :param sub_id: Subset id of partition. (0 <= sub_id < number_sub)
+   :param number_sub: Number of subsets.
+   :param val_percent: The percentage of the validation set.
+   :param iid: If True, data distribution is iid, otherwise non-iid.
+
+   .. py:attribute:: mnist_train
+
+      
+
+   .. py:attribute:: mnist_val
+
+      
+
+   .. py:method:: train_dataloader()
+
+
+   .. py:method:: test_dataloader()
+
+
+

@@ -19,6 +19,7 @@ Classes
 
 .. py:class:: TrimmedMean(node_name='unknown', config=None, beta=0)
 
+
    Bases: :py:obj:`fedstellar.learning.aggregators.aggregator.Aggregator`
 
    TrimmedMean [Dong Yin et al., 2021]

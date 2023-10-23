@@ -1,0 +1,24 @@
+:py:mod:`fedstellar.learning.scikit`
+====================================
+
+.. py:module:: fedstellar.learning.scikit
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   mnist/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   scikitlearner/index.rst
+
+

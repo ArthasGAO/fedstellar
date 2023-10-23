@@ -8,32 +8,31 @@ Module Contents
 ---------------
 
 .. py:data:: SECRET_KEY
-   :annotation: = eede8f3b-3f22-4d1a-9b5e-8f3b3f22ed1a
+   :value: 'eede8f3b-3f22-4d1a-9b5e-8f3b3f22ed1a'
 
    
 
 .. py:data:: DEBUG
-   :annotation: = True
+   :value: True
 
    
 
 .. py:data:: UPLOAD_FOLDER
-   :annotation: = images
+   :value: 'images'
 
    
 
 .. py:data:: LOG_FOLDER_WEBSERVER
-   :annotation: = logs
+   :value: 'logs'
 
    
 
 .. py:data:: CONFIG_FOLDER_WEBSERVER
-   :annotation: = config
+   :value: 'config'
 
    
 
 .. py:data:: MAX_CONTENT_LENGTH
-   
 
    
 

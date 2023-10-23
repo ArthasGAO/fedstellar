@@ -19,30 +19,31 @@ Classes
 
 .. py:class:: Role
 
+
    This class defines the participant roles of the platform.
 
    .. py:attribute:: TRAINER
-      :annotation: = trainer
+      :value: 'trainer'
 
       Aggregator role:
 
    .. py:attribute:: AGGREGATOR
-      :annotation: = aggregator
+      :value: 'aggregator'
 
       Proxy role:
 
    .. py:attribute:: PROXY
-      :annotation: = proxy
+      :value: 'proxy'
 
       Idle role:
 
    .. py:attribute:: IDLE
-      :annotation: = idle
+      :value: 'idle'
 
       Server role:
 
    .. py:attribute:: SERVER
-      :annotation: = server
+      :value: 'server'
 
       
 

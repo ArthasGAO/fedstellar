@@ -19,6 +19,7 @@ Classes
 
 .. py:class:: NodeLearner
 
+
    Template to implement learning processes, including metric monitoring during training.
 
    .. py:method:: set_model(model)
@@ -117,16 +118,6 @@ Classes
       Get the number of samples of the model.
 
       :returns: The number of samples of the model.
-
-
-   .. py:method:: init()
-
-      Init the learner.
-
-
-   .. py:method:: close()
-
-      Close the learner.
 
 
    .. py:method:: finalize_round()

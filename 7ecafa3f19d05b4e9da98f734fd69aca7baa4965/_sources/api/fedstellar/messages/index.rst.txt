@@ -1,0 +1,79 @@
+:py:mod:`fedstellar.messages`
+=============================
+
+.. py:module:: fedstellar.messages
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.messages.NodeMessages
+   fedstellar.messages.LearningNodeMessages
+
+
+
+
+.. py:class:: NodeMessages
+
+
+   Class that contains the messages exchanged between nodes.
+
+   .. py:attribute:: BEAT
+      :value: 'beat'
+
+      
+
+
+.. py:class:: LearningNodeMessages
+
+
+   Bases: :py:obj:`NodeMessages`
+
+   Class that contains the messages exchanged between learning nodes.
+
+   .. py:attribute:: START_LEARNING
+      :value: 'start_learning'
+
+      
+
+   .. py:attribute:: STOP_LEARNING
+      :value: 'stop_learning'
+
+      
+
+   .. py:attribute:: MODEL_INITIALIZED
+      :value: 'model_initialized'
+
+      
+
+   .. py:attribute:: MODELS_AGGREGATED
+      :value: 'models_aggregated'
+
+      
+
+   .. py:attribute:: MODELS_READY
+      :value: 'models_ready'
+
+      
+
+   .. py:attribute:: VOTE_TRAIN_SET
+      :value: 'vote_train_set'
+
+      
+
+   .. py:attribute:: METRICS
+      :value: 'metrics'
+
+      
+
+   .. py:attribute:: REPUTATION
+      :value: 'reputation'
+
+      
+
+

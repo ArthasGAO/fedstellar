@@ -1,0 +1,18 @@
+:py:mod:`fedstellar.proto.node_pb2`
+===================================
+
+.. py:module:: fedstellar.proto.node_pb2
+
+.. autoapi-nested-parse::
+
+   Generated protocol buffer code.
+
+
+
+Module Contents
+---------------
+
+.. py:data:: DESCRIPTOR
+
+   
+

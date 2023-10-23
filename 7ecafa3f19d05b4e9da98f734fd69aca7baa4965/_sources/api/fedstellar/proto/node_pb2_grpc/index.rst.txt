@@ -1,0 +1,97 @@
+:py:mod:`fedstellar.proto.node_pb2_grpc`
+========================================
+
+.. py:module:: fedstellar.proto.node_pb2_grpc
+
+.. autoapi-nested-parse::
+
+   Client and server classes corresponding to protobuf-defined services.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.proto.node_pb2_grpc.NodeServicesStub
+   fedstellar.proto.node_pb2_grpc.NodeServicesServicer
+   fedstellar.proto.node_pb2_grpc.NodeServices
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.proto.node_pb2_grpc.add_NodeServicesServicer_to_server
+
+
+
+.. py:class:: NodeServicesStub(channel)
+
+
+   Bases: :py:obj:`object`
+
+   Missing associated documentation comment in .proto file.
+
+
+.. py:class:: NodeServicesServicer
+
+
+   Bases: :py:obj:`object`
+
+   Missing associated documentation comment in .proto file.
+
+   .. py:method:: handshake(request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. py:method:: disconnect(request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. py:method:: send_message(request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+   .. py:method:: add_model(request, context)
+
+      Missing associated documentation comment in .proto file.
+
+
+
+.. py:function:: add_NodeServicesServicer_to_server(servicer, server)
+
+
+.. py:class:: NodeServices
+
+
+   Bases: :py:obj:`object`
+
+   Missing associated documentation comment in .proto file.
+
+   .. py:method:: handshake(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. py:method:: disconnect(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. py:method:: send_message(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+   .. py:method:: add_model(request, target, options=(), channel_credentials=None, call_credentials=None, insecure=False, compression=None, wait_for_ready=None, timeout=None, metadata=None)
+      :staticmethod:
+
+
+

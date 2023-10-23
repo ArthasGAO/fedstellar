@@ -19,6 +19,7 @@ Classes
 
 .. py:class:: Krum(node_name='unknown', config=None)
 
+
    Bases: :py:obj:`fedstellar.learning.aggregators.aggregator.Aggregator`
 
    Krum [Peva Blanchard et al., 2017]

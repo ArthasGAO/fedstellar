@@ -17,7 +17,8 @@ Classes
 
 
 
-.. py:class:: DataModule(train_set, test_set, sub_id=0, number_sub=1, batch_size=32, num_workers=4, val_percent=0.1, label_flipping=False, data_poisoning=False, poisoned_persent=0, poisoned_ratio=0, targeted=False, target_label=0, target_changed_label=0, noise_type='salt', indices_dir=None)
+.. py:class:: DataModule(train_set, test_set, sub_id=0, number_sub=1, batch_size=32, num_workers=0, val_percent=0.1, label_flipping=False, data_poisoning=False, poisoned_persent=0, poisoned_ratio=0, targeted=False, target_label=0, target_changed_label=0, noise_type='salt', indices_dir=None)
+
 
    Bases: :py:obj:`lightning.LightningDataModule`
 
@@ -36,6 +37,9 @@ Classes
 
 
    .. py:method:: test_dataloader()
+
+
+   .. py:method:: bootstrap_dataloader()
 
 
 

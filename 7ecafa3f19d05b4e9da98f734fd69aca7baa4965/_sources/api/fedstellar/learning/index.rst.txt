@@ -12,6 +12,7 @@ Subpackages
 
    aggregators/index.rst
    pytorch/index.rst
+   scikit/index.rst
 
 
 Submodules

@@ -32,5 +32,6 @@ Submodules
    lightninglearner/index.rst
    remotelogger/index.rst
    statisticslogger/index.rst
+   statisticsloggerv2/index.rst
 
 

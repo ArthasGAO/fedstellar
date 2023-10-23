@@ -13,6 +13,7 @@ Subpackages
    attacks/index.rst
    config/index.rst
    learning/index.rst
+   proto/index.rst
    utils/index.rst
    webserver/index.rst
 
@@ -24,16 +25,11 @@ Submodules
    :maxdepth: 1
 
    base_node/index.rst
-   command/index.rst
-   communication_protocol/index.rst
    controller/index.rst
-   encrypter/index.rst
-   gossiper/index.rst
-   heartbeater/index.rst
+   messages/index.rst
+   neighbors/index.rst
    node/index.rst
-   node_connection/index.rst
    node_start/index.rst
    role/index.rst
-   single_device/index.rst
 
 

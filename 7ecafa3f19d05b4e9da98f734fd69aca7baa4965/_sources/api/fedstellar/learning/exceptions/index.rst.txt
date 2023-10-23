@@ -9,12 +9,14 @@ Module Contents
 
 .. py:exception:: DecodingParamsError
 
+
    Bases: :py:obj:`Exception`
 
    An exception raised when decoding parameters fails.
 
 
 .. py:exception:: ModelNotMatchingError
+
 
    Bases: :py:obj:`Exception`
 

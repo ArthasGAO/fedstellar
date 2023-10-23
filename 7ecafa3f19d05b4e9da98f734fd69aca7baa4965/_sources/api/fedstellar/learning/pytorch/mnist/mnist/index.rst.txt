@@ -19,6 +19,7 @@ Classes
 
 .. py:class:: MNISTDataset(sub_id=0, number_sub=1, batch_size=32, num_workers=4, val_percent=0.1, iid=True)
 
+
    Bases: :py:obj:`torch.utils.data.Dataset`
 
    LightningDataModule of partitioned MNIST.
@@ -30,12 +31,10 @@ Classes
    :param val_percent: The percentage of the validation set.
 
    .. py:attribute:: mnist_train
-      
 
       
 
    .. py:attribute:: mnist_val
-      
 
       
 

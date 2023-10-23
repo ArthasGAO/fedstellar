@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2023.05.20 -->
-        <title>fedstellar package - Fedstellar 0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
+        <title>fedstellar package - Fedstellar 2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
     
 
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Fedstellar 0.1 documentation</div></a>
+      <a href="index.html"><div class="brand">Fedstellar 2.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -147,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Fedstellar 0.1 documentation</span>
+  <span class="sidebar-brand-text">Fedstellar 2.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -167,6 +167,7 @@
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/attacks/poisoning/modelpoison/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.attacks.poisoning.modelpoison</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="api/fedstellar/attacks/aggregation/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.attacks.aggregation</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="api/fedstellar/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.config</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of fedstellar.config</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -178,6 +179,8 @@
 <li class="toctree-l4 has-children"><a class="reference internal" href="api/fedstellar/learning/aggregators/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of fedstellar.learning.aggregators</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/aggregators/aggregator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.aggregator</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/aggregators/fedavg/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.fedavg</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/aggregators/fedavgSVM/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.fedavgSVM</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/aggregators/helper/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.helper</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/aggregators/krum/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.krum</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/aggregators/median/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.median</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/aggregators/trimmedmean/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.aggregators.trimmedmean</span></code></a></li>
@@ -270,36 +273,44 @@
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/lightninglearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.lightninglearner</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/remotelogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.remotelogger</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/statisticslogger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticslogger</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/pytorch/statisticsloggerv2/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.pytorch.statisticsloggerv2</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="api/fedstellar/learning/scikit/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.scikit</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of fedstellar.learning.scikit</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="api/fedstellar/learning/scikit/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.scikit.mnist</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of fedstellar.learning.scikit.mnist</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="api/fedstellar/learning/scikit/mnist/mnist/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.scikit.mnist.mnist</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="api/fedstellar/learning/scikit/scikitlearner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.scikit.scikitlearner</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="api/fedstellar/learning/exceptions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.exceptions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/fedstellar/learning/learner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.learning.learner</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="api/fedstellar/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of fedstellar.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="api/fedstellar/proto/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.proto</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of fedstellar.proto</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/fedstellar/proto/node_pb2/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.proto.node_pb2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/fedstellar/proto/node_pb2_grpc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.proto.node_pb2_grpc</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="api/fedstellar/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of fedstellar.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/fedstellar/utils/env/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.env</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/fedstellar/utils/observer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.observer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/fedstellar/utils/topologymanager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.utils.topologymanager</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="api/fedstellar/webserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of fedstellar.webserver</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="api/fedstellar/webserver/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of fedstellar.webserver</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/fedstellar/webserver/app/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.app</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/fedstellar/webserver/config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/fedstellar/webserver/database/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.webserver.database</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api/fedstellar/base_node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.base_node</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/fedstellar/command/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.command</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/fedstellar/communication_protocol/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.communication_protocol</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/fedstellar/controller/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.controller</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/fedstellar/encrypter/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.encrypter</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/fedstellar/gossiper/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.gossiper</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/fedstellar/heartbeater/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.heartbeater</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/fedstellar/messages/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.messages</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/fedstellar/neighbors/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.neighbors</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/fedstellar/node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/fedstellar/node_connection/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_connection</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/fedstellar/node_start/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.node_start</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/fedstellar/role/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.role</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/fedstellar/single_device/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fedstellar.single_device</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -353,6 +364,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="fedstellar.attacks.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.attacks.aggregation.html">fedstellar.attacks.aggregation module</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="fedstellar.attacks.html#module-fedstellar.attacks">Module contents</a></li>
 </ul>
 </li>
@@ -360,12 +375,10 @@
 <li class="toctree-l2"><a class="reference internal" href="fedstellar.config.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.config.config.html">fedstellar.config.config module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.config.config.html#fedstellar.config.config.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.config.html#fedstellar.config.config.Config">Config</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.config.mender.html">fedstellar.config.mender module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.config.mender.html#fedstellar.config.mender.Mender"><code class="docutils literal notranslate"><span class="pre">Mender</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.config.mender.html#fedstellar.config.mender.Mender">Mender</a></li>
 </ul>
 </li>
 </ul>
@@ -386,19 +399,22 @@
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.pytorch.html#module-fedstellar.learning.pytorch">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.scikit.html">fedstellar.learning.scikit package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.scikit.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.scikit.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.scikit.html#module-fedstellar.learning.scikit">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="fedstellar.learning.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.exceptions.html">fedstellar.learning.exceptions module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.exceptions.html#fedstellar.learning.exceptions.DecodingParamsError"><code class="docutils literal notranslate"><span class="pre">DecodingParamsError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.exceptions.html#fedstellar.learning.exceptions.ModelNotMatchingError"><code class="docutils literal notranslate"><span class="pre">ModelNotMatchingError</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.exceptions.html#fedstellar.learning.exceptions.DecodingParamsError">DecodingParamsError</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.exceptions.html#fedstellar.learning.exceptions.ModelNotMatchingError">ModelNotMatchingError</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.learning.learner.html">fedstellar.learning.learner module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner"><code class="docutils literal notranslate"><span class="pre">NodeLearner</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.learning.learner.html#fedstellar.learning.learner.NodeLearner">NodeLearner</a></li>
 </ul>
 </li>
 </ul>
@@ -406,27 +422,22 @@
 <li class="toctree-l2"><a class="reference internal" href="fedstellar.learning.html#module-fedstellar.learning">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="fedstellar.proto.html">fedstellar.proto package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fedstellar.proto.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.proto.node_pb2.html">fedstellar.proto.node_pb2 module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.proto.node_pb2_grpc.html">fedstellar.proto.node_pb2_grpc module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fedstellar.proto.html#module-fedstellar.proto">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="fedstellar.utils.html">fedstellar.utils package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="fedstellar.utils.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.utils.env.html">fedstellar.utils.env module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.env.html#fedstellar.utils.env.collect_env"><code class="docutils literal notranslate"><span class="pre">collect_env()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.env.html#fedstellar.utils.env.collect_env">collect_env</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.utils.observer.html">fedstellar.utils.observer module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events"><code class="docutils literal notranslate"><span class="pre">Events</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html#fedstellar.utils.observer.Observable"><code class="docutils literal notranslate"><span class="pre">Observable</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html#fedstellar.utils.observer.Observer"><code class="docutils literal notranslate"><span class="pre">Observer</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html#fedstellar.utils.observer.Events">Events</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html#fedstellar.utils.observer.Observable">Observable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.observer.html#fedstellar.utils.observer.Observer">Observer</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.utils.topologymanager.html">fedstellar.utils.topologymanager module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.topologymanager.html#fedstellar.utils.topologymanager.TopologyManager"><code class="docutils literal notranslate"><span class="pre">TopologyManager</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.utils.topologymanager.html#fedstellar.utils.topologymanager.TopologyManager">TopologyManager</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.utils.topologymanager.html">fedstellar.utils.topologymanager module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="fedstellar.utils.html#module-fedstellar.utils">Module contents</a></li>
@@ -434,96 +445,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fedstellar.webserver.html">fedstellar.webserver package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="fedstellar.webserver.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.webserver.app.html">fedstellar.webserver.app module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.allowed_file"><code class="docutils literal notranslate"><span class="pre">allowed_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.attack_node_assign"><code class="docutils literal notranslate"><span class="pre">attack_node_assign()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_401"><code class="docutils literal notranslate"><span class="pre">fedstellar_401()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_403"><code class="docutils literal notranslate"><span class="pre">fedstellar_403()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_404"><code class="docutils literal notranslate"><span class="pre">fedstellar_404()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_405"><code class="docutils literal notranslate"><span class="pre">fedstellar_405()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_413"><code class="docutils literal notranslate"><span class="pre">fedstellar_413()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_add_user"><code class="docutils literal notranslate"><span class="pre">fedstellar_add_user()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_admin"><code class="docutils literal notranslate"><span class="pre">fedstellar_admin()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_delete_image"><code class="docutils literal notranslate"><span class="pre">fedstellar_delete_image()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_delete_note"><code class="docutils literal notranslate"><span class="pre">fedstellar_delete_note()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_delete_user"><code class="docutils literal notranslate"><span class="pre">fedstellar_delete_user()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_get_image"><code class="docutils literal notranslate"><span class="pre">fedstellar_get_image()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_home"><code class="docutils literal notranslate"><span class="pre">fedstellar_home()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_login"><code class="docutils literal notranslate"><span class="pre">fedstellar_login()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_logout"><code class="docutils literal notranslate"><span class="pre">fedstellar_logout()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_logs"><code class="docutils literal notranslate"><span class="pre">fedstellar_logs()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_logs_erase"><code class="docutils literal notranslate"><span class="pre">fedstellar_logs_erase()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_image"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_image()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_log"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_log()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_log_debug"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_log_debug()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_log_error"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_log_error()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_log_x"><code class="docutils literal notranslate"><span class="pre">fedstellar_monitoring_log_x()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_remove_scenario"><code class="docutils literal notranslate"><span class="pre">fedstellar_remove_scenario()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_deployment"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario_deployment()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_deployment_reload"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario_deployment_reload()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_deployment_run"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario_deployment_run()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_monitoring"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario_monitoring()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_private"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario_private()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_statistics"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario_statistics()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_statistics_download"><code class="docutils literal notranslate"><span class="pre">fedstellar_scenario_statistics_download()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_stop_scenario"><code class="docutils literal notranslate"><span class="pre">fedstellar_stop_scenario()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_update_node"><code class="docutils literal notranslate"><span class="pre">fedstellar_update_node()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_upload_image"><code class="docutils literal notranslate"><span class="pre">fedstellar_upload_image()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_write_note"><code class="docutils literal notranslate"><span class="pre">fedstellar_write_note()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.remove_scenario"><code class="docutils literal notranslate"><span class="pre">remove_scenario()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.send_from_directory"><code class="docutils literal notranslate"><span class="pre">send_from_directory()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.signal_handler"><code class="docutils literal notranslate"><span class="pre">signal_handler()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.stop_all_scenarios"><code class="docutils literal notranslate"><span class="pre">stop_all_scenarios()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.stop_scenario"><code class="docutils literal notranslate"><span class="pre">stop_scenario()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.update_topology"><code class="docutils literal notranslate"><span class="pre">update_topology()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.allowed_file">allowed_file</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.attack_node_assign">attack_node_assign</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_401">fedstellar_401</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_403">fedstellar_403</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_404">fedstellar_404</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_405">fedstellar_405</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_413">fedstellar_413</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_add_user">fedstellar_add_user</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_admin">fedstellar_admin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_delete_image">fedstellar_delete_image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_delete_note">fedstellar_delete_note</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_delete_user">fedstellar_delete_user</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_get_image">fedstellar_get_image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_home">fedstellar_home</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_login">fedstellar_login</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_logout">fedstellar_logout</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_logs">fedstellar_logs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_logs_erase">fedstellar_logs_erase</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_image">fedstellar_monitoring_image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_log">fedstellar_monitoring_log</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_log_debug">fedstellar_monitoring_log_debug</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_log_error">fedstellar_monitoring_log_error</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_monitoring_log_x">fedstellar_monitoring_log_x</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_remove_scenario">fedstellar_remove_scenario</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario">fedstellar_scenario</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_deployment">fedstellar_scenario_deployment</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_deployment_reload">fedstellar_scenario_deployment_reload</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_deployment_run">fedstellar_scenario_deployment_run</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_monitoring">fedstellar_scenario_monitoring</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_private">fedstellar_scenario_private</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_statistics">fedstellar_scenario_statistics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_scenario_statistics_download">fedstellar_scenario_statistics_download</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_stop_scenario">fedstellar_stop_scenario</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_update_node">fedstellar_update_node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_upload_image">fedstellar_upload_image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.fedstellar_write_note">fedstellar_write_note</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.remove_scenario">remove_scenario</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.send_from_directory">send_from_directory</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.signal_handler">signal_handler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.stop_all_scenarios">stop_all_scenarios</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.stop_scenario">stop_scenario</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.app.html#fedstellar.webserver.app.update_topology">update_topology</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.webserver.app.html">fedstellar.webserver.app module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.webserver.config.html">fedstellar.webserver.config module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.webserver.database.html">fedstellar.webserver.database module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.add_user"><code class="docutils literal notranslate"><span class="pre">add_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.check_scenario_with_role"><code class="docutils literal notranslate"><span class="pre">check_scenario_with_role()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.delete_image_from_db"><code class="docutils literal notranslate"><span class="pre">delete_image_from_db()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.delete_note_from_db"><code class="docutils literal notranslate"><span class="pre">delete_note_from_db()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.delete_user_from_db"><code class="docutils literal notranslate"><span class="pre">delete_user_from_db()</span></code></a></li>
@@ -550,33 +476,6 @@
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.update_node_record"><code class="docutils literal notranslate"><span class="pre">update_node_record()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.verify"><code class="docutils literal notranslate"><span class="pre">verify()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.write_note_into_db"><code class="docutils literal notranslate"><span class="pre">write_note_into_db()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.add_user">add_user</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.delete_image_from_db">delete_image_from_db</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.delete_note_from_db">delete_note_from_db</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.delete_user_from_db">delete_user_from_db</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.get_all_scenarios">get_all_scenarios</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.get_image_file_name">get_image_file_name</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.get_running_scenario">get_running_scenario</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.get_scenario_by_name">get_scenario_by_name</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.get_user_info">get_user_info</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.image_upload_record">image_upload_record</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.list_images_for_user">list_images_for_user</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.list_nodes">list_nodes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.list_nodes_by_scenario_name">list_nodes_by_scenario_name</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.list_users">list_users</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.match_user_id_with_image_uid">match_user_id_with_image_uid</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.match_user_id_with_note_id">match_user_id_with_note_id</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.read_note_from_db">read_note_from_db</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.remove_all_nodes">remove_all_nodes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.remove_nodes_by_scenario_name">remove_nodes_by_scenario_name</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.remove_scenario_by_name">remove_scenario_by_name</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.scenario_db_file_location">scenario_db_file_location</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.scenario_set_all_status_to_finished">scenario_set_all_status_to_finished</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.scenario_set_status_to_finished">scenario_set_status_to_finished</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.scenario_update_record">scenario_update_record</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.update_node_record">update_node_record</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.verify">verify</a></li>
-<li class="toctree-l4"><a class="reference internal" href="fedstellar.webserver.database.html#fedstellar.webserver.database.write_note_into_db">write_note_into_db</a></li>
 </ul>
 </li>
 </ul>
@@ -591,486 +490,29 @@
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.base_node.html">fedstellar.base_node module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode"><code class="docutils literal notranslate"><span class="pre">BaseNode</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.host"><code class="docutils literal notranslate"><span class="pre">BaseNode.host</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.port"><code class="docutils literal notranslate"><span class="pre">BaseNode.port</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.simulation"><code class="docutils literal notranslate"><span class="pre">BaseNode.simulation</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.heartbeater"><code class="docutils literal notranslate"><span class="pre">BaseNode.heartbeater</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.gossiper"><code class="docutils literal notranslate"><span class="pre">BaseNode.gossiper</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.broadcast"><code class="docutils literal notranslate"><span class="pre">BaseNode.broadcast()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.connect_to"><code class="docutils literal notranslate"><span class="pre">BaseNode.connect_to()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.disconnect_from"><code class="docutils literal notranslate"><span class="pre">BaseNode.disconnect_from()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_addr"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_addr()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_name"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_name()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_name_demo"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_name_demo()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_neighbor"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_neighbor()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_neighbors"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_neighbors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_neighbors_names"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_neighbors_names()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_network_nodes"><code class="docutils literal notranslate"><span class="pre">BaseNode.get_network_nodes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.rm_neighbor"><code class="docutils literal notranslate"><span class="pre">BaseNode.rm_neighbor()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.run"><code class="docutils literal notranslate"><span class="pre">BaseNode.run()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.setup_logging"><code class="docutils literal notranslate"><span class="pre">BaseNode.setup_logging()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.start"><code class="docutils literal notranslate"><span class="pre">BaseNode.start()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.stop"><code class="docutils literal notranslate"><span class="pre">BaseNode.stop()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.update"><code class="docutils literal notranslate"><span class="pre">BaseNode.update()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="fedstellar.base_node.html">fedstellar.base_node module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fedstellar.controller.html">fedstellar.controller module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fedstellar.messages.html">fedstellar.messages module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.LearningNodeMessages"><code class="docutils literal notranslate"><span class="pre">LearningNodeMessages</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.LearningNodeMessages.METRICS"><code class="docutils literal notranslate"><span class="pre">LearningNodeMessages.METRICS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.LearningNodeMessages.MODELS_AGGREGATED"><code class="docutils literal notranslate"><span class="pre">LearningNodeMessages.MODELS_AGGREGATED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.LearningNodeMessages.MODELS_READY"><code class="docutils literal notranslate"><span class="pre">LearningNodeMessages.MODELS_READY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.LearningNodeMessages.MODEL_INITIALIZED"><code class="docutils literal notranslate"><span class="pre">LearningNodeMessages.MODEL_INITIALIZED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.LearningNodeMessages.REPUTATION"><code class="docutils literal notranslate"><span class="pre">LearningNodeMessages.REPUTATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.LearningNodeMessages.START_LEARNING"><code class="docutils literal notranslate"><span class="pre">LearningNodeMessages.START_LEARNING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.LearningNodeMessages.STOP_LEARNING"><code class="docutils literal notranslate"><span class="pre">LearningNodeMessages.STOP_LEARNING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.LearningNodeMessages.VOTE_TRAIN_SET"><code class="docutils literal notranslate"><span class="pre">LearningNodeMessages.VOTE_TRAIN_SET</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode">BaseNode</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.host">host</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.port">port</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.simulation">simulation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.heartbeater">heartbeater</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.gossiper">gossiper</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.broadcast">broadcast</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.connect_to">connect_to</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.disconnect_from">disconnect_from</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_addr">get_addr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_name">get_name</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_name_demo">get_name_demo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_neighbor">get_neighbor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_neighbors">get_neighbors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_neighbors_names">get_neighbors_names</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.get_network_nodes">get_network_nodes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.rm_neighbor">rm_neighbor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.run">run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.setup_logging">setup_logging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.start">start</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.stop">stop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.base_node.html#fedstellar.base_node.BaseNode.update">update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.NodeMessages"><code class="docutils literal notranslate"><span class="pre">NodeMessages</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fedstellar.messages.html#fedstellar.messages.NodeMessages.BEAT"><code class="docutils literal notranslate"><span class="pre">NodeMessages.BEAT</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.command.html">fedstellar.command module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Beat_cmd"><code class="docutils literal notranslate"><span class="pre">Beat_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Beat_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Beat_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Command"><code class="docutils literal notranslate"><span class="pre">Command</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Command.execute"><code class="docutils literal notranslate"><span class="pre">Command.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Conn_to_cmd"><code class="docutils literal notranslate"><span class="pre">Conn_to_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Conn_to_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Conn_to_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Metrics_cmd"><code class="docutils literal notranslate"><span class="pre">Metrics_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Metrics_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Metrics_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Model_initialized_cmd"><code class="docutils literal notranslate"><span class="pre">Model_initialized_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Model_initialized_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Model_initialized_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Models_Ready_cmd"><code class="docutils literal notranslate"><span class="pre">Models_Ready_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Models_Ready_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Models_Ready_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Models_aggregated_cmd"><code class="docutils literal notranslate"><span class="pre">Models_aggregated_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Models_aggregated_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Models_aggregated_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Params_cmd"><code class="docutils literal notranslate"><span class="pre">Params_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Params_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Params_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Role_cmd"><code class="docutils literal notranslate"><span class="pre">Role_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Role_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Role_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Start_learning_cmd"><code class="docutils literal notranslate"><span class="pre">Start_learning_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Start_learning_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Start_learning_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Stop_cmd"><code class="docutils literal notranslate"><span class="pre">Stop_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Stop_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Stop_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Stop_learning_cmd"><code class="docutils literal notranslate"><span class="pre">Stop_learning_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Stop_learning_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Stop_learning_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Transfer_leadership_cmd"><code class="docutils literal notranslate"><span class="pre">Transfer_leadership_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Transfer_leadership_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Transfer_leadership_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Vote_train_set_cmd"><code class="docutils literal notranslate"><span class="pre">Vote_train_set_cmd</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Vote_train_set_cmd.execute"><code class="docutils literal notranslate"><span class="pre">Vote_train_set_cmd.execute()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Beat_cmd">Beat_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Beat_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Command">Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Command.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Conn_to_cmd">Conn_to_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Conn_to_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Metrics_cmd">Metrics_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Metrics_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Model_initialized_cmd">Model_initialized_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Model_initialized_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Models_Ready_cmd">Models_Ready_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Models_Ready_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Models_aggregated_cmd">Models_aggregated_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Models_aggregated_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Params_cmd">Params_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Params_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Role_cmd">Role_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Role_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Start_learning_cmd">Start_learning_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Start_learning_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Stop_cmd">Stop_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Stop_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Stop_learning_cmd">Stop_learning_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Stop_learning_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Transfer_leadership_cmd">Transfer_leadership_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Transfer_leadership_cmd.execute">execute</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Vote_train_set_cmd">Vote_train_set_cmd</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.command.html#fedstellar.command.Vote_train_set_cmd.execute">execute</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.communication_protocol.html">fedstellar.communication_protocol module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.command_dict"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.command_dict</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.last_messages"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.last_messages</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.BEAT"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.BEAT</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.CONN"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.CONN</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.CONN_TO"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.CONN_TO</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.METRICS"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.METRICS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.MODELS_AGGREGATED</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED_CLOSE"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.MODELS_AGGREGATED_CLOSE</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.MODELS_READY"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.MODELS_READY</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.MODEL_INITIALIZED"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.MODEL_INITIALIZED</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.PARAMS"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.PARAMS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.PARAMS_CLOSE"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.PARAMS_CLOSE</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.ROLE"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.ROLE</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.START_LEARNING"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.START_LEARNING</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.STOP"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.STOP</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.STOP_LEARNING"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.STOP_LEARNING</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.TRANSFER_LEADERSHIP"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.TRANSFER_LEADERSHIP</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.VOTE_TRAIN_SET</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET_CLOSE"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.VOTE_TRAIN_SET_CLOSE</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.add_processed_messages"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.add_processed_messages()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_beat_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_beat_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_connect_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_connect_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_connect_to_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_connect_to_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_metrics_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_metrics_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_model_initialized_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_model_initialized_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_models_aggregated_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_models_aggregated_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_models_ready_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_models_ready_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_params_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_params_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_role_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_role_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_start_learning_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_start_learning_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_stop_learning_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_stop_learning_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_stop_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_stop_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_transfer_leadership_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_transfer_leadership_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_vote_train_set_msg"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.build_vote_train_set_msg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.check_collapse"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.check_collapse()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.check_params_incomplete()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.generate_hased_message()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.process_connection"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.process_connection()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.process_message"><code class="docutils literal notranslate"><span class="pre">CommunicationProtocol.process_message()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol">CommunicationProtocol</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.command_dict">command_dict</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.last_messages">last_messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.BEAT">BEAT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.CONN">CONN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.CONN_TO">CONN_TO</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.METRICS">METRICS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED">MODELS_AGGREGATED</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.MODELS_AGGREGATED_CLOSE">MODELS_AGGREGATED_CLOSE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.MODELS_READY">MODELS_READY</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.MODEL_INITIALIZED">MODEL_INITIALIZED</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.PARAMS">PARAMS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.PARAMS_CLOSE">PARAMS_CLOSE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.ROLE">ROLE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.START_LEARNING">START_LEARNING</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.STOP">STOP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.STOP_LEARNING">STOP_LEARNING</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.TRANSFER_LEADERSHIP">TRANSFER_LEADERSHIP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET">VOTE_TRAIN_SET</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.VOTE_TRAIN_SET_CLOSE">VOTE_TRAIN_SET_CLOSE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.add_processed_messages">add_processed_messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_beat_msg">build_beat_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_connect_msg">build_connect_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_connect_to_msg">build_connect_to_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_metrics_msg">build_metrics_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_model_initialized_msg">build_model_initialized_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_models_aggregated_msg">build_models_aggregated_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_models_ready_msg">build_models_ready_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_params_msg">build_params_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_role_msg">build_role_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_start_learning_msg">build_start_learning_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_stop_learning_msg">build_stop_learning_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_stop_msg">build_stop_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_transfer_leadership_msg">build_transfer_leadership_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.build_vote_train_set_msg">build_vote_train_set_msg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.check_collapse">check_collapse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.check_params_incomplete">check_params_incomplete</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.generate_hased_message">generate_hased_message</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.process_connection">process_connection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.communication_protocol.html#fedstellar.communication_protocol.CommunicationProtocol.process_message">process_message</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.controller.html">fedstellar.controller module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.create_topology"><code class="docutils literal notranslate"><span class="pre">Controller.create_topology()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.killdockers"><code class="docutils literal notranslate"><span class="pre">Controller.killdockers()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.killport"><code class="docutils literal notranslate"><span class="pre">Controller.killport()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.killports"><code class="docutils literal notranslate"><span class="pre">Controller.killports()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.load_configurations_and_start_nodes"><code class="docutils literal notranslate"><span class="pre">Controller.load_configurations_and_start_nodes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.remove_files_by_scenario"><code class="docutils literal notranslate"><span class="pre">Controller.remove_files_by_scenario()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.run_statistics"><code class="docutils literal notranslate"><span class="pre">Controller.run_statistics()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.run_webserver"><code class="docutils literal notranslate"><span class="pre">Controller.run_webserver()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.start"><code class="docutils literal notranslate"><span class="pre">Controller.start()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.start_node"><code class="docutils literal notranslate"><span class="pre">Controller.start_node()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.start_nodes_cmd"><code class="docutils literal notranslate"><span class="pre">Controller.start_nodes_cmd()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.start_nodes_docker"><code class="docutils literal notranslate"><span class="pre">Controller.start_nodes_docker()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.TermEscapeCodeFormatter"><code class="docutils literal notranslate"><span class="pre">TermEscapeCodeFormatter</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.TermEscapeCodeFormatter.format"><code class="docutils literal notranslate"><span class="pre">TermEscapeCodeFormatter.format()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.signal_handler"><code class="docutils literal notranslate"><span class="pre">signal_handler()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller">Controller</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.create_topology">create_topology</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.killdockers">killdockers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.killport">killport</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.killports">killports</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.load_configurations_and_start_nodes">load_configurations_and_start_nodes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.remove_files_by_scenario">remove_files_by_scenario</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.run_statistics">run_statistics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.run_webserver">run_webserver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.start">start</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.start_node">start_node</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.start_nodes_cmd">start_nodes_cmd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.Controller.start_nodes_docker">start_nodes_docker</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.TermEscapeCodeFormatter">TermEscapeCodeFormatter</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.TermEscapeCodeFormatter.format">format</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.controller.html#fedstellar.controller.signal_handler">signal_handler</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.encrypter.html">fedstellar.encrypter module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher"><code class="docutils literal notranslate"><span class="pre">AESCipher</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.add_padding"><code class="docutils literal notranslate"><span class="pre">AESCipher.add_padding()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.decrypt"><code class="docutils literal notranslate"><span class="pre">AESCipher.decrypt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.encrypt"><code class="docutils literal notranslate"><span class="pre">AESCipher.encrypt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.get_block_size"><code class="docutils literal notranslate"><span class="pre">AESCipher.get_block_size()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.get_key"><code class="docutils literal notranslate"><span class="pre">AESCipher.get_key()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.key_len"><code class="docutils literal notranslate"><span class="pre">AESCipher.key_len()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.Encrypter"><code class="docutils literal notranslate"><span class="pre">Encrypter</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.Encrypter.decrypt"><code class="docutils literal notranslate"><span class="pre">Encrypter.decrypt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.Encrypter.encrypt"><code class="docutils literal notranslate"><span class="pre">Encrypter.encrypt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.Encrypter.get_key"><code class="docutils literal notranslate"><span class="pre">Encrypter.get_key()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher"><code class="docutils literal notranslate"><span class="pre">RSACipher</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher.decrypt"><code class="docutils literal notranslate"><span class="pre">RSACipher.decrypt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher.encrypt"><code class="docutils literal notranslate"><span class="pre">RSACipher.encrypt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher.get_key"><code class="docutils literal notranslate"><span class="pre">RSACipher.get_key()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher.load_pair_public_key"><code class="docutils literal notranslate"><span class="pre">RSACipher.load_pair_public_key()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher">AESCipher</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.add_padding">add_padding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.decrypt">decrypt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.encrypt">encrypt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.get_block_size">get_block_size</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.get_key">get_key</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.AESCipher.key_len">key_len</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.Encrypter">Encrypter</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.Encrypter.decrypt">decrypt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.Encrypter.encrypt">encrypt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.Encrypter.get_key">get_key</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher">RSACipher</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher.decrypt">decrypt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher.encrypt">encrypt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher.get_key">get_key</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.encrypter.html#fedstellar.encrypter.RSACipher.load_pair_public_key">load_pair_public_key</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.gossiper.html">fedstellar.gossiper module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.gossiper.html#fedstellar.gossiper.Gossiper"><code class="docutils literal notranslate"><span class="pre">Gossiper</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html#fedstellar.gossiper.Gossiper.add_messages"><code class="docutils literal notranslate"><span class="pre">Gossiper.add_messages()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html#fedstellar.gossiper.Gossiper.run"><code class="docutils literal notranslate"><span class="pre">Gossiper.run()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html#fedstellar.gossiper.Gossiper.stop"><code class="docutils literal notranslate"><span class="pre">Gossiper.stop()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.gossiper.html#fedstellar.gossiper.Gossiper">Gossiper</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html#fedstellar.gossiper.Gossiper.add_messages">add_messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html#fedstellar.gossiper.Gossiper.run">run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.gossiper.html#fedstellar.gossiper.Gossiper.stop">stop</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.heartbeater.html">fedstellar.heartbeater module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater"><code class="docutils literal notranslate"><span class="pre">Heartbeater</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.add_node"><code class="docutils literal notranslate"><span class="pre">Heartbeater.add_node()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.add_node_role"><code class="docutils literal notranslate"><span class="pre">Heartbeater.add_node_role()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.clear_nodes"><code class="docutils literal notranslate"><span class="pre">Heartbeater.clear_nodes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.get_nodes"><code class="docutils literal notranslate"><span class="pre">Heartbeater.get_nodes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.run"><code class="docutils literal notranslate"><span class="pre">Heartbeater.run()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.stop"><code class="docutils literal notranslate"><span class="pre">Heartbeater.stop()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.update_config_with_neighbors"><code class="docutils literal notranslate"><span class="pre">Heartbeater.update_config_with_neighbors()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater">Heartbeater</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.add_node">add_node</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.add_node_role">add_node_role</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.clear_nodes">clear_nodes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.get_nodes">get_nodes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.run">run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.stop">stop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.heartbeater.html#fedstellar.heartbeater.Heartbeater.update_config_with_neighbors">update_config_with_neighbors</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.node.html">fedstellar.node module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.round"><code class="docutils literal notranslate"><span class="pre">Node.round</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.totalrounds"><code class="docutils literal notranslate"><span class="pre">Node.totalrounds</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.learner"><code class="docutils literal notranslate"><span class="pre">Node.learner</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.aggregator"><code class="docutils literal notranslate"><span class="pre">Node.aggregator</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.add_model"><code class="docutils literal notranslate"><span class="pre">Node.add_model()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.connect_to"><code class="docutils literal notranslate"><span class="pre">Node.connect_to()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.set_data"><code class="docutils literal notranslate"><span class="pre">Node.set_data()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.set_model"><code class="docutils literal notranslate"><span class="pre">Node.set_model()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.set_start_learning"><code class="docutils literal notranslate"><span class="pre">Node.set_start_learning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.set_stop_learning"><code class="docutils literal notranslate"><span class="pre">Node.set_stop_learning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.stop"><code class="docutils literal notranslate"><span class="pre">Node.stop()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.update"><code class="docutils literal notranslate"><span class="pre">Node.update()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node">Node</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.round">round</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.totalrounds">totalrounds</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.learner">learner</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.aggregator">aggregator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.add_model">add_model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.connect_to">connect_to</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.set_data">set_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.set_model">set_model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.set_start_learning">set_start_learning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.set_stop_learning">set_stop_learning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.stop">stop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node.html#fedstellar.node.Node.update">update</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.node_connection.html">fedstellar.node_connection module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection"><code class="docutils literal notranslate"><span class="pre">NodeConnection</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.add_models_aggregated"><code class="docutils literal notranslate"><span class="pre">NodeConnection.add_models_aggregated()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.add_param_segment"><code class="docutils literal notranslate"><span class="pre">NodeConnection.add_param_segment()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.add_processed_messages"><code class="docutils literal notranslate"><span class="pre">NodeConnection.add_processed_messages()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.clear_buffer"><code class="docutils literal notranslate"><span class="pre">NodeConnection.clear_buffer()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.clear_models_aggregated"><code class="docutils literal notranslate"><span class="pre">NodeConnection.clear_models_aggregated()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_addr"><code class="docutils literal notranslate"><span class="pre">NodeConnection.get_addr()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_model_initialized"><code class="docutils literal notranslate"><span class="pre">NodeConnection.get_model_initialized()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_model_ready_status"><code class="docutils literal notranslate"><span class="pre">NodeConnection.get_model_ready_status()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_models_aggregated"><code class="docutils literal notranslate"><span class="pre">NodeConnection.get_models_aggregated()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_name"><code class="docutils literal notranslate"><span class="pre">NodeConnection.get_name()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_params"><code class="docutils literal notranslate"><span class="pre">NodeConnection.get_params()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_conn_to"><code class="docutils literal notranslate"><span class="pre">NodeConnection.notify_conn_to()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_heartbeat"><code class="docutils literal notranslate"><span class="pre">NodeConnection.notify_heartbeat()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_metrics"><code class="docutils literal notranslate"><span class="pre">NodeConnection.notify_metrics()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_params"><code class="docutils literal notranslate"><span class="pre">NodeConnection.notify_params()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_role"><code class="docutils literal notranslate"><span class="pre">NodeConnection.notify_role()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_start_learning"><code class="docutils literal notranslate"><span class="pre">NodeConnection.notify_start_learning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_stop_learning"><code class="docutils literal notranslate"><span class="pre">NodeConnection.notify_stop_learning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_train_set_votes"><code class="docutils literal notranslate"><span class="pre">NodeConnection.notify_train_set_votes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.run"><code class="docutils literal notranslate"><span class="pre">NodeConnection.run()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.send"><code class="docutils literal notranslate"><span class="pre">NodeConnection.send()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.set_model_initialized"><code class="docutils literal notranslate"><span class="pre">NodeConnection.set_model_initialized()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.set_model_ready_status"><code class="docutils literal notranslate"><span class="pre">NodeConnection.set_model_ready_status()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.set_transfer_leadership"><code class="docutils literal notranslate"><span class="pre">NodeConnection.set_transfer_leadership()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.start"><code class="docutils literal notranslate"><span class="pre">NodeConnection.start()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.stop"><code class="docutils literal notranslate"><span class="pre">NodeConnection.stop()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection">NodeConnection</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.add_models_aggregated">add_models_aggregated</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.add_param_segment">add_param_segment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.add_processed_messages">add_processed_messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.clear_buffer">clear_buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.clear_models_aggregated">clear_models_aggregated</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_addr">get_addr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_model_initialized">get_model_initialized</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_model_ready_status">get_model_ready_status</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_models_aggregated">get_models_aggregated</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_name">get_name</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.get_params">get_params</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_conn_to">notify_conn_to</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_heartbeat">notify_heartbeat</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_metrics">notify_metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_params">notify_params</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_role">notify_role</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_start_learning">notify_start_learning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_stop_learning">notify_stop_learning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.notify_train_set_votes">notify_train_set_votes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.run">run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.send">send</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.set_model_initialized">set_model_initialized</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.set_model_ready_status">set_model_ready_status</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.set_transfer_leadership">set_transfer_leadership</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.start">start</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.node_connection.html#fedstellar.node_connection.NodeConnection.stop">stop</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.node_start.html">fedstellar.node_start module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.node_start.html#fedstellar.node_start.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.node_start.html#fedstellar.node_start.main">main</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="fedstellar.neighbors.html">fedstellar.neighbors module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fedstellar.node.html">fedstellar.node module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fedstellar.node_start.html">fedstellar.node_start module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fedstellar.role.html">fedstellar.role module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="fedstellar.role.html#fedstellar.role.Role"><code class="docutils literal notranslate"><span class="pre">Role</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html#fedstellar.role.Role.AGGREGATOR"><code class="docutils literal notranslate"><span class="pre">Role.AGGREGATOR</span></code></a></li>
@@ -1080,19 +522,6 @@
 <li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html#fedstellar.role.Role.TRAINER"><code class="docutils literal notranslate"><span class="pre">Role.TRAINER</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.role.html#fedstellar.role.Role">Role</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html#fedstellar.role.Role.AGGREGATOR">AGGREGATOR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html#fedstellar.role.Role.IDLE">IDLE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html#fedstellar.role.Role.PROXY">PROXY</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html#fedstellar.role.Role.SERVER">SERVER</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fedstellar.role.html#fedstellar.role.Role.TRAINER">TRAINER</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fedstellar.single_device.html">fedstellar.single_device module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.single_device.html#fedstellar.single_device.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="fedstellar.single_device.html#fedstellar.single_device.main">main</a></li>
 </ul>
 </li>
 </ul>
@@ -1155,9 +584,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/furo.js"></script>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a7e3f902"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     </body>
 </html>

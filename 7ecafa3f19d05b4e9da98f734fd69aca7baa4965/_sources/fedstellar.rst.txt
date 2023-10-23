@@ -10,6 +10,7 @@ Subpackages
    fedstellar.attacks
    fedstellar.config
    fedstellar.learning
+   fedstellar.proto
    fedstellar.utils
    fedstellar.webserver
 
@@ -20,17 +21,12 @@ Submodules
    :maxdepth: 4
 
    fedstellar.base_node
-   fedstellar.command
-   fedstellar.communication_protocol
    fedstellar.controller
-   fedstellar.encrypter
-   fedstellar.gossiper
-   fedstellar.heartbeater
+   fedstellar.messages
+   fedstellar.neighbors
    fedstellar.node
-   fedstellar.node_connection
    fedstellar.node_start
    fedstellar.role
-   fedstellar.single_device
 
 Module contents
 ---------------

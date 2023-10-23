@@ -1,0 +1,34 @@
+:py:mod:`fedstellar.learning.aggregators.fedavgSVM`
+===================================================
+
+.. py:module:: fedstellar.learning.aggregators.fedavgSVM
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.learning.aggregators.fedavgSVM.FedAvgSVM
+
+
+
+
+.. py:class:: FedAvgSVM(node_name='unknown', config=None)
+
+
+   Bases: :py:obj:`fedstellar.learning.aggregators.aggregator.Aggregator`
+
+   Federated Averaging (FedAvg) for Scikit-learn Linear SVMs.
+
+   .. py:method:: aggregate(models)
+
+      Ponderated average of the SVMs' coefficients and intercepts.
+
+      :param models: Dictionary with the SVMs (node: model,num_samples).
+
+
+

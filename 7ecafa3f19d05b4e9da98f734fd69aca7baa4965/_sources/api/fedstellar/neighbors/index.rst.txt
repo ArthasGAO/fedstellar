@@ -1,0 +1,197 @@
+:py:mod:`fedstellar.neighbors`
+==============================
+
+.. py:module:: fedstellar.neighbors
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   fedstellar.neighbors.Neighbors
+
+
+
+
+.. py:class:: Neighbors(self_addr, config)
+
+
+   Class that manages the neighbors of a node (GRPC connections). It provides the following functionalities:
+       - Add neighbors (check duplicates)
+       - Remove neighbors
+       - Get neighbors
+       - Heartbeat: remove neighbors that not send a heartbeat in a period of time
+       - Gossip: resend messages to neighbors allowing communication between non-direct connected nodes
+
+   :param self_addr: Address of the node itself.
+   :type self_addr: str
+
+   .. py:method:: start()
+
+      Start the heartbeater and gossiper threads.
+
+
+   .. py:method:: stop()
+
+      Stop the heartbeater and gossiper threads. Also, close all the connections.
+
+
+   .. py:method:: build_msg(cmd, args=[], round=None)
+
+      Build a message to send to the neighbors.
+
+      :param cmd: Command of the message.
+      :type cmd: string
+      :param args: Arguments of the message.
+      :type args: list
+      :param round: Round of the message.
+      :type round: int
+
+      :returns: Message to send.
+      :rtype: node_pb2.Message
+
+
+   .. py:method:: send_message(nei, msg)
+
+      Send a message to a neighbor.
+
+      :param nei: Address of the neighbor.
+      :type nei: str
+      :param msg: Message to send.
+      :type msg: node_pb2.Message
+
+
+   .. py:method:: broadcast_msg(msg, node_list=None)
+
+      Broadcast a message to all the neighbors.
+
+      :param msg: Message to send.
+      :type msg: node_pb2.Message
+      :param node_list: List of neighbors to send the message. If None, send to all the neighbors.
+      :type node_list: list
+
+
+   .. py:method:: send_model(nei, round, serialized_model, contributors=[], weight=1)
+
+      Send a model to a neighbor.
+
+      :param nei: Address of the neighbor.
+      :type nei: str
+      :param round: Round of the model.
+      :type round: int
+      :param serialized_model: Serialized model.
+      :type serialized_model: bytes
+      :param contributors: List of contributors of the model.
+      :type contributors: list
+      :param weight: Weight of the model.
+      :type weight: float
+
+
+   .. py:method:: non_direct_add_node(addr)
+
+      Add a non-direct connected neighbor.
+
+      :param addr: Address of the neighbor.
+      :type addr: str
+
+      Returns:
+
+
+
+   .. py:method:: direct_add_node(handshake_msg, addr)
+
+      Add a direct connected neighbor.
+
+      :param handshake_msg: If True, send a handshake message to the neighbor.
+      :type handshake_msg: bool
+      :param addr: Address of the neighbor.
+      :type addr: str
+
+      Returns:
+
+
+
+   .. py:method:: add(addr, handshake_msg=True, non_direct=False)
+
+      Add a neighbor if it is not itself or already added. It also sends a handshake message to check if the neighbor is available and create a bidirectional connection.
+
+      :param addr: Address of the neighbor.
+      :type addr: str
+      :param handshake_msg: If True, send a handshake message to the neighbor.
+      :type handshake_msg: bool
+      :param non_direct: If True, add a non-direct connected neighbor (without creating a direct GRPC connection).
+      :type non_direct: bool
+
+      :returns: True if the neighbor was added, False otherwise.
+      :rtype: bool
+
+
+   .. py:method:: remove(nei, disconnect_msg=True)
+
+      Remove a neighbor.
+
+      :param nei: Address of the neighbor.
+      :type nei: str
+      :param disconnect_msg: If True, send a disconnect message to the neighbor.
+      :type disconnect_msg: bool
+
+
+   .. py:method:: get(nei)
+
+      Get a neighbor.
+
+      :param nei: Address of the neighbor.
+      :type nei: str
+
+      :returns: Stub of the neighbor.
+      :rtype: node_pb2_grpc.NodeServicesStub
+
+
+   .. py:method:: get_all(only_direct=False)
+
+      Get all the neighbors (names).
+
+      :param only_direct: If True, get only the direct connected neighbors.
+      :type only_direct: bool
+
+      :returns: List of neighbor addresses.
+      :rtype: list
+
+
+   .. py:method:: clear_neis()
+
+
+   .. py:method:: heartbeat(nei, time)
+
+      Update the time of the last heartbeat of a neighbor. If the neighbor is not added, add it.
+
+      :param nei: Address of the neighbor.
+      :type nei: str
+      :param time: Time of the heartbeat.
+      :type time: float
+
+
+   .. py:method:: add_processed_msg(msg)
+
+      Add a message to the list of processed messages.
+
+      :param msg: Message to add.
+      :type msg: node_pb2.Message
+
+      :returns: True if the message was added, False if it was already processed.
+      :rtype: bool
+
+
+   .. py:method:: gossip(msg)
+
+      Add a message to the list of pending messages to gossip.
+
+      :param msg: Message to add.
+      :type msg: node_pb2.Message
+
+
+

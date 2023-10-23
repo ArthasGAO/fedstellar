@@ -19,6 +19,7 @@ Functions
    fedstellar.webserver.app.fedstellar_404
    fedstellar.webserver.app.fedstellar_405
    fedstellar.webserver.app.fedstellar_413
+   fedstellar.webserver.app.datetimeformat
    fedstellar.webserver.app.fedstellar_home
    fedstellar.webserver.app.fedstellar_scenario_private
    fedstellar.webserver.app.fedstellar_admin
@@ -50,7 +51,8 @@ Functions
    fedstellar.webserver.app.remove_scenario
    fedstellar.webserver.app.fedstellar_remove_scenario
    fedstellar.webserver.app.fedstellar_scenario_statistics
-   fedstellar.webserver.app.fedstellar_scenario_statistics_download
+   fedstellar.webserver.app.zipdir
+   fedstellar.webserver.app.fedstellar_scenario_download
    fedstellar.webserver.app.fedstellar_scenario_deployment
    fedstellar.webserver.app.attack_node_assign
    fedstellar.webserver.app.fedstellar_scenario_deployment_run
@@ -63,13 +65,28 @@ Attributes
 
 .. autoapisummary::
 
+   fedstellar.webserver.app.async_mode
+   fedstellar.webserver.app.async_mode
    fedstellar.webserver.app.app
+   fedstellar.webserver.app.socketio
    fedstellar.webserver.app.ALLOWED_EXTENSIONS
    fedstellar.webserver.app.parser
 
 
-.. py:data:: app
+.. py:data:: async_mode
+
    
+
+.. py:data:: async_mode
+   :value: 'eventlet'
+
+   
+
+.. py:data:: app
+
+   
+
+.. py:data:: socketio
 
    
 
@@ -91,6 +108,9 @@ Attributes
 .. py:function:: fedstellar_413(error)
 
 
+.. py:function:: datetimeformat(value, format='%B %d, %Y %H:%M')
+
+
 .. py:function:: fedstellar_home()
 
 
@@ -107,7 +127,6 @@ Attributes
 
 
 .. py:data:: ALLOWED_EXTENSIONS
-   
 
    
 
@@ -192,10 +211,13 @@ Attributes
 .. py:function:: fedstellar_remove_scenario(scenario_name)
 
 
-.. py:function:: fedstellar_scenario_statistics()
+.. py:function:: fedstellar_scenario_statistics(scenario_name=None)
 
 
-.. py:function:: fedstellar_scenario_statistics_download(scenario_name)
+.. py:function:: zipdir(path, ziph)
+
+
+.. py:function:: fedstellar_scenario_download(scenario_name)
 
 
 .. py:function:: fedstellar_scenario_deployment()
@@ -213,7 +235,6 @@ Attributes
 
 
 .. py:data:: parser
-   
 
    
 

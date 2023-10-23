@@ -19,6 +19,7 @@ Classes
 
 .. py:class:: LightningLearner(model, data, config=None, logger=None)
 
+
    Bases: :py:obj:`fedstellar.learning.learner.NodeLearner`
 
    Learner with PyTorch Lightning.
@@ -28,6 +29,9 @@ Classes
        data: Data to train the model.
        epochs: Number of epochs to train.
        logger: Logger.
+
+   .. py:method:: get_round()
+
 
    .. py:method:: set_model(model)
 
@@ -127,16 +131,6 @@ Classes
       :returns: The number of samples of the model.
 
 
-   .. py:method:: init()
-
-      Init the learner.
-
-
-   .. py:method:: close()
-
-      Close the learner.
-
-
    .. py:method:: finalize_round()
 
       Determine the end of the round.
@@ -145,6 +139,9 @@ Classes
    .. py:method:: create_trainer()
 
       Create the trainer.
+
+
+   .. py:method:: validate_neighbour_model(neighbour_model_param)
 
 
 

@@ -39,6 +39,7 @@ Functions
    fedstellar.webserver.database.get_running_scenario
    fedstellar.webserver.database.get_scenario_by_name
    fedstellar.webserver.database.remove_scenario_by_name
+   fedstellar.webserver.database.check_scenario_with_role
 
 
 
@@ -55,27 +56,27 @@ Attributes
 
 
 .. py:data:: user_db_file_location
-   :annotation: = database_file/users.db
+   :value: 'database_file/users.db'
 
    
 
 .. py:data:: note_db_file_location
-   :annotation: = database_file/notes.db
+   :value: 'database_file/notes.db'
 
    
 
 .. py:data:: image_db_file_location
-   :annotation: = database_file/images.db
+   :value: 'database_file/images.db'
 
    
 
 .. py:data:: node_db_file_location
-   :annotation: = database_file/nodes.db
+   :value: 'database_file/nodes.db'
 
    
 
 .. py:data:: scenario_db_file_location
-   :annotation: = database_file/scenarios.db
+   :value: 'database_file/scenarios.db'
 
    User Management
 
@@ -139,7 +140,7 @@ Attributes
 .. py:function:: get_all_scenarios(sort_by='start_time')
 
 
-.. py:function:: scenario_update_record(scenario_name, start_time, end_time, title, description, status, network_subnet)
+.. py:function:: scenario_update_record(scenario_name, start_time, end_time, title, description, status, network_subnet, role)
 
 
 .. py:function:: scenario_set_all_status_to_finished()
@@ -155,5 +156,8 @@ Attributes
 
 
 .. py:function:: remove_scenario_by_name(scenario_name)
+
+
+.. py:function:: check_scenario_with_role(role, scenario_name)
 
 
